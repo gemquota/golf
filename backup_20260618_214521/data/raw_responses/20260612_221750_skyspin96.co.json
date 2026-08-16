@@ -1,0 +1,1192 @@
+{
+  "status": "SUCCESS",
+  "data": {
+    "id": "9243479",
+    "username": "92A3A79",
+    "name": "DAYNE W KEEFE",
+    "mobile": "61423349819",
+    "mobileStatus": 1,
+    "code": "https://skyspin96.co/wni6nMS31kPF",
+    "token": "df4566a91a4b0e10e98790e5ad32f7971455b9f3e3eb585432222ee3e9d0f112",
+    "bank": "{\"bank\":\"PAYID\",\"bankAccountName\":\"Dayne W Keefe\",\"bankAccountNumber\":\"164473415\",\"bankBSB\":\"633123\",\"payID\":\"dayne@up.me\",\"bankLock\":1}",
+    "cash": 0,
+    "bonus": [
+      {
+        "id": "253233",
+        "name": "lossbonus",
+        "bonus": "0.00",
+        "bonusFixed": "0.00",
+        "bonusRandom": null,
+        "claimCondition": "CUSTOM",
+        "claimConfig": "{\"customBonus\":\"manual\"}",
+        "maxRound": "0",
+        "reset": "",
+        "initialFreeLimit": "0",
+        "depositFreeLimit": "0",
+        "minTopup": null,
+        "maxTopup": null,
+        "minRound": "0",
+        "rollover": "3.00",
+        "description": "{\"Description\":\"\",\"DescQuillEditor\":{\"ops\":[{\"insert\":\"\\n\"}]},\"DescQuillHTML\":\"\"}",
+        "displayAmount": "1",
+        "displayGroup": "",
+        "displayOrder": "0",
+        "image": null,
+        "angpaoImage": null,
+        "updata": null,
+        "transactionId": null,
+        "transactionCash": null,
+        "claimDateTime": null,
+        "sysnote": null,
+        "message": "Manual promotion not configured"
+      },
+      {
+        "id": "19878",
+        "name": "SHARE BONUS",
+        "bonus": "0.00",
+        "bonusFixed": 75,
+        "bonusRandom": null,
+        "claimCondition": "CUSTOM",
+        "claimConfig": "{\"walletId\":1,\"changeGameId\":1,\"customBonus\":\"sharebonus\",\"creditLessThan\":1,\"displayDescriptionOnly\":\"1\"}",
+        "maxRound": "0",
+        "reset": "",
+        "initialFreeLimit": "0",
+        "depositFreeLimit": "0",
+        "minTopup": null,
+        "maxTopup": null,
+        "minRound": "0",
+        "rollover": "0.00",
+        "description": "{\"Description\":\"\",\"DescQuillEditor\":{\"ops\":[{\"attributes\":{\"color\":\"yellow\",\"bold\":true},\"insert\":\"Share Bonus\"},{\"attributes\":{\"header\":2},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#92d050\",\"bold\":true},\"insert\":\"Share 1 Member Free AUD15\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#92d050\",\"bold\":true},\"insert\":\"Share 100 Member Free AUD1500\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#92d050\",\"bold\":true},\"insert\":\"Max Withdraw AUD10\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"yellow\"},\"insert\":\"This Bonus Only For \"},{\"attributes\":{\"color\":\"red\"},\"insert\":\"MEGAH5\"},{\"attributes\":{\"header\":2},\"insert\":\"\\n\"},{\"attributes\":{\"bold\":true},\"insert\":\"Credit Must Below  \"},{\"attributes\":{\"color\":\"red\",\"bold\":true},\"insert\":\"$0.10\u00a0\"},{\"attributes\":{\"bold\":true},\"insert\":\"To Claim\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"Promotion \"},{\"attributes\":{\"color\":\"red\",\"bold\":true},\"insert\":\"Do Not\"},{\"insert\":\" Mix With Other Bonus\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"bold\":true},\"insert\":\"For \"},{\"attributes\":{\"color\":\"red\",\"bold\":true},\"insert\":\"All Slot Game\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"bold\":true},\"insert\":\"Not Allowed \"},{\"attributes\":{\"color\":\"red\",\"bold\":true},\"insert\":\"Save Free , Buy Free & Save Red Envelope\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#00b0f0\",\"bold\":true},\"insert\":\"All Credit Will Be Forfeited Subject To Any Violation Of Rules\"},{\"attributes\":{\"header\":3},\"insert\":\"\\n\"},{\"insert\":\"__________________________________________________________________________________________\"},{\"attributes\":{\"header\":3},\"insert\":\"\\n\"},{\"insert\":\"<TEXT-TAG style=\\\"font-size:0.7em;\\\">Term And Condition:\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\\n\"},{\"insert\":\"-Register Name Need To Match Bank Account Full Name\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\"},{\"insert\":\"-Register More Than 1 ID Cannot Calim & Withdraw\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\"},{\"insert\":\"-Change Bank Account Upon Withdraw Is Not Allowed </TEXT-TAG>\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\"},{\"insert\":\"\\n\"}]},\"DescQuillHTML\":\"<h2><strong style=\\\"color: yellow;\\\">Share Bonus</strong></h2><ul><li><strong style=\\\"color: rgb(146, 208, 80);\\\">Share 1 Member Free AUD15</strong></li><li><strong style=\\\"color: rgb(146, 208, 80);\\\">Share 100 Member Free AUD1500</strong></li><li><strong style=\\\"color: rgb(146, 208, 80);\\\">Max Withdraw AUD10</strong></li></ul><p><br></p><h2><span style=\\\"color: yellow;\\\">This Bonus Only For </span><span style=\\\"color: red;\\\">MEGAH5</span></h2><ul><li><strong>Credit Must Below  </strong><strong style=\\\"color: red;\\\">$0.10&nbsp;</strong><strong>To Claim</strong></li><li>Promotion <strong style=\\\"color: red;\\\">Do Not</strong> Mix With Other Bonus</li><li><strong>For </strong><strong style=\\\"color: red;\\\">All Slot Game</strong></li><li><strong>Not Allowed </strong><strong style=\\\"color: red;\\\">Save Free , Buy Free & Save Red Envelope</strong></li></ul><h3><strong style=\\\"color: rgb(0, 176, 240);\\\">All Credit Will Be Forfeited Subject To Any Violation Of Rules</strong></h3><h3>__________________________________________________________________________________________</h3><pre class=\\\"ql-syntax\\\" spellcheck=\\\"false\\\"><TEXT-TAG style=\\\"font-size:0.7em;\\\">Term And Condition:\\n\\n-Register Name Need To Match Bank Account Full Name\\n-Register More Than 1 ID Cannot Calim & Withdraw\\n-Change Bank Account Upon Withdraw Is Not Allowed </TEXT-TAG>\\n</pre><p><br></p>\"}",
+        "displayAmount": "1",
+        "displayGroup": "<img src=\"https://static.wixstatic.com/media/a22996_14a44f7a4a90404a875e177f4a55241b~mv2.png\" style=\"height:80px;display:inline;\">",
+        "displayOrder": "13",
+        "image": null,
+        "angpaoImage": "https://static.gwvkyk.com/media/5d7d651632b760b9ff7bc.gif",
+        "updata": null,
+        "transactionId": null,
+        "transactionCash": null,
+        "claimDateTime": null,
+        "sysnote": null,
+        "message": null,
+        "amount": 75,
+        "maxWithdraw": 10,
+        "minWithdraw": 37500,
+        "minBet": 0
+      },
+      {
+        "id": "21136",
+        "name": "SHARE BONUS",
+        "bonus": "0.00",
+        "bonusFixed": "15.00",
+        "bonusRandom": null,
+        "claimCondition": "CUSTOM",
+        "claimConfig": "{\"walletId\":1,\"changeGameId\":1,\"customBonus\":\"manual\",\"walletId\":1,\"changeGameId\":1,\"displayDescriptionOnly\":\"1\",\"fixRT\":1}",
+        "maxRound": "0",
+        "reset": "",
+        "initialFreeLimit": "0",
+        "depositFreeLimit": "0",
+        "minTopup": null,
+        "maxTopup": null,
+        "minRound": "0",
+        "rollover": "0.00",
+        "description": "{\"Description\":\"\",\"DescQuillEditor\":{\"ops\":[{\"attributes\":{\"color\":\"yellow\",\"bold\":true},\"insert\":\"Share Bonus\"},{\"attributes\":{\"header\":2},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#92d050\",\"bold\":true},\"insert\":\"Share 1 Member Free AUD15\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#92d050\",\"bold\":true},\"insert\":\"Share 100 Member Free AUD1500\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#92d050\",\"bold\":true},\"insert\":\"Max Withdraw AUD10\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"yellow\"},\"insert\":\"This Bonus Only For \"},{\"attributes\":{\"color\":\"red\"},\"insert\":\"MEGAH5\"},{\"attributes\":{\"header\":2},\"insert\":\"\\n\"},{\"attributes\":{\"bold\":true},\"insert\":\"Credit Must Below  \"},{\"attributes\":{\"color\":\"red\",\"bold\":true},\"insert\":\"$0.10\u00a0\"},{\"attributes\":{\"bold\":true},\"insert\":\"To Claim\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"Promotion \"},{\"attributes\":{\"color\":\"red\",\"bold\":true},\"insert\":\"Do Not\"},{\"insert\":\" Mix With Other Bonus\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"bold\":true},\"insert\":\"For \"},{\"attributes\":{\"color\":\"red\",\"bold\":true},\"insert\":\"All Slot Game\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"bold\":true},\"insert\":\"Not Allowed \"},{\"attributes\":{\"color\":\"red\",\"bold\":true},\"insert\":\"Save Free , Buy Free & Save Red Envelope\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#00b0f0\",\"bold\":true},\"insert\":\"All Credit Will Be Forfeited Subject To Any Violation Of Rules\"},{\"attributes\":{\"header\":3},\"insert\":\"\\n\"},{\"insert\":\"__________________________________________________________________________________________\"},{\"attributes\":{\"header\":3},\"insert\":\"\\n\"},{\"insert\":\"<TEXT-TAG style=\\\"font-size:0.7em;\\\">Term And Condition:\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\\n\"},{\"insert\":\"-Register Name Need To Match Bank Account Full Name\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\"},{\"insert\":\"-Register More Than 1 ID Cannot Calim & Withdraw\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\"},{\"insert\":\"-Change Bank Account Upon Withdraw Is Not Allowed </TEXT-TAG>\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\"},{\"insert\":\"\\n\"}]},\"DescQuillHTML\":\"<h2><strong style=\\\"color: yellow;\\\">Share Bonus</strong></h2><ul><li><strong style=\\\"color: rgb(146, 208, 80);\\\">Share 1 Member Free AUD15</strong></li><li><strong style=\\\"color: rgb(146, 208, 80);\\\">Share 100 Member Free AUD1500</strong></li><li><strong style=\\\"color: rgb(146, 208, 80);\\\">Max Withdraw AUD10</strong></li></ul><p><br></p><h2><span style=\\\"color: yellow;\\\">This Bonus Only For </span><span style=\\\"color: red;\\\">MEGAH5</span></h2><ul><li><strong>Credit Must Below  </strong><strong style=\\\"color: red;\\\">$0.10&nbsp;</strong><strong>To Claim</strong></li><li>Promotion <strong style=\\\"color: red;\\\">Do Not</strong> Mix With Other Bonus</li><li><strong>For </strong><strong style=\\\"color: red;\\\">All Slot Game</strong></li><li><strong>Not Allowed </strong><strong style=\\\"color: red;\\\">Save Free , Buy Free & Save Red Envelope</strong></li></ul><h3><strong style=\\\"color: rgb(0, 176, 240);\\\">All Credit Will Be Forfeited Subject To Any Violation Of Rules</strong></h3><h3>__________________________________________________________________________________________</h3><pre class=\\\"ql-syntax\\\" spellcheck=\\\"false\\\"><TEXT-TAG style=\\\"font-size:0.7em;\\\">Term And Condition:\\n\\n-Register Name Need To Match Bank Account Full Name\\n-Register More Than 1 ID Cannot Calim & Withdraw\\n-Change Bank Account Upon Withdraw Is Not Allowed </TEXT-TAG>\\n</pre><p><br></p>\"}",
+        "displayAmount": "1",
+        "displayGroup": "<img src=\"https://static.wixstatic.com/media/a22996_14a44f7a4a90404a875e177f4a55241b~mv2.png\" style=\"height:80px;display:inline;\">",
+        "displayOrder": "13",
+        "image": null,
+        "angpaoImage": "https://static.gwvkyk.com/media/c6f6e02632b767bd87093.gif",
+        "updata": null,
+        "transactionId": null,
+        "transactionCash": null,
+        "claimDateTime": null,
+        "sysnote": null,
+        "message": "Manual promotion not configured"
+      },
+      {
+        "id": "20419",
+        "name": "DAILY FREE CREDIT",
+        "bonus": "0.00",
+        "bonusFixed": "0.00",
+        "bonusRandom": {
+          "min": 1,
+          "max": "3"
+        },
+        "claimCondition": "FREE",
+        "claimConfig": "{\"walletId\":1,\"changeGameId\":1,\"creditLessThan\":1,\"displayDescriptionOnly\":\"1\"}",
+        "maxRound": "1",
+        "reset": "DAILY",
+        "initialFreeLimit": "0",
+        "depositFreeLimit": "0",
+        "minTopup": null,
+        "maxTopup": null,
+        "minRound": "0",
+        "rollover": "0.00",
+        "description": "{\"Description\":\"\",\"DescQuillEditor\":{\"ops\":[{\"attributes\":{\"color\":\"yellow\",\"bold\":true},\"insert\":\"Daily Free Credit\"},{\"attributes\":{\"header\":2},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#92d050\",\"bold\":true},\"insert\":\"Credit Must Hit $50 To Get Max Withdraw $10\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#92d050\",\"bold\":true},\"insert\":\"Random Daily Free AUD\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#92d050\",\"bold\":true},\"insert\":\"Max Withdraw $10\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"yellow\"},\"insert\":\"This Bonus Only For \"},{\"attributes\":{\"color\":\"red\"},\"insert\":\"MEGAH5\"},{\"attributes\":{\"header\":2},\"insert\":\"\\n\"},{\"attributes\":{\"bold\":true},\"insert\":\"Credit Must Below  \"},{\"attributes\":{\"color\":\"red\",\"bold\":true},\"insert\":\"$0.10\u00a0\"},{\"attributes\":{\"bold\":true},\"insert\":\"To Claim\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"bold\":true},\"insert\":\"Promotion \"},{\"attributes\":{\"color\":\"red\",\"bold\":true},\"insert\":\"Do Not\"},{\"insert\":\" Mix With Other Bonus\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"bold\":true},\"insert\":\"Not Allowed \"},{\"attributes\":{\"color\":\"red\",\"bold\":true},\"insert\":\"Save Free , Buy Free & Save Red Envelope\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#00b0f0\",\"bold\":true},\"insert\":\"All Credit Will Be Forfeited Subject To Any Violation Of Rules\"},{\"attributes\":{\"header\":3},\"insert\":\"\\n\"},{\"attributes\":{\"bold\":true},\"insert\":\"__________________________________________________________________________________________\"},{\"attributes\":{\"header\":3},\"insert\":\"\\n\"},{\"insert\":\"<TEXT-TAG style=\\\"font-size:0.7em;\\\">Term And Condition:\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\\n\"},{\"insert\":\"-Register Name Need To Match Bank Account Full Name\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\"},{\"insert\":\"-Register More Than 1 ID Cannot Calim & Withdraw\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\"},{\"insert\":\"-Change Bank Account Upon Withdraw Is Not Allowed </TEXT-TAG>\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\"},{\"insert\":\"\\n\"}]},\"DescQuillHTML\":\"<h2><strong style=\\\"color: yellow;\\\">Daily Free Credit</strong></h2><ul><li><strong style=\\\"color: rgb(146, 208, 80);\\\">Credit Must Hit $50 To Get Max Withdraw $10</strong></li><li><strong style=\\\"color: rgb(146, 208, 80);\\\">Random Daily Free AUD</strong></li><li><strong style=\\\"color: rgb(146, 208, 80);\\\">Max Withdraw $10</strong></li></ul><p><br></p><h2><span style=\\\"color: yellow;\\\">This Bonus Only For </span><span style=\\\"color: red;\\\">MEGAH5</span></h2><ul><li><strong>Credit Must Below  </strong><strong style=\\\"color: red;\\\">$0.10&nbsp;</strong><strong>To Claim</strong></li><li><strong>Promotion </strong><strong style=\\\"color: red;\\\">Do Not</strong> Mix With Other Bonus</li><li><strong>Not Allowed </strong><strong style=\\\"color: red;\\\">Save Free , Buy Free & Save Red Envelope</strong></li></ul><h3><strong style=\\\"color: rgb(0, 176, 240);\\\">All Credit Will Be Forfeited Subject To Any Violation Of Rules</strong></h3><h3><strong>__________________________________________________________________________________________</strong></h3><pre class=\\\"ql-syntax\\\" spellcheck=\\\"false\\\"><TEXT-TAG style=\\\"font-size:0.7em;\\\">Term And Condition:\\n\\n-Register Name Need To Match Bank Account Full Name\\n-Register More Than 1 ID Cannot Calim & Withdraw\\n-Change Bank Account Upon Withdraw Is Not Allowed </TEXT-TAG>\\n</pre><p><br></p>\"}",
+        "displayAmount": "1",
+        "displayGroup": "<img src=\"https://static.wixstatic.com/media/a22996_14a44f7a4a90404a875e177f4a55241b~mv2.png\" style=\"height:80px;display:inline;\">",
+        "displayOrder": "14",
+        "image": null,
+        "angpaoImage": "https://static.gwvkyk.com/media/e08e872632b767ba6067e.gif",
+        "updata": null,
+        "transactionId": null,
+        "transactionCash": null,
+        "claimDateTime": null,
+        "sysnote": null,
+        "message": null,
+        "amount": {
+          "min": 1,
+          "max": "3"
+        },
+        "maxWithdraw": 10,
+        "minWithdraw": 50,
+        "minBet": 0
+      },
+      {
+        "id": "22530",
+        "name": "NEW REGISTER",
+        "bonus": "0.00",
+        "bonusFixed": "88.00",
+        "bonusRandom": null,
+        "claimCondition": "CUSTOM",
+        "claimConfig": "{\"walletId\":1,\"changeGameId\":1,\"customBonus\":\"manual\",\"maxWithdrawTimeDeposit\":1,\"creditLessThan\":1,\"walletId\":1,\"changeGameId\":1,\"displayDescriptionOnly\":\"1\",\"fixRT\":1}",
+        "maxRound": "0",
+        "reset": "",
+        "initialFreeLimit": "0",
+        "depositFreeLimit": "0",
+        "minTopup": null,
+        "maxTopup": null,
+        "minRound": "0",
+        "rollover": "0.00",
+        "description": "{\"Description\":\"\",\"DescQuillEditor\":{\"ops\":[{\"attributes\":{\"color\":\"#ffe599\",\"bold\":true},\"insert\":\"Free AUD88 For New Register Member\"},{\"attributes\":{\"header\":2},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#92d050\",\"bold\":true},\"insert\":\"Credit Must Hit $388 To Get Max Withdraw $10\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#92d050\",\"bold\":true},\"insert\":\"Max Withdraw $10\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#92d050\",\"bold\":true},\"insert\":\"1 Member Claim Once\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"yellow\"},\"insert\":\"This Bonus Only For \"},{\"attributes\":{\"color\":\"red\"},\"insert\":\"MEGAH5\"},{\"attributes\":{\"header\":2},\"insert\":\"\\n\"},{\"attributes\":{\"bold\":true},\"insert\":\"Credit Must Below  \"},{\"attributes\":{\"color\":\"red\",\"bold\":true},\"insert\":\"$0.10\u00a0\"},{\"attributes\":{\"bold\":true},\"insert\":\"To Claim\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"Promotion \"},{\"attributes\":{\"color\":\"red\",\"bold\":true},\"insert\":\"Do Not\"},{\"insert\":\" Mix With Other Bonus\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"bold\":true},\"insert\":\"Not Allowed \"},{\"attributes\":{\"color\":\"red\",\"bold\":true},\"insert\":\"Save Free , Buy Free & Save Red Envelope\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#00b0f0\",\"bold\":true},\"insert\":\"All Credit Will Be Forfeited Subject To Any Violation Of Rules\"},{\"attributes\":{\"header\":3},\"insert\":\"\\n\"},{\"insert\":\"__________________________________________________________________________________________\"},{\"attributes\":{\"header\":3},\"insert\":\"\\n\"},{\"insert\":\"<TEXT-TAG style=\\\"font-size:0.7em;\\\">Term And Condition:\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\\n\"},{\"insert\":\"-Register Name Need To Match Bank Account Full Name\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\"},{\"insert\":\"-Register More Than 1 ID Cannot Calim & Withdraw\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\"},{\"insert\":\"-When Register An Account Must Match With Personal ID\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\"},{\"insert\":\"-Change Bank Account Upon Withdraw Is Not Allowed </TEXT-TAG>\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\"},{\"insert\":\"\\n\"}]},\"DescQuillHTML\":\"<h2><strong style=\\\"color: rgb(255, 229, 153);\\\">Free AUD88 For New Register Member</strong></h2><ul><li><strong style=\\\"color: rgb(146, 208, 80);\\\">Credit Must Hit $388 To Get Max Withdraw $10</strong></li><li><strong style=\\\"color: rgb(146, 208, 80);\\\">Max Withdraw $10</strong></li><li><strong style=\\\"color: rgb(146, 208, 80);\\\">1 Member Claim Once</strong></li></ul><p><br></p><h2><span style=\\\"color: yellow;\\\">This Bonus Only For </span><span style=\\\"color: red;\\\">MEGAH5</span></h2><ul><li><strong>Credit Must Below  </strong><strong style=\\\"color: red;\\\">$0.10&nbsp;</strong><strong>To Claim</strong></li><li>Promotion <strong style=\\\"color: red;\\\">Do Not</strong> Mix With Other Bonus</li><li><strong>Not Allowed </strong><strong style=\\\"color: red;\\\">Save Free , Buy Free & Save Red Envelope</strong></li></ul><h3><strong style=\\\"color: rgb(0, 176, 240);\\\">All Credit Will Be Forfeited Subject To Any Violation Of Rules</strong></h3><h3>__________________________________________________________________________________________</h3><pre class=\\\"ql-syntax\\\" spellcheck=\\\"false\\\"><TEXT-TAG style=\\\"font-size:0.7em;\\\">Term And Condition:\\n\\n-Register Name Need To Match Bank Account Full Name\\n-Register More Than 1 ID Cannot Calim & Withdraw\\n-When Register An Account Must Match With Personal ID\\n-Change Bank Account Upon Withdraw Is Not Allowed </TEXT-TAG>\\n</pre><p><br></p>\"}",
+        "displayAmount": "1",
+        "displayGroup": "<img src=\"https://static.wixstatic.com/media/a22996_14a44f7a4a90404a875e177f4a55241b~mv2.png\" style=\"height:80px;display:inline;\">",
+        "displayOrder": "16",
+        "image": null,
+        "angpaoImage": "https://static.gwvkyk.com/media/cef9e6f532b763cde67ac.gif",
+        "updata": null,
+        "transactionId": null,
+        "transactionCash": null,
+        "claimDateTime": null,
+        "sysnote": null,
+        "message": "Manual promotion not configured"
+      },
+      {
+        "id": "20061",
+        "name": "CHECK-IN MONDAY",
+        "bonus": "0.00",
+        "bonusFixed": "10.00",
+        "bonusRandom": null,
+        "claimCondition": "FREE",
+        "claimConfig": "{\"walletId\":1,\"changeGameId\":1,\"maxWithdrawTimeDeposit\":1,\"creditLessThan\":1,\"displayDescriptionOnly\":\"1\",\"claimTime\":\"N=1\"}",
+        "maxRound": "1",
+        "reset": "DAILY",
+        "initialFreeLimit": "0",
+        "depositFreeLimit": "0",
+        "minTopup": null,
+        "maxTopup": null,
+        "minRound": "0",
+        "rollover": "0.00",
+        "description": "{\"Description\":\"\",\"DescQuillEditor\":{\"ops\":[{\"attributes\":{\"color\":\"#ffe599\",\"bold\":true},\"insert\":\"MONDAY CHECK IN BONUS\"},{\"attributes\":{\"header\":2},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#92d050\",\"bold\":true},\"insert\":\"Daily Check-In Free$10\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#92d050\",\"bold\":true},\"insert\":\"Credit Must Hit $600 To Get Max Withdraw $15\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#92d050\",\"bold\":true},\"insert\":\"Max Withdraw $15\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"yellow\"},\"insert\":\"This Bonus Only For \"},{\"attributes\":{\"color\":\"red\"},\"insert\":\"MEGAH5\"},{\"attributes\":{\"header\":2},\"insert\":\"\\n\"},{\"attributes\":{\"bold\":true},\"insert\":\"Credit Must Below  \"},{\"attributes\":{\"color\":\"red\",\"bold\":true},\"insert\":\"$0.10\u00a0\"},{\"attributes\":{\"bold\":true},\"insert\":\"To Claim\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"Promotion \"},{\"attributes\":{\"color\":\"red\",\"bold\":true},\"insert\":\"Do Not\"},{\"insert\":\" Mix With Other Bonus\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"bold\":true},\"insert\":\"Not Allowed \"},{\"attributes\":{\"color\":\"red\",\"bold\":true},\"insert\":\"Save Free , Buy Free & Save Red Envelope\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#00b0f0\",\"bold\":true},\"insert\":\"All Credit Will Be Forfeited Subject To Any Violation Of Rules\"},{\"attributes\":{\"header\":3},\"insert\":\"\\n\"},{\"insert\":\"__________________________________________________________________________________________\"},{\"attributes\":{\"header\":3},\"insert\":\"\\n\"},{\"insert\":\"<TEXT-TAG style=\\\"font-size:0.7em;\\\">Term And Condition:\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\\n\"},{\"insert\":\"-Register Name Need To Match Bank Account Full Name\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\"},{\"insert\":\"-Register More Than 1 ID Cannot Calim & Withdraw\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\"},{\"insert\":\"-Change Bank Account Upon Withdraw Is Not Allowed </TEXT-TAG>\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\"},{\"insert\":\"\\n\"}]},\"DescQuillHTML\":\"<h2><strong style=\\\"color: rgb(255, 229, 153);\\\">MONDAY CHECK IN BONUS</strong></h2><ul><li><strong style=\\\"color: rgb(146, 208, 80);\\\">Daily Check-In Free$10</strong></li><li><strong style=\\\"color: rgb(146, 208, 80);\\\">Credit Must Hit $600 To Get Max Withdraw $15</strong></li><li><strong style=\\\"color: rgb(146, 208, 80);\\\">Max Withdraw $15</strong></li></ul><p><br></p><h2><span style=\\\"color: yellow;\\\">This Bonus Only For </span><span style=\\\"color: red;\\\">MEGAH5</span></h2><ul><li><strong>Credit Must Below  </strong><strong style=\\\"color: red;\\\">$0.10&nbsp;</strong><strong>To Claim</strong></li><li>Promotion <strong style=\\\"color: red;\\\">Do Not</strong> Mix With Other Bonus</li><li><strong>Not Allowed </strong><strong style=\\\"color: red;\\\">Save Free , Buy Free & Save Red Envelope</strong></li></ul><h3><strong style=\\\"color: rgb(0, 176, 240);\\\">All Credit Will Be Forfeited Subject To Any Violation Of Rules</strong></h3><h3>__________________________________________________________________________________________</h3><pre class=\\\"ql-syntax\\\" spellcheck=\\\"false\\\"><TEXT-TAG style=\\\"font-size:0.7em;\\\">Term And Condition:\\n\\n-Register Name Need To Match Bank Account Full Name\\n-Register More Than 1 ID Cannot Calim & Withdraw\\n-Change Bank Account Upon Withdraw Is Not Allowed </TEXT-TAG>\\n</pre><p><br></p>\"}",
+        "displayAmount": "1",
+        "displayGroup": "<img src=\"https://static.wixstatic.com/media/a22996_a9e77fa1e4274237a6d51cfc27536230~mv2.png\" style=\"height:80px;display:inline;\">",
+        "displayOrder": "21",
+        "image": null,
+        "angpaoImage": "https://static.gwvkyk.com/media/7a58995632b76257feae3.gif",
+        "updata": null,
+        "transactionId": null,
+        "transactionCash": null,
+        "claimDateTime": null,
+        "sysnote": null,
+        "message": null
+      },
+      {
+        "id": "20062",
+        "name": "CHECK-IN TUESDAY",
+        "bonus": "0.00",
+        "bonusFixed": "12.00",
+        "bonusRandom": null,
+        "claimCondition": "FREE",
+        "claimConfig": "{\"walletId\":1,\"changeGameId\":1,\"maxWithdrawTimeDeposit\":1,\"creditLessThan\":1,\"displayDescriptionOnly\":\"1\",\"claimTime\":\"N=2\"}",
+        "maxRound": "1",
+        "reset": "DAILY",
+        "initialFreeLimit": "0",
+        "depositFreeLimit": "0",
+        "minTopup": null,
+        "maxTopup": null,
+        "minRound": "0",
+        "rollover": "0.00",
+        "description": "{\"Description\":\"\",\"DescQuillEditor\":{\"ops\":[{\"attributes\":{\"color\":\"#ffe599\",\"bold\":true},\"insert\":\"TUESDAY CHECK IN BONUS\"},{\"attributes\":{\"header\":2},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#92d050\",\"bold\":true},\"insert\":\"Daily Check-In Free$12\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#92d050\",\"bold\":true},\"insert\":\"Credit Must Hit $600 To Get Max Withdraw $15\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#92d050\",\"bold\":true},\"insert\":\"Max Withdraw $15\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"yellow\"},\"insert\":\"This Bonus Only For \"},{\"attributes\":{\"color\":\"red\"},\"insert\":\"MEGAH5\"},{\"attributes\":{\"header\":2},\"insert\":\"\\n\"},{\"attributes\":{\"bold\":true},\"insert\":\"Credit Must Below  \"},{\"attributes\":{\"color\":\"red\",\"bold\":true},\"insert\":\"$0.10\u00a0\"},{\"attributes\":{\"bold\":true},\"insert\":\"To Claim\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"Promotion \"},{\"attributes\":{\"color\":\"red\",\"bold\":true},\"insert\":\"Do Not\"},{\"insert\":\" Mix With Other Bonus\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"bold\":true},\"insert\":\"Not Allowed \"},{\"attributes\":{\"color\":\"red\",\"bold\":true},\"insert\":\"Save Free , Buy Free & Save Red Envelope\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#00b0f0\",\"bold\":true},\"insert\":\"All Credit Will Be Forfeited Subject To Any Violation Of Rules\"},{\"attributes\":{\"header\":3},\"insert\":\"\\n\"},{\"insert\":\"__________________________________________________________________________________________\"},{\"attributes\":{\"header\":3},\"insert\":\"\\n\"},{\"insert\":\"<TEXT-TAG style=\\\"font-size:0.7em;\\\">Term And Condition:\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\\n\"},{\"insert\":\"-Register Name Need To Match Bank Account Full Name\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\"},{\"insert\":\"-Register More Than 1 ID Cannot Calim & Withdraw\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\"},{\"insert\":\"-Change Bank Account Upon Withdraw Is Not Allowed </TEXT-TAG>\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\"},{\"insert\":\"\\n\"}]},\"DescQuillHTML\":\"<h2><strong style=\\\"color: rgb(255, 229, 153);\\\">TUESDAY CHECK IN BONUS</strong></h2><ul><li><strong style=\\\"color: rgb(146, 208, 80);\\\">Daily Check-In Free$12</strong></li><li><strong style=\\\"color: rgb(146, 208, 80);\\\">Credit Must Hit $600 To Get Max Withdraw $15</strong></li><li><strong style=\\\"color: rgb(146, 208, 80);\\\">Max Withdraw $15</strong></li></ul><p><br></p><h2><span style=\\\"color: yellow;\\\">This Bonus Only For </span><span style=\\\"color: red;\\\">MEGAH5</span></h2><ul><li><strong>Credit Must Below  </strong><strong style=\\\"color: red;\\\">$0.10&nbsp;</strong><strong>To Claim</strong></li><li>Promotion <strong style=\\\"color: red;\\\">Do Not</strong> Mix With Other Bonus</li><li><strong>Not Allowed </strong><strong style=\\\"color: red;\\\">Save Free , Buy Free & Save Red Envelope</strong></li></ul><h3><strong style=\\\"color: rgb(0, 176, 240);\\\">All Credit Will Be Forfeited Subject To Any Violation Of Rules</strong></h3><h3>__________________________________________________________________________________________</h3><pre class=\\\"ql-syntax\\\" spellcheck=\\\"false\\\"><TEXT-TAG style=\\\"font-size:0.7em;\\\">Term And Condition:\\n\\n-Register Name Need To Match Bank Account Full Name\\n-Register More Than 1 ID Cannot Calim & Withdraw\\n-Change Bank Account Upon Withdraw Is Not Allowed </TEXT-TAG>\\n</pre><p><br></p>\"}",
+        "displayAmount": "1",
+        "displayGroup": "<img src=\"https://static.wixstatic.com/media/a22996_a9e77fa1e4274237a6d51cfc27536230~mv2.png\" style=\"height:80px;display:inline;\">",
+        "displayOrder": "22",
+        "image": null,
+        "angpaoImage": "https://static.gwvkyk.com/media/d09f016632b76a03bb8cd.gif",
+        "updata": null,
+        "transactionId": null,
+        "transactionCash": null,
+        "claimDateTime": null,
+        "sysnote": null,
+        "message": null
+      },
+      {
+        "id": "20063",
+        "name": "CHECK-IN WEDNESDAY",
+        "bonus": "0.00",
+        "bonusFixed": "15.00",
+        "bonusRandom": null,
+        "claimCondition": "FREE",
+        "claimConfig": "{\"walletId\":1,\"changeGameId\":1,\"maxWithdrawTimeDeposit\":1,\"creditLessThan\":1,\"displayDescriptionOnly\":\"1\",\"claimTime\":\"N=3\"}",
+        "maxRound": "1",
+        "reset": "DAILY",
+        "initialFreeLimit": "0",
+        "depositFreeLimit": "0",
+        "minTopup": null,
+        "maxTopup": null,
+        "minRound": "0",
+        "rollover": "0.00",
+        "description": "{\"Description\":\"\",\"DescQuillEditor\":{\"ops\":[{\"attributes\":{\"color\":\"#ffe599\",\"bold\":true},\"insert\":\"WEDNESDAY CHECK IN BONUS\"},{\"attributes\":{\"header\":2},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#92d050\",\"bold\":true},\"insert\":\"Daily Check-In Free$15\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#92d050\",\"bold\":true},\"insert\":\"Credit Must Hit $600 To Get Max Withdraw $15\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#92d050\",\"bold\":true},\"insert\":\"Max Withdraw $15\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"yellow\"},\"insert\":\"This Bonus Only For \"},{\"attributes\":{\"color\":\"red\"},\"insert\":\"MEGAH5\"},{\"attributes\":{\"header\":2},\"insert\":\"\\n\"},{\"attributes\":{\"bold\":true},\"insert\":\"Credit Must Below \"},{\"attributes\":{\"color\":\"red\",\"bold\":true},\"insert\":\"$0.10\u00a0\"},{\"attributes\":{\"bold\":true},\"insert\":\"To Claim\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"Promotion \"},{\"attributes\":{\"color\":\"red\",\"bold\":true},\"insert\":\"Do Not\"},{\"insert\":\" Mix With Other Bonus\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"bold\":true},\"insert\":\"Not Allowed \"},{\"attributes\":{\"color\":\"red\",\"bold\":true},\"insert\":\"Save Free , Buy Free & Save Red Envelope\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#00b0f0\",\"bold\":true},\"insert\":\"All Credit Will Be Forfeited Subject To Any Violation Of Rules\"},{\"attributes\":{\"header\":3},\"insert\":\"\\n\"},{\"insert\":\"__________________________________________________________________________________________\"},{\"attributes\":{\"header\":3},\"insert\":\"\\n\"},{\"insert\":\"<TEXT-TAG style=\\\"font-size:0.7em;\\\">Term And Condition:\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\\n\"},{\"insert\":\"-Register Name Need To Match Bank Account Full Name\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\"},{\"insert\":\"-Register More Than 1 ID Cannot Calim & Withdraw\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\"},{\"insert\":\"-Change Bank Account Upon Withdraw Is Not Allowed </TEXT-TAG>\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\"},{\"insert\":\"\\n\"}]},\"DescQuillHTML\":\"<h2><strong style=\\\"color: rgb(255, 229, 153);\\\">WEDNESDAY CHECK IN BONUS</strong></h2><ul><li><strong style=\\\"color: rgb(146, 208, 80);\\\">Daily Check-In Free$15</strong></li><li><strong style=\\\"color: rgb(146, 208, 80);\\\">Credit Must Hit $600 To Get Max Withdraw $15</strong></li><li><strong style=\\\"color: rgb(146, 208, 80);\\\">Max Withdraw $15</strong></li></ul><p><br></p><h2><span style=\\\"color: yellow;\\\">This Bonus Only For </span><span style=\\\"color: red;\\\">MEGAH5</span></h2><ul><li><strong>Credit Must Below </strong><strong style=\\\"color: red;\\\">$0.10&nbsp;</strong><strong>To Claim</strong></li><li>Promotion <strong style=\\\"color: red;\\\">Do Not</strong> Mix With Other Bonus</li><li><strong>Not Allowed </strong><strong style=\\\"color: red;\\\">Save Free , Buy Free & Save Red Envelope</strong></li></ul><h3><strong style=\\\"color: rgb(0, 176, 240);\\\">All Credit Will Be Forfeited Subject To Any Violation Of Rules</strong></h3><h3>__________________________________________________________________________________________</h3><pre class=\\\"ql-syntax\\\" spellcheck=\\\"false\\\"><TEXT-TAG style=\\\"font-size:0.7em;\\\">Term And Condition:\\n\\n-Register Name Need To Match Bank Account Full Name\\n-Register More Than 1 ID Cannot Calim & Withdraw\\n-Change Bank Account Upon Withdraw Is Not Allowed </TEXT-TAG>\\n</pre><p><br></p>\"}",
+        "displayAmount": "1",
+        "displayGroup": "<img src=\"https://static.wixstatic.com/media/a22996_a9e77fa1e4274237a6d51cfc27536230~mv2.png\" style=\"height:80px;display:inline;\">",
+        "displayOrder": "23",
+        "image": null,
+        "angpaoImage": "https://static.gwvkyk.com/media/9c1ec76632b76a6c82b88.gif",
+        "updata": null,
+        "transactionId": null,
+        "transactionCash": null,
+        "claimDateTime": null,
+        "sysnote": null,
+        "message": null
+      },
+      {
+        "id": "20064",
+        "name": "CHECK-IN THURSDAY",
+        "bonus": "0.00",
+        "bonusFixed": "18.00",
+        "bonusRandom": null,
+        "claimCondition": "FREE",
+        "claimConfig": "{\"walletId\":1,\"changeGameId\":1,\"maxWithdrawTimeDeposit\":1,\"creditLessThan\":1,\"displayDescriptionOnly\":\"1\",\"claimTime\":\"N=4\"}",
+        "maxRound": "1",
+        "reset": "DAILY",
+        "initialFreeLimit": "0",
+        "depositFreeLimit": "0",
+        "minTopup": null,
+        "maxTopup": null,
+        "minRound": "0",
+        "rollover": "0.00",
+        "description": "{\"Description\":\"\",\"DescQuillEditor\":{\"ops\":[{\"attributes\":{\"color\":\"#ffe599\",\"bold\":true},\"insert\":\"THURSDAY CHECK IN BONUS\"},{\"attributes\":{\"header\":2},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#92d050\",\"bold\":true},\"insert\":\"Daily Check-In Free$18\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#92d050\",\"bold\":true},\"insert\":\"Credit Must Hit $600 To Get Max Withdraw $15\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#92d050\",\"bold\":true},\"insert\":\"Max Withdraw $15\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"yellow\"},\"insert\":\"This Bonus Only For \"},{\"attributes\":{\"color\":\"red\"},\"insert\":\"MEGAH5\"},{\"attributes\":{\"header\":2},\"insert\":\"\\n\"},{\"attributes\":{\"bold\":true},\"insert\":\"Credit Must Below \"},{\"attributes\":{\"color\":\"red\",\"bold\":true},\"insert\":\"$0.10\u00a0\"},{\"attributes\":{\"bold\":true},\"insert\":\"To Claim\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"Promotion \"},{\"attributes\":{\"color\":\"red\",\"bold\":true},\"insert\":\"Do Not\"},{\"insert\":\" Mix With Other Bonus\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"bold\":true},\"insert\":\"Not Allowed \"},{\"attributes\":{\"color\":\"red\",\"bold\":true},\"insert\":\"Save Free , Buy Free & Save Red Envelope\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#00b0f0\",\"bold\":true},\"insert\":\"All Credit Will Be Forfeited Subject To Any Violation Of Rules\"},{\"attributes\":{\"header\":3},\"insert\":\"\\n\"},{\"insert\":\"__________________________________________________________________________________________\"},{\"attributes\":{\"header\":3},\"insert\":\"\\n\"},{\"insert\":\"<TEXT-TAG style=\\\"font-size:0.7em;\\\">Term And Condition:\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\\n\"},{\"insert\":\"-Register Name Need To Match Bank Account Full Name\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\"},{\"insert\":\"-Register More Than 1 ID Cannot Calim & Withdraw\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\"},{\"insert\":\"-Change Bank Account Upon Withdraw Is Not Allowed </TEXT-TAG>\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\"},{\"insert\":\"\\n\"}]},\"DescQuillHTML\":\"<h2><strong style=\\\"color: rgb(255, 229, 153);\\\">THURSDAY CHECK IN BONUS</strong></h2><ul><li><strong style=\\\"color: rgb(146, 208, 80);\\\">Daily Check-In Free$18</strong></li><li><strong style=\\\"color: rgb(146, 208, 80);\\\">Credit Must Hit $600 To Get Max Withdraw $15</strong></li><li><strong style=\\\"color: rgb(146, 208, 80);\\\">Max Withdraw $15</strong></li></ul><p><br></p><h2><span style=\\\"color: yellow;\\\">This Bonus Only For </span><span style=\\\"color: red;\\\">MEGAH5</span></h2><ul><li><strong>Credit Must Below </strong><strong style=\\\"color: red;\\\">$0.10&nbsp;</strong><strong>To Claim</strong></li><li>Promotion <strong style=\\\"color: red;\\\">Do Not</strong> Mix With Other Bonus</li><li><strong>Not Allowed </strong><strong style=\\\"color: red;\\\">Save Free , Buy Free & Save Red Envelope</strong></li></ul><h3><strong style=\\\"color: rgb(0, 176, 240);\\\">All Credit Will Be Forfeited Subject To Any Violation Of Rules</strong></h3><h3>__________________________________________________________________________________________</h3><pre class=\\\"ql-syntax\\\" spellcheck=\\\"false\\\"><TEXT-TAG style=\\\"font-size:0.7em;\\\">Term And Condition:\\n\\n-Register Name Need To Match Bank Account Full Name\\n-Register More Than 1 ID Cannot Calim & Withdraw\\n-Change Bank Account Upon Withdraw Is Not Allowed </TEXT-TAG>\\n</pre><p><br></p>\"}",
+        "displayAmount": "1",
+        "displayGroup": "<img src=\"https://static.wixstatic.com/media/a22996_a9e77fa1e4274237a6d51cfc27536230~mv2.png\" style=\"height:80px;display:inline;\">",
+        "displayOrder": "24",
+        "image": null,
+        "angpaoImage": "https://static.gwvkyk.com/media/9a185f6632b764289fa76.gif",
+        "updata": null,
+        "transactionId": null,
+        "transactionCash": null,
+        "claimDateTime": null,
+        "sysnote": null,
+        "message": null
+      },
+      {
+        "id": "20065",
+        "name": "CHECK-IN FRIDAY",
+        "bonus": "0.00",
+        "bonusFixed": "20.00",
+        "bonusRandom": null,
+        "claimCondition": "FREE",
+        "claimConfig": "{\"walletId\":1,\"changeGameId\":1,\"maxWithdrawTimeDeposit\":1,\"creditLessThan\":1,\"displayDescriptionOnly\":\"1\",\"claimTime\":\"N=5\"}",
+        "maxRound": "1",
+        "reset": "DAILY",
+        "initialFreeLimit": "0",
+        "depositFreeLimit": "0",
+        "minTopup": null,
+        "maxTopup": null,
+        "minRound": "0",
+        "rollover": "0.00",
+        "description": "{\"Description\":\"\",\"DescQuillEditor\":{\"ops\":[{\"attributes\":{\"color\":\"#ffe599\",\"bold\":true},\"insert\":\"FRIDAY CHECK IN BONUS\"},{\"attributes\":{\"header\":2},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#92d050\",\"bold\":true},\"insert\":\"Daily Check-In Free$20\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#92d050\",\"bold\":true},\"insert\":\"Credit Must Hit $600 To Get Max Withdraw $15\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#92d050\",\"bold\":true},\"insert\":\"Max Withdraw $15\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"yellow\"},\"insert\":\"This Bonus Only For \"},{\"attributes\":{\"color\":\"red\"},\"insert\":\"MEGAH5\"},{\"attributes\":{\"header\":2},\"insert\":\"\\n\"},{\"attributes\":{\"bold\":true},\"insert\":\"Credit Must Below \"},{\"attributes\":{\"color\":\"red\",\"bold\":true},\"insert\":\"$0.10\u00a0\"},{\"attributes\":{\"bold\":true},\"insert\":\"To Claim\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"Promotion \"},{\"attributes\":{\"color\":\"red\",\"bold\":true},\"insert\":\"Do Not\"},{\"insert\":\" Mix With Other Bonus\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"bold\":true},\"insert\":\"Not Allowed \"},{\"attributes\":{\"color\":\"red\",\"bold\":true},\"insert\":\"Save Free , Buy Free & Save Red Envelope\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#00b0f0\",\"bold\":true},\"insert\":\"All Credit Will Be Forfeited Subject To Any Violation Of Rules\"},{\"attributes\":{\"header\":3},\"insert\":\"\\n\"},{\"insert\":\"__________________________________________________________________________________________\"},{\"attributes\":{\"header\":3},\"insert\":\"\\n\"},{\"insert\":\"<TEXT-TAG style=\\\"font-size:0.7em;\\\">Term And Condition:\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\\n\"},{\"insert\":\"-Register Name Need To Match Bank Account Full Name\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\"},{\"insert\":\"-Register More Than 1 ID Cannot Calim & Withdraw\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\"},{\"insert\":\"-Change Bank Account Upon Withdraw Is Not Allowed </TEXT-TAG>\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\"},{\"insert\":\"\\n\"}]},\"DescQuillHTML\":\"<h2><strong style=\\\"color: rgb(255, 229, 153);\\\">FRIDAY CHECK IN BONUS</strong></h2><ul><li><strong style=\\\"color: rgb(146, 208, 80);\\\">Daily Check-In Free$20</strong></li><li><strong style=\\\"color: rgb(146, 208, 80);\\\">Credit Must Hit $600 To Get Max Withdraw $15</strong></li><li><strong style=\\\"color: rgb(146, 208, 80);\\\">Max Withdraw $15</strong></li></ul><p><br></p><h2><span style=\\\"color: yellow;\\\">This Bonus Only For </span><span style=\\\"color: red;\\\">MEGAH5</span></h2><ul><li><strong>Credit Must Below </strong><strong style=\\\"color: red;\\\">$0.10&nbsp;</strong><strong>To Claim</strong></li><li>Promotion <strong style=\\\"color: red;\\\">Do Not</strong> Mix With Other Bonus</li><li><strong>Not Allowed </strong><strong style=\\\"color: red;\\\">Save Free , Buy Free & Save Red Envelope</strong></li></ul><h3><strong style=\\\"color: rgb(0, 176, 240);\\\">All Credit Will Be Forfeited Subject To Any Violation Of Rules</strong></h3><h3>__________________________________________________________________________________________</h3><pre class=\\\"ql-syntax\\\" spellcheck=\\\"false\\\"><TEXT-TAG style=\\\"font-size:0.7em;\\\">Term And Condition:\\n\\n-Register Name Need To Match Bank Account Full Name\\n-Register More Than 1 ID Cannot Calim & Withdraw\\n-Change Bank Account Upon Withdraw Is Not Allowed </TEXT-TAG>\\n</pre><p><br></p>\"}",
+        "displayAmount": "1",
+        "displayGroup": "<img src=\"https://static.wixstatic.com/media/a22996_a9e77fa1e4274237a6d51cfc27536230~mv2.png\" style=\"height:80px;display:inline;\">",
+        "displayOrder": "25",
+        "image": null,
+        "angpaoImage": "https://static.gwvkyk.com/media/1bd0367632b7610b9e97f.gif",
+        "updata": null,
+        "transactionId": null,
+        "transactionCash": null,
+        "claimDateTime": null,
+        "sysnote": null,
+        "message": null,
+        "amount": 20,
+        "maxWithdraw": 15,
+        "minWithdraw": 600,
+        "minBet": 0
+      },
+      {
+        "id": "20066",
+        "name": "CHECK-IN SATURDAY",
+        "bonus": "0.00",
+        "bonusFixed": "25.00",
+        "bonusRandom": null,
+        "claimCondition": "FREE",
+        "claimConfig": "{\"walletId\":1,\"changeGameId\":1,\"maxWithdrawTimeDeposit\":1,\"creditLessThan\":1,\"displayDescriptionOnly\":\"1\",\"claimTime\":\"N=6\"}",
+        "maxRound": "1",
+        "reset": "DAILY",
+        "initialFreeLimit": "0",
+        "depositFreeLimit": "0",
+        "minTopup": null,
+        "maxTopup": null,
+        "minRound": "0",
+        "rollover": "0.00",
+        "description": "{\"Description\":\"\",\"DescQuillEditor\":{\"ops\":[{\"attributes\":{\"color\":\"#ffe599\",\"bold\":true},\"insert\":\"SATURDAY CHECK IN BONUS\"},{\"attributes\":{\"header\":2},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#92d050\",\"bold\":true},\"insert\":\"Daily Check-In Free$25\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#92d050\",\"bold\":true},\"insert\":\"Credit Must Hit $600 To Get Max Withdraw $15\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#92d050\",\"bold\":true},\"insert\":\"Max Withdraw $15\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"yellow\"},\"insert\":\"This Bonus Only For \"},{\"attributes\":{\"color\":\"red\"},\"insert\":\"MEGAH5\"},{\"attributes\":{\"header\":2},\"insert\":\"\\n\"},{\"attributes\":{\"bold\":true},\"insert\":\"Credit Must Below \"},{\"attributes\":{\"color\":\"red\",\"bold\":true},\"insert\":\"$0.10\u00a0\"},{\"attributes\":{\"bold\":true},\"insert\":\"To Claim\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"Promotion \"},{\"attributes\":{\"color\":\"red\",\"bold\":true},\"insert\":\"Do Not\"},{\"insert\":\" Mix With Other Bonus\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"bold\":true},\"insert\":\"Not Allowed \"},{\"attributes\":{\"color\":\"red\",\"bold\":true},\"insert\":\"Save Free , Buy Free & Save Red Envelope\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#00b0f0\",\"bold\":true},\"insert\":\"All Credit Will Be Forfeited Subject To Any Violation Of Rules\"},{\"attributes\":{\"header\":3},\"insert\":\"\\n\"},{\"insert\":\"__________________________________________________________________________________________\"},{\"attributes\":{\"header\":3},\"insert\":\"\\n\"},{\"insert\":\"<TEXT-TAG style=\\\"font-size:0.7em;\\\">Term And Condition:\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\\n\"},{\"insert\":\"-Register Name Need To Match Bank Account Full Name\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\"},{\"insert\":\"-Register More Than 1 ID Cannot Calim & Withdraw\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\"},{\"insert\":\"-Change Bank Account Upon Withdraw Is Not Allowed </TEXT-TAG>\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\"},{\"insert\":\"\\n\"}]},\"DescQuillHTML\":\"<h2><strong style=\\\"color: rgb(255, 229, 153);\\\">SATURDAY CHECK IN BONUS</strong></h2><ul><li><strong style=\\\"color: rgb(146, 208, 80);\\\">Daily Check-In Free$25</strong></li><li><strong style=\\\"color: rgb(146, 208, 80);\\\">Credit Must Hit $600 To Get Max Withdraw $15</strong></li><li><strong style=\\\"color: rgb(146, 208, 80);\\\">Max Withdraw $15</strong></li></ul><p><br></p><h2><span style=\\\"color: yellow;\\\">This Bonus Only For </span><span style=\\\"color: red;\\\">MEGAH5</span></h2><ul><li><strong>Credit Must Below </strong><strong style=\\\"color: red;\\\">$0.10&nbsp;</strong><strong>To Claim</strong></li><li>Promotion <strong style=\\\"color: red;\\\">Do Not</strong> Mix With Other Bonus</li><li><strong>Not Allowed </strong><strong style=\\\"color: red;\\\">Save Free , Buy Free & Save Red Envelope</strong></li></ul><h3><strong style=\\\"color: rgb(0, 176, 240);\\\">All Credit Will Be Forfeited Subject To Any Violation Of Rules</strong></h3><h3>__________________________________________________________________________________________</h3><pre class=\\\"ql-syntax\\\" spellcheck=\\\"false\\\"><TEXT-TAG style=\\\"font-size:0.7em;\\\">Term And Condition:\\n\\n-Register Name Need To Match Bank Account Full Name\\n-Register More Than 1 ID Cannot Calim & Withdraw\\n-Change Bank Account Upon Withdraw Is Not Allowed </TEXT-TAG>\\n</pre><p><br></p>\"}",
+        "displayAmount": "1",
+        "displayGroup": "<img src=\"https://static.wixstatic.com/media/a22996_a9e77fa1e4274237a6d51cfc27536230~mv2.png\" style=\"height:80px;display:inline;\">",
+        "displayOrder": "26",
+        "image": null,
+        "angpaoImage": "https://static.gwvkyk.com/media/e3ccac7632b76b44fbe88.gif",
+        "updata": null,
+        "transactionId": null,
+        "transactionCash": null,
+        "claimDateTime": null,
+        "sysnote": null,
+        "message": null
+      },
+      {
+        "id": "20067",
+        "name": "CHECK-IN SUNDAY",
+        "bonus": "0.00",
+        "bonusFixed": "28.00",
+        "bonusRandom": null,
+        "claimCondition": "FREE",
+        "claimConfig": "{\"walletId\":1,\"changeGameId\":1,\"maxWithdrawTimeDeposit\":1,\"creditLessThan\":1,\"displayDescriptionOnly\":\"1\",\"claimTime\":\"N=7\"}",
+        "maxRound": "1",
+        "reset": "DAILY",
+        "initialFreeLimit": "0",
+        "depositFreeLimit": "0",
+        "minTopup": null,
+        "maxTopup": null,
+        "minRound": "0",
+        "rollover": "0.00",
+        "description": "{\"Description\":\"\",\"DescQuillEditor\":{\"ops\":[{\"attributes\":{\"color\":\"#ffe599\",\"bold\":true},\"insert\":\"SUNDAY CHECK IN BONUS\"},{\"attributes\":{\"header\":2},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#92d050\",\"bold\":true},\"insert\":\"Daily Check-In Free$28\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#92d050\",\"bold\":true},\"insert\":\"Credit Must Hit $600 To Get Max Withdraw $15\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#92d050\",\"bold\":true},\"insert\":\"Max Withdraw $15\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"yellow\"},\"insert\":\"This Bonus Only For \"},{\"attributes\":{\"color\":\"red\"},\"insert\":\"MEGAH5\"},{\"attributes\":{\"header\":2},\"insert\":\"\\n\"},{\"attributes\":{\"bold\":true},\"insert\":\"Credit Must Below \"},{\"attributes\":{\"color\":\"red\",\"bold\":true},\"insert\":\"$0.10\u00a0\"},{\"attributes\":{\"bold\":true},\"insert\":\"To Claim\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"Promotion \"},{\"attributes\":{\"color\":\"red\",\"bold\":true},\"insert\":\"Do Not\"},{\"insert\":\" Mix With Other Bonus\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"bold\":true},\"insert\":\"Not Allowed \"},{\"attributes\":{\"color\":\"red\",\"bold\":true},\"insert\":\"Save Free , Buy Free & Save Red Envelope\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#00b0f0\",\"bold\":true},\"insert\":\"All Credit Will Be Forfeited Subject To Any Violation Of Rules\"},{\"attributes\":{\"header\":3},\"insert\":\"\\n\"},{\"insert\":\"__________________________________________________________________________________________\"},{\"attributes\":{\"header\":3},\"insert\":\"\\n\"},{\"insert\":\"<TEXT-TAG style=\\\"font-size:0.7em;\\\">Term And Condition:\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\\n\"},{\"insert\":\"-Register Name Need To Match Bank Account Full Name\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\"},{\"insert\":\"-Register More Than 1 ID Cannot Calim & Withdraw\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\"},{\"insert\":\"-Change Bank Account Upon Withdraw Is Not Allowed </TEXT-TAG>\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\"},{\"insert\":\"\\n\"}]},\"DescQuillHTML\":\"<h2><strong style=\\\"color: rgb(255, 229, 153);\\\">SUNDAY CHECK IN BONUS</strong></h2><ul><li><strong style=\\\"color: rgb(146, 208, 80);\\\">Daily Check-In Free$28</strong></li><li><strong style=\\\"color: rgb(146, 208, 80);\\\">Credit Must Hit $600 To Get Max Withdraw $15</strong></li><li><strong style=\\\"color: rgb(146, 208, 80);\\\">Max Withdraw $15</strong></li></ul><p><br></p><h2><span style=\\\"color: yellow;\\\">This Bonus Only For </span><span style=\\\"color: red;\\\">MEGAH5</span></h2><ul><li><strong>Credit Must Below </strong><strong style=\\\"color: red;\\\">$0.10&nbsp;</strong><strong>To Claim</strong></li><li>Promotion <strong style=\\\"color: red;\\\">Do Not</strong> Mix With Other Bonus</li><li><strong>Not Allowed </strong><strong style=\\\"color: red;\\\">Save Free , Buy Free & Save Red Envelope</strong></li></ul><h3><strong style=\\\"color: rgb(0, 176, 240);\\\">All Credit Will Be Forfeited Subject To Any Violation Of Rules</strong></h3><h3>__________________________________________________________________________________________</h3><pre class=\\\"ql-syntax\\\" spellcheck=\\\"false\\\"><TEXT-TAG style=\\\"font-size:0.7em;\\\">Term And Condition:\\n\\n-Register Name Need To Match Bank Account Full Name\\n-Register More Than 1 ID Cannot Calim & Withdraw\\n-Change Bank Account Upon Withdraw Is Not Allowed </TEXT-TAG>\\n</pre><p><br></p>\"}",
+        "displayAmount": "1",
+        "displayGroup": "<img src=\"https://static.wixstatic.com/media/a22996_a9e77fa1e4274237a6d51cfc27536230~mv2.png\" style=\"height:80px;display:inline;\">",
+        "displayOrder": "27",
+        "image": null,
+        "angpaoImage": "https://static.gwvkyk.com/media/0b05748632b76995f63b3.gif",
+        "updata": null,
+        "transactionId": null,
+        "transactionCash": null,
+        "claimDateTime": null,
+        "sysnote": null,
+        "message": null
+      },
+      {
+        "id": "19510",
+        "name": "WELCOME 1ST DEPOSIT",
+        "bonus": "35.00",
+        "bonusFixed": "0.00",
+        "bonusRandom": null,
+        "claimCondition": "DEPOSIT",
+        "claimConfig": "{\"displayDescriptionOnly\":\"1\"}",
+        "maxRound": "1",
+        "reset": "",
+        "initialFreeLimit": "0",
+        "depositFreeLimit": "0",
+        "minTopup": "10.00",
+        "maxTopup": null,
+        "minRound": "0",
+        "rollover": "1.00",
+        "description": "{\"Description\":\"\",\"DescQuillEditor\":{\"ops\":[{\"attributes\":{\"color\":\"yellow\",\"bold\":true},\"insert\":\"Welcome Bonus 35% 1st Deposit\"},{\"attributes\":{\"header\":2},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#92d050\",\"bold\":true},\"insert\":\"Min Deposit AUD10\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#92d050\",\"bold\":true},\"insert\":\"Winover X4\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#92d050\",\"bold\":true},\"insert\":\"Claim Limit\uff1a1 Member Claim ONCE\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"\\n\"},{\"attributes\":{\"bold\":true},\"insert\":\"Credit Must Below  \"},{\"attributes\":{\"color\":\"red\",\"bold\":true},\"insert\":\"$0.10\u00a0\"},{\"attributes\":{\"bold\":true},\"insert\":\"To Claim\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"Promotion \"},{\"attributes\":{\"color\":\"red\",\"bold\":true},\"insert\":\"Do Not\"},{\"insert\":\" Mix With Other Bonus\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"bold\":true},\"insert\":\"For \"},{\"attributes\":{\"color\":\"red\",\"bold\":true},\"insert\":\"All Slot Game\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"Not Allowed \"},{\"attributes\":{\"color\":\"red\"},\"insert\":\"Save Free , Buy Free & Save Red Envelope\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#00b0f0\",\"bold\":true},\"insert\":\"All Credit Will Be Forfeited Subject To Any Violation Of Rules\"},{\"attributes\":{\"header\":3},\"insert\":\"\\n\"},{\"insert\":\"__________________________________________________________________________________________\\n<TEXT-TAG style=\\\"font-size:0.7em;\\\">Term And Condition:\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\\n\"},{\"insert\":\"-Register Name Need To Match Bank Account Full Name\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\"},{\"insert\":\"-Register More Than 1 ID Cannot Calim & Withdraw\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\"},{\"insert\":\"-Change Bank Account Upon Withdraw Is Not Allowed </TEXT-TAG>\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\"}]},\"DescQuillHTML\":\"<h2><strong style=\\\"color: yellow;\\\">Welcome Bonus 35% 1st Deposit</strong></h2><ul><li><strong style=\\\"color: rgb(146, 208, 80);\\\">Min Deposit AUD10</strong></li><li><strong style=\\\"color: rgb(146, 208, 80);\\\">Winover X4</strong></li><li><strong style=\\\"color: rgb(146, 208, 80);\\\">Claim Limit\uff1a1 Member Claim ONCE</strong></li></ul><p><br></p><ul><li><strong>Credit Must Below  </strong><strong style=\\\"color: red;\\\">$0.10&nbsp;</strong><strong>To Claim</strong></li><li>Promotion <strong style=\\\"color: red;\\\">Do Not</strong> Mix With Other Bonus</li><li><strong>For </strong><strong style=\\\"color: red;\\\">All Slot Game</strong></li><li>Not Allowed <span style=\\\"color: red;\\\">Save Free , Buy Free & Save Red Envelope</span></li></ul><h3><strong style=\\\"color: rgb(0, 176, 240);\\\">All Credit Will Be Forfeited Subject To Any Violation Of Rules</strong></h3><p>__________________________________________________________________________________________</p><pre class=\\\"ql-syntax\\\" spellcheck=\\\"false\\\"><TEXT-TAG style=\\\"font-size:0.7em;\\\">Term And Condition:\\n\\n-Register Name Need To Match Bank Account Full Name\\n-Register More Than 1 ID Cannot Calim & Withdraw\\n-Change Bank Account Upon Withdraw Is Not Allowed </TEXT-TAG>\\n</pre>\"}",
+        "displayAmount": "1",
+        "displayGroup": "<img src=\"https://static.wixstatic.com/media/a22996_f6b65ae2d29b45ada5792fb3c74fdae2~mv2.png\" style=\"height:80px;display:inline;\">",
+        "displayOrder": "31",
+        "image": null,
+        "angpaoImage": "https://static.gwvkyk.com/media/8980b49632b76eb460449.gif",
+        "updata": null,
+        "transactionId": null,
+        "transactionCash": null,
+        "claimDateTime": null,
+        "sysnote": null,
+        "message": "No qualifying deposit found"
+      },
+      {
+        "id": "19511",
+        "name": "WELCOME 2ND DEPOSIT",
+        "bonus": "40.00",
+        "bonusFixed": "0.00",
+        "bonusRandom": null,
+        "claimCondition": "DEPOSIT",
+        "claimConfig": "{\"displayDescriptionOnly\":\"1\"}",
+        "maxRound": "1",
+        "reset": "",
+        "initialFreeLimit": "0",
+        "depositFreeLimit": "0",
+        "minTopup": "10.00",
+        "maxTopup": null,
+        "minRound": "0",
+        "rollover": "1.00",
+        "description": "{\"Description\":\"\",\"DescQuillEditor\":{\"ops\":[{\"attributes\":{\"color\":\"yellow\",\"bold\":true},\"insert\":\"Welcome Bonus 40% 2nd Deposit\"},{\"attributes\":{\"header\":2},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#92d050\",\"bold\":true},\"insert\":\"Min Deposit AUD10\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#92d050\",\"bold\":true},\"insert\":\"Winover X4\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#92d050\",\"bold\":true},\"insert\":\"Claim Limit\uff1a1 Member Claim ONCE\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"\\n\"},{\"attributes\":{\"bold\":true},\"insert\":\"Credit Must Below  \"},{\"attributes\":{\"color\":\"red\",\"bold\":true},\"insert\":\"$0.10\u00a0\"},{\"attributes\":{\"bold\":true},\"insert\":\"To Claim\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"Promotion \"},{\"attributes\":{\"color\":\"red\",\"bold\":true},\"insert\":\"Do Not\"},{\"insert\":\" Mix With Other Bonus\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"bold\":true},\"insert\":\"For \"},{\"attributes\":{\"color\":\"red\",\"bold\":true},\"insert\":\"All Slot Game\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"Not Allowed \"},{\"attributes\":{\"color\":\"red\"},\"insert\":\"Save Free , Buy Free & Save Red Envelope\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#00b0f0\",\"bold\":true},\"insert\":\"All Credit Will Be Forfeited Subject To Any Violation Of Rules\"},{\"attributes\":{\"header\":3},\"insert\":\"\\n\"},{\"insert\":\"__________________________________________________________________________________________\\n<TEXT-TAG style=\\\"font-size:0.7em;\\\">Term And Condition:\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\\n\"},{\"insert\":\"-Register Name Need To Match Bank Account Full Name\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\"},{\"insert\":\"-Register More Than 1 ID Cannot Calim & Withdraw\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\"},{\"insert\":\"-Change Bank Account Upon Withdraw Is Not Allowed </TEXT-TAG>\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\"},{\"insert\":\"\\n\"}]},\"DescQuillHTML\":\"<h2><strong style=\\\"color: yellow;\\\">Welcome Bonus 40% 2nd Deposit</strong></h2><ul><li><strong style=\\\"color: rgb(146, 208, 80);\\\">Min Deposit AUD10</strong></li><li><strong style=\\\"color: rgb(146, 208, 80);\\\">Winover X4</strong></li><li><strong style=\\\"color: rgb(146, 208, 80);\\\">Claim Limit\uff1a1 Member Claim ONCE</strong></li></ul><p><br></p><ul><li><strong>Credit Must Below  </strong><strong style=\\\"color: red;\\\">$0.10&nbsp;</strong><strong>To Claim</strong></li><li>Promotion <strong style=\\\"color: red;\\\">Do Not</strong> Mix With Other Bonus</li><li><strong>For </strong><strong style=\\\"color: red;\\\">All Slot Game</strong></li><li>Not Allowed <span style=\\\"color: red;\\\">Save Free , Buy Free & Save Red Envelope</span></li></ul><h3><strong style=\\\"color: rgb(0, 176, 240);\\\">All Credit Will Be Forfeited Subject To Any Violation Of Rules</strong></h3><p>__________________________________________________________________________________________</p><pre class=\\\"ql-syntax\\\" spellcheck=\\\"false\\\"><TEXT-TAG style=\\\"font-size:0.7em;\\\">Term And Condition:\\n\\n-Register Name Need To Match Bank Account Full Name\\n-Register More Than 1 ID Cannot Calim & Withdraw\\n-Change Bank Account Upon Withdraw Is Not Allowed </TEXT-TAG>\\n</pre><p><br></p>\"}",
+        "displayAmount": "1",
+        "displayGroup": "<img src=\"https://static.wixstatic.com/media/a22996_f6b65ae2d29b45ada5792fb3c74fdae2~mv2.png\" style=\"height:80px;display:inline;\">",
+        "displayOrder": "32",
+        "image": null,
+        "angpaoImage": "https://static.gwvkyk.com/media/744a7c9632b763f628d05.gif",
+        "updata": null,
+        "transactionId": null,
+        "transactionCash": null,
+        "claimDateTime": null,
+        "sysnote": null,
+        "message": "No qualifying deposit found"
+      },
+      {
+        "id": "19512",
+        "name": "DAILT 1ST DEPOSIT",
+        "bonus": "18.00",
+        "bonusFixed": "0.00",
+        "bonusRandom": null,
+        "claimCondition": "DEPOSIT",
+        "claimConfig": "{\"displayDescriptionOnly\":\"1\"}",
+        "maxRound": "1",
+        "reset": "DAILY",
+        "initialFreeLimit": "0",
+        "depositFreeLimit": "0",
+        "minTopup": "10.00",
+        "maxTopup": null,
+        "minRound": "0",
+        "rollover": "1.00",
+        "description": "{\"Description\":\"\",\"DescQuillEditor\":{\"ops\":[{\"attributes\":{\"color\":\"yellow\",\"bold\":true},\"insert\":\"Daily First Deposit Bonus 18%\"},{\"attributes\":{\"header\":2},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#92d050\",\"bold\":true},\"insert\":\"Min Deopsit 10$\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#92d050\",\"bold\":true},\"insert\":\"Turnover X4\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#92d050\",\"bold\":true},\"insert\":\"Claim Limit\uff1a1 Day 1 Time\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"\\n\"},{\"attributes\":{\"bold\":true},\"insert\":\"Credit Must Below  \"},{\"attributes\":{\"color\":\"red\",\"bold\":true},\"insert\":\"$0.10\u00a0\"},{\"attributes\":{\"bold\":true},\"insert\":\"To Claim\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"Promotion \"},{\"attributes\":{\"color\":\"red\",\"bold\":true},\"insert\":\"Do Not\"},{\"insert\":\" Mix With Other Bonus\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"bold\":true},\"insert\":\"For \"},{\"attributes\":{\"color\":\"red\",\"bold\":true},\"insert\":\"All Slot Game\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"Bonus Will Be Reset Everyday On\"},{\"attributes\":{\"color\":\"red\",\"bold\":true},\"insert\":\" 00:00am\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"Not Allowed \"},{\"attributes\":{\"color\":\"red\"},\"insert\":\"Save Free , Buy Free & Save Red Envelope\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#00b0f0\",\"bold\":true},\"insert\":\"All Credit Will Be Forfeited Subject To Any Violation Of Rules\"},{\"attributes\":{\"header\":3},\"insert\":\"\\n\"},{\"insert\":\"__________________________________________________________________________________________\"},{\"attributes\":{\"header\":3},\"insert\":\"\\n\"},{\"insert\":\"<TEXT-TAG style=\\\"font-size:0.7em;\\\">Term And Condition:\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\\n\"},{\"insert\":\"-Register Name Need To Match Bank Account Full Name\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\"},{\"insert\":\"-Register More Than 1 ID Cannot Calim & Withdraw\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\"},{\"insert\":\"-Change Bank Account Upon Withdraw Is Not Allowed </TEXT-TAG>\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\"}]},\"DescQuillHTML\":\"<h2><strong style=\\\"color: yellow;\\\">Daily First Deposit Bonus 18%</strong></h2><ul><li><strong style=\\\"color: rgb(146, 208, 80);\\\">Min Deopsit 10$</strong></li><li><strong style=\\\"color: rgb(146, 208, 80);\\\">Turnover X4</strong></li><li><strong style=\\\"color: rgb(146, 208, 80);\\\">Claim Limit\uff1a1 Day 1 Time</strong></li></ul><p><br></p><ul><li><strong>Credit Must Below  </strong><strong style=\\\"color: red;\\\">$0.10&nbsp;</strong><strong>To Claim</strong></li><li>Promotion <strong style=\\\"color: red;\\\">Do Not</strong> Mix With Other Bonus</li><li><strong>For </strong><strong style=\\\"color: red;\\\">All Slot Game</strong></li><li>Bonus Will Be Reset Everyday On<strong style=\\\"color: red;\\\"> 00:00am</strong></li><li>Not Allowed <span style=\\\"color: red;\\\">Save Free , Buy Free & Save Red Envelope</span></li></ul><h3><strong style=\\\"color: rgb(0, 176, 240);\\\">All Credit Will Be Forfeited Subject To Any Violation Of Rules</strong></h3><h3>__________________________________________________________________________________________</h3><pre class=\\\"ql-syntax\\\" spellcheck=\\\"false\\\"><TEXT-TAG style=\\\"font-size:0.7em;\\\">Term And Condition:\\n\\n-Register Name Need To Match Bank Account Full Name\\n-Register More Than 1 ID Cannot Calim & Withdraw\\n-Change Bank Account Upon Withdraw Is Not Allowed </TEXT-TAG>\\n</pre>\"}",
+        "displayAmount": "1",
+        "displayGroup": "<img src=\"https://static.wixstatic.com/media/a22996_adfc46b54ff643fd861249a2c234aceb~mv2.png\" style=\"height:80px;display:inline;\">",
+        "displayOrder": "41",
+        "image": null,
+        "angpaoImage": "https://static.gwvkyk.com/media/d6e613a632b763fe39288.gif",
+        "updata": null,
+        "transactionId": null,
+        "transactionCash": null,
+        "claimDateTime": null,
+        "sysnote": null,
+        "message": "No qualifying deposit found"
+      },
+      {
+        "id": "19509",
+        "name": "DAILY REBATE",
+        "bonus": "5.00",
+        "bonusFixed": "0.00",
+        "bonusRandom": null,
+        "claimCondition": "CUSTOM",
+        "claimConfig": "{\"customBonus\":\"rebatedays\",\"lose\":10,\"days\":1,\"maxWithdrawTimeDeposit\":1,\"displayDescriptionOnly\":\"1\"}",
+        "maxRound": "1",
+        "reset": "DAILY",
+        "initialFreeLimit": "0",
+        "depositFreeLimit": "0",
+        "minTopup": null,
+        "maxTopup": null,
+        "minRound": "0",
+        "rollover": "3.00",
+        "description": "{\"Description\":\"\",\"DescQuillEditor\":{\"ops\":[{\"attributes\":{\"color\":\"yellow\",\"bold\":true},\"insert\":\"Daily Rebate 5%\"},{\"attributes\":{\"header\":2},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#92d050\",\"bold\":true},\"insert\":\"Min Deposit AUD10\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#92d050\",\"bold\":true},\"insert\":\"Limited To 1 Calim Per Day\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"\\n\"},{\"attributes\":{\"bold\":true},\"insert\":\"Credit Must Below \"},{\"attributes\":{\"color\":\"red\",\"bold\":true},\"insert\":\"$0.10\u00a0\"},{\"attributes\":{\"bold\":true},\"insert\":\"To Claim\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"Promotion \"},{\"attributes\":{\"color\":\"red\",\"bold\":true},\"insert\":\"Do Not\"},{\"insert\":\" Mix With Other Bonus\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"bold\":true},\"insert\":\"For \"},{\"attributes\":{\"color\":\"red\",\"bold\":true},\"insert\":\"All Slot Game\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"Bonus Will Be Reset Everyday On\"},{\"attributes\":{\"color\":\"red\",\"bold\":true},\"insert\":\" 00:00am\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"Not Allowed \"},{\"attributes\":{\"color\":\"red\"},\"insert\":\"Save Free , Buy Free & Save Red Envelope\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#00b0f0\",\"bold\":true},\"insert\":\"All Credit Will Be Forfeited Subject To Any Violation Of Rules\"},{\"attributes\":{\"header\":3},\"insert\":\"\\n\"},{\"insert\":\"__________________________________________________________________________________________\"},{\"attributes\":{\"header\":3},\"insert\":\"\\n\"},{\"insert\":\"<TEXT-TAG style=\\\"font-size:0.7em;\\\">Term And Condition:\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\\n\"},{\"insert\":\"-Register Name Need To Match Bank Account Full Name\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\"},{\"insert\":\"-Register More Than 1 ID Cannot Calim & Withdraw\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\"},{\"insert\":\"-Change Bank Account Upon Withdraw Is Not Allowed </TEXT-TAG>\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\"},{\"insert\":\"\\n\"}]},\"DescQuillHTML\":\"<h2><strong style=\\\"color: yellow;\\\">Daily Rebate 5%</strong></h2><ul><li><strong style=\\\"color: rgb(146, 208, 80);\\\">Min Deposit AUD10</strong></li><li><strong style=\\\"color: rgb(146, 208, 80);\\\">Limited To 1 Calim Per Day</strong></li></ul><p><br></p><ul><li><strong>Credit Must Below </strong><strong style=\\\"color: red;\\\">$0.10&nbsp;</strong><strong>To Claim</strong></li><li>Promotion <strong style=\\\"color: red;\\\">Do Not</strong> Mix With Other Bonus</li><li><strong>For </strong><strong style=\\\"color: red;\\\">All Slot Game</strong></li><li>Bonus Will Be Reset Everyday On<strong style=\\\"color: red;\\\"> 00:00am</strong></li><li>Not Allowed <span style=\\\"color: red;\\\">Save Free , Buy Free & Save Red Envelope</span></li></ul><h3><strong style=\\\"color: rgb(0, 176, 240);\\\">All Credit Will Be Forfeited Subject To Any Violation Of Rules</strong></h3><h3>__________________________________________________________________________________________</h3><pre class=\\\"ql-syntax\\\" spellcheck=\\\"false\\\"><TEXT-TAG style=\\\"font-size:0.7em;\\\">Term And Condition:\\n\\n-Register Name Need To Match Bank Account Full Name\\n-Register More Than 1 ID Cannot Calim & Withdraw\\n-Change Bank Account Upon Withdraw Is Not Allowed </TEXT-TAG>\\n</pre><p><br></p>\"}",
+        "displayAmount": "1",
+        "displayGroup": "<img src=\"https://static.wixstatic.com/media/a22996_adfc46b54ff643fd861249a2c234aceb~mv2.png\" style=\"height:80px;display:inline;\">",
+        "displayOrder": "45",
+        "image": null,
+        "angpaoImage": "https://static.gwvkyk.com/media/479d4fb632b7666e2de6f.gif",
+        "updata": null,
+        "transactionId": null,
+        "transactionCash": null,
+        "claimDateTime": null,
+        "sysnote": null,
+        "message": "Invalid configuration or user has no deposits"
+      },
+      {
+        "id": "19513",
+        "name": "UNLIMITED",
+        "bonus": "10.00",
+        "bonusFixed": "0.00",
+        "bonusRandom": null,
+        "claimCondition": "DEPOSIT",
+        "claimConfig": "{\"displayDescriptionOnly\":\"1\"}",
+        "maxRound": "0",
+        "reset": "DAILY",
+        "initialFreeLimit": "0",
+        "depositFreeLimit": "0",
+        "minTopup": "10.00",
+        "maxTopup": null,
+        "minRound": "0",
+        "rollover": "1.00",
+        "description": "{\"Description\":\"\",\"DescQuillEditor\":{\"ops\":[{\"attributes\":{\"color\":\"yellow\",\"bold\":true},\"insert\":\"Unlimited Bonus 10% For Everyday\"},{\"attributes\":{\"header\":2},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#92d050\",\"bold\":true},\"insert\":\"Min Deposit AUD10\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#92d050\",\"bold\":true},\"insert\":\"Turnover X4\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"<TEXT-TAG style=\\\"font-size:0.7em;\\\">Example Deposit $30 Free 6 = 36 X3 =$108</TEXT-TAG>\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#92d050\",\"bold\":true},\"insert\":\"Unlimited 15% For Everytime Deposit\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"\\n\"},{\"attributes\":{\"bold\":true},\"insert\":\"Credit Must Below  \"},{\"attributes\":{\"color\":\"red\",\"bold\":true},\"insert\":\"$0.10\u00a0\"},{\"attributes\":{\"bold\":true},\"insert\":\"To Claim\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"Promotion \"},{\"attributes\":{\"color\":\"red\",\"bold\":true},\"insert\":\"Do Not\"},{\"insert\":\" Mix With Other Bonus\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"bold\":true},\"insert\":\"For \"},{\"attributes\":{\"color\":\"red\",\"bold\":true},\"insert\":\"All Slot Game\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"bold\":true},\"insert\":\"Not Allowed \"},{\"attributes\":{\"color\":\"red\",\"bold\":true},\"insert\":\"Save Free , Buy Free & Save Red Envelope\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#00b0f0\",\"bold\":true},\"insert\":\"All Credit Will Be Forfeited Subject To Any Violation Of Rules\"},{\"attributes\":{\"header\":3},\"insert\":\"\\n\"},{\"insert\":\"__________________________________________________________________________________________\"},{\"attributes\":{\"header\":3},\"insert\":\"\\n\"},{\"insert\":\"<TEXT-TAG style=\\\"font-size:0.7em;\\\">Term And Condition:\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\\n\"},{\"insert\":\"-Register Name Need To Match Bank Account Full Name\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\"},{\"insert\":\"-Register More Than 1 ID Cannot Calim & Withdraw\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\"},{\"insert\":\"-Change Bank Account Upon Withdraw Is Not Allowed </TEXT-TAG>\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\"}]},\"DescQuillHTML\":\"<h2><strong style=\\\"color: yellow;\\\">Unlimited Bonus 10% For Everyday</strong></h2><ul><li><strong style=\\\"color: rgb(146, 208, 80);\\\">Min Deposit AUD10</strong></li><li><strong style=\\\"color: rgb(146, 208, 80);\\\">Turnover X4</strong></li></ul><pre class=\\\"ql-syntax\\\" spellcheck=\\\"false\\\"><TEXT-TAG style=\\\"font-size:0.7em;\\\">Example Deposit $30 Free 6 = 36 X3 =$108</TEXT-TAG>\\n</pre><ul><li><strong style=\\\"color: rgb(146, 208, 80);\\\">Unlimited 15% For Everytime Deposit</strong></li></ul><p><br></p><ul><li><strong>Credit Must Below  </strong><strong style=\\\"color: red;\\\">$0.10&nbsp;</strong><strong>To Claim</strong></li><li>Promotion <strong style=\\\"color: red;\\\">Do Not</strong> Mix With Other Bonus</li><li><strong>For </strong><strong style=\\\"color: red;\\\">All Slot Game</strong></li><li><strong>Not Allowed </strong><strong style=\\\"color: red;\\\">Save Free , Buy Free & Save Red Envelope</strong></li></ul><h3><strong style=\\\"color: rgb(0, 176, 240);\\\">All Credit Will Be Forfeited Subject To Any Violation Of Rules</strong></h3><h3>__________________________________________________________________________________________</h3><pre class=\\\"ql-syntax\\\" spellcheck=\\\"false\\\"><TEXT-TAG style=\\\"font-size:0.7em;\\\">Term And Condition:\\n\\n-Register Name Need To Match Bank Account Full Name\\n-Register More Than 1 ID Cannot Calim & Withdraw\\n-Change Bank Account Upon Withdraw Is Not Allowed </TEXT-TAG>\\n</pre>\"}",
+        "displayAmount": "1",
+        "displayGroup": "<img src=\"https://static.wixstatic.com/media/a22996_adfc46b54ff643fd861249a2c234aceb~mv2.png\" style=\"height:80px;display:inline;\">",
+        "displayOrder": "46",
+        "image": null,
+        "angpaoImage": "https://static.gwvkyk.com/media/55697d0632b761a36a9c9.gif",
+        "updata": null,
+        "transactionId": null,
+        "transactionCash": null,
+        "claimDateTime": null,
+        "sysnote": null,
+        "message": "No qualifying deposit found"
+      },
+      {
+        "id": "19518",
+        "name": "WEEKLY 500$",
+        "bonus": "0.00",
+        "bonusFixed": "18.88",
+        "bonusRandom": null,
+        "claimCondition": "FREE",
+        "claimConfig": "{\"depositTargetAmount\":500,\"depositTargetMaxAmount\":999,\"creditLessThan\":1,\"displayDescriptionOnly\":\"1\"}",
+        "maxRound": "1",
+        "reset": "WEEKLY",
+        "initialFreeLimit": "0",
+        "depositFreeLimit": "0",
+        "minTopup": null,
+        "maxTopup": null,
+        "minRound": "0",
+        "rollover": "94.40",
+        "description": "{\"Description\":\"\",\"DescQuillEditor\":{\"ops\":[{\"attributes\":{\"color\":\"yellow\",\"bold\":true},\"insert\":\"Weekly Deposit AUD500\"},{\"attributes\":{\"header\":2},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#92d050\",\"bold\":true},\"insert\":\"Min Deposit Weekly Total $500\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#92d050\",\"bold\":true},\"insert\":\"Bonus $18.88\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#92d050\",\"bold\":true},\"insert\":\"Max Withdraw $288\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"\\n\"},{\"attributes\":{\"bold\":true},\"insert\":\"Credit Must Below  \"},{\"attributes\":{\"color\":\"red\",\"bold\":true},\"insert\":\"$0.10\u00a0\"},{\"attributes\":{\"bold\":true},\"insert\":\"To Claim\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"Promotion \"},{\"attributes\":{\"color\":\"red\",\"bold\":true},\"insert\":\"Do Not\"},{\"insert\":\" Mix With Other Bonus\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"bold\":true},\"insert\":\"For \"},{\"attributes\":{\"color\":\"red\",\"bold\":true},\"insert\":\"All Slot Game\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"Bonus Will Be Reset Every Monday On\"},{\"attributes\":{\"color\":\"red\",\"bold\":true},\"insert\":\" 00:00am\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"Not Allowed \"},{\"attributes\":{\"color\":\"red\"},\"insert\":\"Save Free , Buy Free & Save Red Envelope\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#00b0f0\",\"bold\":true},\"insert\":\"All Credit Will Be Forfeited Subject To Any Violation Of Rules\"},{\"attributes\":{\"header\":3},\"insert\":\"\\n\"},{\"insert\":\"__________________________________________________________________________________________\\n<TEXT-TAG style=\\\"font-size:0.7em;\\\">Term And Condition:\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\\n\"},{\"insert\":\"-Register Name Need To Match Bank Account Full Name\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\"},{\"insert\":\"-Register More Than 1 ID Cannot Calim & Withdraw\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\"},{\"insert\":\"-Change Bank Account Upon Withdraw Is Not Allowed </TEXT-TAG>\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\\n\"}]},\"DescQuillHTML\":\"<h2><strong style=\\\"color: yellow;\\\">Weekly Deposit AUD500</strong></h2><ul><li><strong style=\\\"color: rgb(146, 208, 80);\\\">Min Deposit Weekly Total $500</strong></li><li><strong style=\\\"color: rgb(146, 208, 80);\\\">Bonus $18.88</strong></li><li><strong style=\\\"color: rgb(146, 208, 80);\\\">Max Withdraw $288</strong></li></ul><p><br></p><ul><li><strong>Credit Must Below  </strong><strong style=\\\"color: red;\\\">$0.10&nbsp;</strong><strong>To Claim</strong></li><li>Promotion <strong style=\\\"color: red;\\\">Do Not</strong> Mix With Other Bonus</li><li><strong>For </strong><strong style=\\\"color: red;\\\">All Slot Game</strong></li><li>Bonus Will Be Reset Every Monday On<strong style=\\\"color: red;\\\"> 00:00am</strong></li><li>Not Allowed <span style=\\\"color: red;\\\">Save Free , Buy Free & Save Red Envelope</span></li></ul><h3><strong style=\\\"color: rgb(0, 176, 240);\\\">All Credit Will Be Forfeited Subject To Any Violation Of Rules</strong></h3><p>__________________________________________________________________________________________</p><pre class=\\\"ql-syntax\\\" spellcheck=\\\"false\\\"><TEXT-TAG style=\\\"font-size:0.7em;\\\">Term And Condition:\\n\\n-Register Name Need To Match Bank Account Full Name\\n-Register More Than 1 ID Cannot Calim & Withdraw\\n-Change Bank Account Upon Withdraw Is Not Allowed </TEXT-TAG>\\n\\n</pre>\"}",
+        "displayAmount": "1",
+        "displayGroup": "<img src=\"https://static.wixstatic.com/media/a22996_d808ac47da57462e94e9e7448273f50e~mv2.png\" style=\"height:80px;display:inline;\">",
+        "displayOrder": "61",
+        "image": null,
+        "angpaoImage": "https://static.gwvkyk.com/media/ac94e73cc2b76b1f07da0.gif",
+        "updata": null,
+        "transactionId": null,
+        "transactionCash": null,
+        "claimDateTime": null,
+        "sysnote": null,
+        "message": "Need 500.00 in deposits"
+      },
+      {
+        "id": "19519",
+        "name": "WEEKLY 1000$",
+        "bonus": "0.00",
+        "bonusFixed": "28.88",
+        "bonusRandom": null,
+        "claimCondition": "FREE",
+        "claimConfig": "{\"depositTargetAmount\":1000,\"depositTargetMaxAmount\":1999,\"creditLessThan\":1,\"displayDescriptionOnly\":\"1\"}",
+        "maxRound": "1",
+        "reset": "WEEKLY",
+        "initialFreeLimit": "0",
+        "depositFreeLimit": "0",
+        "minTopup": null,
+        "maxTopup": null,
+        "minRound": "0",
+        "rollover": "344.40",
+        "description": "{\"Description\":\"\",\"DescQuillEditor\":{\"ops\":[{\"attributes\":{\"color\":\"yellow\",\"bold\":true},\"insert\":\"Weekly Deposit AUD1000\"},{\"attributes\":{\"header\":2},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#92d050\",\"bold\":true},\"insert\":\"Min Deposit Weekly Total $1000\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#92d050\",\"bold\":true},\"insert\":\"Bonus $28.88\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#92d050\",\"bold\":true},\"insert\":\"Max Withdraw $388\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"\\n\"},{\"attributes\":{\"bold\":true},\"insert\":\"Credit Must Below  \"},{\"attributes\":{\"color\":\"red\",\"bold\":true},\"insert\":\"$0.10\u00a0\"},{\"attributes\":{\"bold\":true},\"insert\":\"To Claim\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"Promotion \"},{\"attributes\":{\"color\":\"red\",\"bold\":true},\"insert\":\"Do Not\"},{\"insert\":\" Mix With Other Bonus\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"bold\":true},\"insert\":\"For \"},{\"attributes\":{\"color\":\"red\",\"bold\":true},\"insert\":\"All Slot Game\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"Bonus Will Be Reset Every Monday On\"},{\"attributes\":{\"color\":\"red\",\"bold\":true},\"insert\":\" 00:00am\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"Not Allowed \"},{\"attributes\":{\"color\":\"red\"},\"insert\":\"Save Free , Buy Free & Save Red Envelope\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#00b0f0\",\"bold\":true},\"insert\":\"All Credit Will Be Forfeited Subject To Any Violation Of Rules\"},{\"attributes\":{\"header\":3},\"insert\":\"\\n\"},{\"insert\":\"__________________________________________________________________________________________\\n<TEXT-TAG style=\\\"font-size:0.7em;\\\">Term And Condition:\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\\n\"},{\"insert\":\"-Register Name Need To Match Bank Account Full Name\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\"},{\"insert\":\"-Register More Than 1 ID Cannot Calim & Withdraw\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\"},{\"insert\":\"-Change Bank Account Upon Withdraw Is Not Allowed </TEXT-TAG>\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\\n\"},{\"insert\":\"\\n\"}]},\"DescQuillHTML\":\"<h2><strong style=\\\"color: yellow;\\\">Weekly Deposit AUD1000</strong></h2><ul><li><strong style=\\\"color: rgb(146, 208, 80);\\\">Min Deposit Weekly Total $1000</strong></li><li><strong style=\\\"color: rgb(146, 208, 80);\\\">Bonus $28.88</strong></li><li><strong style=\\\"color: rgb(146, 208, 80);\\\">Max Withdraw $388</strong></li></ul><p><br></p><ul><li><strong>Credit Must Below  </strong><strong style=\\\"color: red;\\\">$0.10&nbsp;</strong><strong>To Claim</strong></li><li>Promotion <strong style=\\\"color: red;\\\">Do Not</strong> Mix With Other Bonus</li><li><strong>For </strong><strong style=\\\"color: red;\\\">All Slot Game</strong></li><li>Bonus Will Be Reset Every Monday On<strong style=\\\"color: red;\\\"> 00:00am</strong></li><li>Not Allowed <span style=\\\"color: red;\\\">Save Free , Buy Free & Save Red Envelope</span></li></ul><h3><strong style=\\\"color: rgb(0, 176, 240);\\\">All Credit Will Be Forfeited Subject To Any Violation Of Rules</strong></h3><p>__________________________________________________________________________________________</p><pre class=\\\"ql-syntax\\\" spellcheck=\\\"false\\\"><TEXT-TAG style=\\\"font-size:0.7em;\\\">Term And Condition:\\n\\n-Register Name Need To Match Bank Account Full Name\\n-Register More Than 1 ID Cannot Calim & Withdraw\\n-Change Bank Account Upon Withdraw Is Not Allowed </TEXT-TAG>\\n\\n</pre><p><br></p>\"}",
+        "displayAmount": "1",
+        "displayGroup": "<img src=\"https://static.wixstatic.com/media/a22996_d808ac47da57462e94e9e7448273f50e~mv2.png\" style=\"height:80px;display:inline;\">",
+        "displayOrder": "62",
+        "image": null,
+        "angpaoImage": "https://static.gwvkyk.com/media/2c1fb55cc2b76d9d3df88.gif",
+        "updata": null,
+        "transactionId": null,
+        "transactionCash": null,
+        "claimDateTime": null,
+        "sysnote": null,
+        "message": "Need 1,000.00 in deposits"
+      },
+      {
+        "id": "19520",
+        "name": "WEEKLY 2000$",
+        "bonus": "0.00",
+        "bonusFixed": "38.88",
+        "bonusRandom": null,
+        "claimCondition": "FREE",
+        "claimConfig": "{\"depositTargetAmount\":2000,\"depositTargetMaxAmount\":3999,\"creditLessThan\":1,\"displayDescriptionOnly\":\"1\"}",
+        "maxRound": "1",
+        "reset": "WEEKLY",
+        "initialFreeLimit": "0",
+        "depositFreeLimit": "0",
+        "minTopup": null,
+        "maxTopup": null,
+        "minRound": "0",
+        "rollover": "444.40",
+        "description": "{\"Description\":\"\",\"DescQuillEditor\":{\"ops\":[{\"attributes\":{\"color\":\"yellow\",\"bold\":true},\"insert\":\"Weekly Deposit AUD2000\"},{\"attributes\":{\"header\":2},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#92d050\",\"bold\":true},\"insert\":\"Min Deposit Weekly Total $2000\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#92d050\",\"bold\":true},\"insert\":\"Bonus $38.88\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#92d050\",\"bold\":true},\"insert\":\"Max Withdraw $488\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"\\n\"},{\"attributes\":{\"bold\":true},\"insert\":\"Credit Must Below  \"},{\"attributes\":{\"color\":\"red\",\"bold\":true},\"insert\":\"$0.10\u00a0\"},{\"attributes\":{\"bold\":true},\"insert\":\"To Claim\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"Promotion \"},{\"attributes\":{\"color\":\"red\",\"bold\":true},\"insert\":\"Do Not\"},{\"insert\":\" Mix With Other Bonus\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"bold\":true},\"insert\":\"For \"},{\"attributes\":{\"color\":\"red\",\"bold\":true},\"insert\":\"All Slot Game\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"Bonus Will Be Reset Every Monday On\"},{\"attributes\":{\"color\":\"red\",\"bold\":true},\"insert\":\" 00:00am\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"Not Allowed \"},{\"attributes\":{\"color\":\"red\"},\"insert\":\"Save Free , Buy Free & Save Red Envelope\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#00b0f0\",\"bold\":true},\"insert\":\"All Credit Will Be Forfeited Subject To Any Violation Of Rules\"},{\"attributes\":{\"header\":3},\"insert\":\"\\n\"},{\"insert\":\"__________________________________________________________________________________________\\n<TEXT-TAG style=\\\"font-size:0.7em;\\\">Term And Condition:\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\\n\"},{\"insert\":\"-Register Name Need To Match Bank Account Full Name\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\"},{\"insert\":\"-Register More Than 1 ID Cannot Calim & Withdraw\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\"},{\"insert\":\"-Change Bank Account Upon Withdraw Is Not Allowed </TEXT-TAG>\"},{\"attributes\":{\"code-block\":true},\"insert\":\"\\n\\n\"},{\"insert\":\"\\n\"}]},\"DescQuillHTML\":\"<h2><strong style=\\\"color: yellow;\\\">Weekly Deposit AUD2000</strong></h2><ul><li><strong style=\\\"color: rgb(146, 208, 80);\\\">Min Deposit Weekly Total $2000</strong></li><li><strong style=\\\"color: rgb(146, 208, 80);\\\">Bonus $38.88</strong></li><li><strong style=\\\"color: rgb(146, 208, 80);\\\">Max Withdraw $488</strong></li></ul><p><br></p><ul><li><strong>Credit Must Below  </strong><strong style=\\\"color: red;\\\">$0.10&nbsp;</strong><strong>To Claim</strong></li><li>Promotion <strong style=\\\"color: red;\\\">Do Not</strong> Mix With Other Bonus</li><li><strong>For </strong><strong style=\\\"color: red;\\\">All Slot Game</strong></li><li>Bonus Will Be Reset Every Monday On<strong style=\\\"color: red;\\\"> 00:00am</strong></li><li>Not Allowed <span style=\\\"color: red;\\\">Save Free , Buy Free & Save Red Envelope</span></li></ul><h3><strong style=\\\"color: rgb(0, 176, 240);\\\">All Credit Will Be Forfeited Subject To Any Violation Of Rules</strong></h3><p>__________________________________________________________________________________________</p><pre class=\\\"ql-syntax\\\" spellcheck=\\\"false\\\"><TEXT-TAG style=\\\"font-size:0.7em;\\\">Term And Condition:\\n\\n-Register Name Need To Match Bank Account Full Name\\n-Register More Than 1 ID Cannot Calim & Withdraw\\n-Change Bank Account Upon Withdraw Is Not Allowed </TEXT-TAG>\\n\\n</pre><p><br></p>\"}",
+        "displayAmount": "1",
+        "displayGroup": "<img src=\"https://static.wixstatic.com/media/a22996_d808ac47da57462e94e9e7448273f50e~mv2.png\" style=\"height:80px;display:inline;\">",
+        "displayOrder": "63",
+        "image": null,
+        "angpaoImage": "https://static.gwvkyk.com/media/29404d5cc2b76ad5c9c2d.gif",
+        "updata": null,
+        "transactionId": null,
+        "transactionCash": null,
+        "claimDateTime": null,
+        "sysnote": null,
+        "message": "Need 2,000.00 in deposits"
+      }
+    ],
+    "referLink": "https://skyspin96.co/RF92A3A79",
+    "encryptId": "QrO7Ji8rIS%2F4gJ%2FP49VO1Q%3D%3D",
+    "depCount": null,
+    "lifetimeDeposit": 0,
+    "rollover": {
+      "total": 0,
+      "current": 0,
+      "broll": 0,
+      "droll": 0,
+      "withdrawable": true,
+      "rolls": []
+    },
+    "merchant": {
+      "id": "1360",
+      "name": "SKYSPIN96",
+      "currency": "AUD",
+      "commission": "[{\"level\":\"1\",\"type\":\"TRANSACTION\",\"key1\":\"ALL\",\"rate\":\"10\"}]"
+    },
+    "banks": [
+      {
+        "code": "NAB",
+        "name": "National Australia Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "CBA",
+        "name": "Commonwealth Bank of Australia",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "WBC",
+        "name": "Westpac Banking Corporation",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "ANZ",
+        "name": "Australia & New Zealand Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "PAYID",
+        "name": "PayID",
+        "currency": "AUD",
+        "displayOrder": "1"
+      },
+      {
+        "code": "BSB",
+        "name": "UP Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "STG",
+        "name": "St George Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "MACAU",
+        "name": "Macquarie Bank Group",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "BOQAU",
+        "name": "Bank of Queensland",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "AMPBL",
+        "name": "AMP Bank Limited",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "BABAU",
+        "name": "Bendigo and Adelaide Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "SBAU",
+        "name": "Suncorp Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "BWAU",
+        "name": "Bankwest",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "UBAU",
+        "name": "Ubank Limited",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "DBAU",
+        "name": "Defence bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "ING",
+        "name": "ING Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "BYAU",
+        "name": "Beyond Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "BMAU",
+        "name": "Bank of Melbourne",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "PIPN",
+        "name": "PayID (Phone Number)",
+        "currency": "AUD",
+        "displayOrder": "3"
+      },
+      {
+        "code": "PIG",
+        "name": "PayID (Email)",
+        "currency": "AUD",
+        "displayOrder": "2"
+      },
+      {
+        "code": "CITIAU",
+        "name": "Citi Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "PABN",
+        "name": "PayID ABN (Business Number)",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "NICU",
+        "name": "Northern Inland Credit Union",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "MSBAU",
+        "name": "MyState Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "GBAU",
+        "name": "Greater Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "VMAU",
+        "name": "Virgin Money",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "NPAU",
+        "name": "Newcastle Permanent ",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "BAAU",
+        "name": "Bank Australia",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "QBAU",
+        "name": "Qudos Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "RBAU",
+        "name": "Rabobank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "BHBAU",
+        "name": "Back Hume Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "CBAB",
+        "name": "CBA Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "MEBAU",
+        "name": "MEBANK",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "BBAU",
+        "name": "Bano Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "GSBAU",
+        "name": "Greater Southern BANK",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "CUBAU",
+        "name": "Credit Union Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "BCUAU",
+        "name": "BCU Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "REVOLUTAU",
+        "name": "Revolut Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "CCAU",
+        "name": "Credit Card",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "PCCU",
+        "name": "People Choice Credit Union",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "HSBCAU",
+        "name": "HSBC Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "BSAAU",
+        "name": "Bank of South Australia",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "WBAU",
+        "name": "Wise Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "ANZP",
+        "name": "Bank ANZ Plus",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "HBAU",
+        "name": "Hume Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "CBAU",
+        "name": "Crypto Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "PACN",
+        "name": "PayID ACN (Business Number)",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "IMBAU",
+        "name": "Independent Mortgage Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "SAAU",
+        "name": "SA Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "RABAU",
+        "name": "Regional Australia Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "HERITAGE",
+        "name": "Heritage Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "BFAU",
+        "name": "Bank First",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "IMB",
+        "name": "IMB Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "INGAU",
+        "name": "ING BANK",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "MEGOAU",
+        "name": "MEGO",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "AWBAU",
+        "name": "Auswide Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "SYDNEYAU",
+        "name": "BANK OF SYDNEY",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "GREATAU",
+        "name": "Great Southern Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "BUSAU",
+        "name": "Bank of US",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "QSCBAU",
+        "name": "QUEENSLAND COUNTRY BANK",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "QSCCUAU",
+        "name": "QUEENSLAND COUNTRY CREDIT UNION",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "PROSPAAU",
+        "name": "Prospa Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "PAYPALAU",
+        "name": "PayPal",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "BEEMITAU",
+        "name": "Beem It",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "SKRILLAU",
+        "name": "Skrill",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "PNAU",
+        "name": "P&N Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "BSBACCAU",
+        "name": "BSB & ACC",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "BAULTD",
+        "name": "Bank Australia Limited",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "TMBAULTD",
+        "name": "Teachers Mutual Bank Limited",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "HPCAULTD",
+        "name": "Heritage and People\u2019s Choice Limited",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "HSBCAULTD",
+        "name": "HSBC Bank Australia Limited",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "BOCAULTD",
+        "name": "Bank of China Limited",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "MUFGBAU",
+        "name": "MUFG Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "JPMCBAU",
+        "name": "J.P. Morgan Chase Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "BENDIGOAU",
+        "name": "Bendigo Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "UNITYAU",
+        "name": "Unity Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "ALIPAYAU",
+        "name": "Alipay",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "COASTLINEA",
+        "name": "Coastline Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "HORIZONAU",
+        "name": "Horizon Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "HAYAU",
+        "name": "Hay Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "PPLFSTBAU",
+        "name": "People First BANK",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "UNIAU",
+        "name": "UniBank",
+        "currency": "AUD",
+        "displayOrder": null
+      }
+    ],
+    "minWithdraw": 30,
+    "maxWithdraw": 10000,
+    "minDeposit": 10,
+    "changePassword": 0,
+    "newRegister": 0,
+    "newDeposit": 0,
+    "cacheData": {
+      "activeSite": [],
+      "creditZeroTime": "2026-06-12 12:17:51",
+      "cash_site_datetime": "2024-12-08 05:37:49",
+      "lastTxId": [
+        104628703
+      ],
+      "bonus_count": 1,
+      "bonus_total": 88
+    },
+    "wallet": [
+      {
+        "id": 0,
+        "name": "Balance",
+        "balance": 0
+      }
+    ],
+    "gameAccess": {
+      "allowedGame": [],
+      "allowedGameBonusAmount": 0,
+      "allowedGameBonusDT": "2024-01-01 00:00:00",
+      "notAllowedGame": [
+        "MEGA888H52"
+      ],
+      "slotGameOnly": 0
+    },
+    "time": [
+      0.01,
+      0.02,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "timebonus": {
+      "253233": 0,
+      "19878": 0.01,
+      "21136": 0,
+      "20419": 0,
+      "22530": 0,
+      "20061": 0,
+      "20062": 0,
+      "20063": 0,
+      "20064": 0,
+      "20065": 0,
+      "20066": 0,
+      "20067": 0,
+      "19510": 0,
+      "19511": 0,
+      "19512": 0,
+      "19509": 0,
+      "19513": 0,
+      "19518": 0,
+      "19519": 0,
+      "19520": 0
+    },
+    "riskLevel": -1,
+    "showUserTag": []
+  },
+  "timestamp": "2026-06-12T12:17:51+00:00"
+}

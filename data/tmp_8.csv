@@ -1,0 +1,11 @@
+url,mname,id,name,transactiontype,bonusfixed,amount,minwithdraw,maxwithdraw,rollover,balance,claimconfig,claimcondition,bonus,bonusrandom,reset,mintopup,maxtopup,referlink,perceived_value,is_new
+https://panda95au.com,Panda95 AU,160915,VIP Monthly Bonus,,8.00,8,50,16,50.00,,"{""maxWithdrawTimeAmount"":1,""userTag"":{""bonusFixed"":{""VIP"":{""Bronze"":88,""Silver"":188,""Gold"":288,""Platinum"":388,""Diamond"":888}}},""displayDescriptionOnly"":""1""}",FREE,0.00,,MONTHLY,,,,0.10459954188003007,0
+https://panda95au.com,Panda95 AU,104326,Weekly Commission,,1,1,0,899,5,,"{""customBonus"":""commissionweek"",""creditLessThan"":0.1,""displayDescriptionOnly"":""1"",""startDate"":""2025-11-04""}",CUSTOM,5.00,,WEEKLY,,,,11.132792374613937,0
+https://panda95au.com,Panda95 AU,0,Pau Pau Rescue Rebate,REBATE,,0.1,,500,,,,,,,,,,,5.085204373574358,0
+https://panda95au.com,Panda95 AU,0,Pau Pau Rescue Rebate,REBATE,,0.13,,500,,,,,,,,,,,7.075271594692468,0
+https://panda95au.com,Panda95 AU,0,Pau Pau Rescue Rebate,REBATE,,0.31,,500,,,,,,,,,,,21.232368559089778,0
+https://jaws68.com,JAWS68™ The Ultimate Sports & Pokies in Australia,799601,1X2 SOCCERS,,10.99,10.99,150,20,0.00,,"{""creditLessThan"":1,""walletId"":1,""changeGameId"":1,""displayDescriptionOnly"":""1"",""displayAngpaoText"":""1""}",FREE,0.00,,WEEKLY,,,,2.035522844239181,0
+https://jaws68.com,JAWS68™ The Ultimate Sports & Pokies in Australia,799599,SOCCER MANIAC BONUS,,5.99,5.99,100,10,0.00,,"{""creditLessThan"":1,""walletId"":1,""changeGameId"":1,""displayDescriptionOnly"":""1"",""displayAngpaoText"":""1""}",FREE,0.00,,WEEKLY,,,,1.1982955349478785,0
+https://jaws68.com,JAWS68™ The Ultimate Sports & Pokies in Australia,0,COMMISSION,COMMISSION,,0.25,,1000,,,,,,,,,,,17.961238907697417,0
+https://venus55.com,Venus55,0,Daily Rollover Rebate,REBATE,,0.12,0.6,3000,,,,,,,,,,,8.238702450784276,1
+https://venus55.com,Venus55,0,COMMISSION,COMMISSION,,0.99,4.95,,,,,,,,,,,,16.8432688698979,1

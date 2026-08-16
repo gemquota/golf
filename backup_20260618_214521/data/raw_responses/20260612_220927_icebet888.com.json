@@ -1,0 +1,868 @@
+{
+  "status": "SUCCESS",
+  "data": {
+    "id": "300908486",
+    "username": "300908A86",
+    "name": "DAYNE W KEEFE",
+    "mobile": "61423349819",
+    "mobileStatus": 1,
+    "code": "https://icebet888.com/P4XafE2RmxbL",
+    "token": "94e8f8da3479138b7f974c1c689b89bcc82d484f567e58b5f84a776005c0e4b7",
+    "bank": "{\"bank\":\"PAYID\",\"bankAccountName\":\"Dayne W Keefe\",\"bankAccountNumber\":\"15332565\",\"bankBSB\":\"067872\",\"payID\":\"0423349819\",\"bankLock\":1}",
+    "cash": 0,
+    "bonus": [
+      {
+        "id": "177068",
+        "name": "FREE ANGPOW BONUS",
+        "bonus": "0.00",
+        "bonusFixed": "0.00",
+        "bonusRandom": null,
+        "claimCondition": "CUSTOM",
+        "claimConfig": "{\"customBonus\":\"manual\",\"maxWithdrawTimeAmount\":1,\"showIfAmount\":1}",
+        "maxRound": "0",
+        "reset": "",
+        "initialFreeLimit": "0",
+        "depositFreeLimit": "0",
+        "minTopup": null,
+        "maxTopup": null,
+        "minRound": "0",
+        "rollover": "3.00",
+        "description": "{\"Description\":\"\",\"DescQuillEditor\":{\"ops\":[{\"insert\":\"\\n\"}]},\"DescQuillHTML\":\"\"}",
+        "displayAmount": "1",
+        "displayGroup": "Free Angpao Bonus | \u65b0\u4eba\u4f18\u60e0",
+        "displayOrder": "1",
+        "image": null,
+        "angpaoImage": null,
+        "updata": null,
+        "transactionId": null,
+        "transactionCash": null,
+        "claimDateTime": null,
+        "sysnote": null,
+        "message": "Manual promotion not configured"
+      },
+      {
+        "id": "138043",
+        "name": "Slot Welcome Bonus 50%",
+        "bonus": "50.00",
+        "bonusFixed": "0.00",
+        "bonusRandom": null,
+        "claimCondition": "DEPOSIT",
+        "claimConfig": "{\"maxWithdrawTimeDeposit\":10}",
+        "maxRound": "1",
+        "reset": "",
+        "initialFreeLimit": "0",
+        "depositFreeLimit": "0",
+        "minTopup": "20.00",
+        "maxTopup": "300.00",
+        "minRound": "0",
+        "rollover": "0.00",
+        "description": "{\"Description\":\"\",\"DescQuillEditor\":{\"ops\":[{\"insert\":\"\\nMIN DEPOSIT : \"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"$20\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"ONE MEMBER ONLY CAN \"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"CLAIM ONCE TIME\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"TURNOVER : \"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X3\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"MAX BONUS : \"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"$150\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"MAX WITHDRAW \"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X10 \"},{\"insert\":\"OF DEPOSIT\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"\\n\"},{\"attributes\":{\"underline\":true,\"italic\":true,\"color\":\"#0066cc\",\"bold\":true},\"insert\":\"Example\"},{\"insert\":\"\\n\"},{\"attributes\":{\"italic\":true,\"color\":\"#0066cc\",\"bold\":true},\"insert\":\"[$100 (Deposit) + $50 (BONUS)] X3(Winover) = $450 (Winover)\"},{\"insert\":\"\\n\\n\"},{\"attributes\":{\"underline\":true,\"italic\":true,\"color\":\"#0066cc\",\"bold\":true},\"insert\":\"Terms And Conditions\"},{\"insert\":\"\\n\"},{\"attributes\":{\"bold\":true},\"insert\":\"Available For All Slot Game\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X \"},{\"insert\":\"Live Game & Sport Game \"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X \"},{\"insert\":\"Buy & Save Free Game T&C \"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X \"},{\"insert\":\"Promotion\"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\" Cannot Combine\"},{\"insert\":\" With Other Promotion,Free Chips,Rebate & Commission\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X \"},{\"insert\":\"If Break Rules Credit WILL FORFEIT \"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"Choose Either Starter pack or welcome bonus , only one is able to claimed\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"\\n\"}]},\"DescQuillHTML\":\"<p><br></p><ul><li>MIN DEPOSIT : <span style=\\\"color: rgb(0, 102, 204);\\\">$20</span></li><li>ONE MEMBER ONLY CAN <span style=\\\"color: rgb(0, 102, 204);\\\">CLAIM ONCE TIME</span></li><li>TURNOVER : <span style=\\\"color: rgb(0, 102, 204);\\\">X3</span></li><li>MAX BONUS : <span style=\\\"color: rgb(0, 102, 204);\\\">$150</span></li><li>MAX WITHDRAW <span style=\\\"color: rgb(0, 102, 204);\\\">X10 </span>OF DEPOSIT</li></ul><p><br></p><p><strong style=\\\"color: rgb(0, 102, 204);\\\"><em><u>Example</u></em></strong></p><p><strong style=\\\"color: rgb(0, 102, 204);\\\"><em>[$100 (Deposit) + $50 (BONUS)] X3(Winover) = $450 (Winover)</em></strong></p><p><br></p><p><strong style=\\\"color: rgb(0, 102, 204);\\\"><em><u>Terms And Conditions</u></em></strong></p><ul><li><strong>Available For All Slot Game</strong></li><li><span style=\\\"color: rgb(0, 102, 204);\\\">X </span>Live Game & Sport Game <span style=\\\"color: rgb(0, 102, 204);\\\">X</span></li><li><span style=\\\"color: rgb(0, 102, 204);\\\">X </span>Buy & Save Free Game T&C <span style=\\\"color: rgb(0, 102, 204);\\\">X</span></li><li><span style=\\\"color: rgb(0, 102, 204);\\\">X </span>Promotion<span style=\\\"color: rgb(0, 102, 204);\\\"> Cannot Combine</span> With Other Promotion,Free Chips,Rebate & Commission</li><li><span style=\\\"color: rgb(0, 102, 204);\\\">X </span>If Break Rules Credit WILL FORFEIT <span style=\\\"color: rgb(0, 102, 204);\\\">X</span></li><li>Choose Either Starter pack or welcome bonus , only one is able to claimed</li></ul><p><br></p>\"}",
+        "displayAmount": "1",
+        "displayGroup": "Slot Bonus | \u8001\u864e\u673a",
+        "displayOrder": "11",
+        "image": null,
+        "angpaoImage": null,
+        "updata": null,
+        "transactionId": null,
+        "transactionCash": null,
+        "claimDateTime": null,
+        "sysnote": null,
+        "message": "No qualifying deposit found"
+      },
+      {
+        "id": "140439",
+        "name": "Daily Bonus 20%",
+        "bonus": "20.00",
+        "bonusFixed": "0.00",
+        "bonusRandom": null,
+        "claimCondition": "DEPOSIT",
+        "claimConfig": "{\"maxWithdrawTimeDeposit\":20}",
+        "maxRound": "1",
+        "reset": "DAILY",
+        "initialFreeLimit": "0",
+        "depositFreeLimit": "0",
+        "minTopup": "20.00",
+        "maxTopup": "1000.00",
+        "minRound": "0",
+        "rollover": "4.00",
+        "description": "{\"Description\":\"\",\"DescQuillEditor\":{\"ops\":[{\"insert\":\"Min Deposit: \"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"$20\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"Max Bonus : \"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"$188\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"Turnover : \"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X4\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"Max Withdraw : \"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"x20\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"Claim Limit : \"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"1time\"},{\"insert\":\"/day\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"\\n\"},{\"attributes\":{\"underline\":true,\"color\":\"#0066cc\",\"bold\":true},\"insert\":\"Terms And Conditions\"},{\"insert\":\"\\n\"},{\"attributes\":{\"bold\":true},\"insert\":\"Available For All Slot Game\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X \"},{\"insert\":\"Live Game & Sport Game \"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X \"},{\"insert\":\"Buy & Save Free Game T&C \"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X \"},{\"insert\":\"Promotion \"},{\"attributes\":{\"color\":\"#0066cc\",\"bold\":true},\"insert\":\"Cannot Combine\"},{\"attributes\":{\"color\":\"#f06666\"},\"insert\":\" \"},{\"insert\":\"With Other Promotion,Free Chips,Rebate & Commission\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X\"},{\"attributes\":{\"color\":\"#e60000\"},\"insert\":\" \"},{\"insert\":\"If Break Rules Credit WILL FORFEIT \"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"\\n\"}]},\"DescQuillHTML\":\"<ul><li>Min Deposit: <span style=\\\"color: rgb(0, 102, 204);\\\">$20</span></li><li>Max Bonus : <span style=\\\"color: rgb(0, 102, 204);\\\">$188</span></li><li>Turnover : <span style=\\\"color: rgb(0, 102, 204);\\\">X4</span></li><li>Max Withdraw : <span style=\\\"color: rgb(0, 102, 204);\\\">x20</span></li><li>Claim Limit : <span style=\\\"color: rgb(0, 102, 204);\\\">1time</span>/day</li></ul><p><br></p><p><strong style=\\\"color: rgb(0, 102, 204);\\\"><u>Terms And Conditions</u></strong></p><ul><li><strong>Available For All Slot Game</strong></li><li><span style=\\\"color: rgb(0, 102, 204);\\\">X </span>Live Game & Sport Game <span style=\\\"color: rgb(0, 102, 204);\\\">X</span></li><li><span style=\\\"color: rgb(0, 102, 204);\\\">X </span>Buy & Save Free Game T&C <span style=\\\"color: rgb(0, 102, 204);\\\">X</span></li><li><span style=\\\"color: rgb(0, 102, 204);\\\">X </span>Promotion <strong style=\\\"color: rgb(0, 102, 204);\\\">Cannot Combine</strong><span style=\\\"color: rgb(240, 102, 102);\\\"> </span>With Other Promotion,Free Chips,Rebate & Commission</li><li><span style=\\\"color: rgb(0, 102, 204);\\\">X</span><span style=\\\"color: rgb(230, 0, 0);\\\"> </span>If Break Rules Credit WILL FORFEIT <span style=\\\"color: rgb(0, 102, 204);\\\">X</span></li></ul><p><br></p>\"}",
+        "displayAmount": "1",
+        "displayGroup": "Slot Bonus | \u8001\u864e\u673a",
+        "displayOrder": "12",
+        "image": null,
+        "angpaoImage": null,
+        "updata": null,
+        "transactionId": null,
+        "transactionCash": null,
+        "claimDateTime": null,
+        "sysnote": null,
+        "message": "No qualifying deposit found"
+      },
+      {
+        "id": "140436",
+        "name": "Limited Slot Bonus 10%",
+        "bonus": "10.00",
+        "bonusFixed": "0.00",
+        "bonusRandom": null,
+        "claimCondition": "DEPOSIT",
+        "claimConfig": "{\"maxWithdrawTimeDeposit\":100}",
+        "maxRound": "0",
+        "reset": "",
+        "initialFreeLimit": "0",
+        "depositFreeLimit": "0",
+        "minTopup": "20.00",
+        "maxTopup": "5000.00",
+        "minRound": "0",
+        "rollover": "3.00",
+        "description": "{\"Description\":\"\",\"DescQuillEditor\":{\"ops\":[{\"insert\":\"Min Deposit: \"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"$20\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"Max Bonus : \"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"$188\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"Turnover : \"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X2\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"Rollover : \"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X3\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#0066cc\",\"bold\":true},\"insert\":\"UNLIMITED CLAIM\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"\\n\"},{\"attributes\":{\"underline\":true,\"color\":\"#0066cc\",\"bold\":true},\"insert\":\"Terms And Conditions\"},{\"insert\":\"\\n\"},{\"attributes\":{\"bold\":true},\"insert\":\"Available For All Slot Game\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X \"},{\"insert\":\"JILI,VP,918KISS,MEGA888 & PUSSY888 \"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X \"},{\"insert\":\"Live Game & Sport Game \"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X \"},{\"insert\":\"Buy & Save Free Game T&C \"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X \"},{\"insert\":\"Promotion \"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"Cannot Combine\"},{\"attributes\":{\"color\":\"#f06666\"},\"insert\":\" \"},{\"insert\":\"With Other Promotion,Free Chips,Rebate & Commission\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X \"},{\"insert\":\"If Break Rules Credit WILL FORFEIT \"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"\\n\"}]},\"DescQuillHTML\":\"<ul><li>Min Deposit: <span style=\\\"color: rgb(0, 102, 204);\\\">$20</span></li><li>Max Bonus : <span style=\\\"color: rgb(0, 102, 204);\\\">$188</span></li><li>Turnover : <span style=\\\"color: rgb(0, 102, 204);\\\">X2</span></li><li>Rollover : <span style=\\\"color: rgb(0, 102, 204);\\\">X3</span></li><li><strong style=\\\"color: rgb(0, 102, 204);\\\">UNLIMITED CLAIM</strong></li></ul><p><br></p><p><strong style=\\\"color: rgb(0, 102, 204);\\\"><u>Terms And Conditions</u></strong></p><ul><li><strong>Available For All Slot Game</strong></li><li><span style=\\\"color: rgb(0, 102, 204);\\\">X </span>JILI,VP,918KISS,MEGA888 & PUSSY888 <span style=\\\"color: rgb(0, 102, 204);\\\">X</span></li><li><span style=\\\"color: rgb(0, 102, 204);\\\">X </span>Live Game & Sport Game <span style=\\\"color: rgb(0, 102, 204);\\\">X</span></li><li><span style=\\\"color: rgb(0, 102, 204);\\\">X </span>Buy & Save Free Game T&C <span style=\\\"color: rgb(0, 102, 204);\\\">X</span></li><li><span style=\\\"color: rgb(0, 102, 204);\\\">X </span>Promotion <span style=\\\"color: rgb(0, 102, 204);\\\">Cannot Combine</span><span style=\\\"color: rgb(240, 102, 102);\\\"> </span>With Other Promotion,Free Chips,Rebate & Commission</li><li><span style=\\\"color: rgb(0, 102, 204);\\\">X </span>If Break Rules Credit WILL FORFEIT <span style=\\\"color: rgb(0, 102, 204);\\\">X</span></li></ul><p><br></p>\"}",
+        "displayAmount": "1",
+        "displayGroup": "Slot Bonus | \u8001\u864e\u673a",
+        "displayOrder": "13",
+        "image": null,
+        "angpaoImage": null,
+        "updata": null,
+        "transactionId": null,
+        "transactionCash": null,
+        "claimDateTime": null,
+        "sysnote": null,
+        "message": "No qualifying deposit found"
+      },
+      {
+        "id": "167255",
+        "name": "Unlimited Slot Bonus 5%",
+        "bonus": "5.00",
+        "bonusFixed": "0.00",
+        "bonusRandom": null,
+        "claimCondition": "DEPOSIT",
+        "claimConfig": null,
+        "maxRound": "0",
+        "reset": "",
+        "initialFreeLimit": "0",
+        "depositFreeLimit": "0",
+        "minTopup": "20.00",
+        "maxTopup": "5000.00",
+        "minRound": "0",
+        "rollover": "3.00",
+        "description": "{\"Description\":\"\",\"DescQuillEditor\":{\"ops\":[{\"insert\":\"Min Deposit: \"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"$20\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"Max Bonus : \"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"$288\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"Turnover : \"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X2\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"Rollover : \"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X3\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#0066cc\",\"bold\":true},\"insert\":\"UNLIMITED CLAIM\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"\\n\"},{\"attributes\":{\"underline\":true,\"color\":\"#0066cc\",\"bold\":true},\"insert\":\"Terms And Conditions\"},{\"insert\":\"\\nAvailable For\"},{\"attributes\":{\"bold\":true},\"insert\":\" All Slot Games\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X \"},{\"insert\":\"Live Game & Sport Game \"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X \"},{\"insert\":\"Buy & Save Free Game T&C \"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X \"},{\"insert\":\"Promotion \"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"Cannot Combine\"},{\"attributes\":{\"color\":\"#f06666\"},\"insert\":\" \"},{\"insert\":\"With Other Promotion,Free Chips,Rebate & Commission\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X \"},{\"insert\":\"If Break Rules Credit WILL FORFEIT \"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"\\n\"}]},\"DescQuillHTML\":\"<ul><li>Min Deposit: <span style=\\\"color: rgb(0, 102, 204);\\\">$20</span></li><li>Max Bonus : <span style=\\\"color: rgb(0, 102, 204);\\\">$288</span></li><li>Turnover : <span style=\\\"color: rgb(0, 102, 204);\\\">X2</span></li><li>Rollover : <span style=\\\"color: rgb(0, 102, 204);\\\">X3</span></li><li><strong style=\\\"color: rgb(0, 102, 204);\\\">UNLIMITED CLAIM</strong></li></ul><p><br></p><p><strong style=\\\"color: rgb(0, 102, 204);\\\"><u>Terms And Conditions</u></strong></p><ul><li>Available For<strong> All Slot Games</strong></li><li><span style=\\\"color: rgb(0, 102, 204);\\\">X </span>Live Game & Sport Game <span style=\\\"color: rgb(0, 102, 204);\\\">X</span></li><li><span style=\\\"color: rgb(0, 102, 204);\\\">X </span>Buy & Save Free Game T&C <span style=\\\"color: rgb(0, 102, 204);\\\">X</span></li><li><span style=\\\"color: rgb(0, 102, 204);\\\">X </span>Promotion <span style=\\\"color: rgb(0, 102, 204);\\\">Cannot Combine</span><span style=\\\"color: rgb(240, 102, 102);\\\"> </span>With Other Promotion,Free Chips,Rebate & Commission</li><li><span style=\\\"color: rgb(0, 102, 204);\\\">X </span>If Break Rules Credit WILL FORFEIT <span style=\\\"color: rgb(0, 102, 204);\\\">X</span></li></ul><p><br></p>\"}",
+        "displayAmount": "1",
+        "displayGroup": "Slot Bonus | \u8001\u864e\u673a",
+        "displayOrder": "14",
+        "image": null,
+        "angpaoImage": null,
+        "updata": null,
+        "transactionId": null,
+        "transactionCash": null,
+        "claimDateTime": null,
+        "sysnote": null,
+        "message": "No qualifying deposit found"
+      },
+      {
+        "id": "140433",
+        "name": "Live Casino Welcome Bonus 50%",
+        "bonus": "50.00",
+        "bonusFixed": "0.00",
+        "bonusRandom": null,
+        "claimCondition": "DEPOSIT",
+        "claimConfig": "{\"maxWithdrawTimeDeposit\":10}",
+        "maxRound": "1",
+        "reset": "",
+        "initialFreeLimit": "0",
+        "depositFreeLimit": "0",
+        "minTopup": "20.00",
+        "maxTopup": "1000.00",
+        "minRound": "0",
+        "rollover": "20.00",
+        "description": "{\"Description\":\"\",\"DescQuillEditor\":{\"ops\":[{\"insert\":\"\\nMIN DEPOSIT : \"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"$20\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"ONE MEMBER ONLY CAN \"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"CLAIM ONCE TIME\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"ROLLOVER : \"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X20\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"MAX BONUS : \"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"$100\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"MAX WITHDRAW \"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X10 \"},{\"insert\":\"OF DEPOSIT\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"\\n\"},{\"attributes\":{\"underline\":true,\"italic\":true,\"color\":\"#0066cc\",\"bold\":true},\"insert\":\"Example\"},{\"insert\":\"\\n\"},{\"attributes\":{\"italic\":true,\"color\":\"#0066cc\",\"bold\":true},\"insert\":\"[$100 (Deposit) + $50 (BONUS)] X20(Turnover) = $3000 (Turnover/Validbet)\"},{\"insert\":\"\\n\\n\"},{\"attributes\":{\"underline\":true,\"italic\":true,\"color\":\"#0066cc\",\"bold\":true},\"insert\":\"Terms And Conditions\"},{\"insert\":\"\\n\"},{\"attributes\":{\"bold\":true},\"insert\":\"Available For All Live Casino Game\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X \"},{\"insert\":\"Slot Game & Sport Game \"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X \"},{\"insert\":\"Multiple Window/Betting Both Side/Bonus Hunting is strictly not acceptable \"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X \"},{\"insert\":\"Promotion\"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\" Cannot Combine\"},{\"insert\":\" With Other Promotion,Free Chips,Rebate & Commission\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X \"},{\"insert\":\"If Break Rules Credit WILL FORFEIT \"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"Choose Either Starter pack or welcome bonus , only one is able to claimed\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"\\n\"}]},\"DescQuillHTML\":\"<p><br></p><ul><li>MIN DEPOSIT : <span style=\\\"color: rgb(0, 102, 204);\\\">$20</span></li><li>ONE MEMBER ONLY CAN <span style=\\\"color: rgb(0, 102, 204);\\\">CLAIM ONCE TIME</span></li><li>ROLLOVER : <span style=\\\"color: rgb(0, 102, 204);\\\">X20</span></li><li>MAX BONUS : <span style=\\\"color: rgb(0, 102, 204);\\\">$100</span></li><li>MAX WITHDRAW <span style=\\\"color: rgb(0, 102, 204);\\\">X10 </span>OF DEPOSIT</li></ul><p><br></p><p><strong style=\\\"color: rgb(0, 102, 204);\\\"><em><u>Example</u></em></strong></p><p><strong style=\\\"color: rgb(0, 102, 204);\\\"><em>[$100 (Deposit) + $50 (BONUS)] X20(Turnover) = $3000 (Turnover/Validbet)</em></strong></p><p><br></p><p><strong style=\\\"color: rgb(0, 102, 204);\\\"><em><u>Terms And Conditions</u></em></strong></p><ul><li><strong>Available For All Live Casino Game</strong></li><li><span style=\\\"color: rgb(0, 102, 204);\\\">X </span>Slot Game & Sport Game <span style=\\\"color: rgb(0, 102, 204);\\\">X</span></li><li><span style=\\\"color: rgb(0, 102, 204);\\\">X </span>Multiple Window/Betting Both Side/Bonus Hunting is strictly not acceptable <span style=\\\"color: rgb(0, 102, 204);\\\">X</span></li><li><span style=\\\"color: rgb(0, 102, 204);\\\">X </span>Promotion<span style=\\\"color: rgb(0, 102, 204);\\\"> Cannot Combine</span> With Other Promotion,Free Chips,Rebate & Commission</li><li><span style=\\\"color: rgb(0, 102, 204);\\\">X </span>If Break Rules Credit WILL FORFEIT <span style=\\\"color: rgb(0, 102, 204);\\\">X</span></li><li>Choose Either Starter pack or welcome bonus , only one is able to claimed</li></ul><p><br></p>\"}",
+        "displayAmount": "1",
+        "displayGroup": "Live Casino | \u771f\u4eba\u8d4c\u573a",
+        "displayOrder": "21",
+        "image": null,
+        "angpaoImage": null,
+        "updata": null,
+        "transactionId": null,
+        "transactionCash": null,
+        "claimDateTime": null,
+        "sysnote": null,
+        "message": "No qualifying deposit found"
+      },
+      {
+        "id": "140437",
+        "name": "Unlimited Live Casino 10%",
+        "bonus": "10.00",
+        "bonusFixed": "0.00",
+        "bonusRandom": null,
+        "claimCondition": "DEPOSIT",
+        "claimConfig": "{\"maxWithdrawTimeDeposit\":100}",
+        "maxRound": "0",
+        "reset": "",
+        "initialFreeLimit": "0",
+        "depositFreeLimit": "0",
+        "minTopup": "20.00",
+        "maxTopup": "1000.00",
+        "minRound": "0",
+        "rollover": "8.00",
+        "description": "{\"Description\":\"\",\"DescQuillEditor\":{\"ops\":[{\"insert\":\"Min Deposit: \"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"$20\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"Max Bonus : \"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"$100\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"Rollover : \"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X8(Valid Bet)\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#0066cc\",\"bold\":true},\"insert\":\"UNLIMITED CLAIM\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"\\n\"},{\"attributes\":{\"underline\":true,\"color\":\"#f06666\",\"bold\":true},\"insert\":\"Terms And Conditions\"},{\"insert\":\"\\n\"},{\"attributes\":{\"bold\":true},\"insert\":\"Available For All Live Game\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X\"},{\"insert\":\" Slot Game & Sport Game \"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X \"},{\"insert\":\"Buy & Save Free Game T&C \"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X \"},{\"insert\":\"Promotion \"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"Cannot Combine \"},{\"insert\":\"With Other Promotion,Free Chips,Rebate & Commission\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X \"},{\"insert\":\"If Break Rules Credit WILL FORFEIT \"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"\\n\"}]},\"DescQuillHTML\":\"<ul><li>Min Deposit: <span style=\\\"color: rgb(0, 102, 204);\\\">$20</span></li><li>Max Bonus : <span style=\\\"color: rgb(0, 102, 204);\\\">$100</span></li><li>Rollover : <span style=\\\"color: rgb(0, 102, 204);\\\">X8(Valid Bet)</span></li><li><strong style=\\\"color: rgb(0, 102, 204);\\\">UNLIMITED CLAIM</strong></li></ul><p><br></p><p><strong style=\\\"color: rgb(240, 102, 102);\\\"><u>Terms And Conditions</u></strong></p><ul><li><strong>Available For All Live Game</strong></li><li><span style=\\\"color: rgb(0, 102, 204);\\\">X</span> Slot Game & Sport Game <span style=\\\"color: rgb(0, 102, 204);\\\">X</span></li><li><span style=\\\"color: rgb(0, 102, 204);\\\">X </span>Buy & Save Free Game T&C <span style=\\\"color: rgb(0, 102, 204);\\\">X</span></li><li><span style=\\\"color: rgb(0, 102, 204);\\\">X </span>Promotion <span style=\\\"color: rgb(0, 102, 204);\\\">Cannot Combine </span>With Other Promotion,Free Chips,Rebate & Commission</li><li><span style=\\\"color: rgb(0, 102, 204);\\\">X </span>If Break Rules Credit WILL FORFEIT <span style=\\\"color: rgb(0, 102, 204);\\\">X</span></li></ul><p><br></p>\"}",
+        "displayAmount": "1",
+        "displayGroup": "Live Casino | \u771f\u4eba\u8d4c\u573a",
+        "displayOrder": "22",
+        "image": null,
+        "angpaoImage": null,
+        "updata": null,
+        "transactionId": null,
+        "transactionCash": null,
+        "claimDateTime": null,
+        "sysnote": null,
+        "message": "No qualifying deposit found"
+      },
+      {
+        "id": "140442",
+        "name": "Referral Commission",
+        "bonus": "6.00",
+        "bonusFixed": "0.00",
+        "bonusRandom": null,
+        "claimCondition": "CUSTOM",
+        "claimConfig": null,
+        "maxRound": "0",
+        "reset": "",
+        "initialFreeLimit": "0",
+        "depositFreeLimit": "0",
+        "minTopup": null,
+        "maxTopup": null,
+        "minRound": "0",
+        "rollover": "0.00",
+        "description": "{\"Description\":\"\",\"DescQuillEditor\":{\"ops\":[{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\" MAKE YOUR PASSIVE INCOME WITH US !!!\"},{\"attributes\":{\"header\":2},\"insert\":\"\\n\"},{\"insert\":\"\\nEarn \"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"6\"},{\"attributes\":{\"color\":\"#0066cc\",\"bold\":true},\"insert\":\"%\"},{\"insert\":\" Commission From The Total Losses Of All Your Downline\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"Commission Will Be Released On Every Monday \"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"12pm (Perth Time)\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"There is \"},{\"attributes\":{\"color\":\"#0066cc\",\"bold\":true},\"insert\":\"No \"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"Turnover/Rollover Required\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"Min Withdraw: \"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"$50\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"Max Commision : \"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"$8888\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"\\n\"},{\"attributes\":{\"underline\":true,\"color\":\"#0066cc\",\"bold\":true},\"insert\":\"How to do ?\"},{\"insert\":\"\\nRegister an Account with us.\"},{\"attributes\":{\"list\":\"ordered\"},\"insert\":\"\\n\"},{\"insert\":\"Copy your \"},{\"attributes\":{\"link\":\"www.icebet888.com\"},\"insert\":\"Referral Link\"},{\"insert\":\" at our home page.\"},{\"attributes\":{\"list\":\"ordered\"},\"insert\":\"\\n\"},{\"insert\":\"Share your Referral Link to your Friends.\"},{\"attributes\":{\"list\":\"ordered\"},\"insert\":\"\\n\"},{\"insert\":\"Ask your Friends Register as ICEBET888 member with your link.\"},{\"attributes\":{\"list\":\"ordered\"},\"insert\":\"\\n\"},{\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#0066cc\",\"bold\":true},\"insert\":\"ICEBET888\"},{\"insert\":\"\u00a0reserves the right to Cancel the Bonus, with or without notice or explanation, if we believe you are violating the Terms in any way.\\n\"}]},\"DescQuillHTML\":\"<h2><span style=\\\"color: rgb(0, 102, 204);\\\"> MAKE YOUR PASSIVE INCOME WITH US !!!</span></h2><p><br></p><ul><li>Earn <span style=\\\"color: rgb(0, 102, 204);\\\">6</span><strong style=\\\"color: rgb(0, 102, 204);\\\">%</strong> Commission From The Total Losses Of All Your Downline</li><li>Commission Will Be Released On Every Monday <span style=\\\"color: rgb(0, 102, 204);\\\">12pm (Perth Time)</span></li><li>There is <strong style=\\\"color: rgb(0, 102, 204);\\\">No </strong><span style=\\\"color: rgb(0, 102, 204);\\\">Turnover/Rollover Required</span></li><li>Min Withdraw: <span style=\\\"color: rgb(0, 102, 204);\\\">$50</span></li><li>Max Commision : <span style=\\\"color: rgb(0, 102, 204);\\\">$8888</span></li></ul><p><br></p><p><strong style=\\\"color: rgb(0, 102, 204);\\\"><u>How to do ?</u></strong></p><ol><li>Register an Account with us.</li><li>Copy your <a href=\\\"www.icebet888.com\\\" target=\\\"_blank\\\">Referral Link</a> at our home page.</li><li>Share your Referral Link to your Friends.</li><li>Ask your Friends Register as ICEBET888 member with your link.</li></ol><p><br></p><p><strong style=\\\"color: rgb(0, 102, 204);\\\">ICEBET888</strong>&nbsp;reserves the right to Cancel the Bonus, with or without notice or explanation, if we believe you are violating the Terms in any way.</p>\"}",
+        "displayAmount": "1",
+        "displayGroup": "Referral & Rebate",
+        "displayOrder": "31",
+        "image": null,
+        "angpaoImage": null,
+        "updata": null,
+        "transactionId": null,
+        "transactionCash": null,
+        "claimDateTime": null,
+        "sysnote": null,
+        "message": null
+      },
+      {
+        "id": "140440",
+        "name": "Daily Achievement V1",
+        "bonus": "0.00",
+        "bonusFixed": "18.88",
+        "bonusRandom": null,
+        "claimCondition": "FREE",
+        "claimConfig": "{\"depositTargetAmount\":300,\"startDate\":\"2023-08-29\",\"creditLessThan\":0.99}",
+        "maxRound": "1",
+        "reset": "DAILY",
+        "initialFreeLimit": "0",
+        "depositFreeLimit": "0",
+        "minTopup": null,
+        "maxTopup": null,
+        "minRound": "0",
+        "rollover": "100.00",
+        "description": "{\"Description\":\"\",\"DescQuillEditor\":{\"ops\":[{\"insert\":\"Daily Deposit Achive $300 Or Above To Unlock This Promotion.\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"This Promotion Limited Claim 1 Times Per Day Only.\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"Min Withdraw : \"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"$100\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"Max Withdraw : \"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"50%\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"\\n\"},{\"attributes\":{\"underline\":true,\"italic\":true,\"color\":\"#0066cc\",\"bold\":true},\"insert\":\"Terms And Conditions\"},{\"insert\":\"\\n\"},{\"attributes\":{\"bold\":true},\"insert\":\"Available For Jili, Joker & Live22 Slot Game only .\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X \"},{\"insert\":\"Live Game \"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X \"},{\"insert\":\"Sport Game \"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X \"},{\"insert\":\"Cannot Buy & Save Free Game T&C \"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X \"},{\"insert\":\"Promotion \"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"Cannot Combine\"},{\"insert\":\" With Other Promotion,Free Chips,Rebate & Commission\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X \"},{\"insert\":\"Register More than one ID\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X \"},{\"insert\":\"If Break Rules Credit WILL FORFEIT \"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"\\n\"}]},\"DescQuillHTML\":\"<ul><li>Daily Deposit Achive $300 Or Above To Unlock This Promotion.</li><li>This Promotion Limited Claim 1 Times Per Day Only.</li><li>Min Withdraw : <span style=\\\"color: rgb(0, 102, 204);\\\">$100</span></li><li>Max Withdraw : <span style=\\\"color: rgb(0, 102, 204);\\\">50%</span></li></ul><p><br></p><p><strong style=\\\"color: rgb(0, 102, 204);\\\"><em><u>Terms And Conditions</u></em></strong></p><ul><li><strong>Available For Jili, Joker & Live22 Slot Game only .</strong></li><li><span style=\\\"color: rgb(0, 102, 204);\\\">X </span>Live Game <span style=\\\"color: rgb(0, 102, 204);\\\">X </span>Sport Game <span style=\\\"color: rgb(0, 102, 204);\\\">X </span>Cannot Buy & Save Free Game T&C <span style=\\\"color: rgb(0, 102, 204);\\\">X</span></li><li><span style=\\\"color: rgb(0, 102, 204);\\\">X </span>Promotion <span style=\\\"color: rgb(0, 102, 204);\\\">Cannot Combine</span> With Other Promotion,Free Chips,Rebate & Commission</li><li><span style=\\\"color: rgb(0, 102, 204);\\\">X </span>Register More than one ID</li><li><span style=\\\"color: rgb(0, 102, 204);\\\">X </span>If Break Rules Credit WILL FORFEIT <span style=\\\"color: rgb(0, 102, 204);\\\">X</span></li></ul><p><br></p>\"}",
+        "displayAmount": "1",
+        "displayGroup": "Daily Attendance",
+        "displayOrder": "40",
+        "image": null,
+        "angpaoImage": null,
+        "updata": null,
+        "transactionId": null,
+        "transactionCash": null,
+        "claimDateTime": null,
+        "sysnote": null,
+        "message": "Need 300.00 in deposits"
+      },
+      {
+        "id": "140441",
+        "name": "Daily Achievement V2",
+        "bonus": "0.00",
+        "bonusFixed": "28.88",
+        "bonusRandom": null,
+        "claimCondition": "FREE",
+        "claimConfig": "{\"depositTargetAmount\":600,\"startDate\":\"2023-08-29\",\"creditLessThan\":0.99}",
+        "maxRound": "1",
+        "reset": "DAILY",
+        "initialFreeLimit": "0",
+        "depositFreeLimit": "0",
+        "minTopup": null,
+        "maxTopup": null,
+        "minRound": "1",
+        "rollover": "0.00",
+        "description": "{\"Description\":\"\",\"DescQuillEditor\":{\"ops\":[{\"insert\":\"Daily Deposit Achive $600 Or Above To Unlock This Promotion.\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"This Promotion Limited Claim 1 Times Per Day Only.\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"Min Withdraw : \"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"$100\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"Max Withdraw : \"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"50%\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"\\n\"},{\"attributes\":{\"underline\":true,\"italic\":true,\"color\":\"#0066cc\",\"bold\":true},\"insert\":\"Terms And Conditions\"},{\"insert\":\"\\n\"},{\"attributes\":{\"bold\":true},\"insert\":\"Available For Jili, Joker & Live22 Slot Game only .\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X \"},{\"insert\":\"Live Game \"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X \"},{\"insert\":\"Sport Game \"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X \"},{\"insert\":\"Cannot Buy & Save Free Game T&C \"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X \"},{\"insert\":\"Promotion \"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"Cannot Combine\"},{\"insert\":\" With Other Promotion,Free Chips,Rebate & Commission\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X \"},{\"insert\":\"Register More than one ID\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X \"},{\"insert\":\"If Break Rules Credit WILL FORFEIT \"},{\"attributes\":{\"color\":\"#0066cc\"},\"insert\":\"X\"},{\"attributes\":{\"list\":\"bullet\"},\"insert\":\"\\n\"},{\"insert\":\"\\n\"}]},\"DescQuillHTML\":\"<ul><li>Daily Deposit Achive $600 Or Above To Unlock This Promotion.</li><li>This Promotion Limited Claim 1 Times Per Day Only.</li><li>Min Withdraw : <span style=\\\"color: rgb(0, 102, 204);\\\">$100</span></li><li>Max Withdraw : <span style=\\\"color: rgb(0, 102, 204);\\\">50%</span></li></ul><p><br></p><p><strong style=\\\"color: rgb(0, 102, 204);\\\"><em><u>Terms And Conditions</u></em></strong></p><ul><li><strong>Available For Jili, Joker & Live22 Slot Game only .</strong></li><li><span style=\\\"color: rgb(0, 102, 204);\\\">X </span>Live Game <span style=\\\"color: rgb(0, 102, 204);\\\">X </span>Sport Game <span style=\\\"color: rgb(0, 102, 204);\\\">X </span>Cannot Buy & Save Free Game T&C <span style=\\\"color: rgb(0, 102, 204);\\\">X</span></li><li><span style=\\\"color: rgb(0, 102, 204);\\\">X </span>Promotion <span style=\\\"color: rgb(0, 102, 204);\\\">Cannot Combine</span> With Other Promotion,Free Chips,Rebate & Commission</li><li><span style=\\\"color: rgb(0, 102, 204);\\\">X </span>Register More than one ID</li><li><span style=\\\"color: rgb(0, 102, 204);\\\">X </span>If Break Rules Credit WILL FORFEIT <span style=\\\"color: rgb(0, 102, 204);\\\">X</span></li></ul><p><br></p>\"}",
+        "displayAmount": "1",
+        "displayGroup": "Daily Attendance",
+        "displayOrder": "42",
+        "image": null,
+        "angpaoImage": null,
+        "updata": null,
+        "transactionId": null,
+        "transactionCash": null,
+        "claimDateTime": null,
+        "sysnote": null,
+        "message": "Need 600.00 in deposits"
+      }
+    ],
+    "referLink": "https://icebet888.com/RF300908A86",
+    "encryptId": "CLppNf7K688Iwm4CQEO3Hg%3D%3D",
+    "depCount": null,
+    "lifetimeDeposit": 0,
+    "rollover": {
+      "total": 0,
+      "current": 0,
+      "broll": 0,
+      "droll": 0,
+      "withdrawable": true,
+      "rolls": []
+    },
+    "merchant": {
+      "id": "10403",
+      "name": "IceBet888",
+      "currency": "AUD",
+      "commission": "[{\"level\":\"1\",\"type\":\"TRANSACTION\",\"key1\":\"ALL\",\"rate\":\"6\"}]"
+    },
+    "banks": [
+      {
+        "code": "NAB",
+        "name": "National Australia Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "CBA",
+        "name": "Commonwealth Bank of Australia",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "WBC",
+        "name": "Westpac Banking Corporation",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "ANZ",
+        "name": "Australia & New Zealand Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "PAYID",
+        "name": "PayID",
+        "currency": "AUD",
+        "displayOrder": "1"
+      },
+      {
+        "code": "BSB",
+        "name": "UP Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "STG",
+        "name": "St George Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "MACAU",
+        "name": "Macquarie Bank Group",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "BOQAU",
+        "name": "Bank of Queensland",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "AMPBL",
+        "name": "AMP Bank Limited",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "BABAU",
+        "name": "Bendigo and Adelaide Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "SBAU",
+        "name": "Suncorp Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "BWAU",
+        "name": "Bankwest",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "UBAU",
+        "name": "Ubank Limited",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "DBAU",
+        "name": "Defence bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "ING",
+        "name": "ING Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "BYAU",
+        "name": "Beyond Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "BMAU",
+        "name": "Bank of Melbourne",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "PIPN",
+        "name": "PayID (Phone Number)",
+        "currency": "AUD",
+        "displayOrder": "3"
+      },
+      {
+        "code": "PIG",
+        "name": "PayID (Email)",
+        "currency": "AUD",
+        "displayOrder": "2"
+      },
+      {
+        "code": "CITIAU",
+        "name": "Citi Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "PABN",
+        "name": "PayID ABN (Business Number)",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "NICU",
+        "name": "Northern Inland Credit Union",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "MSBAU",
+        "name": "MyState Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "GBAU",
+        "name": "Greater Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "VMAU",
+        "name": "Virgin Money",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "NPAU",
+        "name": "Newcastle Permanent ",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "BAAU",
+        "name": "Bank Australia",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "QBAU",
+        "name": "Qudos Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "RBAU",
+        "name": "Rabobank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "BHBAU",
+        "name": "Back Hume Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "CBAB",
+        "name": "CBA Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "MEBAU",
+        "name": "MEBANK",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "BBAU",
+        "name": "Bano Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "GSBAU",
+        "name": "Greater Southern BANK",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "CUBAU",
+        "name": "Credit Union Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "BCUAU",
+        "name": "BCU Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "REVOLUTAU",
+        "name": "Revolut Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "CCAU",
+        "name": "Credit Card",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "PCCU",
+        "name": "People Choice Credit Union",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "HSBCAU",
+        "name": "HSBC Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "BSAAU",
+        "name": "Bank of South Australia",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "WBAU",
+        "name": "Wise Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "ANZP",
+        "name": "Bank ANZ Plus",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "HBAU",
+        "name": "Hume Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "CBAU",
+        "name": "Crypto Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "PACN",
+        "name": "PayID ACN (Business Number)",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "IMBAU",
+        "name": "Independent Mortgage Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "SAAU",
+        "name": "SA Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "RABAU",
+        "name": "Regional Australia Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "HERITAGE",
+        "name": "Heritage Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "BFAU",
+        "name": "Bank First",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "IMB",
+        "name": "IMB Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "INGAU",
+        "name": "ING BANK",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "MEGOAU",
+        "name": "MEGO",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "AWBAU",
+        "name": "Auswide Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "SYDNEYAU",
+        "name": "BANK OF SYDNEY",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "GREATAU",
+        "name": "Great Southern Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "BUSAU",
+        "name": "Bank of US",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "QSCBAU",
+        "name": "QUEENSLAND COUNTRY BANK",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "QSCCUAU",
+        "name": "QUEENSLAND COUNTRY CREDIT UNION",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "PROSPAAU",
+        "name": "Prospa Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "PAYPALAU",
+        "name": "PayPal",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "BEEMITAU",
+        "name": "Beem It",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "SKRILLAU",
+        "name": "Skrill",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "PNAU",
+        "name": "P&N Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "BSBACCAU",
+        "name": "BSB & ACC",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "BAULTD",
+        "name": "Bank Australia Limited",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "TMBAULTD",
+        "name": "Teachers Mutual Bank Limited",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "HPCAULTD",
+        "name": "Heritage and People\u2019s Choice Limited",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "HSBCAULTD",
+        "name": "HSBC Bank Australia Limited",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "BOCAULTD",
+        "name": "Bank of China Limited",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "MUFGBAU",
+        "name": "MUFG Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "JPMCBAU",
+        "name": "J.P. Morgan Chase Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "BENDIGOAU",
+        "name": "Bendigo Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "UNITYAU",
+        "name": "Unity Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "ALIPAYAU",
+        "name": "Alipay",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "COASTLINEA",
+        "name": "Coastline Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "HORIZONAU",
+        "name": "Horizon Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "HAYAU",
+        "name": "Hay Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "PPLFSTBAU",
+        "name": "People First BANK",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "UNIAU",
+        "name": "UniBank",
+        "currency": "AUD",
+        "displayOrder": null
+      }
+    ],
+    "minWithdraw": 50,
+    "maxWithdraw": 0,
+    "minDeposit": 50,
+    "changePassword": 0,
+    "newRegister": 0,
+    "newDeposit": 0,
+    "cacheData": {
+      "activeSite": [],
+      "creditZeroTime": "2026-06-12 12:09:28",
+      "topReferrerId": "227009505",
+      "cash_site_datetime": "2025-04-24 05:41:25"
+    },
+    "wallet": [
+      {
+        "id": 0,
+        "name": "Balance",
+        "balance": 0
+      }
+    ],
+    "gameAccess": {
+      "allowedGame": [],
+      "allowedGameBonusAmount": 0,
+      "allowedGameBonusDT": "2024-01-01 00:00:00",
+      "notAllowedGame": [],
+      "slotGameOnly": 0
+    },
+    "time": [
+      0.01,
+      0.01,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "timebonus": {
+      "177068": 0,
+      "138043": 0,
+      "140439": 0,
+      "140436": 0,
+      "167255": 0,
+      "140433": 0,
+      "140437": 0,
+      "140442": 0,
+      "140440": 0,
+      "140441": 0
+    },
+    "riskLevel": -1,
+    "showUserTag": []
+  },
+  "timestamp": "2026-06-12T12:09:28+00:00"
+}

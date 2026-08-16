@@ -1,0 +1,1045 @@
+{
+  "status": "SUCCESS",
+  "data": {
+    "id": "185658319",
+    "username": "185658319",
+    "name": "DAYNE W KEEFE",
+    "mobile": "61423349819",
+    "mobileStatus": 1,
+    "code": "https://v12betau.net/L9uZecMBwp0Z",
+    "token": "b3395d1dc6014812577b25ef858af43e1a5c6598987d273349ba5d7c09c4f041",
+    "bank": "{\"bank\":\"PAYID\",\"bankAccountName\":\"Dayne W Keefe\",\"bankAccountNumber\":\"164473415\",\"bankBSB\":\"633123\",\"payID\":\"dayne@up.me\",\"bankLock\":1}",
+    "cash": 0,
+    "bonus": [
+      {
+        "id": "100747",
+        "name": "<b>Share & Invite</b>",
+        "bonus": "0.00",
+        "bonusFixed": "12.00",
+        "bonusRandom": null,
+        "claimCondition": "CUSTOM",
+        "claimConfig": "{\"customBonus\":\"sharebonus\",\"creditLessThan\":1,\"startDate\":\"2023-08-02\",\"displayAngpaoText\":\"0\",\"displayDescriptionOnly\":\"1\",\"maxWithdrawTimeAmount\":1}",
+        "maxRound": "0",
+        "reset": "",
+        "initialFreeLimit": "0",
+        "depositFreeLimit": "0",
+        "minTopup": null,
+        "maxTopup": null,
+        "minRound": "0",
+        "rollover": "0.00",
+        "description": "{\"Description\":\"\",\"DescQuillEditor\":{\"ops\":[{\"insert\":\"<table style=\\\"border: 1.5px solid #f11515;font-size:12px;background-color: #343434;width: 90%;margin: 0 auto;border-radius: 10px;\\\">\\n<tr style=\\\"border: 1.5px solid #12f5ae;\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae;\\\" >&#10003;</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\"> 1 <b class=\\\"main-blink-me\\\"; style=\\\"color:#2EFEC8;\\\"> Share </b> Get <b class=\\\"main-blink-me\\\"; style=\\\"color:#2EFEC8;\\\"> Free $12 </td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae;\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae;\\\" >&#10003;</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Downline Required Register & Fill Up Bank Details To Validate Share Bonus</td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: #12f5ae;\\\" >&#10003;</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Must Hit Win over x10 </td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae;\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae;\\\" >&#10003;</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Max Withdraw Per Bonus $30 </td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: #12f5ae;\\\" >&#10003;</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\"> Imperium Slot Game Only </td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae\\\">\\n</table>\\n<b style=\\\"color:#12f5ae\\\">Enjoy Weekly 5% Commission From Downline</b>\\n<b style=\\\"font-size:12px;\\\">Terms and Condition:</b >\\n<p style=\\\"font-size:9px;\\\">\u267b\ufe0f Credit balance below $1.00 to claim</p >\\n<p style=\\\"font-size:9px;\\\">\u267b\ufe0f Registered name must be same as in bank</p >\\n<p style=\\\"font-size:9px;\\\">\u267b\ufe0f Change bank account upon withdrawal is not allowed</p >\\n<p style=\\\"font-size:9px;\\\">\u267b\ufe0f Must not combined with / Free Credit / Rebate / Commission</p >\\n<p style=\\\"font-size:9px;\\\">\u267b\ufe0f Must not using it to save / Free Spins / Game Features / Abuse Game Bugs</p >\\n<p style=\\\"font-size:9px;\\\">\u267b\ufe0f All credit will be forfeited subject to any violation of rules</p ><p></p><p></p><hr><p></p><p></p><p style=\\\"font-size:10px;\\\">v12bet General Terms &amp; Conditions apply.</p><p></p><p></p><hr><p></p><p><img src=\\\"https://static.gwvkyk.com/media/bd2c99c79e85632fe851f.png\\\"></p></var>\\n\"}]},\"DescQuillHTML\":\"<p><table style=\\\"border: 1.5px solid #f11515;font-size:12px;background-color: #343434;width: 90%;margin: 0 auto;border-radius: 10px;\\\"></p><p><tr style=\\\"border: 1.5px solid #12f5ae;\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae;\\\" >&#10003;</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\"> 1 <b class=\\\"main-blink-me\\\"; style=\\\"color:#2EFEC8;\\\"> Share </b> Get <b class=\\\"main-blink-me\\\"; style=\\\"color:#2EFEC8;\\\"> Free $12 </td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae;\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae;\\\" >&#10003;</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Downline Required Register & Fill Up Bank Details To Validate Share Bonus</td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: #12f5ae;\\\" >&#10003;</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Must Hit Win over x10 </td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae;\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae;\\\" >&#10003;</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Max Withdraw Per Bonus $30 </td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: #12f5ae;\\\" >&#10003;</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\"> Imperium Slot Game Only </td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae\\\"></p><p></table></p><p><b style=\\\"color:#12f5ae\\\">Enjoy Weekly 5% Commission From Downline</b></p><p><b style=\\\"font-size:12px;\\\">Terms and Condition:</b ></p><p><p style=\\\"font-size:9px;\\\">\u267b\ufe0f Credit balance below $1.00 to claim</p ></p><p><p style=\\\"font-size:9px;\\\">\u267b\ufe0f Registered name must be same as in bank</p ></p><p><p style=\\\"font-size:9px;\\\">\u267b\ufe0f Change bank account upon withdrawal is not allowed</p ></p><p><p style=\\\"font-size:9px;\\\">\u267b\ufe0f Must not combined with / Free Credit / Rebate / Commission</p ></p><p><p style=\\\"font-size:9px;\\\">\u267b\ufe0f Must not using it to save / Free Spins / Game Features / Abuse Game Bugs</p ></p><p><p style=\\\"font-size:9px;\\\">\u267b\ufe0f All credit will be forfeited subject to any violation of rules</p ><p></p><p></p><hr><p></p><p></p><p style=\\\"font-size:10px;\\\">v12bet General Terms &amp; Conditions apply.</p><p></p><p></p><hr><p></p><p><img src=\\\"https://static.gwvkyk.com/media/bd2c99c79e85632fe851f.png\\\"></p></var></p>\"}",
+        "displayAmount": "1",
+        "displayGroup": "LIMITED TIME ONLY <img src=\"https://static.gwvkyk.com/media/2f4e39850b3766f0dbe92.gif\" alt=\"\" width=\"109\" height=\"43\" style=\"width: 111px;height: auto;display:inline-block;margin-bottom: -16px;\">",
+        "displayOrder": "11",
+        "image": null,
+        "angpaoImage": "https://static.gwvkyk.com/media/9ec1463341d7616fd86d1.png",
+        "updata": null,
+        "transactionId": null,
+        "transactionCash": null,
+        "claimDateTime": null,
+        "sysnote": null,
+        "message": "No qualifying downline members found"
+      },
+      {
+        "id": "100748",
+        "name": "<b>Referral Bonus</b>",
+        "bonus": "0.00",
+        "bonusFixed": "12.00",
+        "bonusRandom": null,
+        "claimCondition": "CUSTOM",
+        "claimConfig": "{\"customBonus\":\"downlinedeposit\",\"creditLessThan\":1,\"startDate\":\"2022-11-11\",\"displayDescriptionOnly\":\"1\",\"displayAngpaoText\":\"0\",\"mobileAppOnly\":\"0\"}",
+        "maxRound": "0",
+        "reset": "",
+        "initialFreeLimit": "0",
+        "depositFreeLimit": "0",
+        "minTopup": "30.00",
+        "maxTopup": null,
+        "minRound": "1",
+        "rollover": "0.00",
+        "description": "{\"Description\":\"\",\"DescQuillEditor\":{\"ops\":[{\"insert\":\"<table style=\\\"border: 1.5px solid #f11515;font-size:12px;background-color: #343434;width: 90%;margin: 0 auto;border-radius: 10px;\\\"><tbody>\\n<tr style=\\\"border: 1.5px solid #12f5ae;\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\"> 1 Downline Deposit Upline Get <b class=\\\"main-blink-me\\\" ;=\\\"\\\" style=\\\"color:#2EFEC8;\\\"> FREE $12 </b></td></tr><tr style=\\\"border: 1.5px solid #000\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Downline First Deposit '' $30 Above '' </td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Must Hit Win Over x3</td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Max Withdraw Per Bonus $120</td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">SLOT GAME ONLY</td></tr><tr style=\\\"border: 1.5px solid #12f5ae;\\\"></tr></tbody></table>\\n</table>\\n<b style=\\\"color:#12f5ae\\\">Enjoy Weekly 5% Commission From Downline</b>\\n<b style=\\\"font-size:12px;\\\">Terms and Condition:</b >\\n<p style=\\\"font-size:9px;\\\">\u267b\ufe0f Credit balance below $1.00 to claim</p >\\n<p style=\\\"font-size:9px;\\\">\u267b\ufe0f Registered name must be same as in bank</p >\\n<p style=\\\"font-size:9px;\\\">\u267b\ufe0f Change bank account upon withdrawal is not allowed</p >\\n<p style=\\\"font-size:9px;\\\">\u267b\ufe0f Must not combined with / Free Credit / Rebate / Commission</p >\\n<p style=\\\"font-size:9px;\\\">\u267b\ufe0f Must not using it to save / Free Spins / Game Features / Abuse Game Bugs</p >\\n<p style=\\\"font-size:9px;\\\">\u267b\ufe0f All credit will be forfeited subject to any violation of rules</p ><p></p><p></p><hr><p></p><p></p><p style=\\\"font-size:10px;\\\">v12bet General Terms &amp; Conditions apply.</p><p></p><p></p><hr><p></p><p><img src=\\\"https://static.gwvkyk.com/media/bd2c99c79e85632fe851f.png\\\"></p></var>\\n\"}]},\"DescQuillHTML\":\"<p><table style=\\\"border: 1.5px solid #f11515;font-size:12px;background-color: #343434;width: 90%;margin: 0 auto;border-radius: 10px;\\\"><tbody></p><p><tr style=\\\"border: 1.5px solid #12f5ae;\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\"> 1 Downline Deposit Upline Get <b class=\\\"main-blink-me\\\" ;=\\\"\\\" style=\\\"color:#2EFEC8;\\\"> FREE $12 </b></td></tr><tr style=\\\"border: 1.5px solid #000\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Downline First Deposit '' $30 Above '' </td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Must Hit Win Over x3</td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Max Withdraw Per Bonus $120</td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">SLOT GAME ONLY</td></tr><tr style=\\\"border: 1.5px solid #12f5ae;\\\"></tr></tbody></table></p><p></table></p><p><b style=\\\"color:#12f5ae\\\">Enjoy Weekly 5% Commission From Downline</b></p><p><b style=\\\"font-size:12px;\\\">Terms and Condition:</b ></p><p><p style=\\\"font-size:9px;\\\">\u267b\ufe0f Credit balance below $1.00 to claim</p ></p><p><p style=\\\"font-size:9px;\\\">\u267b\ufe0f Registered name must be same as in bank</p ></p><p><p style=\\\"font-size:9px;\\\">\u267b\ufe0f Change bank account upon withdrawal is not allowed</p ></p><p><p style=\\\"font-size:9px;\\\">\u267b\ufe0f Must not combined with / Free Credit / Rebate / Commission</p ></p><p><p style=\\\"font-size:9px;\\\">\u267b\ufe0f Must not using it to save / Free Spins / Game Features / Abuse Game Bugs</p ></p><p><p style=\\\"font-size:9px;\\\">\u267b\ufe0f All credit will be forfeited subject to any violation of rules</p ><p></p><p></p><hr><p></p><p></p><p style=\\\"font-size:10px;\\\">v12bet General Terms &amp; Conditions apply.</p><p></p><p></p><hr><p></p><p><img src=\\\"https://static.gwvkyk.com/media/bd2c99c79e85632fe851f.png\\\"></p></var></p>\"}",
+        "displayAmount": "1",
+        "displayGroup": "LIMITED TIME ONLY <img src=\"https://static.gwvkyk.com/media/2f4e39850b3766f0dbe92.gif\" alt=\"\" width=\"109\" height=\"43\" style=\"width: 111px;height: auto;display:inline-block;margin-bottom: -16px;\">",
+        "displayOrder": "12",
+        "image": null,
+        "angpaoImage": "https://static.gwvkyk.com/media/63fc0ad986956b78bcf8a.png",
+        "updata": null,
+        "transactionId": null,
+        "transactionCash": null,
+        "claimDateTime": null,
+        "sysnote": null,
+        "message": "No new qualifying downline deposits found"
+      },
+      {
+        "id": "100750",
+        "name": "<b>Daily Slot Bonus</b>",
+        "bonus": "12.00",
+        "bonusFixed": "0.00",
+        "bonusRandom": null,
+        "claimCondition": "DEPOSIT",
+        "claimConfig": "{\"claimGroup\":\"dailybonus\"}",
+        "maxRound": "1",
+        "reset": "DAILY",
+        "initialFreeLimit": "0",
+        "depositFreeLimit": "0",
+        "minTopup": "30.00",
+        "maxTopup": null,
+        "minRound": "0",
+        "rollover": "0.00",
+        "description": "{\"Description\":\"\",\"DescQuillEditor\":{\"ops\":[{\"insert\":\"<p></p><table style=\\\"border: 1.5px solid #f11515;font-size:12px;background-color: #343434;width: 90%;margin: 0 auto;border-radius: 10px;\\\"><tbody>\\n<tr style=\\\"border: 1.5px solid #12f5ae;\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Minimum Deposit <b class=\\\"main-blink-me\\\" ;=\\\"\\\" style=\\\"color:#2EFEC8;\\\"> $30 </b></td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Maximum Bonus Payout $120</td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Winover X3 </td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Slot Game Only</td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae;\\\"></tr></tbody></table>\\n<b style=\\\"font-size:12px;\\\">Terms and Condition:</b>\\n<p style=\\\"font-size:9px;\\\">\u267b\ufe0f Registered name must be same as in bank</p><p></p><p></p>\\n<p style=\\\"font-size:9px;\\\">\u267b\ufe0f Change bank account upon withdrawal is not allowed</p><p></p><p></p>\\n<p style=\\\"font-size:9px;\\\">\u267b\ufe0f Must not combined with / Free Credit / Rebate / Commission</p><p></p><p></p>\\n<p style=\\\"font-size:9px;\\\">\u267b\ufe0f Must not using it to save / Free Spins / Game Features / Abuse Game Bugs</p><p></p><p></p>\\n<p style=\\\"font-size:9px;\\\">\u267b\ufe0f All credit will be forfeited subject to any violation of rules</p><p></p><p></p><hr><p></p><p></p>\\n<p style=\\\"font-size:10px;\\\">v12bet General Terms &amp; Conditions apply.</p><p></p><p></p><hr><p></p><p><img src=\\\"https://static.gwvkyk.com/media/bd2c99c79e85632fe851f.png\\\"></p></var>\\n\"}]},\"DescQuillHTML\":\"<p><p></p><table style=\\\"border: 1.5px solid #f11515;font-size:12px;background-color: #343434;width: 90%;margin: 0 auto;border-radius: 10px;\\\"><tbody></p><p><tr style=\\\"border: 1.5px solid #12f5ae;\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Minimum Deposit <b class=\\\"main-blink-me\\\" ;=\\\"\\\" style=\\\"color:#2EFEC8;\\\"> $30 </b></td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Maximum Bonus Payout $120</td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Winover X3 </td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Slot Game Only</td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae;\\\"></tr></tbody></table></p><p><b style=\\\"font-size:12px;\\\">Terms and Condition:</b></p><p><p style=\\\"font-size:9px;\\\">\u267b\ufe0f Registered name must be same as in bank</p><p></p><p></p></p><p><p style=\\\"font-size:9px;\\\">\u267b\ufe0f Change bank account upon withdrawal is not allowed</p><p></p><p></p></p><p><p style=\\\"font-size:9px;\\\">\u267b\ufe0f Must not combined with / Free Credit / Rebate / Commission</p><p></p><p></p></p><p><p style=\\\"font-size:9px;\\\">\u267b\ufe0f Must not using it to save / Free Spins / Game Features / Abuse Game Bugs</p><p></p><p></p></p><p><p style=\\\"font-size:9px;\\\">\u267b\ufe0f All credit will be forfeited subject to any violation of rules</p><p></p><p></p><hr><p></p><p></p></p><p><p style=\\\"font-size:10px;\\\">v12bet General Terms &amp; Conditions apply.</p><p></p><p></p><hr><p></p><p><img src=\\\"https://static.gwvkyk.com/media/bd2c99c79e85632fe851f.png\\\"></p></var></p>\"}",
+        "displayAmount": "1",
+        "displayGroup": "DAILY FIRST DEPOSIT <img src=\"https://static.gwvkyk.com/media/7021496d0b37688c75af7.gif\" alt=\"\" width=\"109\" height=\"43\" style=\"width: 111px;height: auto;display:inline-block;margin-bottom: -16px;\">",
+        "displayOrder": "32",
+        "image": null,
+        "angpaoImage": "https://static.gwvkyk.com/media/5afc032f6f37629b13a10.gif",
+        "updata": null,
+        "transactionId": null,
+        "transactionCash": null,
+        "claimDateTime": null,
+        "sysnote": null,
+        "message": "No qualifying deposit found"
+      },
+      {
+        "id": "100764",
+        "name": "<b>Daily Slot Bonus</b>",
+        "bonus": "18.00",
+        "bonusFixed": "0.00",
+        "bonusRandom": null,
+        "claimCondition": "DEPOSIT",
+        "claimConfig": "{\"claimGroup\":\"dailybonus\"}",
+        "maxRound": "1",
+        "reset": "DAILY",
+        "initialFreeLimit": "0",
+        "depositFreeLimit": "0",
+        "minTopup": "50.00",
+        "maxTopup": null,
+        "minRound": "0",
+        "rollover": "0.00",
+        "description": "{\"Description\":\"\",\"DescQuillEditor\":{\"ops\":[{\"insert\":\"<p></p><table style=\\\"border: 1.5px solid #f11515;font-size:12px;background-color: #343434;width: 90%;margin: 0 auto;border-radius: 10px;\\\"><tbody>\\n<tr style=\\\"border: 1.5px solid #12f5ae;\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Minimum Deposit <b class=\\\"main-blink-me\\\" ;=\\\"\\\" style=\\\"color:#2EFEC8;\\\"> $50 </b></td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Maximum Bonus Payout $180</td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Winover X3 </td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Slot Game Only</td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae;\\\"></tr></tbody></table>\\n<b style=\\\"font-size:12px;\\\">Terms and Condition:</b>\\n<p style=\\\"font-size:9px;\\\">\u267b\ufe0f Registered name must be same as in bank</p><p></p><p></p>\\n<p style=\\\"font-size:9px;\\\">\u267b\ufe0f Change bank account upon withdrawal is not allowed</p><p></p><p></p>\\n<p style=\\\"font-size:9px;\\\">\u267b\ufe0f Must not combined with / Free Credit / Rebate / Commission</p><p></p><p></p>\\n<p style=\\\"font-size:9px;\\\">\u267b\ufe0f Must not using it to save / Free Spins / Game Features / Abuse Game Bugs</p><p></p><p></p>\\n<p style=\\\"font-size:9px;\\\">\u267b\ufe0f All credit will be forfeited subject to any violation of rules</p><p></p><p></p><hr><p></p><p></p>\\n<p style=\\\"font-size:10px;\\\">v12bet General Terms &amp; Conditions apply.</p><p></p><p></p><hr><p></p><p><img src=\\\"https://static.gwvkyk.com/media/bd2c99c79e85632fe851f.png\\\"></p></var>\\n\"}]},\"DescQuillHTML\":\"<p><p></p><table style=\\\"border: 1.5px solid #f11515;font-size:12px;background-color: #343434;width: 90%;margin: 0 auto;border-radius: 10px;\\\"><tbody></p><p><tr style=\\\"border: 1.5px solid #12f5ae;\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Minimum Deposit <b class=\\\"main-blink-me\\\" ;=\\\"\\\" style=\\\"color:#2EFEC8;\\\"> $50 </b></td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Maximum Bonus Payout $180</td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Winover X3 </td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Slot Game Only</td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae;\\\"></tr></tbody></table></p><p><b style=\\\"font-size:12px;\\\">Terms and Condition:</b></p><p><p style=\\\"font-size:9px;\\\">\u267b\ufe0f Registered name must be same as in bank</p><p></p><p></p></p><p><p style=\\\"font-size:9px;\\\">\u267b\ufe0f Change bank account upon withdrawal is not allowed</p><p></p><p></p></p><p><p style=\\\"font-size:9px;\\\">\u267b\ufe0f Must not combined with / Free Credit / Rebate / Commission</p><p></p><p></p></p><p><p style=\\\"font-size:9px;\\\">\u267b\ufe0f Must not using it to save / Free Spins / Game Features / Abuse Game Bugs</p><p></p><p></p></p><p><p style=\\\"font-size:9px;\\\">\u267b\ufe0f All credit will be forfeited subject to any violation of rules</p><p></p><p></p><hr><p></p><p></p></p><p><p style=\\\"font-size:10px;\\\">v12bet General Terms &amp; Conditions apply.</p><p></p><p></p><hr><p></p><p><img src=\\\"https://static.gwvkyk.com/media/bd2c99c79e85632fe851f.png\\\"></p></var></p>\"}",
+        "displayAmount": "1",
+        "displayGroup": "DAILY FIRST DEPOSIT <img src=\"https://static.gwvkyk.com/media/7021496d0b37688c75af7.gif\" alt=\"\" width=\"109\" height=\"43\" style=\"width: 111px;height: auto;display:inline-block;margin-bottom: -16px;\">",
+        "displayOrder": "33",
+        "image": null,
+        "angpaoImage": "https://static.gwvkyk.com/media/0f62e92f6f376432e3623.gif",
+        "updata": null,
+        "transactionId": null,
+        "transactionCash": null,
+        "claimDateTime": null,
+        "sysnote": null,
+        "message": "No qualifying deposit found"
+      },
+      {
+        "id": "100765",
+        "name": "<b>Daily Slot Bonus</b>",
+        "bonus": "22.00",
+        "bonusFixed": "0.00",
+        "bonusRandom": null,
+        "claimCondition": "DEPOSIT",
+        "claimConfig": "{\"claimGroup\":\"dailybonus\"}",
+        "maxRound": "1",
+        "reset": "DAILY",
+        "initialFreeLimit": "0",
+        "depositFreeLimit": "0",
+        "minTopup": "100.00",
+        "maxTopup": null,
+        "minRound": "0",
+        "rollover": "0.00",
+        "description": "{\"Description\":\"\",\"DescQuillEditor\":{\"ops\":[{\"insert\":\"<p></p><table style=\\\"border: 1.5px solid #f11515;font-size:12px;background-color: #343434;width: 90%;margin: 0 auto;border-radius: 10px;\\\"><tbody>\\n<tr style=\\\"border: 1.5px solid #12f5ae;\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Minimum Deposit <b class=\\\"main-blink-me\\\" ;=\\\"\\\" style=\\\"color:#2EFEC8;\\\"> $100 </b></td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Maximum Bonus Payout $220</td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Winover X3 </td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Slot Game Only</td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae;\\\"></tr></tbody></table>\\n<b style=\\\"font-size:12px;\\\">Terms and Condition:</b>\\n<p style=\\\"font-size:9px;\\\">\u267b\ufe0f Registered name must be same as in bank</p><p></p><p></p>\\n<p style=\\\"font-size:9px;\\\">\u267b\ufe0f Change bank account upon withdrawal is not allowed</p><p></p><p></p>\\n<p style=\\\"font-size:9px;\\\">\u267b\ufe0f Must not combined with / Free Credit / Rebate / Commission</p><p></p><p></p>\\n<p style=\\\"font-size:9px;\\\">\u267b\ufe0f Must not using it to save / Free Spins / Game Features / Abuse Game Bugs</p><p></p><p></p>\\n<p style=\\\"font-size:9px;\\\">\u267b\ufe0f All credit will be forfeited subject to any violation of rules</p><p></p><p></p><hr><p></p><p></p>\\n<p style=\\\"font-size:10px;\\\">v12bet General Terms &amp; Conditions apply.</p><p></p><p></p><hr><p></p><p><img src=\\\"https://static.gwvkyk.com/media/bd2c99c79e85632fe851f.png\\\"></p></var>\\n\"}]},\"DescQuillHTML\":\"<p><p></p><table style=\\\"border: 1.5px solid #f11515;font-size:12px;background-color: #343434;width: 90%;margin: 0 auto;border-radius: 10px;\\\"><tbody></p><p><tr style=\\\"border: 1.5px solid #12f5ae;\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Minimum Deposit <b class=\\\"main-blink-me\\\" ;=\\\"\\\" style=\\\"color:#2EFEC8;\\\"> $100 </b></td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Maximum Bonus Payout $220</td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Winover X3 </td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Slot Game Only</td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae;\\\"></tr></tbody></table></p><p><b style=\\\"font-size:12px;\\\">Terms and Condition:</b></p><p><p style=\\\"font-size:9px;\\\">\u267b\ufe0f Registered name must be same as in bank</p><p></p><p></p></p><p><p style=\\\"font-size:9px;\\\">\u267b\ufe0f Change bank account upon withdrawal is not allowed</p><p></p><p></p></p><p><p style=\\\"font-size:9px;\\\">\u267b\ufe0f Must not combined with / Free Credit / Rebate / Commission</p><p></p><p></p></p><p><p style=\\\"font-size:9px;\\\">\u267b\ufe0f Must not using it to save / Free Spins / Game Features / Abuse Game Bugs</p><p></p><p></p></p><p><p style=\\\"font-size:9px;\\\">\u267b\ufe0f All credit will be forfeited subject to any violation of rules</p><p></p><p></p><hr><p></p><p></p></p><p><p style=\\\"font-size:10px;\\\">v12bet General Terms &amp; Conditions apply.</p><p></p><p></p><hr><p></p><p><img src=\\\"https://static.gwvkyk.com/media/bd2c99c79e85632fe851f.png\\\"></p></var></p>\"}",
+        "displayAmount": "1",
+        "displayGroup": "DAILY FIRST DEPOSIT <img src=\"https://static.gwvkyk.com/media/7021496d0b37688c75af7.gif\" alt=\"\" width=\"109\" height=\"43\" style=\"width: 111px;height: auto;display:inline-block;margin-bottom: -16px;\">",
+        "displayOrder": "34",
+        "image": null,
+        "angpaoImage": "https://static.gwvkyk.com/media/a4d30f2f6f376b4b1adc0.gif",
+        "updata": null,
+        "transactionId": null,
+        "transactionCash": null,
+        "claimDateTime": null,
+        "sysnote": null,
+        "message": "No qualifying deposit found"
+      },
+      {
+        "id": "100751",
+        "name": "<b>Unlimited Bonus</b>",
+        "bonus": "3.00",
+        "bonusFixed": "0.00",
+        "bonusRandom": null,
+        "claimCondition": "DEPOSIT",
+        "claimConfig": "{\"displayDescriptionOnly\":\"0\",\"displayAngpaoText\":\"1\"}",
+        "maxRound": "0",
+        "reset": "",
+        "initialFreeLimit": "0",
+        "depositFreeLimit": "0",
+        "minTopup": "30.00",
+        "maxTopup": null,
+        "minRound": "0",
+        "rollover": "1.00",
+        "description": "{\"Description\":\"\",\"DescQuillEditor\":{\"ops\":[{\"insert\":\"</p><table style=\\\"border: 1.5px solid #f11515;font-size:12px;background-color: #343434;width: 90%;margin: 0 auto;border-radius: 10px;\\\"><tbody>\\n<tr style=\\\"border: 1.5px solid #12f5ae;\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Minimum Deposit <b class=\\\"main-blink-me\\\" ;=\\\"\\\" style=\\\"color:#2EFEC8;\\\"> $30 </b></td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Maximum Bonus Payout $300 For Each Claim</td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Rollover X1 </td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Slot Game & Others Game Only</td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae;\\\"></tr></tbody></table>\\n<b style=\\\"font-size:12px;\\\">Terms and Condition:</b></p><p></p>\\n<p style=\\\"font-size:9px;\\\">\u267b\ufe0f Registered name must be same as in bank</p><p></p><p></p>\\n<p style=\\\"font-size:9px;\\\">\u267b\ufe0f Change bank account upon withdrawal is not allowed</p><p></p><p></p>\\n<p style=\\\"font-size:9px;\\\">\u267b\ufe0f Must not combined with / Free Credit / Rebate / Commission</p><p></p><p></p>\\n<p style=\\\"font-size:9px;\\\">\u267b\ufe0f Must not using it to save / Free Spins / Game Features / Abuse Game Bugs</p><p></p><p></p>\\n<p style=\\\"font-size:9px;\\\">\u267b\ufe0f All credit will be forfeited subject to any violation of rules</p><p></p><p></p><hr><p></p><p></p>\\n<p style=\\\"font-size:10px;\\\">v12bet General Terms &amp; Conditions apply.</p><p></p><p></p><hr><p></p><p><img src=\\\"https://static.gwvkyk.com/media/bd2c99c79e85632fe851f.png\\\"></p></var>\\n\"}]},\"DescQuillHTML\":\"<p></p><table style=\\\"border: 1.5px solid #f11515;font-size:12px;background-color: #343434;width: 90%;margin: 0 auto;border-radius: 10px;\\\"><tbody></p><p><tr style=\\\"border: 1.5px solid #12f5ae;\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Minimum Deposit <b class=\\\"main-blink-me\\\" ;=\\\"\\\" style=\\\"color:#2EFEC8;\\\"> $30 </b></td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Maximum Bonus Payout $300 For Each Claim</td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Rollover X1 </td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Slot Game & Others Game Only</td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae;\\\"></tr></tbody></table></p><p><b style=\\\"font-size:12px;\\\">Terms and Condition:</b></p><p></p></p><p><p style=\\\"font-size:9px;\\\">\u267b\ufe0f Registered name must be same as in bank</p><p></p><p></p></p><p><p style=\\\"font-size:9px;\\\">\u267b\ufe0f Change bank account upon withdrawal is not allowed</p><p></p><p></p></p><p><p style=\\\"font-size:9px;\\\">\u267b\ufe0f Must not combined with / Free Credit / Rebate / Commission</p><p></p><p></p></p><p><p style=\\\"font-size:9px;\\\">\u267b\ufe0f Must not using it to save / Free Spins / Game Features / Abuse Game Bugs</p><p></p><p></p></p><p><p style=\\\"font-size:9px;\\\">\u267b\ufe0f All credit will be forfeited subject to any violation of rules</p><p></p><p></p><hr><p></p><p></p></p><p><p style=\\\"font-size:10px;\\\">v12bet General Terms &amp; Conditions apply.</p><p></p><p></p><hr><p></p><p><img src=\\\"https://static.gwvkyk.com/media/bd2c99c79e85632fe851f.png\\\"></p></var></p>\"}",
+        "displayAmount": "1",
+        "displayGroup": "DAILY SLOT BONUS <img src=\"https://static.gwvkyk.com/media/7021496d0b37688c75af7.gif\" alt=\"\" width=\"109\" height=\"43\" style=\"width: 111px;height: auto;display:inline-block;margin-bottom: -16px;\">",
+        "displayOrder": "41",
+        "image": null,
+        "angpaoImage": "https://static.gwvkyk.com/media/3de2143f6f3769ed9a33d.gif",
+        "updata": null,
+        "transactionId": null,
+        "transactionCash": null,
+        "claimDateTime": null,
+        "sysnote": null,
+        "message": "No qualifying deposit found"
+      },
+      {
+        "id": "100767",
+        "name": "<b>Unlimited Bonus</b>",
+        "bonus": "8.00",
+        "bonusFixed": "0.00",
+        "bonusRandom": null,
+        "claimCondition": "DEPOSIT",
+        "claimConfig": "{\"displayAngpaoText\":\"1\"}",
+        "maxRound": "0",
+        "reset": "",
+        "initialFreeLimit": "0",
+        "depositFreeLimit": "0",
+        "minTopup": "50.00",
+        "maxTopup": null,
+        "minRound": "0",
+        "rollover": "8.00",
+        "description": "{\"Description\":\"\",\"DescQuillEditor\":{\"ops\":[{\"insert\":\"</p><table style=\\\"border: 1.5px solid #f11515;font-size:12px;background-color: #343434;width: 90%;margin: 0 auto;border-radius: 10px;\\\"><tbody>\\n<tr style=\\\"border: 1.5px solid #12f5ae;\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Minimum Deposit <b class=\\\"main-blink-me\\\" ;=\\\"\\\" style=\\\"color:#2EFEC8;\\\"> $50 </b></td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Maximum Bonus Payout $300 For Each Claim</td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Rollover X8 </td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Slot Game & Others Game Only</td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae;\\\"></tr></tbody></table>\\n<b style=\\\"font-size:12px;\\\">Terms and Condition:</b></p><p></p>\\n<p style=\\\"font-size:9px;\\\">\u267b\ufe0f Registered name must be same as in bank</p><p></p><p></p>\\n<p style=\\\"font-size:9px;\\\">\u267b\ufe0f Change bank account upon withdrawal is not allowed</p><p></p><p></p>\\n<p style=\\\"font-size:9px;\\\">\u267b\ufe0f Must not combined with / Free Credit / Rebate / Commission</p><p></p><p></p>\\n<p style=\\\"font-size:9px;\\\">\u267b\ufe0f Must not using it to save / Free Spins / Game Features / Abuse Game Bugs</p><p></p><p></p>\\n<p style=\\\"font-size:9px;\\\">\u267b\ufe0f All credit will be forfeited subject to any violation of rules</p><p></p><p></p><hr><p></p><p></p>\\n<p style=\\\"font-size:10px;\\\">v12bet General Terms &amp; Conditions apply.</p><p></p><p></p><hr><p></p><p><img src=\\\"https://static.gwvkyk.com/media/bd2c99c79e85632fe851f.png\\\"></p></var>\\n\"}]},\"DescQuillHTML\":\"<p></p><table style=\\\"border: 1.5px solid #f11515;font-size:12px;background-color: #343434;width: 90%;margin: 0 auto;border-radius: 10px;\\\"><tbody></p><p><tr style=\\\"border: 1.5px solid #12f5ae;\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Minimum Deposit <b class=\\\"main-blink-me\\\" ;=\\\"\\\" style=\\\"color:#2EFEC8;\\\"> $50 </b></td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Maximum Bonus Payout $300 For Each Claim</td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Rollover X8 </td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Slot Game & Others Game Only</td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae;\\\"></tr></tbody></table></p><p><b style=\\\"font-size:12px;\\\">Terms and Condition:</b></p><p></p></p><p><p style=\\\"font-size:9px;\\\">\u267b\ufe0f Registered name must be same as in bank</p><p></p><p></p></p><p><p style=\\\"font-size:9px;\\\">\u267b\ufe0f Change bank account upon withdrawal is not allowed</p><p></p><p></p></p><p><p style=\\\"font-size:9px;\\\">\u267b\ufe0f Must not combined with / Free Credit / Rebate / Commission</p><p></p><p></p></p><p><p style=\\\"font-size:9px;\\\">\u267b\ufe0f Must not using it to save / Free Spins / Game Features / Abuse Game Bugs</p><p></p><p></p></p><p><p style=\\\"font-size:9px;\\\">\u267b\ufe0f All credit will be forfeited subject to any violation of rules</p><p></p><p></p><hr><p></p><p></p></p><p><p style=\\\"font-size:10px;\\\">v12bet General Terms &amp; Conditions apply.</p><p></p><p></p><hr><p></p><p><img src=\\\"https://static.gwvkyk.com/media/bd2c99c79e85632fe851f.png\\\"></p></var></p>\"}",
+        "displayAmount": "1",
+        "displayGroup": "DAILY SLOT BONUS <img src=\"https://static.gwvkyk.com/media/7021496d0b37688c75af7.gif\" alt=\"\" width=\"109\" height=\"43\" style=\"width: 111px;height: auto;display:inline-block;margin-bottom: -16px;\">",
+        "displayOrder": "42",
+        "image": null,
+        "angpaoImage": "https://static.gwvkyk.com/media/4039983f6f37675724530.gif",
+        "updata": null,
+        "transactionId": null,
+        "transactionCash": null,
+        "claimDateTime": null,
+        "sysnote": null,
+        "message": "No qualifying deposit found"
+      },
+      {
+        "id": "100768",
+        "name": "<b>Unlimited Bonus</b>",
+        "bonus": "12.00",
+        "bonusFixed": "0.00",
+        "bonusRandom": null,
+        "claimCondition": "DEPOSIT",
+        "claimConfig": "{\"displayAngpaoText\":\"1\"}",
+        "maxRound": "0",
+        "reset": "",
+        "initialFreeLimit": "0",
+        "depositFreeLimit": "0",
+        "minTopup": "100.00",
+        "maxTopup": null,
+        "minRound": "0",
+        "rollover": "10.00",
+        "description": "{\"Description\":\"\",\"DescQuillEditor\":{\"ops\":[{\"insert\":\"</p><table style=\\\"border: 1.5px solid #f11515;font-size:12px;background-color: #343434;width: 90%;margin: 0 auto;border-radius: 10px;\\\"><tbody>\\n<tr style=\\\"border: 1.5px solid #12f5ae;\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Minimum Deposit <b class=\\\"main-blink-me\\\" ;=\\\"\\\" style=\\\"color:#2EFEC8;\\\"> $100 </b></td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Maximum Bonus Payout $300 For Each Claim</td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Rollover X10 </td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Slot Game & Others Game Only</td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae;\\\"></tr></tbody></table>\\n<b style=\\\"font-size:12px;\\\">Terms and Condition:</b></p><p></p>\\n<p style=\\\"font-size:9px;\\\">\u267b\ufe0f Registered name must be same as in bank</p><p></p><p></p>\\n<p style=\\\"font-size:9px;\\\">\u267b\ufe0f Change bank account upon withdrawal is not allowed</p><p></p><p></p>\\n<p style=\\\"font-size:9px;\\\">\u267b\ufe0f Must not combined with / Free Credit / Rebate / Commission</p><p></p><p></p>\\n<p style=\\\"font-size:9px;\\\">\u267b\ufe0f Must not using it to save / Free Spins / Game Features / Abuse Game Bugs</p><p></p><p></p>\\n<p style=\\\"font-size:9px;\\\">\u267b\ufe0f All credit will be forfeited subject to any violation of rules</p><p></p><p></p><hr><p></p><p></p>\\n<p style=\\\"font-size:10px;\\\">v12bet General Terms &amp; Conditions apply.</p><p></p><p></p><hr><p></p><p><img src=\\\"https://static.gwvkyk.com/media/bd2c99c79e85632fe851f.png\\\"></p></var>\\n\"}]},\"DescQuillHTML\":\"<p></p><table style=\\\"border: 1.5px solid #f11515;font-size:12px;background-color: #343434;width: 90%;margin: 0 auto;border-radius: 10px;\\\"><tbody></p><p><tr style=\\\"border: 1.5px solid #12f5ae;\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Minimum Deposit <b class=\\\"main-blink-me\\\" ;=\\\"\\\" style=\\\"color:#2EFEC8;\\\"> $100 </b></td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Maximum Bonus Payout $300 For Each Claim</td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Rollover X10 </td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Slot Game & Others Game Only</td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae;\\\"></tr></tbody></table></p><p><b style=\\\"font-size:12px;\\\">Terms and Condition:</b></p><p></p></p><p><p style=\\\"font-size:9px;\\\">\u267b\ufe0f Registered name must be same as in bank</p><p></p><p></p></p><p><p style=\\\"font-size:9px;\\\">\u267b\ufe0f Change bank account upon withdrawal is not allowed</p><p></p><p></p></p><p><p style=\\\"font-size:9px;\\\">\u267b\ufe0f Must not combined with / Free Credit / Rebate / Commission</p><p></p><p></p></p><p><p style=\\\"font-size:9px;\\\">\u267b\ufe0f Must not using it to save / Free Spins / Game Features / Abuse Game Bugs</p><p></p><p></p></p><p><p style=\\\"font-size:9px;\\\">\u267b\ufe0f All credit will be forfeited subject to any violation of rules</p><p></p><p></p><hr><p></p><p></p></p><p><p style=\\\"font-size:10px;\\\">v12bet General Terms &amp; Conditions apply.</p><p></p><p></p><hr><p></p><p><img src=\\\"https://static.gwvkyk.com/media/bd2c99c79e85632fe851f.png\\\"></p></var></p>\"}",
+        "displayAmount": "1",
+        "displayGroup": "DAILY SLOT BONUS <img src=\"https://static.gwvkyk.com/media/7021496d0b37688c75af7.gif\" alt=\"\" width=\"109\" height=\"43\" style=\"width: 111px;height: auto;display:inline-block;margin-bottom: -16px;\">",
+        "displayOrder": "43",
+        "image": null,
+        "angpaoImage": "https://static.gwvkyk.com/media/35260d3f6f37641885403.gif",
+        "updata": null,
+        "transactionId": null,
+        "transactionCash": null,
+        "claimDateTime": null,
+        "sysnote": null,
+        "message": "No qualifying deposit found"
+      },
+      {
+        "id": "100758",
+        "name": "<b style=\"color:#2EFEC8\"> \u2b50\ufe0f VIP 1 FREE </b>",
+        "bonus": "0.00",
+        "bonusFixed": "15.00",
+        "bonusRandom": null,
+        "claimCondition": "FREE",
+        "claimConfig": "{\"depositTargetAmount\":500,\"creditLessThan\":1,\"displayDescriptionOnly\":\"0\",\"displayAngpaoText\":\"1\"}",
+        "maxRound": "1",
+        "reset": "",
+        "initialFreeLimit": "0",
+        "depositFreeLimit": "0",
+        "minTopup": null,
+        "maxTopup": null,
+        "minRound": "0",
+        "rollover": "1.00",
+        "description": "{\"Description\":\"\",\"DescQuillEditor\":{\"ops\":[{\"insert\":\"<table style=\\\"border: 1.5px solid #f11515;font-size:12px;background-color: #343434;width: 90%;margin: 0 auto;border-radius: 10px;\\\"><tbody>\\n<tr style=\\\"border: 1.5px solid #12f5ae;\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Accumulate Deposit $500 And Above Are Entitled to claim</td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Enjoy 0.40% Daily Rebate</td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: #12f5ae;\\\">\u2713</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\"> Credit Balance Below $1.00 To Claim </td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: #12f5ae;\\\">\u2713</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\"> Roll 1 Time To Make Withdrawal </td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: #12f5ae;\\\">\u2713</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\"> Max Withdraw $150 </td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: red;\\\">\u2718</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Must Not Combined With / Deposit / Any Types Of Free Credit / Rebate / Commission</td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: red;\\\">\u2718</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Must Not Using It To Save Free Spins / Game Features / Abuse Game Bugs</td></tr></tbody></table><p></p><hr><p></p><p></p><p style=\\\"font-size:10px;\\\">v12bet General Terms &amp; Conditions apply.</p><p></p><p></p><hr><p></p><p><img src=\\\"https://static.gwvkyk.com/media/bd2c99c79e85632fe851f.png\\\"></p></var>\\n\"}]},\"DescQuillHTML\":\"<p><table style=\\\"border: 1.5px solid #f11515;font-size:12px;background-color: #343434;width: 90%;margin: 0 auto;border-radius: 10px;\\\"><tbody></p><p><tr style=\\\"border: 1.5px solid #12f5ae;\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Accumulate Deposit $500 And Above Are Entitled to claim</td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Enjoy 0.40% Daily Rebate</td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: #12f5ae;\\\">\u2713</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\"> Credit Balance Below $1.00 To Claim </td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: #12f5ae;\\\">\u2713</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\"> Roll 1 Time To Make Withdrawal </td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: #12f5ae;\\\">\u2713</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\"> Max Withdraw $150 </td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: red;\\\">\u2718</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Must Not Combined With / Deposit / Any Types Of Free Credit / Rebate / Commission</td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: red;\\\">\u2718</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Must Not Using It To Save Free Spins / Game Features / Abuse Game Bugs</td></tr></tbody></table><p></p><hr><p></p><p></p><p style=\\\"font-size:10px;\\\">v12bet General Terms &amp; Conditions apply.</p><p></p><p></p><hr><p></p><p><img src=\\\"https://static.gwvkyk.com/media/bd2c99c79e85632fe851f.png\\\"></p></var></p>\"}",
+        "displayAmount": "1",
+        "displayGroup": "\ud83e\udd49 VIP FREE CREDIT <img src=\"https://static.gwvkyk.com/media/2f4e39850b3766f0dbe92.gif\" alt=\"\" width=\"109\" height=\"43\" style=\"width: 111px;height: auto;display:inline-block;margin-bottom: -16px;\">",
+        "displayOrder": "91",
+        "image": null,
+        "angpaoImage": null,
+        "updata": null,
+        "transactionId": null,
+        "transactionCash": null,
+        "claimDateTime": null,
+        "sysnote": null,
+        "message": "Need 470.00 more in deposits"
+      },
+      {
+        "id": "100759",
+        "name": "<b style=\"color:#2EFEC8\">\u2b50\ufe0f VIP 2 FREE </b>",
+        "bonus": "0.00",
+        "bonusFixed": "25.00",
+        "bonusRandom": null,
+        "claimCondition": "FREE",
+        "claimConfig": "{\"depositTargetAmount\":2000,\"creditLessThan\":1}",
+        "maxRound": "1",
+        "reset": "",
+        "initialFreeLimit": "0",
+        "depositFreeLimit": "0",
+        "minTopup": null,
+        "maxTopup": null,
+        "minRound": "0",
+        "rollover": "1.00",
+        "description": "{\"Description\":\"\",\"DescQuillEditor\":{\"ops\":[{\"insert\":\"<table style=\\\"border: 1.5px solid #f11515;font-size:12px;background-color: #343434;width: 90%;margin: 0 auto;border-radius: 10px;\\\"><tbody>\\n<tr style=\\\"border: 1.5px solid #12f5ae;\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Accumulate Deposit $2000 And Above Are Entitled to claim</td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Enjoy 0.50% Daily Rebate</td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: #12f5ae;\\\">\u2713</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\"> Credit Balance Below $1.00 To Claim </td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: #12f5ae;\\\">\u2713</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\"> Roll 1 Time To Make Withdrawal </td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: #12f5ae;\\\">\u2713</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\"> Max Withdraw $250 </td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: red;\\\">\u2718</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Must Not Combined With / Deposit / Any Types Of Free Credit / Rebate / Commission</td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: red;\\\">\u2718</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Must Not Using It To Save Free Spins / Game Features / Abuse Game Bugs</td></tr></tbody></table><p></p><hr><p></p><p></p><p style=\\\"font-size:10px;\\\">v12bet General Terms &amp; Conditions apply.</p><p></p><p></p><hr><p></p><p><img src=\\\"https://static.gwvkyk.com/media/bd2c99c79e85632fe851f.png\\\"></p></var>\\n\"}]},\"DescQuillHTML\":\"<p><table style=\\\"border: 1.5px solid #f11515;font-size:12px;background-color: #343434;width: 90%;margin: 0 auto;border-radius: 10px;\\\"><tbody></p><p><tr style=\\\"border: 1.5px solid #12f5ae;\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Accumulate Deposit $2000 And Above Are Entitled to claim</td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Enjoy 0.50% Daily Rebate</td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: #12f5ae;\\\">\u2713</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\"> Credit Balance Below $1.00 To Claim </td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: #12f5ae;\\\">\u2713</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\"> Roll 1 Time To Make Withdrawal </td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: #12f5ae;\\\">\u2713</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\"> Max Withdraw $250 </td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: red;\\\">\u2718</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Must Not Combined With / Deposit / Any Types Of Free Credit / Rebate / Commission</td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: red;\\\">\u2718</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Must Not Using It To Save Free Spins / Game Features / Abuse Game Bugs</td></tr></tbody></table><p></p><hr><p></p><p></p><p style=\\\"font-size:10px;\\\">v12bet General Terms &amp; Conditions apply.</p><p></p><p></p><hr><p></p><p><img src=\\\"https://static.gwvkyk.com/media/bd2c99c79e85632fe851f.png\\\"></p></var></p>\"}",
+        "displayAmount": "1",
+        "displayGroup": "\ud83e\udd49 VIP FREE CREDIT <img src=\"https://static.gwvkyk.com/media/2f4e39850b3766f0dbe92.gif\" alt=\"\" width=\"109\" height=\"43\" style=\"width: 111px;height: auto;display:inline-block;margin-bottom: -16px;\">",
+        "displayOrder": "92",
+        "image": null,
+        "angpaoImage": null,
+        "updata": null,
+        "transactionId": null,
+        "transactionCash": null,
+        "claimDateTime": null,
+        "sysnote": null,
+        "message": "Need 1,970.00 more in deposits"
+      },
+      {
+        "id": "100760",
+        "name": "<b style=\"color:#2EFEC8\">\u2b50\ufe0f VIP 3 FREE </b>",
+        "bonus": "0.00",
+        "bonusFixed": "35.00",
+        "bonusRandom": null,
+        "claimCondition": "FREE",
+        "claimConfig": "{\"depositTargetAmount\":5000,\"creditLessThan\":1}",
+        "maxRound": "1",
+        "reset": "",
+        "initialFreeLimit": "0",
+        "depositFreeLimit": "0",
+        "minTopup": null,
+        "maxTopup": null,
+        "minRound": "0",
+        "rollover": "1.00",
+        "description": "{\"Description\":\"\",\"DescQuillEditor\":{\"ops\":[{\"insert\":\"<table style=\\\"border: 1.5px solid #f11515;font-size:12px;background-color: #343434;width: 90%;margin: 0 auto;border-radius: 10px;\\\"><tbody>\\n<tr style=\\\"border: 1.5px solid #12f5ae;\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Accumulate Deposit $5000 And Above Are Entitled to claim</td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Enjoy 0.60% Daily Rebate</td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: #12f5ae;\\\">\u2713</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\"> Credit Balance Below $1.00 To Claim </td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: #12f5ae;\\\">\u2713</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\"> Roll 1 Time To Make Withdrawal </td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: #12f5ae;\\\">\u2713</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\"> Max Withdraw $350 </td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: red;\\\">\u2718</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Must Not Combined With / Deposit / Any Types Of Free Credit / Rebate / Commission</td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: red;\\\">\u2718</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Must Not Using It To Save Free Spins / Game Features / Abuse Game Bugs</td></tr></tbody></table><p></p><hr><p></p><p></p><p style=\\\"font-size:10px;\\\">v12bet General Terms &amp; Conditions apply.</p><p></p><p></p><hr><p></p><p><img src=\\\"https://static.gwvkyk.com/media/bd2c99c79e85632fe851f.png\\\"></p></var>\\n\"}]},\"DescQuillHTML\":\"<p><table style=\\\"border: 1.5px solid #f11515;font-size:12px;background-color: #343434;width: 90%;margin: 0 auto;border-radius: 10px;\\\"><tbody></p><p><tr style=\\\"border: 1.5px solid #12f5ae;\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Accumulate Deposit $5000 And Above Are Entitled to claim</td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Enjoy 0.60% Daily Rebate</td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: #12f5ae;\\\">\u2713</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\"> Credit Balance Below $1.00 To Claim </td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: #12f5ae;\\\">\u2713</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\"> Roll 1 Time To Make Withdrawal </td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: #12f5ae;\\\">\u2713</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\"> Max Withdraw $350 </td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: red;\\\">\u2718</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Must Not Combined With / Deposit / Any Types Of Free Credit / Rebate / Commission</td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: red;\\\">\u2718</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Must Not Using It To Save Free Spins / Game Features / Abuse Game Bugs</td></tr></tbody></table><p></p><hr><p></p><p></p><p style=\\\"font-size:10px;\\\">v12bet General Terms &amp; Conditions apply.</p><p></p><p></p><hr><p></p><p><img src=\\\"https://static.gwvkyk.com/media/bd2c99c79e85632fe851f.png\\\"></p></var></p>\"}",
+        "displayAmount": "1",
+        "displayGroup": "\ud83e\udd49 VIP FREE CREDIT <img src=\"https://static.gwvkyk.com/media/2f4e39850b3766f0dbe92.gif\" alt=\"\" width=\"109\" height=\"43\" style=\"width: 111px;height: auto;display:inline-block;margin-bottom: -16px;\">",
+        "displayOrder": "93",
+        "image": null,
+        "angpaoImage": null,
+        "updata": null,
+        "transactionId": null,
+        "transactionCash": null,
+        "claimDateTime": null,
+        "sysnote": null,
+        "message": "Need 4,970.00 more in deposits"
+      },
+      {
+        "id": "100761",
+        "name": "<b style=\"color:#2EFEC8\">\u2b50\ufe0f\u2b50\ufe0f VVIP 1 FREE </b>",
+        "bonus": "0.00",
+        "bonusFixed": "100.00",
+        "bonusRandom": null,
+        "claimCondition": "FREE",
+        "claimConfig": "{\"depositTargetAmount\":30000,\"creditLessThan\":3}",
+        "maxRound": "1",
+        "reset": "",
+        "initialFreeLimit": "0",
+        "depositFreeLimit": "0",
+        "minTopup": null,
+        "maxTopup": null,
+        "minRound": "0",
+        "rollover": "1.00",
+        "description": "{\"Description\":\"\",\"DescQuillEditor\":{\"ops\":[{\"insert\":\"<table style=\\\"border: 1.5px solid #f11515;font-size:12px;background-color: #343434;width: 90%;margin: 0 auto;border-radius: 10px;\\\"><tbody>\\n<tr style=\\\"border: 1.5px solid #12f5ae;\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Accumulate Deposit $30,000 And Above Are Entitled to claim</td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Enjoy 0.70% Daily Rebate</td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: #12f5ae;\\\">\u2713</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\"> Credit Balance Below $1.00 To Claim </td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: #12f5ae;\\\">\u2713</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\"> Roll 1 Time To Make Withdrawal </td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: #12f5ae;\\\">\u2713</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\"> Max Withdraw $1000 </td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: red;\\\">\u2718</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Must Not Combined With / Deposit / Any Types Of Free Credit / Rebate / Commission</td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: red;\\\">\u2718</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Must Not Using It To Save Free Spins / Game Features / Abuse Game Bugs</td></tr></tbody></table><p></p><hr><p></p><p></p><p style=\\\"font-size:10px;\\\">v12bet General Terms &amp; Conditions apply.</p><p></p><p></p><hr><p></p><p><img src=\\\"https://static.gwvkyk.com/media/bd2c99c79e85632fe851f.png\\\"></p></var>\\n\"}]},\"DescQuillHTML\":\"<p><table style=\\\"border: 1.5px solid #f11515;font-size:12px;background-color: #343434;width: 90%;margin: 0 auto;border-radius: 10px;\\\"><tbody></p><p><tr style=\\\"border: 1.5px solid #12f5ae;\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Accumulate Deposit $30,000 And Above Are Entitled to claim</td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Enjoy 0.70% Daily Rebate</td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: #12f5ae;\\\">\u2713</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\"> Credit Balance Below $1.00 To Claim </td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: #12f5ae;\\\">\u2713</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\"> Roll 1 Time To Make Withdrawal </td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: #12f5ae;\\\">\u2713</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\"> Max Withdraw $1000 </td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: red;\\\">\u2718</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Must Not Combined With / Deposit / Any Types Of Free Credit / Rebate / Commission</td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: red;\\\">\u2718</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Must Not Using It To Save Free Spins / Game Features / Abuse Game Bugs</td></tr></tbody></table><p></p><hr><p></p><p></p><p style=\\\"font-size:10px;\\\">v12bet General Terms &amp; Conditions apply.</p><p></p><p></p><hr><p></p><p><img src=\\\"https://static.gwvkyk.com/media/bd2c99c79e85632fe851f.png\\\"></p></var></p>\"}",
+        "displayAmount": "1",
+        "displayGroup": "\ud83e\udd48VVIP FREE CREDIT <img src=\"https://static.gwvkyk.com/media/2f4e39850b3766f0dbe92.gif\" alt=\"\" width=\"109\" height=\"43\" style=\"width: 111px;height: auto;display:inline-block;margin-bottom: -16px;\">",
+        "displayOrder": "94",
+        "image": null,
+        "angpaoImage": null,
+        "updata": null,
+        "transactionId": null,
+        "transactionCash": null,
+        "claimDateTime": null,
+        "sysnote": null,
+        "message": "Need 29,970.00 more in deposits"
+      },
+      {
+        "id": "100762",
+        "name": "<b style=\"color:#2EFEC8\">\u2b50\ufe0f\u2b50\ufe0f VVIP 2 FREE </b>",
+        "bonus": "0.00",
+        "bonusFixed": "200.00",
+        "bonusRandom": null,
+        "claimCondition": "FREE",
+        "claimConfig": "{\"depositTargetAmount\":50000,\"creditLessThan\":3}",
+        "maxRound": "1",
+        "reset": "",
+        "initialFreeLimit": "0",
+        "depositFreeLimit": "0",
+        "minTopup": null,
+        "maxTopup": null,
+        "minRound": "0",
+        "rollover": "1.00",
+        "description": "{\"Description\":\"\",\"DescQuillEditor\":{\"ops\":[{\"insert\":\"<table style=\\\"border: 1.5px solid #f11515;font-size:12px;background-color: #343434;width: 90%;margin: 0 auto;border-radius: 10px;\\\"><tbody>\\n<tr style=\\\"border: 1.5px solid #12f5ae;\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Accumulate Deposit $50,000 And Above Are Entitled to claim</td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Enjoy 0.80% Daily Rebate</td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: #12f5ae;\\\">\u2713</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\"> Credit Balance Below $1.00 To Claim </td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: #12f5ae;\\\">\u2713</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\"> Roll 1 Time To Make Withdrawal </td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: #12f5ae;\\\">\u2713</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\"> Max Withdraw $2000 </td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: red;\\\">\u2718</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Must Not Combined With / Deposit / Any Types Of Free Credit / Rebate / Commission</td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: red;\\\">\u2718</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Must Not Using It To Save Free Spins / Game Features / Abuse Game Bugs</td></tr></tbody></table><p></p><hr><p></p><p></p><p style=\\\"font-size:10px;\\\">v12bet General Terms &amp; Conditions apply.</p><p></p><p></p><hr><p></p><p><img src=\\\"https://static.gwvkyk.com/media/bd2c99c79e85632fe851f.png\\\"></p></var>\\n\"}]},\"DescQuillHTML\":\"<p><table style=\\\"border: 1.5px solid #f11515;font-size:12px;background-color: #343434;width: 90%;margin: 0 auto;border-radius: 10px;\\\"><tbody></p><p><tr style=\\\"border: 1.5px solid #12f5ae;\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Accumulate Deposit $50,000 And Above Are Entitled to claim</td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Enjoy 0.80% Daily Rebate</td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: #12f5ae;\\\">\u2713</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\"> Credit Balance Below $1.00 To Claim </td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: #12f5ae;\\\">\u2713</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\"> Roll 1 Time To Make Withdrawal </td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: #12f5ae;\\\">\u2713</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\"> Max Withdraw $2000 </td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: red;\\\">\u2718</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Must Not Combined With / Deposit / Any Types Of Free Credit / Rebate / Commission</td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: red;\\\">\u2718</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Must Not Using It To Save Free Spins / Game Features / Abuse Game Bugs</td></tr></tbody></table><p></p><hr><p></p><p></p><p style=\\\"font-size:10px;\\\">v12bet General Terms &amp; Conditions apply.</p><p></p><p></p><hr><p></p><p><img src=\\\"https://static.gwvkyk.com/media/bd2c99c79e85632fe851f.png\\\"></p></var></p>\"}",
+        "displayAmount": "1",
+        "displayGroup": "\ud83e\udd48VVIP FREE CREDIT <img src=\"https://static.gwvkyk.com/media/2f4e39850b3766f0dbe92.gif\" alt=\"\" width=\"109\" height=\"43\" style=\"width: 111px;height: auto;display:inline-block;margin-bottom: -16px;\">",
+        "displayOrder": "95",
+        "image": null,
+        "angpaoImage": null,
+        "updata": null,
+        "transactionId": null,
+        "transactionCash": null,
+        "claimDateTime": null,
+        "sysnote": null,
+        "message": "Need 49,970.00 more in deposits"
+      },
+      {
+        "id": "100763",
+        "name": "<b style=\"color:#2EFEC8\">\u2b50\ufe0f\u2b50\ufe0f VVIP 3 FREE </b>",
+        "bonus": "0.00",
+        "bonusFixed": "300.00",
+        "bonusRandom": null,
+        "claimCondition": "FREE",
+        "claimConfig": "{\"depositTargetAmount\":100000,\"creditLessThan\":3}",
+        "maxRound": "1",
+        "reset": "",
+        "initialFreeLimit": "0",
+        "depositFreeLimit": "0",
+        "minTopup": null,
+        "maxTopup": null,
+        "minRound": "0",
+        "rollover": "1.00",
+        "description": "{\"Description\":\"\",\"DescQuillEditor\":{\"ops\":[{\"insert\":\"<table style=\\\"border: 1.5px solid #f11515;font-size:12px;background-color: #343434;width: 90%;margin: 0 auto;border-radius: 10px;\\\"><tbody>\\n<tr style=\\\"border: 1.5px solid #12f5ae;\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Accumulate Deposit $100,000 And Above Are Entitled to claim</td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Enjoy 0.90% Daily Rebate</td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: #12f5ae;\\\">\u2713</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\"> Credit Balance Below $1.00 To Claim </td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: #12f5ae;\\\">\u2713</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\"> Roll 1 Time To Make Withdrawal </td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: #12f5ae;\\\">\u2713</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\"> Max Withdraw $3000 </td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: red;\\\">\u2718</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Must Not Combined With / Deposit / Any Types Of Free Credit / Rebate / Commission</td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: red;\\\">\u2718</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Must Not Using It To Save Free Spins / Game Features / Abuse Game Bugs</td></tr></tbody></table><p></p><hr><p></p><p></p><p style=\\\"font-size:10px;\\\">v12bet General Terms &amp; Conditions apply.</p><p></p><p></p><hr><p></p><p><img src=\\\"https://static.gwvkyk.com/media/bd2c99c79e85632fe851f.png\\\"></p></var>\\n\"}]},\"DescQuillHTML\":\"<p><table style=\\\"border: 1.5px solid #f11515;font-size:12px;background-color: #343434;width: 90%;margin: 0 auto;border-radius: 10px;\\\"><tbody></p><p><tr style=\\\"border: 1.5px solid #12f5ae;\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Accumulate Deposit $100,000 And Above Are Entitled to claim</td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Enjoy 0.90% Daily Rebate</td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: #12f5ae;\\\">\u2713</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\"> Credit Balance Below $1.00 To Claim </td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: #12f5ae;\\\">\u2713</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\"> Roll 1 Time To Make Withdrawal </td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: #12f5ae;\\\">\u2713</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\"> Max Withdraw $3000 </td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: red;\\\">\u2718</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Must Not Combined With / Deposit / Any Types Of Free Credit / Rebate / Commission</td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: red;\\\">\u2718</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Must Not Using It To Save Free Spins / Game Features / Abuse Game Bugs</td></tr></tbody></table><p></p><hr><p></p><p></p><p style=\\\"font-size:10px;\\\">v12bet General Terms &amp; Conditions apply.</p><p></p><p></p><hr><p></p><p><img src=\\\"https://static.gwvkyk.com/media/bd2c99c79e85632fe851f.png\\\"></p></var></p>\"}",
+        "displayAmount": "1",
+        "displayGroup": "\ud83e\udd48VVIP FREE CREDIT <img src=\"https://static.gwvkyk.com/media/2f4e39850b3766f0dbe92.gif\" alt=\"\" width=\"109\" height=\"43\" style=\"width: 111px;height: auto;display:inline-block;margin-bottom: -16px;\">",
+        "displayOrder": "96",
+        "image": null,
+        "angpaoImage": null,
+        "updata": null,
+        "transactionId": null,
+        "transactionCash": null,
+        "claimDateTime": null,
+        "sysnote": null,
+        "message": "Need 99,970.00 more in deposits"
+      },
+      {
+        "id": "100766",
+        "name": "<b style=\"color:#2EFEC8\">\u2b50\ufe0f\u2b50\ufe0f\u2b50\ufe0f SVIP FREE </b>",
+        "bonus": "0.00",
+        "bonusFixed": "1288.00",
+        "bonusRandom": null,
+        "claimCondition": "FREE",
+        "claimConfig": "{\"depositTargetAmount\":300000,\"creditLessThan\":1,\"displayDescriptionOnly\":\"0\",\"displayAngpaoText\":\"0\"}",
+        "maxRound": "1",
+        "reset": "",
+        "initialFreeLimit": "0",
+        "depositFreeLimit": "0",
+        "minTopup": null,
+        "maxTopup": null,
+        "minRound": "0",
+        "rollover": "1.00",
+        "description": "{\"Description\":\"\",\"DescQuillEditor\":{\"ops\":[{\"insert\":\"<table style=\\\"border: 1.5px solid #f11515;font-size:12px;background-color: #343434;width: 90%;margin: 0 auto;border-radius: 10px;\\\"><tbody>\\n<tr style=\\\"border: 1.5px solid #12f5ae;\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Accumulate Deposit $300,000 And Above Are Entitled to claim</td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Enjoy 0.96% Daily Rebate</td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: #12f5ae;\\\">\u2713</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\"> Credit Balance Below $1.00 To Claim </td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: #12f5ae;\\\">\u2713</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\"> Roll 1 Time To Make Withdrawal </td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: #12f5ae;\\\">\u2713</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\"> Max Withdraw $10,000 </td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: red;\\\">\u2718</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Must Not Combined With / Deposit / Any Types Of Free Credit / Rebate / Commission</td></tr>\\n<tr style=\\\"border: 1.5px solid #12f5ae\\\">\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: red;\\\">\u2718</td>\\n<td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Must Not Using It To Save Free Spins / Game Features / Abuse Game Bugs</td></tr></tbody></table><p></p><hr><p></p><p></p><p style=\\\"font-size:10px;\\\">v12bet General Terms &amp; Conditions apply.</p><p></p><p></p><hr><p></p><p><img src=\\\"https://static.gwvkyk.com/media/bd2c99c79e85632fe851f.png\\\"></p></var>\\n\"}]},\"DescQuillHTML\":\"<p><table style=\\\"border: 1.5px solid #f11515;font-size:12px;background-color: #343434;width: 90%;margin: 0 auto;border-radius: 10px;\\\"><tbody></p><p><tr style=\\\"border: 1.5px solid #12f5ae;\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Accumulate Deposit $300,000 And Above Are Entitled to claim</td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color:#12f5ae\\\">\u2713</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Enjoy 0.96% Daily Rebate</td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: #12f5ae;\\\">\u2713</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\"> Credit Balance Below $1.00 To Claim </td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: #12f5ae;\\\">\u2713</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\"> Roll 1 Time To Make Withdrawal </td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: #12f5ae;\\\">\u2713</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\"> Max Withdraw $10,000 </td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: red;\\\">\u2718</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Must Not Combined With / Deposit / Any Types Of Free Credit / Rebate / Commission</td></tr></p><p><tr style=\\\"border: 1.5px solid #12f5ae\\\"></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px; text-align: center; color: red;\\\">\u2718</td></p><p><td style=\\\"border: 1.5px solid #12f5ae; padding: 8px;\\\">Must Not Using It To Save Free Spins / Game Features / Abuse Game Bugs</td></tr></tbody></table><p></p><hr><p></p><p></p><p style=\\\"font-size:10px;\\\">v12bet General Terms &amp; Conditions apply.</p><p></p><p></p><hr><p></p><p><img src=\\\"https://static.gwvkyk.com/media/bd2c99c79e85632fe851f.png\\\"></p></var></p>\"}",
+        "displayAmount": "1",
+        "displayGroup": "\ud83e\udd47SVIP FREE CREDIT <img src=\"https://static.gwvkyk.com/media/2f4e39850b3766f0dbe92.gif\" alt=\"\" width=\"109\" height=\"43\" style=\"width: 111px;height: auto;display:inline-block;margin-bottom: -16px;\">",
+        "displayOrder": "97",
+        "image": null,
+        "angpaoImage": "https://static.gwvkyk.com/media/1120ce871d85627828ed9.png",
+        "updata": null,
+        "transactionId": null,
+        "transactionCash": null,
+        "claimDateTime": null,
+        "sysnote": null,
+        "message": "Need 299,970.00 more in deposits"
+      }
+    ],
+    "referLink": "https://v12betau.net/RF185658319",
+    "encryptId": "PjXHqBj21tvPR52H1jy5YQ%3D%3D",
+    "depCount": "1",
+    "lifetimeDeposit": "30.00",
+    "rollover": {
+      "total": 0,
+      "current": 0,
+      "broll": 0,
+      "droll": 0,
+      "withdrawable": true,
+      "rolls": []
+    },
+    "merchant": {
+      "id": "171",
+      "name": "V12BET",
+      "currency": "AUD",
+      "commission": null
+    },
+    "banks": [
+      {
+        "code": "NAB",
+        "name": "National Australia Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "CBA",
+        "name": "Commonwealth Bank of Australia",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "WBC",
+        "name": "Westpac Banking Corporation",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "ANZ",
+        "name": "Australia & New Zealand Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "PAYID",
+        "name": "PayID",
+        "currency": "AUD",
+        "displayOrder": "1"
+      },
+      {
+        "code": "BSB",
+        "name": "UP Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "STG",
+        "name": "St George Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "MACAU",
+        "name": "Macquarie Bank Group",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "BOQAU",
+        "name": "Bank of Queensland",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "AMPBL",
+        "name": "AMP Bank Limited",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "BABAU",
+        "name": "Bendigo and Adelaide Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "SBAU",
+        "name": "Suncorp Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "BWAU",
+        "name": "Bankwest",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "UBAU",
+        "name": "Ubank Limited",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "DBAU",
+        "name": "Defence bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "ING",
+        "name": "ING Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "BYAU",
+        "name": "Beyond Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "BMAU",
+        "name": "Bank of Melbourne",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "PIPN",
+        "name": "PayID (Phone Number)",
+        "currency": "AUD",
+        "displayOrder": "3"
+      },
+      {
+        "code": "PIG",
+        "name": "PayID (Email)",
+        "currency": "AUD",
+        "displayOrder": "2"
+      },
+      {
+        "code": "CITIAU",
+        "name": "Citi Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "PABN",
+        "name": "PayID ABN (Business Number)",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "NICU",
+        "name": "Northern Inland Credit Union",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "MSBAU",
+        "name": "MyState Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "GBAU",
+        "name": "Greater Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "VMAU",
+        "name": "Virgin Money",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "NPAU",
+        "name": "Newcastle Permanent ",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "BAAU",
+        "name": "Bank Australia",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "QBAU",
+        "name": "Qudos Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "RBAU",
+        "name": "Rabobank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "BHBAU",
+        "name": "Back Hume Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "CBAB",
+        "name": "CBA Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "MEBAU",
+        "name": "MEBANK",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "BBAU",
+        "name": "Bano Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "GSBAU",
+        "name": "Greater Southern BANK",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "CUBAU",
+        "name": "Credit Union Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "BCUAU",
+        "name": "BCU Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "REVOLUTAU",
+        "name": "Revolut Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "CCAU",
+        "name": "Credit Card",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "PCCU",
+        "name": "People Choice Credit Union",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "HSBCAU",
+        "name": "HSBC Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "BSAAU",
+        "name": "Bank of South Australia",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "WBAU",
+        "name": "Wise Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "ANZP",
+        "name": "Bank ANZ Plus",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "HBAU",
+        "name": "Hume Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "CBAU",
+        "name": "Crypto Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "PACN",
+        "name": "PayID ACN (Business Number)",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "IMBAU",
+        "name": "Independent Mortgage Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "SAAU",
+        "name": "SA Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "RABAU",
+        "name": "Regional Australia Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "HERITAGE",
+        "name": "Heritage Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "BFAU",
+        "name": "Bank First",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "IMB",
+        "name": "IMB Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "INGAU",
+        "name": "ING BANK",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "MEGOAU",
+        "name": "MEGO",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "AWBAU",
+        "name": "Auswide Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "SYDNEYAU",
+        "name": "BANK OF SYDNEY",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "GREATAU",
+        "name": "Great Southern Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "BUSAU",
+        "name": "Bank of US",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "QSCBAU",
+        "name": "QUEENSLAND COUNTRY BANK",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "QSCCUAU",
+        "name": "QUEENSLAND COUNTRY CREDIT UNION",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "PROSPAAU",
+        "name": "Prospa Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "PAYPALAU",
+        "name": "PayPal",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "BEEMITAU",
+        "name": "Beem It",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "SKRILLAU",
+        "name": "Skrill",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "PNAU",
+        "name": "P&N Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "BSBACCAU",
+        "name": "BSB & ACC",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "BAULTD",
+        "name": "Bank Australia Limited",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "TMBAULTD",
+        "name": "Teachers Mutual Bank Limited",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "HPCAULTD",
+        "name": "Heritage and People\u2019s Choice Limited",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "HSBCAULTD",
+        "name": "HSBC Bank Australia Limited",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "BOCAULTD",
+        "name": "Bank of China Limited",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "MUFGBAU",
+        "name": "MUFG Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "JPMCBAU",
+        "name": "J.P. Morgan Chase Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "BENDIGOAU",
+        "name": "Bendigo Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "UNITYAU",
+        "name": "Unity Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "ALIPAYAU",
+        "name": "Alipay",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "COASTLINEA",
+        "name": "Coastline Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "HORIZONAU",
+        "name": "Horizon Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "HAYAU",
+        "name": "Hay Bank",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "PPLFSTBAU",
+        "name": "People First BANK",
+        "currency": "AUD",
+        "displayOrder": null
+      },
+      {
+        "code": "UNIAU",
+        "name": "UniBank",
+        "currency": "AUD",
+        "displayOrder": null
+      }
+    ],
+    "minWithdraw": 50,
+    "maxWithdraw": 0,
+    "minDeposit": 10,
+    "changePassword": 0,
+    "newRegister": 0,
+    "newDeposit": 0,
+    "cacheData": {
+      "minWithdraw": 0,
+      "withdrawFeePerc": 0,
+      "creditZeroTime": "2026-06-12 11:27:45",
+      "gameAccess": [],
+      "gameShow": [],
+      "gameHide": [],
+      "clearMaxWinTh": 0,
+      "topReferrerId": "178265224",
+      "activeSite": [],
+      "autoUserTagDate": "2024-08-04",
+      "lastTxId": [
+        16167789888,
+        16167789722,
+        16149529638,
+        16149486148,
+        14972098910,
+        14972067870,
+        12697457002,
+        12479133353,
+        12409316470,
+        12409306581
+      ],
+      "bonus_count": 17,
+      "bonus_total": 360,
+      "commission_count": 2,
+      "commission_total": 4.45,
+      "lastDepositAmount": "30.00",
+      "depositBonusDateTime": "2025-03-16 13:06:16",
+      "pinchat": 0,
+      "lifetimeDepositDate": "2025-03-16 13:01:08",
+      "lifetimeDeposit": "30.00"
+    },
+    "wallet": [
+      {
+        "id": 0,
+        "name": "Balance",
+        "balance": 0
+      }
+    ],
+    "gameAccess": {
+      "allowedGame": [],
+      "allowedGameBonusAmount": 0,
+      "allowedGameBonusDT": "2024-01-01 00:00:00",
+      "notAllowedGame": [],
+      "slotGameOnly": 0
+    },
+    "time": [
+      0.01,
+      0.03,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "timebonus": {
+      "100747": 0.01,
+      "100748": 0,
+      "100750": 0,
+      "100764": 0,
+      "100765": 0,
+      "100751": 0,
+      "100767": 0,
+      "100768": 0,
+      "100758": 0,
+      "100759": 0,
+      "100760": 0,
+      "100761": 0,
+      "100762": 0,
+      "100763": 0,
+      "100766": 0
+    },
+    "riskLevel": -1,
+    "showUserTag": []
+  },
+  "timestamp": "2026-06-12T11:27:45+00:00"
+}

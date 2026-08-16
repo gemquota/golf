@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
+    <meta name="robots" content="noindex, nofollow"/>
+    <title>Sega99aud</title>
+
+    <style type="text/css">
+        a, img {
+            outline: 0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ol, ul {
+            list-style: none;
+        }
+
+        img {
+            border: none;
+        }
+
+        a {
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .cf:after, .cf:before {
+            content: " ";
+            display: table;
+        }
+
+        .cf:after {
+            clear: both;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            -webkit-text-size-adjust: none;
+            -moz-text-size-adjust: none;
+            -ms-text-size-adjust: none;
+            -o-text-size-adjust: none;
+            text-size-adjust: none;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+            padding: 0;
+            background-color: #1a1f2e;
+            background-image: 
+                linear-gradient(to right, rgba(0, 0, 0, 0.1) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .ios_fix {
+            width: 1px;
+            min-width: 100%;
+            *width: 100%;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .wrapper {
+            position: relative;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            width: 100%;
+            background-color: transparent;
+        }
+
+        .heading {
+            visibility: visible;
+            word-wrap: break-word;
+            text-align: center;
+            font-size: 30px;
+            color: #ffffff;
+            font-family: Montserrat-bold, arial, sans-serif, Arial, sans-serif;
+            font-weight: bold;
+            padding-top: 60px;
+            padding-bottom: 20px;
+            flex-shrink: 0;
+        }
+
+        .searches {
+            color: #a0a8c0;
+            font-size: 12px;
+            margin: 0 0 16px;
+            font-family: montserrat_regular, arial, sans-serif;
+        }
+
+        .no-results {
+            color: #828694;
+            font-size: 14px;
+            margin: 10px 0 20px;
+            font-family: montserrat_regular, arial, sans-serif;
+            text-align: center;
+        }
+
+        li .content {
+            position: relative;
+            padding: 0 50px 0 25px;
+            overflow: hidden;
+            border-radius: 8px;
+            background: #2a3441;
+            border: solid 1px #4a5568;
+        }
+
+        li .arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            text-align: center;
+            right: 25px;
+            color: #ffffff;
+        }
+
+        li .anchortext a {
+            line-height: 29px;
+            max-height: 87px;
+            word-wrap: break-word;
+            overflow: hidden;
+            display: block;
+            text-align: center;
+            font-size: 24px;
+            color: #ffffff;
+            font-weight: bold;
+            font-family: Verdana, arial, sans-serif;
+            text-transform: capitalize;
+        }
+
+        li:hover .content {
+            background: #e09a00;
+            border-color: #e09a00;
+        }
+
+        li:hover .anchortext a {
+            color: #ffffff;
+            text-decoration: ;
+        }
+
+        .list_wrapper {
+            overflow: hidden;
+            max-width: 560px;
+            margin: 0 auto;
+            padding: 30px 10px;
+            flex: 1;
+        }
+
+        li {
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        li:last-child {
+            margin-bottom: none;
+        }
+
+        li .anchorhref {
+            position: absolute;
+            display: block;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0;
+            overflow: hidden;
+            z-index: 999;
+        }
+
+        li table {
+            table-layout: fixed;
+            width: 100%;
+            word-wrap: break-word;
+        }
+
+        .content td {
+            height: 114px;
+        }
+
+        .footer {
+            text-align: center;
+            font-family: arial, sans-serif;
+            padding: 20px 10px;
+            background-color: transparent;
+            width: 220px;
+            margin: auto auto 20px;
+            flex-shrink: 0;
+            margin-top: auto;
+        }
+
+        .footer-links a {
+            display: inline-block;
+            line-height: 20px;
+            color: #a0a8c0;
+            font-family: Arial, sans-serif;
+            text-decoration: none;
+            font-size: 12px;
+        }
+
+        @media screen and (max-width: 599px) {
+            .list_wrapper {
+                background: transparent;
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+            li .content {
+                background-color: #2a3441;
+                border: solid 1px #4a5568;
+            }
+        }
+    </style>
+    <style>
+        /* Decorative Side Elements */
+        .decorative-left,
+        .decorative-right {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .decorative-left {
+            left: 0;
+        }
+
+        .decorative-right {
+            right: 0;
+        }
+
+        /* Improved Chevron Design with Flat Ends */
+        .chevron {
+            position: relative;
+            width: 35vw;
+            max-width: calc((100vw - 560px - 40px) / 2);
+            height: 13vh;
+            background: currentColor;
+            transition: all 0.3s ease;
+        }
+
+        .chevron-left {
+            margin-left: -5vw;
+            clip-path: polygon(0 0, 80% 0, 100% 50%, 80% 100%, 0 100%);
+        }
+
+        .chevron-right {
+            margin-right: -5vw;
+            clip-path: polygon(20% 0, 100% 0, 100% 100%, 20% 100%, 0 50%);
+        }
+
+        /* Colors for chevrons with hover effects - darker shades for black theme */
+        .chevron-blue-left,
+        .chevron-blue-right {
+            color: #2a3441;
+        }
+
+        .chevron-green-left,
+        .chevron-green-right {
+            color: #2a3441;
+        }
+
+        .chevron-yellow-left,
+        .chevron-yellow-right {
+            color: #2a3441;
+        }
+
+        .chevron-pink-left,
+        .chevron-pink-right {
+            color: #2a3441;
+        }
+
+        .chevron-purple-left,
+        .chevron-purple-right {
+            color: #2a3441;
+        }
+
+        /* Hover effects for chevrons */
+        .container:hover .chevron-left {
+            margin-left: -3vw;
+        }
+
+        .container:hover .chevron-right {
+            margin-right: -3vw;
+        }
+
+        @media only screen and (max-width: 767px) {
+            .decorative-left,
+            .decorative-right {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="ios_fix">
+    <div class="heading" style="visibility: visible;">Sega99aud</div>
+
+    <div class="wrapper">
+        <!-- Left Decorative Elements -->
+        <div class="decorative-left">
+            <div class="chevron chevron-left chevron-blue-left"></div>
+            <div class="chevron chevron-left chevron-green-left"></div>
+            <div class="chevron chevron-left chevron-yellow-left"></div>
+            <div class="chevron chevron-left chevron-pink-left"></div>
+            <div class="chevron chevron-left chevron-purple-left"></div>
+        </div>
+
+        <div class="list_wrapper">
+            <div class="searches">Related Searches:</div>
+
+                <ul class="list_1">
+                        <li>
+                            <div class="content">
+                                <div class="arrow">
+                                    <img src="/assets/images/arrow.png">
+                                </div>
+                                <table width="100%" cellpadding="0" cellspacing="0" border="0" align="left">
+                                    <tbody>
+                                    <tr>
+                                        <td width="100%" align="left" valign="middle">
+                                            <div class="anchortext">
+                                                <a href="/kw-click?keyword=Play%20Sega99%20Casino%20Aud&position=0&clickUrl=https%3A%2F%2Fintivesearch.com%2Fsearch%3Fqs%3Dqsx-4b1654ca5ff6be3db872c61a70f0be9162e66921d0f352b98cfb072aeb304eadb24f967bd11d0eb91a8342f0ed5d800c51e355ee2eae2653d8bc1ae55ceefeab6a799e8806eafb48274c5515cd3e0c5a29a8e1b008362193032f2e1f5b9553e6b6024e862a5f2f8b8443b75c47a84301360602ad3fa3b80b35d9a9af0b311ce3f09e3458322b7e45d7a3cf01d7e509ceed792803b1746abef1f5391994f747d66492f285c832b4528124c68c9a2f30e4499e8cb2ebbd7b9b92474d3e0d9ad5ad6ed9a22ed4f70138bc013b35308bee335a9be121e4ff72d54577228fecca214c436b8afe2d00bd41795c8dbd3347679e6affa21e4778fa08440b61ad9763831b35174b186b0ff8d02c329a767a80d17a3e37d4642e81a5d80750797a7a0e86118919002a25bbb69e2b102c8a582d02438338f3e94a95a626aba413a50c0963d9442db4a3ac2773a9d2a7275bf6bc18baa30353285086fdfbc9a6b5e0f1fc5d662ab3dee620d85340263c6c44c1fc22607dbdc953c5da34c195dc0c6e6c7b4909c93dc16def37e3b0b453f4ae24c9f6fabb16f95dafd732aae894bbb027eb11e2da07d186555e0241362a1ca3920f71dbfe38d62515e17cfead7dd7d3e20aeb3be981899dfe165a42397f6a74bec8d3e1c762cb955669137786b63329d24409670bd63ac79ebbc7d4473ecec26a5f4804a99ca01a7ceb17f2e1e83e99ad3079c84af25315a4f816.949cb4481a37c79bc300f33ad6c607d3%26type%3Ddm_t2GsA9xY__sega99aud_com%26dmn%3Dsega99aud.com%26q%3DPlay%2BSega99%2BCasino%2BAud%26testId%3D2%26tkn%3Dt2GsA9xY&testId=2&tkn=t2GsA9xY"
+                                                target="_blank">Play Sega99 Casino Aud</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <a href="/kw-click?keyword=Play%20Sega99%20Casino%20Aud&position=0&clickUrl=https%3A%2F%2Fintivesearch.com%2Fsearch%3Fqs%3Dqsx-4b1654ca5ff6be3db872c61a70f0be9162e66921d0f352b98cfb072aeb304eadb24f967bd11d0eb91a8342f0ed5d800c51e355ee2eae2653d8bc1ae55ceefeab6a799e8806eafb48274c5515cd3e0c5a29a8e1b008362193032f2e1f5b9553e6b6024e862a5f2f8b8443b75c47a84301360602ad3fa3b80b35d9a9af0b311ce3f09e3458322b7e45d7a3cf01d7e509ceed792803b1746abef1f5391994f747d66492f285c832b4528124c68c9a2f30e4499e8cb2ebbd7b9b92474d3e0d9ad5ad6ed9a22ed4f70138bc013b35308bee335a9be121e4ff72d54577228fecca214c436b8afe2d00bd41795c8dbd3347679e6affa21e4778fa08440b61ad9763831b35174b186b0ff8d02c329a767a80d17a3e37d4642e81a5d80750797a7a0e86118919002a25bbb69e2b102c8a582d02438338f3e94a95a626aba413a50c0963d9442db4a3ac2773a9d2a7275bf6bc18baa30353285086fdfbc9a6b5e0f1fc5d662ab3dee620d85340263c6c44c1fc22607dbdc953c5da34c195dc0c6e6c7b4909c93dc16def37e3b0b453f4ae24c9f6fabb16f95dafd732aae894bbb027eb11e2da07d186555e0241362a1ca3920f71dbfe38d62515e17cfead7dd7d3e20aeb3be981899dfe165a42397f6a74bec8d3e1c762cb955669137786b63329d24409670bd63ac79ebbc7d4473ecec26a5f4804a99ca01a7ceb17f2e1e83e99ad3079c84af25315a4f816.949cb4481a37c79bc300f33ad6c607d3%26type%3Ddm_t2GsA9xY__sega99aud_com%26dmn%3Dsega99aud.com%26q%3DPlay%2BSega99%2BCasino%2BAud%26testId%3D2%26tkn%3Dt2GsA9xY&testId=2&tkn=t2GsA9xY" class="anchorhref"
+                            target="_blank"></a>
+                        </li>
+                        <li>
+                            <div class="content">
+                                <div class="arrow">
+                                    <img src="/assets/images/arrow.png">
+                                </div>
+                                <table width="100%" cellpadding="0" cellspacing="0" border="0" align="left">
+                                    <tbody>
+                                    <tr>
+                                        <td width="100%" align="left" valign="middle">
+                                            <div class="anchortext">
+                                                <a href="/kw-click?keyword=best%20movie%20streaming%20subscriptions&position=1&clickUrl=https%3A%2F%2Fintivesearch.com%2Fsearch%3Fqs%3Dqsx-4b1654ca5ff6be3db872c61a70f0be9162e66921d0f352b98cfb072aeb304eadb24f967bd11d0eb91a8342f0ed5d800c51e355ee2eae2653d8bc1ae55ceefeab6a799e8806eafb48274c5515cd3e0c5a29a8e1b008362193032f2e1f5b9553e6b6024e862a5f2f8b8443b75c47a84301360602ad3fa3b80b35d9a9af0b311ce3f09e3458322b7e45d7a3cf01d7e509ceed792803b1746abef1f5391994f747d66492f285c832b4528124c68c9a2f30e4499e8cb2ebbd7b9b92474d3e0d9ad5ad6ed9a22ed4f70138bc013b35308bee335a9be121e4ff72d54577228fecca214c436b8afe2d00bd41795c8dbd3347679e6affa21e4778fa08440b61ad9763831b35174b186b0ff8d02c329a767a80d17a3e37d4642e81a5d80750797a7a0e86118919002a25bbb69e2b102c8a582d02438338f3e94a95a626aba413a50c0963d9442db4a3ac2773a9d2a7275bf6bc18baa30353285086fdfbc9a6b5e0f1fc5d662ab3dee620d85340263c6c44c1fc22607dbdc953c5da34c195dc0c6e6c7b4909c93dc16def37e3b0b453f4ae24c9f6fabb16f95dafd732aae894bbb027eb11e2da07d186555e0241362a1ca3920f71dbfe38d62515e17cfead7dd7d3e20aeb3be981899dfe165a42397f6a74bec8d3e1c762cb955669137786b63329d24409670bd63ac79ebbc7d4473ecec26a5f4804a99ca01a7ceb17f2e1e83e99ad3079c84af25315a4f816.949cb4481a37c79bc300f33ad6c607d3%26type%3Ddm_t2GsA9xY__sega99aud_com%26dmn%3Dsega99aud.com%26q%3Dbest%2Bmovie%2Bstreaming%2Bsubscriptions%26testId%3D2%26tkn%3Dt2GsA9xY&testId=2&tkn=t2GsA9xY"
+                                                target="_blank">best movie streaming subscriptions</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <a href="/kw-click?keyword=best%20movie%20streaming%20subscriptions&position=1&clickUrl=https%3A%2F%2Fintivesearch.com%2Fsearch%3Fqs%3Dqsx-4b1654ca5ff6be3db872c61a70f0be9162e66921d0f352b98cfb072aeb304eadb24f967bd11d0eb91a8342f0ed5d800c51e355ee2eae2653d8bc1ae55ceefeab6a799e8806eafb48274c5515cd3e0c5a29a8e1b008362193032f2e1f5b9553e6b6024e862a5f2f8b8443b75c47a84301360602ad3fa3b80b35d9a9af0b311ce3f09e3458322b7e45d7a3cf01d7e509ceed792803b1746abef1f5391994f747d66492f285c832b4528124c68c9a2f30e4499e8cb2ebbd7b9b92474d3e0d9ad5ad6ed9a22ed4f70138bc013b35308bee335a9be121e4ff72d54577228fecca214c436b8afe2d00bd41795c8dbd3347679e6affa21e4778fa08440b61ad9763831b35174b186b0ff8d02c329a767a80d17a3e37d4642e81a5d80750797a7a0e86118919002a25bbb69e2b102c8a582d02438338f3e94a95a626aba413a50c0963d9442db4a3ac2773a9d2a7275bf6bc18baa30353285086fdfbc9a6b5e0f1fc5d662ab3dee620d85340263c6c44c1fc22607dbdc953c5da34c195dc0c6e6c7b4909c93dc16def37e3b0b453f4ae24c9f6fabb16f95dafd732aae894bbb027eb11e2da07d186555e0241362a1ca3920f71dbfe38d62515e17cfead7dd7d3e20aeb3be981899dfe165a42397f6a74bec8d3e1c762cb955669137786b63329d24409670bd63ac79ebbc7d4473ecec26a5f4804a99ca01a7ceb17f2e1e83e99ad3079c84af25315a4f816.949cb4481a37c79bc300f33ad6c607d3%26type%3Ddm_t2GsA9xY__sega99aud_com%26dmn%3Dsega99aud.com%26q%3Dbest%2Bmovie%2Bstreaming%2Bsubscriptions%26testId%3D2%26tkn%3Dt2GsA9xY&testId=2&tkn=t2GsA9xY" class="anchorhref"
+                            target="_blank"></a>
+                        </li>
+                        <li>
+                            <div class="content">
+                                <div class="arrow">
+                                    <img src="/assets/images/arrow.png">
+                                </div>
+                                <table width="100%" cellpadding="0" cellspacing="0" border="0" align="left">
+                                    <tbody>
+                                    <tr>
+                                        <td width="100%" align="left" valign="middle">
+                                            <div class="anchortext">
+                                                <a href="/kw-click?keyword=fastest%20VPN%20service%20pricing&position=2&clickUrl=https%3A%2F%2Fintivesearch.com%2Fsearch%3Fqs%3Dqsx-4b1654ca5ff6be3db872c61a70f0be9162e66921d0f352b98cfb072aeb304eadb24f967bd11d0eb91a8342f0ed5d800c51e355ee2eae2653d8bc1ae55ceefeab6a799e8806eafb48274c5515cd3e0c5a29a8e1b008362193032f2e1f5b9553e6b6024e862a5f2f8b8443b75c47a84301360602ad3fa3b80b35d9a9af0b311ce3f09e3458322b7e45d7a3cf01d7e509ceed792803b1746abef1f5391994f747d66492f285c832b4528124c68c9a2f30e4499e8cb2ebbd7b9b92474d3e0d9ad5ad6ed9a22ed4f70138bc013b35308bee335a9be121e4ff72d54577228fecca214c436b8afe2d00bd41795c8dbd3347679e6affa21e4778fa08440b61ad9763831b35174b186b0ff8d02c329a767a80d17a3e37d4642e81a5d80750797a7a0e86118919002a25bbb69e2b102c8a582d02438338f3e94a95a626aba413a50c0963d9442db4a3ac2773a9d2a7275bf6bc18baa30353285086fdfbc9a6b5e0f1fc5d662ab3dee620d85340263c6c44c1fc22607dbdc953c5da34c195dc0c6e6c7b4909c93dc16def37e3b0b453f4ae24c9f6fabb16f95dafd732aae894bbb027eb11e2da07d186555e0241362a1ca3920f71dbfe38d62515e17cfead7dd7d3e20aeb3be981899dfe165a42397f6a74bec8d3e1c762cb955669137786b63329d24409670bd63ac79ebbc7d4473ecec26a5f4804a99ca01a7ceb17f2e1e83e99ad3079c84af25315a4f816.949cb4481a37c79bc300f33ad6c607d3%26type%3Ddm_t2GsA9xY__sega99aud_com%26dmn%3Dsega99aud.com%26q%3Dfastest%2BVPN%2Bservice%2Bpricing%26testId%3D2%26tkn%3Dt2GsA9xY&testId=2&tkn=t2GsA9xY"
+                                                target="_blank">fastest VPN service pricing</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <a href="/kw-click?keyword=fastest%20VPN%20service%20pricing&position=2&clickUrl=https%3A%2F%2Fintivesearch.com%2Fsearch%3Fqs%3Dqsx-4b1654ca5ff6be3db872c61a70f0be9162e66921d0f352b98cfb072aeb304eadb24f967bd11d0eb91a8342f0ed5d800c51e355ee2eae2653d8bc1ae55ceefeab6a799e8806eafb48274c5515cd3e0c5a29a8e1b008362193032f2e1f5b9553e6b6024e862a5f2f8b8443b75c47a84301360602ad3fa3b80b35d9a9af0b311ce3f09e3458322b7e45d7a3cf01d7e509ceed792803b1746abef1f5391994f747d66492f285c832b4528124c68c9a2f30e4499e8cb2ebbd7b9b92474d3e0d9ad5ad6ed9a22ed4f70138bc013b35308bee335a9be121e4ff72d54577228fecca214c436b8afe2d00bd41795c8dbd3347679e6affa21e4778fa08440b61ad9763831b35174b186b0ff8d02c329a767a80d17a3e37d4642e81a5d80750797a7a0e86118919002a25bbb69e2b102c8a582d02438338f3e94a95a626aba413a50c0963d9442db4a3ac2773a9d2a7275bf6bc18baa30353285086fdfbc9a6b5e0f1fc5d662ab3dee620d85340263c6c44c1fc22607dbdc953c5da34c195dc0c6e6c7b4909c93dc16def37e3b0b453f4ae24c9f6fabb16f95dafd732aae894bbb027eb11e2da07d186555e0241362a1ca3920f71dbfe38d62515e17cfead7dd7d3e20aeb3be981899dfe165a42397f6a74bec8d3e1c762cb955669137786b63329d24409670bd63ac79ebbc7d4473ecec26a5f4804a99ca01a7ceb17f2e1e83e99ad3079c84af25315a4f816.949cb4481a37c79bc300f33ad6c607d3%26type%3Ddm_t2GsA9xY__sega99aud_com%26dmn%3Dsega99aud.com%26q%3Dfastest%2BVPN%2Bservice%2Bpricing%26testId%3D2%26tkn%3Dt2GsA9xY&testId=2&tkn=t2GsA9xY" class="anchorhref"
+                            target="_blank"></a>
+                        </li>
+                        <li>
+                            <div class="content">
+                                <div class="arrow">
+                                    <img src="/assets/images/arrow.png">
+                                </div>
+                                <table width="100%" cellpadding="0" cellspacing="0" border="0" align="left">
+                                    <tbody>
+                                    <tr>
+                                        <td width="100%" align="left" valign="middle">
+                                            <div class="anchortext">
+                                                <a href="/kw-click?keyword=Register%20Sega99%20Account&position=3&clickUrl=https%3A%2F%2Fintivesearch.com%2Fsearch%3Fqs%3Dqsx-4b1654ca5ff6be3db872c61a70f0be9162e66921d0f352b98cfb072aeb304eadb24f967bd11d0eb91a8342f0ed5d800c51e355ee2eae2653d8bc1ae55ceefeab6a799e8806eafb48274c5515cd3e0c5a29a8e1b008362193032f2e1f5b9553e6b6024e862a5f2f8b8443b75c47a84301360602ad3fa3b80b35d9a9af0b311ce3f09e3458322b7e45d7a3cf01d7e509ceed792803b1746abef1f5391994f747d66492f285c832b4528124c68c9a2f30e4499e8cb2ebbd7b9b92474d3e0d9ad5ad6ed9a22ed4f70138bc013b35308bee335a9be121e4ff72d54577228fecca214c436b8afe2d00bd41795c8dbd3347679e6affa21e4778fa08440b61ad9763831b35174b186b0ff8d02c329a767a80d17a3e37d4642e81a5d80750797a7a0e86118919002a25bbb69e2b102c8a582d02438338f3e94a95a626aba413a50c0963d9442db4a3ac2773a9d2a7275bf6bc18baa30353285086fdfbc9a6b5e0f1fc5d662ab3dee620d85340263c6c44c1fc22607dbdc953c5da34c195dc0c6e6c7b4909c93dc16def37e3b0b453f4ae24c9f6fabb16f95dafd732aae894bbb027eb11e2da07d186555e0241362a1ca3920f71dbfe38d62515e17cfead7dd7d3e20aeb3be981899dfe165a42397f6a74bec8d3e1c762cb955669137786b63329d24409670bd63ac79ebbc7d4473ecec26a5f4804a99ca01a7ceb17f2e1e83e99ad3079c84af25315a4f816.949cb4481a37c79bc300f33ad6c607d3%26type%3Ddm_t2GsA9xY__sega99aud_com%26dmn%3Dsega99aud.com%26q%3DRegister%2BSega99%2BAccount%26testId%3D2%26tkn%3Dt2GsA9xY&testId=2&tkn=t2GsA9xY"
+                                                target="_blank">Register Sega99 Account</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <a href="/kw-click?keyword=Register%20Sega99%20Account&position=3&clickUrl=https%3A%2F%2Fintivesearch.com%2Fsearch%3Fqs%3Dqsx-4b1654ca5ff6be3db872c61a70f0be9162e66921d0f352b98cfb072aeb304eadb24f967bd11d0eb91a8342f0ed5d800c51e355ee2eae2653d8bc1ae55ceefeab6a799e8806eafb48274c5515cd3e0c5a29a8e1b008362193032f2e1f5b9553e6b6024e862a5f2f8b8443b75c47a84301360602ad3fa3b80b35d9a9af0b311ce3f09e3458322b7e45d7a3cf01d7e509ceed792803b1746abef1f5391994f747d66492f285c832b4528124c68c9a2f30e4499e8cb2ebbd7b9b92474d3e0d9ad5ad6ed9a22ed4f70138bc013b35308bee335a9be121e4ff72d54577228fecca214c436b8afe2d00bd41795c8dbd3347679e6affa21e4778fa08440b61ad9763831b35174b186b0ff8d02c329a767a80d17a3e37d4642e81a5d80750797a7a0e86118919002a25bbb69e2b102c8a582d02438338f3e94a95a626aba413a50c0963d9442db4a3ac2773a9d2a7275bf6bc18baa30353285086fdfbc9a6b5e0f1fc5d662ab3dee620d85340263c6c44c1fc22607dbdc953c5da34c195dc0c6e6c7b4909c93dc16def37e3b0b453f4ae24c9f6fabb16f95dafd732aae894bbb027eb11e2da07d186555e0241362a1ca3920f71dbfe38d62515e17cfead7dd7d3e20aeb3be981899dfe165a42397f6a74bec8d3e1c762cb955669137786b63329d24409670bd63ac79ebbc7d4473ecec26a5f4804a99ca01a7ceb17f2e1e83e99ad3079c84af25315a4f816.949cb4481a37c79bc300f33ad6c607d3%26type%3Ddm_t2GsA9xY__sega99aud_com%26dmn%3Dsega99aud.com%26q%3DRegister%2BSega99%2BAccount%26testId%3D2%26tkn%3Dt2GsA9xY&testId=2&tkn=t2GsA9xY" class="anchorhref"
+                            target="_blank"></a>
+                        </li>
+                        <li>
+                            <div class="content">
+                                <div class="arrow">
+                                    <img src="/assets/images/arrow.png">
+                                </div>
+                                <table width="100%" cellpadding="0" cellspacing="0" border="0" align="left">
+                                    <tbody>
+                                    <tr>
+                                        <td width="100%" align="left" valign="middle">
+                                            <div class="anchortext">
+                                                <a href="/kw-click?keyword=Sega99%20Promotions%20Australia&position=4&clickUrl=https%3A%2F%2Fintivesearch.com%2Fsearch%3Fqs%3Dqsx-4b1654ca5ff6be3db872c61a70f0be9162e66921d0f352b98cfb072aeb304eadb24f967bd11d0eb91a8342f0ed5d800c51e355ee2eae2653d8bc1ae55ceefeab6a799e8806eafb48274c5515cd3e0c5a29a8e1b008362193032f2e1f5b9553e6b6024e862a5f2f8b8443b75c47a84301360602ad3fa3b80b35d9a9af0b311ce3f09e3458322b7e45d7a3cf01d7e509ceed792803b1746abef1f5391994f747d66492f285c832b4528124c68c9a2f30e4499e8cb2ebbd7b9b92474d3e0d9ad5ad6ed9a22ed4f70138bc013b35308bee335a9be121e4ff72d54577228fecca214c436b8afe2d00bd41795c8dbd3347679e6affa21e4778fa08440b61ad9763831b35174b186b0ff8d02c329a767a80d17a3e37d4642e81a5d80750797a7a0e86118919002a25bbb69e2b102c8a582d02438338f3e94a95a626aba413a50c0963d9442db4a3ac2773a9d2a7275bf6bc18baa30353285086fdfbc9a6b5e0f1fc5d662ab3dee620d85340263c6c44c1fc22607dbdc953c5da34c195dc0c6e6c7b4909c93dc16def37e3b0b453f4ae24c9f6fabb16f95dafd732aae894bbb027eb11e2da07d186555e0241362a1ca3920f71dbfe38d62515e17cfead7dd7d3e20aeb3be981899dfe165a42397f6a74bec8d3e1c762cb955669137786b63329d24409670bd63ac79ebbc7d4473ecec26a5f4804a99ca01a7ceb17f2e1e83e99ad3079c84af25315a4f816.949cb4481a37c79bc300f33ad6c607d3%26type%3Ddm_t2GsA9xY__sega99aud_com%26dmn%3Dsega99aud.com%26q%3DSega99%2BPromotions%2BAustralia%26testId%3D2%26tkn%3Dt2GsA9xY&testId=2&tkn=t2GsA9xY"
+                                                target="_blank">Sega99 Promotions Australia</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <a href="/kw-click?keyword=Sega99%20Promotions%20Australia&position=4&clickUrl=https%3A%2F%2Fintivesearch.com%2Fsearch%3Fqs%3Dqsx-4b1654ca5ff6be3db872c61a70f0be9162e66921d0f352b98cfb072aeb304eadb24f967bd11d0eb91a8342f0ed5d800c51e355ee2eae2653d8bc1ae55ceefeab6a799e8806eafb48274c5515cd3e0c5a29a8e1b008362193032f2e1f5b9553e6b6024e862a5f2f8b8443b75c47a84301360602ad3fa3b80b35d9a9af0b311ce3f09e3458322b7e45d7a3cf01d7e509ceed792803b1746abef1f5391994f747d66492f285c832b4528124c68c9a2f30e4499e8cb2ebbd7b9b92474d3e0d9ad5ad6ed9a22ed4f70138bc013b35308bee335a9be121e4ff72d54577228fecca214c436b8afe2d00bd41795c8dbd3347679e6affa21e4778fa08440b61ad9763831b35174b186b0ff8d02c329a767a80d17a3e37d4642e81a5d80750797a7a0e86118919002a25bbb69e2b102c8a582d02438338f3e94a95a626aba413a50c0963d9442db4a3ac2773a9d2a7275bf6bc18baa30353285086fdfbc9a6b5e0f1fc5d662ab3dee620d85340263c6c44c1fc22607dbdc953c5da34c195dc0c6e6c7b4909c93dc16def37e3b0b453f4ae24c9f6fabb16f95dafd732aae894bbb027eb11e2da07d186555e0241362a1ca3920f71dbfe38d62515e17cfead7dd7d3e20aeb3be981899dfe165a42397f6a74bec8d3e1c762cb955669137786b63329d24409670bd63ac79ebbc7d4473ecec26a5f4804a99ca01a7ceb17f2e1e83e99ad3079c84af25315a4f816.949cb4481a37c79bc300f33ad6c607d3%26type%3Ddm_t2GsA9xY__sega99aud_com%26dmn%3Dsega99aud.com%26q%3DSega99%2BPromotions%2BAustralia%26testId%3D2%26tkn%3Dt2GsA9xY&testId=2&tkn=t2GsA9xY" class="anchorhref"
+                            target="_blank"></a>
+                        </li>
+                </ul>
+        </div>
+
+        <!-- Right Decorative Elements -->
+        <div class="decorative-right">
+            <div class="chevron chevron-right chevron-blue-right"></div>
+            <div class="chevron chevron-right chevron-green-right"></div>
+            <div class="chevron chevron-right chevron-yellow-right"></div>
+            <div class="chevron chevron-right chevron-pink-right"></div>
+            <div class="chevron chevron-right chevron-purple-right"></div>
+        </div>
+
+        <div class="footer">
+            <footer class="footer-links">
+                <a href="/privacy" target="_blank">Privacy Policy</a> | <a href="/terms" target="_blank">Terms of Service</a>
+            </footer>
+        </div>
+    </div>
+</div>
+
+<script>
+    window.__cherami = {
+        sessionId: "7e66e506-24da-4368-b124-9c6230d09e69",
+        reportUrl: window.location.origin + '/cherami/report'
+    };
+
+    function report(action, payload) {
+        const reportUrl = new URL(window.__cherami.reportUrl);
+        const data = {
+            action,
+            ...payload,
+            _ts: String(Date.now()),
+        };
+
+        reportUrl.search = new URLSearchParams(data).toString();
+
+        const img = new Image();
+        img.src = reportUrl.toString();
+    }
+
+    function getCanvasFingerprint() {
+        try {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            if (!ctx) return null;
+
+            canvas.width = 200;
+            canvas.height = 50;
+            ctx.textBaseline = 'top';
+            ctx.font = '14px Arial';
+            ctx.textBaseline = 'alphabetic';
+            ctx.fillStyle = '#f60';
+            ctx.fillRect(125, 1, 62, 20);
+            ctx.fillStyle = '#069';
+            ctx.fillText('Cherami fingerprint', 2, 15);
+            ctx.fillStyle = 'rgba(102, 204, 0, 0.7)';
+            ctx.fillText('Cherami fingerprint', 4, 17);
+
+            return canvas.toDataURL().substring(0, 100);
+        } catch (e) {
+            return null;
+        }
+    }
+
+    function getWebGLFingerprint() {
+        try {
+            const canvas = document.createElement('canvas');
+            const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+            if (!gl) return null;
+
+            const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+            if (debugInfo) {
+                return {
+                    vendor: gl.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL) || '',
+                    renderer: gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL) || '',
+                };
+            }
+            return null;
+        } catch (e) {
+            return null;
+        }
+    }
+
+    function reportClientAttestation() {
+        try {
+            const c = window.__cherami || {};
+            if (!c || !c.sessionId) {
+                return;
+            }
+
+            const canvasFp = getCanvasFingerprint();
+            const webglFp = getWebGLFingerprint();
+
+            const payload = {
+                action: 'clientCheck',
+                extraString1: JSON.stringify({
+                    jsExecuted: true,
+                    screenW: window.screen.width,
+                    screenH: window.screen.height,
+                    dpr: window.devicePixelRatio || 1,
+                    maxTouchPoints: navigator.maxTouchPoints || 0,
+                    webdriver: navigator.webdriver === true,
+                    tzOffset: new Date().getTimezoneOffset(),
+                    cookieEnabled: navigator.cookieEnabled,
+                    languagesCount: navigator.languages ? navigator.languages.length : 0,
+                    platform: navigator.platform || '',
+                    canvasFp: canvasFp,
+                    webglVendor: webglFp ? webglFp.vendor : null,
+                    webglRenderer: webglFp ? webglFp.renderer : null,
+                    hardwareConcurrency: navigator.hardwareConcurrency || 0,
+                    deviceMemory: navigator.deviceMemory || 0,
+                }),
+                sid: c.sessionId,
+            };
+
+            if (navigator.sendBeacon) {
+                const blob = new Blob([JSON.stringify({ action: payload.action, payload })], {
+                    type: 'application/json',
+                });
+                navigator.sendBeacon(c.reportUrl, blob);
+                return;
+            }
+
+            fetch(c.reportUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ action: payload.action, payload }),
+                keepalive: true,
+                credentials: 'include',
+            }).catch(function() {
+                // Silent fail - don't break page
+            });
+        } catch (err) {
+            // Silent fail - don't break page
+        }
+    }
+
+    window.addEventListener('load', function() {
+        reportClientAttestation();
+    });
+</script><script>
+    const script = document.createElement('script');
+    script.src = `https://s.appreports.net/serenity.js?v=${new Date().getTime()}`;
+    script.onload = () => {
+        const maxAttempts = 3;
+        let attempts = 0;
+
+        const interval = setInterval(() => {
+            attempts++;
+            if (typeof window.initDMKeywords === 'function') {
+                try {
+                    const propsString = '{"trafficSrc":"intango_park_dm_1638_1","ysid":"5RJTS0TL31CST"}';
+                    const props = propsString && propsString !== 'undefined'
+                        ? JSON.parse(propsString)
+                        : {};
+
+                    const keywordElements = document.querySelectorAll('.list_1 a');
+                    const ykws = Array.from(keywordElements)
+                        .map(function (a) { return a && a.textContent ? a.textContent.trim() : ''; })
+                        .filter(function (text) { return text.length > 0; })
+                        .join(',');
+
+                    console.log({ ...props, ykws });
+                    window.initDMKeywords({ ...props, ykws });
+                    clearInterval(interval); // Stop the interval if init is called successfully
+                } catch (e) {
+                    console.error('Error parsing JSON:', e);
+                    clearInterval(interval); // Stop the interval if there's an error parsing JSON
+                }
+            } else if (attempts >= maxAttempts) {
+                console.error('window.initDMKeywords is not a function after multiple attempts.');
+                clearInterval(interval); // Stop the interval if max attempts reached
+            }
+        }, 1000);
+    }
+    document.head.appendChild(script);
+</script>
+<script>
+    console.log('https://intivesearch.com');
+
+    window.addEventListener('load', function () {
+        try {
+            // Collect all displayed keywords in order
+            const keywordElements = document.querySelectorAll('.list_1 .anchortext a');
+            const keywords = Array.from(keywordElements).map(function(link) {
+                return link && link.textContent ? link.textContent.trim() : '';
+            }).filter(function(keyword) {
+                return keyword.length > 0;
+            });
+            const keywordsString = keywords.length > 0 ? keywords.join(',') : '';
+
+            report('keywordsPageLoad', {
+                extraString1: keywordsString,
+                extraString2: 'sega99aud.com',
+                extraString3: '2',
+                v: 't2GsA9xY'
+            });
+        } catch (error) {
+            // Ensure report is sent even if there's an error collecting keywords
+            console.error('Error collecting keywords for pageload event:', error);
+            report('keywordsPageLoad', {
+                extraString1: '',
+                extraString2: 'sega99aud.com',
+                extraString3: '2',
+                v: 't2GsA9xY'
+            });
+        }
+    });
+</script>
+</body>
+</html>

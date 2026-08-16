@@ -1,0 +1,17 @@
+url,mname,id,name,transactiontype,bonusfixed,amount,minwithdraw,maxwithdraw,rollover,balance,claimconfig,claimcondition,bonus,bonusrandom,reset,mintopup,maxtopup,referlink,perceived_value,is_new
+https://aud365.co,AUDBET365,776605,<b>App Free $188</b> #C,,188.00,188,238,100,0.00,,"{""creditLessThan"":0.1,""displayDescriptionOnly"":""1"",""registerDate"":""2023-04-05"",""walletId"":1,""changeGameId"":1,""displayAngpaoText"":""1"",""mobileAppOnly"":""1""}",FREE,0.00,,,,,,72.15791076458724,0
+https://aud365.co,AUDBET365,230762,<b>Ultra Daily FREE</b> #R,,888.00,888,8888,10,0.00,,"{""creditLessThan"":0.1,""startDate"":""2024-12-21"",""displayDescriptionOnly"":""1"",""walletId"":1,""changeGameId"":1,""mobileAppOnly"":""1""}",FREE,0.00,,DAILY,,,,3.0892497883969123,0
+https://aud365.co,AUDBET365,22402,<b>Share Invite Downline Bonus</b>,,15,15,120,20,0.00,,"{""customBonus"":""sharebonus"",""creditLessThan"":0.1,""startDate"":""2022-07-01"",""displayDescriptionOnly"":""1"",""walletId"":1,""changeGameId"":1}",CUSTOM,0.00,,,,,,4.050805753020052,0
+https://aud365.co,AUDBET365,0,COMMISSION,COMMISSION,,1,,888,,,,,,,,,,,103.85819961023813,0
+https://unitedau.com,UnitedAu,448369,<B>REUNION DATE,,28.00,28,600,15,0.00,,"{""creditLessThan"":0.5,""displayAngpaoText"":""1"",""displayDescriptionOnly"":""1"",""walletId"":1,""changeGameld"":1}",FREE,0.00,,WEEKLY,,,,1.1213525228248111,0
+https://unitedau.com,UnitedAu,186216,<b>Download App Bonus</b>,,20.00,20,500,5,0.00,,"{""creditLessThan"":0.5,""displayDescriptionOnly"":""1"",""walletId"":1,""changeGameId"":1,""mobileAppOnly"":""1""}",FREE,0.00,,DAILY,,,,0.5846942029551774,0
+https://unitedau.com,UnitedAu,170972,<B>FREE 365</b>,,5.00,5,100,0.05,0.00,,"{""creditLessThan"":0.1,""displayDescriptionOnly"":""1"",""displayAngpaoText"":""1""}",FREE,0.00,,DAILY,,,,0.019232610012774754,0
+https://unitedau.com,UnitedAu,127107,<b>SHARE BONUS</b>,,30,30,600,30,0.00,,"{""customBonus"":""sharebonus"",""creditLessThan"":0.1,""startDate"":""2024-05-05"",""displayDescriptionOnly"":""1"",""displayAngpaoText"":""1"",""walletId"":1,""changeGameId"":1}",CUSTOM,0.00,,,,,,1.5207279252292714,0
+https://unitedau.com,UnitedAu,0,COMMISSION,COMMISSION,,0.5,,1888,,,,,,,,,,,47.37064474329308,0
+https://unitedau.com,UnitedAu,0,COMMISSION,COMMISSION,,0.5,,1888,,,,,,,,,,,47.37064474329308,0
+https://unitedau.com,UnitedAu,0,COMMISSION,COMMISSION,,0.5,,1888,,,,,,,,,,,47.37064474329308,0
+https://unitedau.com,UnitedAu,0,COMMISSION,COMMISSION,,0.5,,1888,,,,,,,,,,,47.37064474329308,0
+https://unitedau.com,UnitedAu,0,COMMISSION,COMMISSION,,0.5,,1888,,,,,,,,,,,47.37064474329308,0
+https://jw8au.com,JW8AU,465923,<b>Welcome Back JW8</b> <b>#C</b>,,108.00,108,180,25,0.00,,"{""creditLessThan"":0.01,""displayDescriptionOnly"":""1"",""registerDate"":""2023-01-01"",""walletId"":1,""changeGameId"":1,""displayAngpaoText"":""1""}",FREE,0.00,,,,,,34.935858339321705,0
+https://jw8au.com,JW8AU,720042,<b>App Bonus</b>,,88.00,88,3888,38,0.00,,"{""creditLessThan"":0.1,""displayDescriptionOnly"":""1"",""registerDate"":""2023-01-01"",""walletId"":1,""changeGameId"":1,""displayAngpaoText"":""1"",""mobileAppOnly"":""1""}",FREE,0.00,,,,,,0.6449116816413177,0
+https://jw8au.com,JW8AU,231817,<b>Ultra Daily FREE</b> <b>#R</b>,,888.00,888,8888,10,0.00,,"{""creditLessThan"":0.01,""startDate"":""2024-04-03"",""displayDescriptionOnly"":""1"",""walletId"":1,""changeGameId"":1,""mobileAppOnly"":""1""}",FREE,0.00,,DAILY,,,,3.0892497883969123,0

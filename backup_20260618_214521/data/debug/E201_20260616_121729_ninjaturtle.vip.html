@@ -1,0 +1,2015 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>NT77</title>
+        <meta name="title" content="NT77 Australia | Online Pokies, Daily Rewards &amp; Fast Withdrawals">
+        <meta name="description" content="NT77 Australia offers online pokies, daily rewards, mobile-friendly play, and fast withdrawals for Australian players.">
+        <meta name="keywords" content="NT77, nt77, Australia online casino, best Aussie casino 2025, top pokies Australia, real money casino, live dealer games Australia, fast payout casino, Aussie casino bonuses">
+        <meta name="author" content="NT77">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta name="theme-color" content="#003102"/>
+        <meta name="csrf-token" content="SqJIDca84nPCId34RaX0K4pi2lclLqgomekbDKnI">
+        <link rel="icon" href="https://nt77.site/img/theme/icon.ico" type="image/x-icon">
+        <link rel="shortcut icon" href="https://nt77.site/img/theme/icon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon" href="https://nt77.site/img/theme/icon.ico">
+        <link rel="manifest" href="https://nt77.site/manifest.json">
+        <link rel="stylesheet" type="text/css" href="https://nt77.site/css/style_v2.css">
+<link rel="stylesheet" href="https://nt77.site/css/sweetalert3.min.css">
+<link rel="stylesheet" href="https://nt77.site/css/modal3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://nt77.site/css/table6.css"/>
+<link rel="stylesheet" type="text/css" href="https://nt77.site/css/datatable.css">
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+/>
+
+
+<style>
+	#loading-screen {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 100vh;
+		background-color: rgba(0,0,0, 0.5);
+		position: fixed;
+		top: 0;
+		left: 0;
+		z-index: 99999;
+		width: 100%;
+	}
+
+	#loading-screen img{
+		width: 60%;
+		max-width: 250px;
+		height: auto;
+		animation: drotate 3s linear infinite;
+	}
+
+	@keyframes drotate{
+		from{
+			transform: rotateY(0deg);
+			filter: drop-shadow(0 0 0.1rem rgba(255, 255, 0, 0.3));
+		}
+		to {
+			transform: rotateY(360deg);
+			filter: drop-shadow(0 0 0.1rem rgba(255, 255, 0, 1));
+		}
+	}
+
+	div:where(.swal2-container) .swal2-html-container{
+		color:white !important;
+	}
+
+	#side-buttons{
+		position: fixed;
+		right: 0;
+		bottom: 10%;
+		z-index: 99;
+	}
+
+	#side-buttons > div{
+		width: 28px;
+		position: relative
+	}
+
+	#side-buttons > div img{
+		width: 100%
+	}
+
+	#side-buttons > div span{
+		position: absolute;
+		z-index: 100;
+		color: white;
+		transform: rotate(-90deg);
+		right: 0;
+		font-size: 12px;
+		bottom: 46px;
+		transform-origin: center;
+		white-space: nowrap;
+		width: 28px;
+		font-size: 10px;
+		animation: btn-deposit 1s linear infinite;
+		font-weight: 700;
+		text-transform: uppercase;
+	}
+
+    #greeting .content{
+        height: calc(var(--vh, 1vh) * 100);
+    }
+
+	/* T2 END */
+	#navi-menu .menu-item img{
+		width: 32px
+	}
+
+	#menu-chat a{
+		position: relative
+	}
+
+	#unread-count{
+		position: absolute;
+		height: 10px;
+		width: 10px;
+		background: red;
+		border-radius: 25px;
+		right: 1px;
+		bottom: 14px;
+		animation: 1s growing linear infinite;
+	}
+
+	@keyframes growing{
+		0%, 100%{
+			transform: scale(0.85);
+			opacity: 0.85
+		}
+		50%{
+			transform: scale(1);
+			opacity: 1
+		}
+	}
+</style>        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+<script src="https://nt77.site/js/odometer.js"></script>
+<script src="https://nt77.site/js/sweetalert2.all.min.js"></script>
+<script type="text/javascript" src="https://nt77.site/js/script.js"></script>
+<script src="https://nt77.site/sw.js"></script>
+<script>
+    function checkLogin(){
+        var isLoggedIn = false;
+        if (!isLoggedIn) {
+            loadAjax('login');
+        }
+        return isLoggedIn;
+    }
+
+    document.addEventListener('focusin', (e) => {
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.classList.contains('emojionearea-editor')) {
+            document.body.style.overflow = 'hidden';
+            document.body.style.position = 'fixed';
+            document.body.style.width = '100%';
+        }
+    });
+
+    document.addEventListener('focusout', () => {
+        document.body.style.overflow = '';
+        document.body.style.position = '';
+        document.body.style.width = '';
+    });
+
+    function loadAjax(path){
+        showLoading();
+        $.ajax({
+            url: "/"+path,
+            type: "GET",
+            success: function (data) {
+                if(data.redirect){
+                    window.location.href = `${data.redirect}`;
+                    return
+                }
+                $('#navi-menu .menu-item').removeClass('active');
+                let content = data;
+                let tempDiv = document.createElement('div');
+                tempDiv.innerHTML = content;
+                let modals = tempDiv.querySelectorAll('.modal');
+                let extractedContent = '';
+                modals.forEach(modal => {
+                    extractedContent += modal.outerHTML;
+                    modal.remove();
+                });
+
+                $('#content').html(tempDiv.innerHTML);
+                $('#cux-popups').html(extractedContent);
+                window.history.pushState({}, '', '/'+path); 
+                if(path == 'home'){
+                    bindEvents();
+                }
+                hideSidebar();
+            },
+            error: function () {
+                alert("Failed to load "+path+".");
+            },
+            complete: function(){
+                hideLoading();
+                fireJackpot();
+            }
+        });
+    }
+
+    function loadAjaxNeedLogin(path){
+        if(checkLogin()){
+            showLoading();
+            $.ajax({
+                url: "/"+path,
+                type: "GET",
+                success: function (data) {
+                    if(data.redirect){
+                        window.location.href = `${data.redirect}`;
+                        return
+                    }
+                    $('#navi-menu .menu-item').removeClass('active');
+                    let content = data;
+                    let tempDiv = document.createElement('div');
+                    tempDiv.innerHTML = content;
+                    let modals = tempDiv.querySelectorAll('.modal');
+                    let extractedContent = '';
+                    modals.forEach(modal => {
+                        extractedContent += modal.outerHTML;
+                        modal.remove();
+                    });
+                    $('#content').html(tempDiv.innerHTML);
+                    $('#cux-popups').html(extractedContent);
+                    window.history.pushState({}, '', '/'+path); 
+                    if(path == 'home'){
+                        bindEvents();
+                    }
+                    hideSidebar();
+                },
+                error: function () {
+                    alert("Failed to load "+path+".");
+                },
+                complete: function(){
+                    hideLoading();
+                    fireJackpot();
+                }
+            });
+        }
+    }
+
+    function closeModal(event){
+        $(event).closest('.modal').hide();
+    }
+
+    $(document).ready(function(event){
+        // document.querySelectorAll('.modal').forEach((element)=>{
+        //     element.addEventListener('click',(e)=>{
+        //         if (e.target.classList.contains('modal')) {
+        //             e.target.style.display = "none";
+        //         }
+        //     });
+        // });
+    });
+
+    document.addEventListener("click", function (e) {
+    if (e.target.classList.contains("modal")) {
+        e.target.style.display = "none";
+    }
+});
+
+    $(document).on('click', '.copy', function(event){
+        try {
+            const parent = $(event.currentTarget).closest('.copy-wrapper');
+            let content;
+            const input = parent.find('input');
+            if (input.length > 0) {
+                content = input.val().trim();
+            } else {
+                content = parent.find('.copy-content').text().trim();
+            }
+            navigator.clipboard.writeText(content)
+                .then(() => {
+                    $(event.currentTarget).text("Copied");
+                    setTimeout(() => {
+                        $(event.currentTarget).text("Copy")
+                    }, 2000);
+                })
+                .catch(err => {
+                    console.error('Failed to copy text: ', err);
+                });
+        
+        } catch (e) {
+            console.log(`Error in copy functionality: ${e}`);
+        }
+    })
+
+    function formatDate(dateString){
+        const date = new Date(dateString);
+        // Get the date in 'YYYY-MM-DD HH:mm' format
+        return date.getFullYear() + '-' +
+           ('0' + (date.getMonth() + 1)).slice(-2) + '-' +
+           ('0' + date.getDate()).slice(-2) + ' ' +
+           ('0' + date.getHours()).slice(-2) + ':' +
+           ('0' + date.getMinutes()).slice(-2);
+    }
+
+    function formatCredit(x) {
+        return parseFloat(x).toFixed(2);
+    }
+
+    function hideSidebar(){
+        try{
+            $('#sidebar').removeClass('show');
+            document.body.style.overflow = 'auto';
+        }
+        catch(e){
+            $('#sidebar').removeClass('show');
+            document.body.style.overflow = 'auto';
+        }
+    }
+
+    function showSidebar(){
+        try{
+            $('#sidebar').addClass('show');
+            document.body.style.overflow = 'hidden';
+        }
+        catch(e){
+            $('#sidebar').removeClass('show');
+            document.body.style.overflow = 'auto';
+        }
+    }
+
+    function showSidebarDropdown(e){
+        let parent = $(e).closest('.dropdown-container');
+        if(parent){
+            if($(parent).hasClass('active')){
+                $(parent).removeClass('active');
+            }
+            else{
+                $(parent).addClass('active');
+            }
+        }
+    }
+
+    function getLatestBalance(){
+        if(checkLogin()){
+            showLoading();
+            $.ajax({
+                url: "https://nt77.site/refresh_credit",
+                method: 'POST',
+                headers: { 'X-CSRF-TOKEN': 'SqJIDca84nPCId34RaX0K4pi2lclLqgomekbDKnI'},
+                success: function(response){
+                    console.log(response);
+                    if(response.success == false){
+                        setDefaultSwal('error','',response.message);
+                    }
+                    else{
+                        try{
+                            $('#wallet_amount').html(`AUD ${Number(response.main_wallet).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`);
+                        }
+                        catch(e){
+                            console.log(e);
+                        }
+                        try{
+                            $('#lottery-wallet-info .amount').html(`0.00`);
+                        }
+                        catch(e){
+                            console.log(e);
+                        }
+                        try{
+                            if(response.tt_amount > 0){
+                                $('#play_button').prop('disabled', false);
+                            }
+                        }
+                        catch(e){
+                            console.log(e);
+                        }
+                    }
+                },
+                error: function(){
+                    setDefaultSwal('error','','There is something wrong, please try again.');
+                },
+                complete: function(){
+                    hideLoading();
+                }
+            })
+        }
+    }
+  
+    if ('serviceWorker' in navigator) {
+        if (!navigator.serviceWorker.controller) {
+            navigator.serviceWorker.register("/sw.js").then(function (reg) {
+                console.log("Service worker has been registered for scope: " + reg.scope);
+            });
+        }
+    } else {
+        console.log('Service workers are not supported in this browser.');
+    }
+
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (event) => {
+        event.preventDefault();
+        deferredPrompt = event;
+        showInstallPopup();
+    });
+
+    function replacewholeView(){
+        showLoading();
+        fetch('https://nt77.site/partnership')
+        .then(response => response.text())
+        .then(html => {
+            // Open a new tab/window
+            const newWindow = window.open('', '_blank');
+            
+            // Write the HTML content to the new window
+            newWindow.document.open();
+            newWindow.document.write(html);
+            newWindow.document.close();
+            
+            // Hide loading since we're done
+            hideLoading(); // You might want to add this
+        })
+        .catch(error => {
+            console.error('Error loading new page:', error);
+            hideLoading(); // Hide loading on error too
+        });
+    }
+
+    function showInstallPopup() {
+        const installPopup = document.getElementById('install-popup');
+        const installButton = document.getElementById('install-button');
+        installPopup.style.display = 'block';
+        installButton.addEventListener('click', () => {
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then((choiceResult) => {
+                if (choiceResult.outcome === 'accepted') {
+                    console.log('User accepted the install prompt');
+                } else {
+                    console.log('User dismissed the install prompt');
+                }
+                installPopup.style.display = 'none';
+            });
+        });
+    }
+
+    try{
+        (function(f, b, e, v, n, t, s) {
+            if (f.fbq) return;
+            n = f.fbq = function() {
+                n.callMethod ? 
+                    n.callMethod.apply(n, arguments) : 
+                    n.queue.push(arguments);
+            };
+            if (!f._fbq) f._fbq = n;
+            n.push = n;
+            n.loaded = true;
+            n.version = '2.0';
+            n.queue = [];
+            t = b.createElement(e);
+            t.async = true;
+            t.src = v;
+            s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s);
+        })(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+
+        // Initialize Facebook Pixel
+        fbq('init', '3748170352164612');
+    }
+    catch(e){
+        console.log(e);
+    }
+
+    function change_language(x){
+        const flagImg = document.getElementById('language-flag');
+        $.ajax({
+            data: {language:x},
+            url: "https://nt77.site/change_language",
+            method: 'POST',
+            headers: { 'X-CSRF-TOKEN': 'SqJIDca84nPCId34RaX0K4pi2lclLqgomekbDKnI'},
+            success: function(response){
+                location.reload();
+
+            }
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const currentLang = document.documentElement.lang || 'en';
+        document.querySelectorAll('.btn-language').forEach(btn => {
+            btn.classList.toggle('selected',btn.dataset.lang === currentLang);
+        });
+    });
+    
+    function copyToClipboard(element) {
+        // Handle both string and DOM element
+        const referralCode = (typeof element === 'string') 
+            ? element.trim() 
+            : element?.textContent?.trim();
+
+        if (!referralCode) {
+            console.error('No referral code found');
+            return;
+        }
+
+        if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(referralCode).then(() => {
+                if (typeof element !== 'string') showCopyFeedback(element);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+            });
+        } else {
+            const textArea = document.createElement('textarea');
+            textArea.value = referralCode;
+            textArea.style.position = 'fixed';
+            textArea.style.left = '-999999px';
+            document.body.appendChild(textArea);
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                if (typeof element !== 'string') showCopyFeedback(element);
+            } catch (err) {
+                console.error('Failed to copy: ', err);
+            }
+            document.body.removeChild(textArea);
+        }
+    }
+
+    function showCopyFeedback(element) {
+        const originalText = element.textContent;
+        element.textContent = 'Copied!';
+        setTimeout(() => {
+            element.textContent = originalText;
+        }, 2000);
+    }
+</script>
+<noscript>
+    <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=3748170352164612&ev=PageView&noscript=1"/>
+</noscript>        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"/>
+<link rel="stylesheet" href="https://nt77.site/css/swiper2.css"/>
+<link rel="stylesheet" href="https://nt77.site/css/odometer_v1.1.css"/>
+<style> 
+    #profile-info{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+    }
+
+    #profile-info .name{
+        font-weight: 600;
+    }
+
+    #profile-info .bank{
+        font-size: 12px;
+    }
+
+    .copy-field{
+        display:flex;
+    }
+
+    #game-credential-modal .input-label{
+        color: white;
+        margin-bottom: 3px;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    #game-credential-modal input[type='text']{
+        width: calc(100% - 80px);
+        border-radius: 5px 0 0 5px;
+        padding: 0;
+        margin: 0;
+        border: none;
+        padding: 5px;
+    }
+
+    #game-credential-modal .copy{
+        width: 80px;
+        border-radius: 0 5px 5px 0;
+        font-size: 14px;
+        text-transform: uppercase;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--gradient-style-1);
+        color: var(--clr-dark);
+        font-family: var(--font-secondary);
+        font-weight: 700;
+        line-height: 1;
+    }
+
+    .btn-show-table{
+        font-size: 12px;
+        padding: 2px 10px;
+        background: linear-gradient(0deg, #141414, #979797);
+        margin: 5px;
+        border-radius: 50px;
+        font-weight: 600;
+        text-transform: uppercase;
+        color: #a1a1a1;
+    }
+
+    .btn-show-table.show{
+        background: var(--grd-primary);
+        color: white;
+    }
+
+    #video-wrapper video{
+        width: 100%;
+        border-radius: 5px;
+        filter: var(--container-shadow);
+    }
+
+    .swiper-progress-bar {
+        height: 2px;
+        background: var(--clr-style-1);
+        width: 0;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        z-index  : 5
+    }
+
+    #popular-games .info-wrapper .game-rtp{
+        display:flex;
+        justify-content: center;
+    }
+
+    #popular-games .info-wrapper .game-rtp > div{
+        font-size: 11px;
+        padding: 2px 6px;
+        background: #09913f;
+        border-radius: 5px;
+    }
+
+    #popular-games .info-wrapper .game-provider {
+        padding: 0;
+        background: transparent;
+    }
+
+    .label-bonus{
+        position: absolute;
+        left: 50%;
+        padding: 1px 5px;
+        box-sizing: border-box;
+        line-height: 1;
+        text-transform: uppercase;
+        font-weight: 600;
+        background: var(--clr-style-1);
+        color: black;
+        border-radius: 25px;
+        font-size: 10px;
+        transform: translateX(-50%);
+        top: 6px;
+        /* background: #1f1f1f;
+        color: var(--clr-style-1); */
+        z-index: 2;
+        transition: 0.3s
+
+    }
+
+    .active .label-bonus{
+        animation: btn-deposit 1s infinite;
+        top: 4px;
+        background: #1f1f1f;
+        color: var(--clr-style-1);
+    }
+
+    .content{
+        overflow: scroll;  /* or overflow: auto; */
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .content::-webkit-scrollbar {
+        display: none;  /* Chrome, Safari, Opera */
+    }
+
+    @keyframes blink-animation {
+    0% { opacity: 1; }
+    50% { opacity: 0.7; }
+    100% { opacity: 1; }
+}
+
+@keyframes blink-animation {
+    0% { opacity: 1; }
+    50% { opacity: 0.6; }
+    100% { opacity: 1; }
+}
+</style>
+                <script>
+            !function(f,b,e,v,n,t,s)
+            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s)}(window, document,'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', '4412735059056427');
+        </script>
+        <noscript>
+            <img height="1" width="1" style="display:none"
+            src="https://www.facebook.com/tr?id=4412735059056427&ev=PageView&noscript=1"/>
+        </noscript>
+    </head>
+    <body>
+        <div id="sidebar">
+    <div class="container">
+        <div class="top">
+            <div class="logo">
+                <a onclick="loadAjax('home')">
+                    <img src="https://nt77.site/img/theme/sidebar/logo.webp">
+                </a>
+            </div>
+            <div class="btn-close">
+                <svg onclick="hideSidebar()" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-x"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M18 6l-12 12" /><path d="M6 6l12 12" /></svg>
+            </div> 
+        </div>
+  
+      
+            <div class="cus-items">
+                <img class="sidebar-character" src="https://nt77.site/img/theme/sidebar/character.webp"/>
+                <div class="cus-item">
+                    <a onclick="loadAjax('daily_checkin')">
+                        <img src="https://nt77.site/img/theme/sidebar/daily.webp"/>
+                        <label>Daily Check In</label>
+                    </a>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
+                </div>
+                <div class="cus-item" id="lucky-number">
+                    <a onclick="loadAjax('lucky_number')">
+                        <img src="https://nt77.site/img/theme/sidebar/number.webp"/>
+                        <label>My Lucky Number</label>
+                    </a>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
+                </div>
+                <div class="cus-item">
+                    <a href="https://nt77.site/mini_game" target="_blank">
+                        <img src="https://nt77.site/img/theme/sidebar/luckywheel.webp"/>
+                        <label class="dropdown-label">Lucky Wheel</label>
+                    </a>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
+                </div>
+            </div>
+
+            <div class="items">
+                <div class="dropdown-container">
+                    <div class="item">
+                        <a href="#" onclick="showSidebarDropdown(this)">
+                            <img src="https://nt77.site/img/theme/sidebar/facebook.webp"/>
+                            <label>facebook</label>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
+                        </a>
+                    </div>
+                    <div class="dropdown-content">
+                        <a href="https://www.facebook.com/profile.php?id=61588478349937" target="_blank">facebook page</a>
+                        <a href="https://www.facebook.com/groups/1344342083824796" target="_blank">facebook sharing group</a>
+                    </div>
+                </div>
+             
+                <div class="dropdown-container">
+                    <div class="item">
+                        <a href="#" onclick="showSidebarDropdown(this)">
+                            <img src="https://nt77.site/img/theme/sidebar/telegram.webp"/>
+                            <label class="dropdown-label">telegram</label>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
+                        </a>
+                    </div>
+                    <div class="dropdown-content">
+                        <a href="https://t.me/nt77offchannel" target="_blank">telegram channel</a>
+                        <a href="https://t.me/australiatrustedpokiessharing" target="_blank">telegram group</a>
+                        <a href="https://t.me/addlist/RuIOj8kQ0NExOWM9" target="_blank">australia trusted pokies</a>
+                    </div>
+                </div>
+               
+                <div class="item">
+                    <a target="_blank" href="https://www.instagram.com/nt77aus?igsh=MTE5cXhhNHNmcjlvZQ==" >
+                        <img src="https://nt77.site/img/theme/sidebar/instagram.webp"/>
+                        <label>instagram</label>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
+                    </a>
+                </div>
+                <div class="item">
+                    <a target="_blank" href="https://www.tiktok.com/@ninjaturtlevip?_r=1&_t=ZS-94SL6CpxiER">
+                        <img src="https://nt77.site/img/theme/sidebar/tiktok.webp"/>
+                        <label>tiktok</label>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="items">
+                <div class="item">
+                    <a onclick="loadAjax('top_referral')">
+                        <img src="https://nt77.site/img/theme/sidebar/referral.webp"/>
+                        <label>top referral</label>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
+                    </a>
+                </div>
+                <!-- <div class="item">
+                    <a onclick="loadAjax('top_deposit')">
+                        <img src="https://nt77.site/img/theme/sidebar/deposit.png"/>
+                        <label>top deposit</label>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
+                    </a>
+                </div> -->
+            </div>
+
+            <div class="items">
+                <div class="item">
+                    <a href="http://wa.link/hjngr6" target="_blank">
+                        <img src="https://nt77.site/img/theme/sidebar/feedback.webp"/>
+                        <label>customer care</label>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
+                    </a>
+                </div>
+                <div class="item">
+                    <a href="#" onclick="e.preventDefault()">
+                        <img src="https://nt77.site/img/theme/sidebar/android.webp"/>
+                        <label style="opacity:.45">apk <span style="font-size:10px">(COMING SOON)</span></label>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
+                    </a>
+                </div>
+            </div>
+       
+    </div>
+</div>
+        <header>
+			<div class="col col-1">
+                <div id="btn-sidebar" onclick="showSidebar()">
+                    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-menu-2"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 6l16 0" /><path d="M4 12l16 0" /><path d="M4 18l16 0" /></svg>
+                </div>
+            </div>
+            <div class="col col-2">
+				<a onclick="loadAjax('home')"><img id="site-logo" src="https://nt77.site/img/theme/logo.webp"></a>
+			</div>
+			<div class="col col-3">
+                <div onclick="changeLanguage()" style="display:flex;background:#fff;padding:2px;border-radius:100px;margin-right:20px">
+                     <img id="language-flag" style="height:25px !important" src="https://nt77.site/img/theme/lang/en.png"/>
+                </div>
+            </div>
+		</header>
+
+        <div id="modal-change-language" class="modal">
+            <div class="modal-content mw" style="width:90%">
+                <button type="button" class="btn-close-modal" onclick="closeModal(this)" data-bs-dismiss="modal" aria-label="Close"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-x"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M18 6l-12 12"></path><path d="M6 6l12 12"></path></svg></button>
+                <div class="content">
+                    <div class="title">Choose Language</div>
+                    <button class="btn-language" data-lang="en" type="button" onclick="showLoading();change_language('en')"><img  src="https://nt77.site/img/theme/lang/en.png"/>ENGLISH</button>
+                    <button class="btn-language" data-lang="zh" type="button" onclick="showLoading();change_language('zh')"><img  src="https://nt77.site/img/theme/lang/zh.png"/>中文</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Marquee -->
+		<div id="marquee">
+			<span>NT77, 🇦🇺 Proudly Australian Owned and Operated. Offering a SECURE🔒, RELIABLE🤝 and PREMIUM GAMING EXPERIENCE🎰 with FAST WITHDRAWALS and TRUSTED 24/7 LIVE SUPPORT</span>
+		</div>
+
+        <div id="marquee-jackpot" class="hide">
+            <div>&#127881;</div>
+			<span id="marquee-jackpot-content"></span>
+            <div>&#127881;</div>
+        </div>
+
+        <!-- CONTENT -->
+		<div id="content">
+			<script type="text/javascript" src="https://nt77.site/js/odometer.js"></script>
+<div class="box front">
+    <!-- SLIDERS -->
+    <div class="swiper-container swiper" style="margin:10px auto 0" id="hero-swiper">
+        <div class="swiper-wrapper" style="height:auto !important;">
+            <div class="swiper-slide" style="height:auto !important;"><img style="height:auto !important; object-fit: contain;" src="https://nt77.site/img/slides/11.WEBP"></div>
+            <div class="swiper-slide" style="height:auto !important;"><img style="height:auto !important; object-fit: contain;" src="https://nt77.site/img/slides/12.WEBP"></div>
+            <div class="swiper-slide" style="height:auto !important;"><img style="height:auto !important; object-fit: contain;" src="https://nt77.site/img/slides/13.WEBP"></div>
+            <div class="swiper-slide" style="height:auto !important;"><img style="height:auto !important; object-fit: contain;" src="https://nt77.site/img/slides/14.WEBP"></div>
+            <div class="swiper-slide" style="height:auto !important;"><img style="height:auto !important; object-fit: contain;" src="https://nt77.site/img/slides/15.WEBP"></div>
+        </div>
+        <div class="swiper-pagination"></div>
+        <div class="swiper-progress-bar"></div>
+    </div>
+    <img style="width:100%;" src="https://nt77.site/img/trusted.webp" alt="trusted">
+
+    <!-- LIVE TRANSACTION -->
+    <div id="live-transaction" style="margin-top: 0px">
+        <div class="top">
+            <div class="title">Live Transaction</div>
+            <div class="live"><span></span>Live</div>
+        </div>
+        <div class="container">
+            <table style="width:100%" id='transaction-deposit'>
+                <thead>
+                    <tr>
+                        <td colspan="2"><div>Deposit</div></td>
+                        <td colspan="3"><div>Withdraw</div></td>
+                    </tr>
+                  </thead>
+                <tbody>
+                                        <tr>
+                        <td>61******793</td>
+                        <td class="amount">AUD200.00</td>
+                        <td>61******519</td>
+                        <td class="amount">AUD950.77</td>
+                        <td>Mario Club</td>
+                    </tr>
+                                        <tr>
+                        <td>61******357</td>
+                        <td class="amount">AUD20.00</td>
+                        <td>61******426</td>
+                        <td class="amount">AUD773.66</td>
+                        <td>Clot Play</td>
+                    </tr>
+                                        <tr>
+                        <td>61******363</td>
+                        <td class="amount">AUD10.00</td>
+                        <td>61******821</td>
+                        <td class="amount">AUD440.29</td>
+                        <td>Clot Play</td>
+                    </tr>
+                                        <tr>
+                        <td>61******118</td>
+                        <td class="amount">AUD30.00</td>
+                        <td>61******433</td>
+                        <td class="amount">AUD816.91</td>
+                        <td>King Maker</td>
+                    </tr>
+                                        <tr>
+                        <td>61******536</td>
+                        <td class="amount">AUD10.00</td>
+                        <td>61******477</td>
+                        <td class="amount">AUD114.95</td>
+                        <td>Mega888</td>
+                    </tr>
+                                    </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="home-banner-wrapper mb-10" style="margin-top:10px" id="jackpot">
+        <img src="https://nt77.site/img/jackpot-background.gif" alt="partnership"/>
+        <div id="odometer" class="odometer">368456.44</div>
+    </div>
+
+    <!-- PLAYER BALANCE --> 
+    <div id="col-right">
+        <div id="balance-wrapper">
+                        <div id="sign-form">
+                <img src="https://nt77.site/img/theme/btn-login.png" onclick="loadAjax('login')"/>
+                <img src="https://nt77.site/img/theme/btn-register.png" onclick="loadAjax('register')"/>
+            </div>
+                        <div class="information">
+                <div id="balance-box">
+                    <div class="title">Balance:</div>
+                    <div class="amount" id="wallet_amount">AUD 0.00</div>
+                    <p class="wallet_details">Minimum Deposit: <b>AUD 10.00</b></p>
+                                    </div>
+                <div id="fund-options">
+                    <img src="https://nt77.site/img/theme/btn-deposit.png" onclick="loadAjaxNeedLogin('deposit?wallet=0')"/>
+                    <img src="https://nt77.site/img/theme/btn-withdraw.png" onclick="getLatestBalance(); loadAjaxNeedLogin('withdraw/0')"/>
+                    <img src="https://nt77.site/img/theme/btn-refresh.png" onclick="getLatestBalance()"/>
+                    <img src="https://nt77.site/img/theme/btn-empty.png" onclick="burn_credit()"/>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- REFERRAL -->
+    <div id="referral-wrapper" style="margin-top:15px; margin-bottom: 0px;">
+        <img src="https://nt77.site/img/referral/new1.webp" alt="referral">
+        <div class="option-wrapper">
+            <div class="options">
+                <a onclick="shareNow()"><img src="https://nt77.site/img/referral/share.gif" alt="share"></a>
+                <a onclick="loadAjaxNeedLogin('referral/downline')"><img src="https://nt77.site/img/referral/downline.png" alt="downline"></a>
+                <a onclick="copyLink()"><img src="https://nt77.site/img/referral/copy.png" alt="copy"></a>
+                <a onclick="$('#modal-referral-more-info').show()" target="_blank"><img src="https://nt77.site/img/referral/more.png" alt="more"></a>
+            </div>
+        </div>
+    </div>
+
+    <a class="home-banner-wrapper" href="https://nt77.site/daily_checkin">
+        <img src="https://nt77.site/img/banners/new4.webp" alt="daily_checkin"/>
+    </a>
+    <a class="home-banner-wrapper" onclick="$('#modal-follow').show();">
+        <img src="https://nt77.site/img/banners/new2.webp" alt="socialmedia"/>
+    </a>
+    <a class="home-banner-wrapper" onclick="loadAjax('top_referral')">
+        <img src="https://nt77.site/img/banners/new3.webp" alt="telegram"/>
+    </a>
+
+     <a class="home-banner-wrapper" onclick="$('#modal-rtp').show();">
+        <img src="https://nt77.site/img/banners/newrtp.webp" alt="rtp"/>
+    </a>
+
+    <div id="side-partnership">
+        <div>
+            <a onclick="loadAjax('bonus')">
+                <img style="width:120px;" src="https://nt77.site/img/newfloating.gif"/>
+            </a>
+        </div>
+    </div>
+
+    <!-- GAMES -->
+    <div id="game-wrapper">
+        <div id="game-options">
+            <button type="button" class="btn-scroll" id="scroll-left">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" class="icon icon-tabler icons-tabler-filled icon-tabler-caret-left"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M13.883 5.007l.058 -.005h.118l.058 .005l.06 .009l.052 .01l.108 .032l.067 .027l.132 .07l.09 .065l.081 .073l.083 .094l.054 .077l.054 .096l.017 .036l.027 .067l.032 .108l.01 .053l.01 .06l.004 .057l.002 .059v12c0 .852 -.986 1.297 -1.623 .783l-.084 -.076l-6 -6a1 1 0 0 1 -.083 -1.32l.083 -.094l6 -6l.094 -.083l.077 -.054l.096 -.054l.036 -.017l.067 -.027l.108 -.032l.053 -.01l.06 -.01z" /></svg>
+            </button>
+            <div class="options">
+                <div class="game-option" value="event">
+                    <img class="active-img" src="https://nt77.site/img/game-icons/event1.png">
+                    <img class="normal-img hide" src="https://nt77.site/img/game-icons/event2.png">
+                </div>
+                <div class="game-option" value="slot">
+                    <img class="active-img" src="https://nt77.site/img/game-icons/slot1.png">
+                    <img class="normal-img hide" src="https://nt77.site/img/game-icons/slot2.png">
+                </div>
+                <div class="game-option" value="casino">
+                    <img class="active-img hide" src="https://nt77.site/img/game-icons/live1.png">
+                    <img class="normal-img" src="https://nt77.site/img/game-icons/live2.png">
+                </div>
+                <div class="game-option" value="apk">
+                    <img class="active-img" src="https://nt77.site/img/game-icons/app1.png">
+                    <img class="normal-img hide" src="https://nt77.site/img/game-icons/app2.png">
+                </div>
+                <div class="game-option" value="fish">
+                    <img class="active-img hide" src="https://nt77.site/img/game-icons/fish1.png">
+                    <img class="normal-img" src="https://nt77.site/img/game-icons/fish2.png">
+                </div>
+                <div class="game-option" value="sports">
+                    <img class="active-img hide" src="https://nt77.site/img/game-icons/sport1.png">
+                    <img class="normal-img" src="https://nt77.site/img/game-icons/sport2.png">
+                </div>
+                 <div class="game-option" value="other">
+                    <img class="active-img hide" src="https://nt77.site/img/game-icons/other1.png">
+                    <img class="normal-img" src="https://nt77.site/img/game-icons/other2.png">
+                </div>
+            </div>
+            <button type="button" class="btn-scroll" id="scroll-right">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" class="icon icon-tabler icons-tabler-filled icon-tabler-caret-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6c0 -.852 .986 -1.297 1.623 -.783l.084 .076l6 6a1 1 0 0 1 .083 1.32l-.083 .094l-6 6l-.094 .083l-.077 .054l-.096 .054l-.036 .017l-.067 .027l-.108 .032l-.053 .01l-.06 .01l-.057 .004l-.059 .002l-.059 -.002l-.058 -.005l-.06 -.009l-.052 -.01l-.108 -.032l-.067 -.027l-.132 -.07l-.09 -.065l-.081 -.073l-.083 -.094l-.054 -.077l-.054 -.096l-.017 -.036l-.027 -.067l-.032 -.108l-.01 -.053l-.01 -.06l-.004 -.057l-.002 -12.059z" /></svg>
+            </button>
+        </div>
+        
+        <div id="games">
+            
+                                            <div class="game event" onclick="open_game('metagamingfree')">
+                                    <img src="https://nt77.site/img/games/metagamingfree.webp" style="border-radius:20px;">
+                </div>
+                                            <div class="game slot" onclick="open_game('metagaming')">
+                                    <img src="https://nt77.site/img/games/metagaming.webp" style="border-radius:20px;">
+                </div>
+                                            <div class="game event" onclick="open_game('uuslotfree')">
+                                    <img src="https://nt77.site/img/games/uuslotfree.webp" style="border-radius:20px;">
+                </div>
+                                            <div class="game slot" onclick="open_game('uuslot')">
+                                    <img src="https://nt77.site/img/games/uuslot.webp" style="border-radius:20px;">
+                </div>
+                                            <div class="game event" onclick="open_game('rich88free')">
+                                    <img src="https://nt77.site/img/games/rich88free.webp" style="border-radius:20px;">
+                </div>
+                                            <div class="game casino" onclick="open_game('ct855')">
+                                    <img src="https://nt77.site/img/games/ct855.webp" style="border-radius:20px;">
+                </div>
+                                            <div class="game slot" onclick="open_game('jili')">
+                                    <img src="https://nt77.site/img/games/jili.webp" style="border-radius:20px;">
+                </div>
+                                            <div class="game sports" onclick="open_game('ia_esport')">
+                                    <img src="https://nt77.site/img/games/ia_esport.webp" style="border-radius:20px;">
+                </div>
+                                            <div class="game event" onclick="open_game('megah5free')">
+                                    <img src="https://nt77.site/img/games/megah5free.webp" style="border-radius:20px;">
+                </div>
+                                            <div class="game slot" onclick="open_game('megah5')">
+                                    <img src="https://nt77.site/img/games/megah5.webp" style="border-radius:20px;">
+                </div>
+                                            <div class="game slot" onclick="open_game('imperium')">
+                                    <img src="https://nt77.site/img/games/imperium.webp" style="border-radius:20px;">
+                </div>
+                                            <div class="game slot" onclick="open_game('v_power')">
+                                    <img src="https://nt77.site/img/games/v_power.webp" style="border-radius:20px;">
+                </div>
+                                            <div class="game fish" onclick="open_game('v_power_fish')">
+                                    <img src="https://nt77.site/img/games/v_power_fish.webp" style="border-radius:20px;">
+                </div>
+                                            <div class="game other" onclick="open_game('v_power_other')">
+                                    <img src="https://nt77.site/img/games/v_power_other.webp" style="border-radius:20px;">
+                </div>
+                                            <div class="game slot" onclick="open_game('wfgaming')">
+                                    <img src="https://nt77.site/img/games/wfgaming.webp" style="border-radius:20px;">
+                </div>
+                                            <div class="game slot" onclick="open_game('acewin')">
+                                    <img src="https://nt77.site/img/games/acewin.webp" style="border-radius:20px;">
+                </div>
+                                            <div class="game slot" onclick="open_game('epic_win')">
+                                    <img src="https://nt77.site/img/games/epic_win.webp" style="border-radius:20px;">
+                </div>
+                                            <div class="game apk" onclick="open_game('mega888')">
+                                    <img src="https://nt77.site/img/games/mega888.webp" style="border-radius:20px;">
+                </div>
+                                            <div class="game event" onclick="open_game('wfgamingfree')">
+                                    <img src="https://nt77.site/img/games/wfgamingfree.webp" style="border-radius:20px;">
+                </div>
+                                            <div class="game event" onclick="open_game('epic_win_free')">
+                                    <img src="https://nt77.site/img/games/epic_win_free.webp" style="border-radius:20px;">
+                </div>
+                                            <div class="game fish" onclick="open_game('jili_fish')">
+                                    <img src="https://nt77.site/img/games/jili_fish.webp" style="border-radius:20px;">
+                </div>
+                                            <div class="game casino" onclick="open_game('pragmatic_live')">
+                                    <img src="https://nt77.site/img/games/pragmatic_live.webp" style="border-radius:20px;">
+                </div>
+                                            <div class="game other" onclick="open_game('jili_chess')">
+                                    <img src="https://nt77.site/img/games/jili_chess.webp" style="border-radius:20px;">
+                </div>
+                                            <div class="game slot" onclick="open_game('jili100')">
+                                    <img src="https://nt77.site/img/games/jili100.webp" style="border-radius:20px;">
+                </div>
+                                            <div class="game casino" onclick="open_game('sexy_baccarat')">
+                                    <img src="https://nt77.site/img/games/sexy_baccarat.webp" style="border-radius:20px;">
+                </div>
+                                            <div class="game casino" onclick="open_game('dream_gaming')">
+                                    <img src="https://nt77.site/img/games/dream_gaming.webp" style="border-radius:20px;">
+                </div>
+                                            <div class="game slot" onclick="open_game('king_maker')">
+                                    <img src="https://nt77.site/img/games/king_maker.webp" style="border-radius:20px;">
+                </div>
+                                            <div class="game sports" onclick="open_game('rcb988')">
+                                    <img src="https://nt77.site/img/games/rcb988.webp" style="border-radius:20px;">
+                </div>
+                                            <div class="game slot" onclick="open_game('rich88')">
+                                    <img src="https://nt77.site/img/games/rich88.webp" style="border-radius:20px;">
+                </div>
+                                            <div class="game sports" onclick="open_game('sv388')">
+                                    <img src="https://nt77.site/img/games/sv388.webp" style="border-radius:20px;">
+                </div>
+                                            <div class="game casino" onclick="open_game('le_gaming')">
+                                    <img src="https://nt77.site/img/games/le_gaming.webp" style="border-radius:20px;">
+                </div>
+                                            <div class="game fish" onclick="open_game('yl_fishing')">
+                                    <img src="https://nt77.site/img/games/yl_fishing.webp" style="border-radius:20px;">
+                </div>
+                                            <div class="game sports" onclick="open_game('m8bet')">
+                                    <img src="https://nt77.site/img/games/m8bet.webp" style="border-radius:20px;">
+                </div>
+                                            <div class="game casino" onclick="open_game('mikiworld')">
+                                    <img src="https://nt77.site/img/games/mikiworld.webp" style="border-radius:20px;">
+                </div>
+                                            <div class="game slot" onclick="open_game('pragmatic_play')">
+                                    <img src="https://nt77.site/img/games/pragmatic_play.webp" style="border-radius:20px;">
+                </div>
+                                            <div class="game casino" onclick="open_game('allbet')">
+                                    <img src="https://nt77.site/img/games/allbet.webp" style="border-radius:20px;">
+                </div>
+                                            <div class="game slot" onclick="open_game('mario_club')">
+                                    <img src="https://nt77.site/img/games/mario_club.webp" style="border-radius:20px;">
+                </div>
+                                            <div class="game slot" onclick="open_game('clotplay')">
+                                    <img src="https://nt77.site/img/games/clotplay.webp" style="border-radius:20px;">
+                </div>
+                                            <div class="game sports" onclick="open_game('e1_sport')">
+                                    <img src="https://nt77.site/img/games/e1_sport.webp" style="border-radius:20px;">
+                </div>
+                                            <div class="game casino" onclick="open_game('ks_gaming')">
+                                    <img src="https://nt77.site/img/games/ks_gaming.webp" style="border-radius:20px;">
+                </div>
+                                            <div class="game casino" onclick="open_game('won_casino')">
+                                    <img src="https://nt77.site/img/games/won_casino.webp" style="border-radius:20px;">
+                </div>
+                                            <div class="game slot" onclick="open_game('pxplay')">
+                                    <img src="https://nt77.site/img/games/pxplay.webp" style="border-radius:20px;">
+                </div>
+                                            <div class="game slot" onclick="open_game('scr888h5')">
+                                    <img src="https://nt77.site/img/games/scr888h5.webp" style="border-radius:20px;">
+                </div>
+                                            <div class="game event" onclick="open_game('scr888h5free')">
+                                    <img src="https://nt77.site/img/games/scr888h5free.webp" style="border-radius:20px;">
+                </div>
+                                            <div class="game slot" onclick="open_game('live22')">
+                                    <img src="https://nt77.site/img/games/live22.webp" style="border-radius:20px;">
+                </div>
+                                            <div class="game slot" onclick="open_game('nextspin')">
+                                    <img src="https://nt77.site/img/games/nextspin.webp" style="border-radius:20px;">
+                </div>
+                                            <div class="game slot" onclick="open_game('playstar')">
+                                    <img src="https://nt77.site/img/games/playstar.webp" style="border-radius:20px;">
+                </div>
+                                            <div class="game slot" onclick="open_game('spade_gaming')">
+                                    <img src="https://nt77.site/img/games/spade_gaming.webp" style="border-radius:20px;">
+                </div>
+                                            <div class="game slot" onclick="open_game('lucky365')">
+                                    <img src="https://nt77.site/img/games/lucky365.webp" style="border-radius:20px;">
+                </div>
+                                            <div class="game slot" onclick="open_game('cq9')">
+                                    <img src="https://nt77.site/img/games/cq9.webp" style="border-radius:20px;">
+                </div>
+                                            <div class="game slot" onclick="open_game('joker_gaming')">
+                                    <img src="https://nt77.site/img/games/joker_gaming.webp" style="border-radius:20px;">
+                </div>
+                    </div>
+        
+        <div id="game-footer">
+            <div class="partners-wrapper mb-15">
+                <div class="partner">
+                    <label>Game License:</label>
+                    <div class="list">
+                        <img src="https://nt77.site/img/partner/gc.png" onclick="$('#modal-pagcor').show();" alt/>
+                    </div>
+                </div>
+                <div class="partner">
+                    <label>Certification:</label>
+                    <div class="list">
+                        <img src="https://nt77.site/img/partner/bmm.png" onclick="$('#modal-bmm').show();" alt/>
+                    </div>
+                </div>
+                <div class="partner">
+                    <label>Security:</label>
+                    <div class="list">
+                        <img src="https://nt77.site/img/partner/tm.png" onclick="$('#modal-threat').show();" alt/>
+                    </div>
+                </div>
+                <div class="partner">
+                    <label>Responsible Gaming:</label>
+                    <div class="list">
+                        <img src="https://nt77.site/img/partner/responsible.png" onclick="$('#modal-reponsible').show();" alt/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <h1>Mission</h1>
+                <p>Our mission is to bring you a top-tier online gaming experience that’s fun, safe, and fair. We’re all about innovation, transparency, and looking after our players — building a trusted space where you can play with confidence and be part of a growing community.</p>
+            </div>
+            <div class="row">
+                <h1>Vision</h1>
+                <p>To set the standard for what an online casino should be — trusted, responsible, and player-first. We’re here to lead with integrity, push boundaries with innovation, and create a gaming experience that’s fun, fair, and safe for everyone. By supporting our players and giving back to the community, we’re shaping a better future for online gaming.</p>
+            </div>
+            <div class="row copyright">
+                <div class="line"></div>
+                <p>NT by Squad77</p>
+                <div class="line"></div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+		</div>
+
+        <div id="cux-popups">
+        <div id="greeting" class="modal modal-fade modal-only-image" tabindex="-1">
+    <div class="modal-content">
+        <div class="content">
+           <div class="modal-image-wrapper">
+                <button type="button" class="btn-close-modal" onclick="closeModal(this)" data-bs-dismiss="modal" aria-label="Close"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-x"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M18 6l-12 12"></path><path d="M6 6l12 12"></path></svg></button>
+                <img src="https://nt77.site/img/new/backupdomain.webp">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modal-referral-more-info" class="modal modal-fade modal-only-image" tabindex="-1" aria-hidden="true">
+    <div class="modal-content" style="width:90% !important">
+        <div class="content">
+           <div class="modal-image-wrapper">
+                <button type="button" class="btn-close-modal" onclick="closeModal(this)" data-bs-dismiss="modal" aria-label="Close"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-x"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M18 6l-12 12"></path><path d="M6 6l12 12"></path></svg></button>
+                <img style="max-width:500px !important;border:none !important;" src="https://nt77.site/img/new/newmoreinfo.WEBP">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="modal-pagcor" class="modal modal-fade modal-only-image" tabindex="-1" aria-hidden="true">
+    <div class="modal-content">
+        <div class="content">
+           <div class="modal-image-wrapper">
+                <button type="button" class="btn-close-modal" onclick="closeModal(this)" data-bs-dismiss="modal" aria-label="Close"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-x"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M18 6l-12 12"></path><path d="M6 6l12 12"></path></svg></button>
+                <div class="certificate-wrapper">
+                    <img src="https://nt77.site/img/partner/lesen.webp"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modal-rtp" class="modal modal-fade modal-only-image" tabindex="-1" aria-hidden="true">
+    <div class="modal-content">
+        <div class="content">
+        <div class="modal-image-wrapper">
+                <button type="button" class="btn-close-modal" onclick="closeModal(this)" data-bs-dismiss="modal" aria-label="Close"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-x"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M18 6l-12 12"></path><path d="M6 6l12 12"></path></svg></button>
+                <div class="certificate-wrapper">
+                    <img src="https://nt77.site/img/new/latestrtppopup.webp"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modal-bmm" class="modal modal-fade modal-only-image" tabindex="-1" aria-hidden="true">
+    <div class="modal-content">
+        <div class="content">
+           <div class="modal-image-wrapper">
+                <button type="button" class="btn-close-modal" onclick="closeModal(this)" data-bs-dismiss="modal" aria-label="Close"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-x"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M18 6l-12 12"></path><path d="M6 6l12 12"></path></svg></button>
+                <div class="certificate-wrapper">
+                    <img src="https://nt77.site/img/partner/bmm.jpg"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modal-threat" class="modal modal-fade modal-only-image" tabindex="-1" aria-hidden="true">
+    <div class="modal-content">
+        <div class="content">
+           <div class="modal-image-wrapper">
+                <button type="button" class="btn-close-modal" onclick="closeModal(this)" data-bs-dismiss="modal" aria-label="Close"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-x"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M18 6l-12 12"></path><path d="M6 6l12 12"></path></svg></button>
+                <div class="certificate-wrapper">
+                    <img src="https://nt77.site/img/partner/threat1.jpg"/>
+                    <img src="https://nt77.site/img/partner/threat2.jpg"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modal-responsible" class="modal modal-fade modal-only-image" tabindex="-1" aria-hidden="true">
+    <div class="modal-content">
+        <div class="content">
+           <div class="modal-image-wrapper">
+                <button type="button" class="btn-close-modal" onclick="closeModal(this)" data-bs-dismiss="modal" aria-label="Close"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-x"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M18 6l-12 12"></path><path d="M6 6l12 12"></path></svg></button>
+                <div class="certificate-wrapper">
+                    <img src="https://nt77.site/img/partner/newres.png">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+        </div>
+        <!-- FOOTER -->
+
+        <div id="side-buttons">
+            <div>
+                <a target="_blank" href="https://t.me/addlist/RuIOj8kQ0NExOWM9">
+                    <img src="https://nt77.site/img/side_button/subscribe.png"/>
+                    <!-- <span>Recommend</span> -->
+                </a>
+            </div>
+            <!-- <div>
+                <a target="_blank" href="https://nt77.site/partnership">
+                    <img src="https://nt77.site/img/side_button/trusted.png"/>
+                </a>
+            </div> -->
+        </div>
+
+		<div id="navi-menu">
+		    <div class="menu-item" id="menu-home" >
+                <a onclick="loadAjax('home')">
+                    <img src="https://nt77.site/img/navi/home.png">
+                    <label>Home</label>
+			    </a>
+            </div>
+            <div class="menu-item" id="menu-history">
+                <a onclick="loadAjaxNeedLogin('transactions')">
+                    <img src="https://nt77.site/img/navi/history.png">
+                    <label>History</label>
+                </a>
+            </div>
+            <div class="menu-item" id="menu-bonus" >
+                <a onclick="loadAjax('bonus')">
+                    <div class='float-image'>
+                        <img style="width: 75px !important;max-width: 75px !important;margin-bottom: 5px;" src="https://nt77.site/img/navi/bonus.gif">
+                    </div>
+                    <!-- <label>Bonus</label> -->
+                </a>
+            </div>
+			<div class="menu-item" id="menu-chat">
+                <a href="https://nt77.site/support">
+                    <img src="https://nt77.site/img/navi/chat.png">
+                    <label>Chat</label>
+                    <div id="unread-count" class="hide"></div>
+                </a>
+            </div>
+            <div class="menu-item" id="menu-settings"> 
+                <a href="#" onclick="loadAjaxNeedLogin('profile')">
+                    <img src="https://nt77.site/img/navi/settings.png">
+                    <label>Settings</label>
+                </a>
+            </div>
+		</div>
+        
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '986300387225060');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=986300387225060&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+<script>
+    function bindEvents() {
+        var scrollable = $("#game-options .options");
+        var scrollAmount = 10;
+        var scrollInterval;
+
+        function startScrolling(direction) {
+            if (direction > 0) {
+                $("#scroll-right").addClass('active');
+            } else {
+                $("#scroll-left").addClass('active');
+            }
+            scrollInterval = setInterval(function () {
+                var currentScroll = scrollable.scrollLeft();
+                scrollable.scrollLeft(currentScroll + direction * scrollAmount);
+            }, 1);
+        }
+
+        function stopScrolling() {
+            $('.btn-scroll').removeClass('active');
+            clearInterval(scrollInterval);
+        }
+
+        // Ensure scroll buttons work without duplicate bindings
+        $("#scroll-left").off().on("mousedown touchstart", function () {
+            startScrolling(-1);
+        }).on("mouseup mouseleave touchend touchcancel", function () {
+            stopScrolling();
+        });
+
+        $("#scroll-right").off().on("mousedown touchstart", function () {
+            startScrolling(1);
+        }).on("mouseup mouseleave touchend touchcancel", function () {
+            stopScrolling();
+        });
+
+        // Bonus & Maintenance Click Alerts (delegated for dynamic content)
+        $(document).off('click', '.excluded-by-bonus').on('click', '.excluded-by-bonus', function () {
+            setDefaultSwal('error', '', "The game is not included in the list of bonus-eligible games.");
+        });
+
+        $(document).off('click', '.under-maintenance').on('click', '.under-maintenance', function () {
+            setDefaultSwal('warning', '', "The game is currently under maintenance.");
+        });
+
+        // Image Error Handling
+        $('#games .game img').each(function () {
+            $(this).off("error").on("error", function () {
+                $(this).attr('src', "https://nt77.site/img/games/game.webp");
+            });
+        });
+
+        // Copy Text Feature
+        $('.copy').off().on('click', copyText);
+
+        function copyText() {
+            let container = this.closest('.copy-field');
+            const input = container.querySelector('input');
+            navigator.clipboard.writeText(input.value);
+            chgCopyText(this);
+        }
+
+        async function chgCopyText(x) {
+            const delay = (s) => new Promise((resolve) => setTimeout(resolve, s * 1000));
+            let span = x.querySelector('span');
+            span.innerHTML = "Copied";
+            await delay(2);
+            span.innerHTML = "Copy";
+        }
+
+        
+        // Game Options Filtering
+       
+        document.querySelectorAll('#game-options .game-option').forEach((x)=>{
+            x.addEventListener('click',()=>{
+                document.querySelectorAll('#game-options .game-option').forEach((y) => {
+                    y.classList.remove('active');
+                    y.querySelector('.active-img').classList.add('hide');
+                    y.querySelector('.normal-img').classList.remove('hide');
+                });
+                x.classList.add('active');
+                x.querySelector('.active-img').classList.remove('hide');
+                x.querySelector('.normal-img').classList.add('hide');
+
+                let value = x.getAttribute('value');
+                if(value != "all"){
+                    document.querySelectorAll('#games .game').forEach((game)=>{
+                        if(game.classList.contains(value)){
+                            game.classList.remove('hide');
+                        }
+                        else{
+                            game.classList.add('hide');
+                        }
+                    });
+                }
+                else{
+                    document.querySelectorAll('#games .game').forEach((game)=>{
+                        game.classList.remove('hide');
+                    });
+                }
+                x.classList.add('active');
+            });
+        });
+
+        document.querySelector('#game-options .game-option').click();
+
+
+        $('#game-options .option').first().trigger('click'); // Trigger first option on load
+    }
+
+    $(document).ready(bindEvents);
+    
+    // Guest Greeting Popup
+    var guest = 0;
+    if (guest === 0) {
+        setTimeout(function () {
+            $("#greeting").show().attr("aria-hidden", "false").focus();
+            // var secondPopup = setInterval(function () {
+            //     if ($("#greeting").css("display") === "none") {
+            //         clearInterval(secondPopup);
+            //         $("#modal-second-greeting").show();
+            //     }
+            // }, 100);
+        }, 100);
+    }
+    
+    function shareNow(){
+        if(checkLogin()){
+            $('#modal-share-referral').show();
+        }
+    }
+
+    function copyLink(){
+        if(checkLogin()){
+            var currentPageUrl = window.location.href;
+            var baseUrl = currentPageUrl.split('/', 3).join('/');
+            var referralCode = "";
+            var link = "https://nt77.club/" + referralCode;
+            copyToClipboard(link);
+            setDefaultSwal('success',"Copied",`${link}`);
+        }
+    }
+
+    
+    $('#menu-home').addClass('active');
+
+    function showTransaction(x){
+        let deposit = document.getElementById('transaction-deposit');
+        let withdraw = document.getElementById('transaction-withdraw');
+        $('.btn-show-table').removeClass('show');
+        if(x === 'deposit'){
+            withdraw.classList.add('hide');
+            deposit.classList.remove('hide');
+            $('#btn-show-deposit').addClass('show');
+        }
+        else{
+            deposit.classList.add('hide');
+            withdraw.classList.remove('hide');
+            $('#btn-show-withdraw').addClass('show');
+        }
+    }
+
+    function showScoreTable(id) {
+        document.querySelectorAll('.score-table').forEach(table => {
+            table.classList.add('hide');
+        });
+        document.getElementById(id).classList.remove('hide');
+        document.querySelectorAll('.btn-toggle').forEach(button => {
+            button.classList.remove('selected');
+        });
+        document.querySelector(`.btn-toggle[onclick="showScoreTable('${id}')"]`).classList.add('selected');
+    }
+
+    function openLottery(){
+        $('#category-lottery').click();
+        setTimeout(function() {
+            $('#games .lottery').first().click();
+        }, 300);
+    }
+
+    function open_game(game_short_name){
+        if(checkLogin()){
+            showLoading();
+                var can_bonus = 0;
+                console.log(can_bonus);
+                if(can_bonus == 1){
+                    hideLoading();
+                    Swal.fire({
+                        icon: 'info',
+                        title: '',
+                        text:"Entering game without claim any bonus? Bonus cannot be claimed after join game!",
+                        showCancelButton: true,
+                        cancelButtonText: 'Back',
+                        confirmButtonText: 'Yes'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            showLoading();
+                            $.ajax({
+                                url: "https://nt77.site/game/click",
+                                method: 'POST',
+                                data: {game_short_name: game_short_name},
+                                headers: { 'X-CSRF-TOKEN': 'SqJIDca84nPCId34RaX0K4pi2lclLqgomekbDKnI'},
+                                success: function(data) {
+                                    if(data.success == true){
+                                        switch(data.message){
+                                            case 'Success':
+                                                // $('#wallet_amount').html(`AUD 0.00`);
+                                                window.location.href = data.url;
+                                                break;
+                                            
+                                            case 'User Credential':
+                                                showGameAccount(data.credential, data.gameinfo);
+                                                break;
+                                            
+                                            case 'Game List':
+                                                window.location.href = data.url;
+                                                break;
+                                            
+                                            // case 'Lottery':
+                                            //     showTTGame(data.game);
+                                            //     break;
+                                            
+                                            default:
+                                                setDefaultSwal('error', '', "Failed to start game, please try again.");
+                                        }
+                                    }
+                                    else{
+                                        setDefaultSwal('error', '', data.message);
+                                    }
+                                },
+                                error: function(){
+                                    setDefaultSwal('error','', "Failed to start game, please try again.");
+                                },
+                                complete: function(){
+                                    hideLoading();
+                                }
+                            })
+                        }
+                    });
+                }else{
+                    $.ajax({
+                        url: "https://nt77.site/game/click",
+                        method: 'POST',
+                        data: {game_short_name: game_short_name},
+                        headers: { 'X-CSRF-TOKEN': 'SqJIDca84nPCId34RaX0K4pi2lclLqgomekbDKnI'},
+                        success: function(data) {
+                            if(data.success == true){
+                                switch(data.message){
+                                    case 'Success':
+                                        
+                                        window.location.href = data.url;
+                                        break;
+                                    
+                                    case 'User Credential':
+                                        showGameAccount(data.credential, data.gameinfo);
+                                        break;
+                                    
+                                    case 'Game List':
+                                        window.location.href = data.url;
+                                        break;
+                                    
+                                    // case 'Lottery':
+                                    //     showTTGame(data.game);
+                                    //     break;
+                                    
+                                    default:
+                                        setDefaultSwal('error', '', "Failed to start game, please try again.");
+                                }
+                            }
+                            else{
+                                setDefaultSwal('error', '', data.message);
+                            }
+                        },
+                        error: function(){
+                            setDefaultSwal('error','', "Failed to start game, please try again.");
+                        },
+                        complete: function(){
+                            hideLoading();
+                        }
+                    })
+                }
+        }
+        
+    }
+
+    function homePageOpenGame(game_list_id){
+        showLoading();
+        if(checkLogin()){
+            var can_bonus = 0;
+            if(can_bonus == 1){
+                hideLoading();
+                Swal.fire({
+                    icon: 'info',
+                    title: '',
+                    text:"Entering game without claim any bonus? Bonus cannot be claimed after join game!",
+                    showCancelButton: true,
+                    cancelButtonText: 'Back',
+                    confirmButtonText: 'Yes'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        showLoading();
+                        $.ajax({
+                            url: "https://nt77.site/game/homeopengame",
+                            method: 'POST',
+                            data: {game_list_id: game_list_id},
+                            headers: { 'X-CSRF-TOKEN': 'SqJIDca84nPCId34RaX0K4pi2lclLqgomekbDKnI'},
+                            success: function(data) {
+                                if(data.success == true){
+                                    // $('#wallet_amount').html(`AUD `+data.wallet);
+                                    window.location.href = data.url;
+                                }
+                                else{
+                                    // $('#wallet_amount').html(`AUD `+data.wallet);
+                                    setDefaultSwal('error', '', data.msg);
+                                }
+                            },
+                            error: function(data){
+                                setDefaultSwal('error','', "Failed to start game, please try again.");
+                            },
+                            complete: function(){
+                                hideLoading();
+                            }
+                        })
+                    }
+                });
+            }else{
+                $.ajax({
+                    url: "https://nt77.site/game/homeopengame",
+                    method: 'POST',
+                    data: {game_list_id: game_list_id},
+                    headers: { 'X-CSRF-TOKEN': 'SqJIDca84nPCId34RaX0K4pi2lclLqgomekbDKnI'},
+                    success: function(data) {
+                        if(data.success == true){
+                            // $('#wallet_amount').html(`AUD `+data.wallet);
+                            window.location.href = data.url;
+                        }
+                        else{
+                            // $('#wallet_amount').html(`AUD `+data.wallet);
+                            setDefaultSwal('error', '', data.msg);
+                        }
+                    },
+                    error: function(data){
+                        setDefaultSwal('error','', "Failed to start game, please try again.");
+                    },
+                    complete: function(){
+                        hideLoading();
+                    }
+                })
+            }
+        }
+    }
+
+
+    function deposit_game(e) {
+        showLoading();
+        const btn = $(e);
+        $(btn).prop('disabled', true);
+        const game = $(btn).attr('game') ?? '-';
+        $.ajax({
+            url: "https://nt77.site/game/apk_deposit",
+            method: 'POST',
+            data: {game_id: game},
+            headers: { 'X-CSRF-TOKEN': 'SqJIDca84nPCId34RaX0K4pi2lclLqgomekbDKnI'},
+            success: function(data) {
+                if(data.success){
+                    setDefaultSwal('success','',data.message);
+                    if (data.open_game_link != null) {
+                        window.open(data.open_game_link, '_blank');
+                    }
+                }
+                else{
+                    setDefaultSwal('error','',data.message);
+                }
+            },
+            error: function(){
+                setDefaultSwal('error','', "Failed to deposit, please try again.");
+            },
+            complete: function(){
+                hideLoading();
+                $(btn).prop('disabled', false);
+            }
+        });
+    }
+    
+    function showTTGame(game){
+        console.log(game);
+        openPopup('apk-lottery-info');
+        $('#tt-game-id').val(game.id);
+        $('#tt-game-image').attr('src', "https://nt77.site/img/__GAMENAME__.webp".replace('__GAMENAME__', game.game_short_name) ?? "https://nt77.site/img/games/game.webp");
+        $('#tt-game-name').html(game.game_name ?? 'Game Name');
+        $('#modal-tt-game').show();
+        document.getElementById('play_game_id').value = game.id;
+        document.getElementById('tt_wallet_amount').value = tt_amount;
+    }
+
+    function showGameAccount(user, game){
+        $('#single-game-image').attr('src', "https://nt77.site/img/__GAMENAME__.png".replace('__GAMENAME__', game.short_name) ?? "https://nt77.site/img/games/game.webp");
+        $('#single-game-name').html(game.game_name ?? 'Mega888');
+        $('#game-credential-username').val(user.game_login_id ?? '-');
+        $('#game-credential-password').val(user.password ?? '-');
+        $('#btn-deposit-apk').attr('game', user.game_id ?? '-');
+        $('#btn-download-apk').attr('href', game.download_link ?? '#');
+
+        let targeted = ['pussy888','mega888','918kiss','scr888','918kaya','great_wall_99_2'];
+        $('#game-notice').html('');
+        if(targeted.includes(game.short_name)){
+            $('#game-notice').html("*** Fishing Game is Banned *** <br> *** Not allowed to save free game ***");
+        }
+
+        $('#modal-game-credential').show();
+    }
+
+    /** SWIPER **/
+    var swiper = new Swiper('#hero-swiper', {
+        loop: true,
+        autoplay: {
+            delay: 5000, // 5 seconds per slide
+            disableOnInteraction: false,
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        }
+    });
+
+    var progressBar = document.querySelector('.swiper-progress-bar');
+    swiper.on('slideChange', function () {
+        progressBar.style.transition = 'none';
+        progressBar.style.width = '0%';
+        setTimeout(function () {
+            progressBar.style.transition = `width ${swiper.params.autoplay.delay}ms linear`;
+            progressBar.style.width = '100%';
+        }, 50);
+    });
+
+
+    swiper.on('autoplayStart', function () {
+        progressBar.style.transition = `width ${swiper.params.autoplay.delay}ms linear`;
+        progressBar.style.width = '100%';
+    });
+
+    function startProgressBar() {
+    progressBar.style.transition = 'none';
+    progressBar.style.width = '0%';
+    setTimeout(function () {
+        progressBar.style.transition = `width ${swiper.params.autoplay.delay}ms linear`;
+        progressBar.style.width = '100%';
+    }, 50);
+    }
+
+    startProgressBar();
+
+    function shareOnWhatsApp() {
+        var message = 'JOIN '+"NT77"+' & ENJOY FREE BONUS NOW!!\nhttps://nt77.club/' + encodeURIComponent("");
+        var url = 'whatsapp://send?text=' + encodeURIComponent(message);
+        window.location.href = url;
+    }
+    
+    function shareOnTelegram() {
+        var message = 'JOIN '+"NT77"+' & ENJOY FREE BONUS NOW!!\nhttps://nt77.club/' + encodeURIComponent("");
+        var url = 'https://telegram.me/share/url?text=' + encodeURIComponent(message);
+        window.open(url, '_blank');
+    }
+    
+    function shareOnFacebook() {
+        var shareUrl = 'https://nt77.club/' + encodeURIComponent("");
+        var url = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(shareUrl);
+        window.open(url, '_blank');
+    }
+
+    function shareOnTwitter() {
+        var message = 'JOIN '+"NT77"+' & ENJOY FREE BONUS NOW!!\nhttps://nt77.club/' + encodeURIComponent("");
+        var url = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(message);
+        window.open(url, '_blank');
+    }
+
+    function burn_credit(){
+        if(checkLogin()){
+            showLoading();
+            $.ajax({
+                url: "https://nt77.site/request_burn",
+                method: 'POST',
+                headers: { 'X-CSRF-TOKEN': 'SqJIDca84nPCId34RaX0K4pi2lclLqgomekbDKnI'},
+                success: function(response){
+                    if(response.success == false){
+                        setDefaultSwal('error','',response.message);
+                    }    
+                    try{
+                        $('#wallet_amount').html(`AUD ${response.main_wallet}`);
+                        if(response.main_wallet > response.maximum){
+                            setDefaultSwal('error','', "Only wallet lower than __AMOUNT__ can be empty".replace('__AMOUNT__', `AUD ${response.maximum}`));
+                            $('#btn-burn').prop('disabled',false);
+                            $('#confirm-burn-wrapper').addClass('hide');
+                            $('#burn-note').removeClass('hide');
+                        }
+                        // else if(response.main_wallet < 0.01){
+                        //     setDefaultSwal('error','', "Your current balance is __AMOUNT__".replace('__AMOUNT__',"AUD 0.00"));
+                        // }
+                        else{
+                            $('.burn-current-amount').html(`AUD ${response.main_wallet}`);
+                            $('#btn-burn').prop('disabled',false);
+                            $('#confirm-burn-wrapper').removeClass('hide');
+                            $('#burn-note').addClass('hide');
+                            $('#modal-burn-credit').show();
+                        }
+                    }
+                    catch(e){
+                        console.log(e);
+                    }
+                    
+                },
+                error: function(){
+                    setDefaultSwal('error','', "There is something wrong, please try again.");
+                },
+                complete: function(){
+                    hideLoading();
+                }
+            })
+        }
+    }
+
+    function submit_burn(){
+        let e = document.getElementById('confirm-burn');
+        let btn = document.getElementById('btn-burn');
+        btn.disabled = e.checked ? false : true;
+    }
+
+    function notAllowToPlay(){
+        setDefaultSwal('error', '', "The game is not included in the list of bonus-eligible games.");
+    }
+</script>
+        <script>
+            function changeLanguage(){
+                $('#modal-change-language').show();
+            }
+
+            let od;
+            fireJackpot();
+
+            function fireJackpot(){
+                if(document.querySelector('#odometer')){
+                    od = new Odometer({
+                        el: document.querySelector('#odometer'),
+                        value: jackpot.pool,
+                        format: '(,ddd).dd',
+                    });
+                }
+            }
+           
+            try{
+                var push_notification = false;
+                const eventSource = new EventSource(`https://sse.nt77.site/sse/main?token=${localStorage.getItem('chat_token')}`); 
+                eventSource.onmessage = function(event) {
+                    const data = JSON.parse(event.data);
+                    switch(data.type){
+                        case 'unread':
+                            try{
+                                if(data.count > 0){
+                                    document.getElementById('unread-count').classList.remove('hide');
+                                }
+                                else{
+                                    document.getElementById('unread-count').classList.add('hide');
+                                }
+                            }
+                            catch(e){
+                                console.log(e);
+                            }
+                        break;
+
+                        case 'jackpot':
+                            try{
+                                od.update(Number(data.pool).toFixed(2));
+                                if(data.status == true){
+                                    if($('#marquee-jackpot').hasClass('hide') && push_notification == false){
+                                        $('#marquee-jackpot').removeClass('hide');
+                                        $('#marquee-jackpot-content').html(`&#127882;&#127882;Congratulations!!! ${data.winner} has won $${data.amount} from NT77 Jackpot.&#127882;&#127882;`);
+                                        setTimeout(() => {
+                                            $('#marquee-jackpot-content').html('');
+                                            $('#marquee-jackpot').addClass('hide');
+                                            push_notification = false;
+                                        }, 30000);
+                                        push_notification = true;
+                                    }
+                                }
+                            }
+                            catch(e){
+                                $('#jackpot').addClass('hide');
+                                console.log(e);
+                            }
+                        break;
+                    }
+                };
+
+                eventSource.onerror = function(event) {
+                    console.error("SSE connection error:", event);
+                    eventSource.close()
+                };
+            }
+            catch(e){
+                $('#jackpot').addClass('hide');
+            }
+        </script>
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon='{"version":"2024.11.0","token":"90b5017cac3249859ed14b18bdc56f39","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+    <script>
+    $( document ).ready(function() {
+                
+           
+        
+          
+            });
+</script>
+
+
+</html>
+
