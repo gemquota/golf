@@ -5,12 +5,17 @@ set -e
 
 REPO_URL="${1:-https://github.com/gemquota/golf.git}"
 INSTALL_DIR="$HOME/golf"
+# /tmp is not writable inside Termux; $TMPDIR always is.
+TMP_FILE="${TMPDIR:-$PREFIX/tmp}/req_no_pandas.txt"
 
 echo "=== Installing packages ==="
 pkg update -y
 pkg install -y python git binutils
 # pandas has no Android wheel on PyPI - install via Termux repo so pip skips it.
 pkg install -y python-pandas || true
+# psutil has no Android wheel either; terminal.py treats it as optional, but
+# try the Termux build first for CPU/RAM stats.
+pkg install -y python-psutil || true
 
 echo "=== Cloning/updating repo ==="
 if [ -d "$INSTALL_DIR/.git" ]; then
@@ -18,15 +23,14 @@ if [ -d "$INSTALL_DIR/.git" ]; then
 else
     git clone "$REPO_URL" "$INSTALL_DIR"
 fi
-cd "$INSTALL_DIR"
 
 echo "=== Installing Python dependencies ==="
-# Skip pandas in pip (already provided by python-pandas above).
-grep -v '^pandas' requirements.txt > /tmp/req_no_pandas.txt
-pip install -r /tmp/req_no_pandas.txt
+cd "$INSTALL_DIR"
+# Skip pandas and psutil in pip (provided by Termux packages above, or optional).
+grep -Ev '^(pandas|psutil)' requirements.txt > "$TMP_FILE"
+pip install -r "$TMP_FILE"
 
 echo "=== Smoke test ==="
-cd "$INSTALL_DIR"
 python3 -c "import config, db, server, scraper, terminal; print('modules OK')"
 
 echo ""
