@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Diagnose why sites are failing on this device.
 
-Compares plain requests vs cloudscraper against one URL with full tracebacks.
+Compares plain requests vs cloudscraper, then runs one FULL scrape
+(login + bonus API) with real credentials and full tracebacks.
 Usage: python3 diag.py [url]   (defaults to in/config/test_url.txt)
 """
 import sys
@@ -20,52 +21,56 @@ HEADERS = {
     "Accept-Language": "en-US,en;q=0.9",
 }
 
-# --- Test A: plain requests ---
-print("A) plain requests:")
-try:
-    import requests
-    resp = requests.get(URL, headers=HEADERS, timeout=20)
-    cf = "cf-mitigated" in resp.headers or resp.status_code == 403
-    print(f"   HTTP {resp.status_code}, {len(resp.text)} bytes{' (Cloudflare block?)' if cf else ''}")
-    plain_ok = resp.status_code == 200
-except Exception as e:
-    print(f"   FAILED: {type(e).__name__}: {e}")
-    traceback.print_exc()
-    plain_ok = False
-
-# --- Test B: cloudscraper ---
-print("B) cloudscraper:")
+# --- Step 1: transport check ---
+print("1) cloudscraper GET:")
 try:
     import cloudscraper
-    print(f"   version {cloudscraper.__version__}")
-except Exception as e:
-    print(f"   IMPORT FAILED: {type(e).__name__}: {e}")
-    traceback.print_exc()
-    sys.exit(1)
-
-try:
     session = cloudscraper.create_scraper(
         browser={"browser": "chrome", "platform": "windows", "desktop": True}
     )
     session.headers.update(HEADERS)
     resp = session.get(URL, timeout=20)
     print(f"   HTTP {resp.status_code}, {len(resp.text)} bytes")
-    markers = "MERCHANTID" in resp.text
-    print(f"   MERCHANTID marker found: {markers}")
-    scraper_ok = resp.status_code == 200 and markers
-except Exception as e:
-    print(f"   FAILED: {type(e).__name__}: {e}")
+except Exception:
+    print("   FAILED:")
     traceback.print_exc()
-    scraper_ok = False
+    sys.exit(1)
 
-# --- Verdict ---
-print()
-if scraper_ok:
-    print("VERDICT: cloudscraper works - failure is elsewhere (login/API/config).")
-    print("Run: python3 diag_full.py  (or share dashboard error codes)")
-elif plain_ok:
-    print("VERDICT: plain requests works but cloudscraper does not.")
-    print("-> Fix: set engine=requests in in/config/config.ini [SETTINGS]")
-else:
-    print("VERDICT: BOTH transports fail -> network-level problem on this device")
-    print("(DNS, carrier blocking, or TLS). Try another connection (wifi vs data).")
+# --- Step 2: parse merchant info ---
+print("2) parse merchant info:")
+try:
+    import network
+    merchant_id, merchant_name = network.parse_merchant_info(resp.text)
+    print(f"   id={merchant_id} name={merchant_name}")
+except Exception:
+    print("   FAILED:")
+    traceback.print_exc()
+    sys.exit(1)
+
+# --- Step 3: full scrape with real account ---
+print("3) full scrape (login + syncData):")
+try:
+    import config, scraper
+    _, accounts = config.parse_urls_and_accounts(shuffle=False)
+    if not accounts:
+        print("   NO ACCOUNTS FOUND in in/config/config.ini ([U1]-[U5] sections)")
+        sys.exit(1)
+    user, pwd = accounts[0]
+    print(f"   using account: {user[:3]}***")
+    result = scraper.try_scrape_url(
+        session, URL.rstrip("/"), user, pwd, record_raw=False, chunk_id=0
+    )
+    ok = result[0] if isinstance(result, tuple) else result
+    print(f"   result: {'SUCCESS' if ok else 'FAILED'}")
+    if ok:
+        print("\nVERDICT: pipeline fully works - failures during bulk runs are")
+        print("per-site issues or rate limiting, not setup.")
+    else:
+        print("\nVERDICT: scrape step returns failure - likely login rejected.")
+        print("Check the account credentials against this site.")
+except SystemExit:
+    raise
+except Exception:
+    print("   CRASHED:")
+    traceback.print_exc()
+    print("\nVERDICT: exception above is the root cause - send this output back.")
