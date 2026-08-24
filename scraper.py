@@ -1,6 +1,7 @@
 import csv, datetime, json, random, threading, time
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
+import requests
 from requests.exceptions import HTTPError
 import sys
 
@@ -23,16 +24,21 @@ USER_AGENTS = [
 ]
 
 def classify_error(exception):
-    error_string = str(exception)
+    # Type checks first - substring matching is a last resort.
     if isinstance(exception, HTTPError):
         return exception.response.status_code
+    if isinstance(exception, requests.exceptions.Timeout):
+        return 104
+    if isinstance(exception, requests.exceptions.ConnectionError):
+        return 103
+    if isinstance(exception, ValueError):  # malformed JSON / unexpected response shape
+        return 302
+    error_string = str(exception)
     for error_pattern, error_code in ERROR_MAP:
         if error_pattern in error_string:
             return error_code
     if "login" in error_string.lower():
         return 304
-    if "None" in error_string:
-        return 302
     return 301
 
 def process_bonus(bonus, merchant_name, url, fingerprint, perceived_value, expiry):
@@ -142,7 +148,7 @@ def worker(chunk_id, stats, stats_lock, total_tasks, ip_score, record_raw, worke
         
         html_content = ""
         success = False
-        error_code = 301
+        error_code = 0
         exception = None
         max_retries = 3
         
@@ -164,7 +170,8 @@ def worker(chunk_id, stats, stats_lock, total_tasks, ip_score, record_raw, worke
                 if attempt == max_retries - 1:
                     error_code = classify_error(exception)
                     db.execute("UPDATE t SET ts=CURRENT_TIMESTAMP, ec=? WHERE u=?", (error_code, url))
-                    stats["failures"] += 1
+                    with stats_lock["stats"]:
+                        stats["failures"] += 1
                     
                     if error_code in (201, 202, 302):
                         DEBUG_DIR.mkdir(parents=True, exist_ok=True)
@@ -201,14 +208,13 @@ def worker(chunk_id, stats, stats_lock, total_tasks, ip_score, record_raw, worke
                     "total_new_bonuses": stats["new_bonuses"],
                     "nw": worker_count
                 })
-        elif on_update:
-            on_update({
-                "index": current_index,
-                "successes": stats["successes"],
-                "failures": stats["failures"],
-                "total_bonuses": stats["total_bonuses"],
-                "site_url": url,
-                "status_message": f"E{error_code}",
+        elif on_update:            on_update({
+                    "index": current_index,
+                    "successes": stats["successes"],
+                    "failures": stats["failures"],
+                    "total_bonuses": stats["total_bonuses"],
+                    "site_url": url,
+                    "status_message": f"E{error_code}" if error_code else "FAIL",
                 "site_bonuses_gt_zero": 0,
                 "N": total_tasks,
                 "elapsed": time.perf_counter() - start_time,

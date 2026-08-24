@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+pydantic
+requests
+cloudscraper
+pandas
+rich
+urllib3
+psutil

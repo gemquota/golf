@@ -6,8 +6,8 @@ from rich.console import Console, Group
 from rich.panel import Panel
 from rich.table import Table
 from rich.text import Text
-import requests
 import config
+import server
 
 console = Console(highlight=False)
 SAMPLES = collections.deque(maxlen=10)
@@ -131,8 +131,8 @@ def update_display(d):
         f"[{_yc(yield_v)}]{yield_v:05.1f}[/]\U0001f48e{site_new:02d}|{total_new:02d} "
         f"\u23f1\ufe0f[{_ec(idx,total)}]{time_str}[/]\U0001f310{url}")
     console.print(line)
-    try: requests.post("http://localhost:8000/update", json=d, timeout=0.1)
-    except: pass
+    try: server.broadcast_event(d)
+    except Exception: pass
 
 def print_completion(stats):
     elapsed = time.strftime("%H:%M:%S", time.gmtime(time.time() - START_TIME))

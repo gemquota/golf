@@ -16,7 +16,13 @@ HEADERS = ["url","mname","id","name","transactiontype","bonusfixed","amount","mi
 
 def get_connection():
     if DB_PATH not in _cache:
-        _cache[DB_PATH] = sqlite3.connect(DB_PATH, check_same_thread=False)
+        conn = sqlite3.connect(DB_PATH, check_same_thread=False, timeout=30)
+        # WAL lets readers proceed during writes; busy_timeout stops
+        # "database is locked" errors when worker threads collide.
+        conn.execute("PRAGMA journal_mode=WAL")
+        conn.execute("PRAGMA synchronous=NORMAL")
+        conn.execute("PRAGMA busy_timeout=30000")
+        _cache[DB_PATH] = conn
     return _cache[DB_PATH]
 
 @contextmanager
@@ -37,6 +43,13 @@ def execute(query, params=()):
         c.execute(query, params)
         return c.fetchall()
 
+JSONL_PATH = Path("data/events.jsonl")
+
+# Ordered, named migrations applied once each; recorded in schema_version.
+MIGRATIONS = (
+    ("001_add_ec_column", "ALTER TABLE t ADD COLUMN ec INTEGER"),
+)
+
 def initialize_database():
     schema = """
     CREATE TABLE IF NOT EXISTS t(u TEXT PRIMARY KEY, m, p, g, a INT DEFAULT 1, ts DATETIME, ec INTEGER);
@@ -52,6 +65,18 @@ def initialize_database():
     with cursor_context() as c:
         c.execute("PRAGMA journal_mode=WAL;")
         c.executescript(schema)
+
+    with cursor_context() as c:
+        c.execute("CREATE TABLE IF NOT EXISTS schema_version(version TEXT PRIMARY KEY, applied DATETIME DEFAULT CURRENT_TIMESTAMP)")
+        applied = {row[0] for row in c.execute("SELECT version FROM schema_version").fetchall()}
+        for name, sql in MIGRATIONS:
+            if name in applied:
+                continue
+            try:
+                c.execute(sql)
+                c.execute("INSERT INTO schema_version(version) VALUES (?)", (name,))
+            except sqlite3.OperationalError:
+                pass  # column may pre-exist from runs before versioning
 
 def load_session(url, uid):
     r = execute("SELECT ck, data, ts FROM s WHERE uid=? AND u=?", (uid, url))
@@ -87,6 +112,17 @@ def append_csv_row(row, path="data/bonuses.csv"):
 
 def log_event(level, source, message):
     execute("INSERT INTO l(lvl, src, msg) VALUES (?,?,?)", (level, source, message))
+    try:
+        JSONL_PATH.parent.mkdir(parents=True, exist_ok=True)
+        with JSONL_PATH.open("a") as f:
+            f.write(json.dumps({
+                "ts": datetime.datetime.now().isoformat(timespec="seconds"),
+                "lvl": level,
+                "src": source,
+                "msg": str(message)[:500],
+            }) + "\n")
+    except Exception:
+        pass  # JSONL is best-effort; the DB row above is the source of truth
 
 def search(query, min_pv=0):
     return execute(
