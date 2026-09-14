@@ -1,49 +1,65 @@
 """FastAPI web server with auth, validation, and WebSocket broadcasting."""
+import asyncio
 import json
+import queue
 from pathlib import Path
-from fastapi import FastAPI, WebSocket, WebSocketDisconnect, Depends, HTTPException, status
+
+from fastapi import FastAPI, WebSocket, WebSocketDisconnect, Depends, HTTPException
 from fastapi.responses import HTMLResponse
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
 import uvicorn
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 
 import config
 
 web_app = FastAPI(title="Golf Scraper API")
 security = HTTPBasic(auto_error=False)
 conns = []
+event_queue: "queue.Queue[dict]" = queue.Queue()
 PAUSED = False
 STOPPED = False
 IS_RUNNING = False
 
+
 class ConfigData(BaseModel):
     SETTINGS: dict | None = None
 
-class UpdateData(BaseModel):
-    index: int = 0
-    successes: int = 0
-    failures: int = 0
-    total_bonuses: int = 0
-    new_bonuses: int = 0
-    site_url: str = ""
-    status_message: str = ""
-    site_bonuses_gt_zero: int = 0
-    N: int = 0
-    elapsed: float = 0.0
-    ip_score: int = 0
-    site_new_bonuses: int = 0
-    total_new_bonuses: int = 0
-    nw: int = 1
-    error_details: str = ""
+
+def broadcast_event(data: dict):
+    """Thread-safe entry point for worker threads to emit dashboard updates."""
+    event_queue.put(dict(data))
+
+
+async def _broadcast_pump():
+    """Drain events queued by worker threads and fan out to WebSocket clients."""
+    while True:
+        try:
+            payload = event_queue.get_nowait()
+        except queue.Empty:
+            await asyncio.sleep(0.2)
+            continue
+        text = json.dumps(payload)
+        for ws in list(conns):
+            try:
+                await ws.send_text(text)
+            except Exception:
+                if ws in conns:
+                    conns.remove(ws)
+
+
+@web_app.on_event("startup")
+async def _start_pump():
+    asyncio.create_task(_broadcast_pump())
+
 
 def verify_auth(credentials: HTTPBasicCredentials | None = Depends(security)):
-    """Optional auth — skip if no UI_PASS configured, else validate."""
-    pw = config._cfg.get("SETTINGS", "ui_pass", fallback=None)
-    if not pw:
+    """Optional auth — skip if no UI password configured, else validate."""
+    if not config.UI_PASS:
         return True  # no auth configured
     if not credentials:
         raise HTTPException(status_code=401, detail="Auth required")
-    return credentials.username == config.UI_USER and credentials.password == pw
+    return credentials.username == config.UI_USER and credentials.password == config.UI_PASS
+
 
 @web_app.websocket("/ws")
 async def ws(ws: WebSocket):
@@ -82,13 +98,6 @@ async def control(action: str, auth=Depends(verify_auth)):
     elif action == "stop": STOPPED, PAUSED = True, False
     status_map = {"pause": "paused", "resume": "resumed", "stop": "stopped"}
     return {"status": status_map[action]}
-
-@web_app.post("/update")
-async def update(data: UpdateData):
-    for c in conns:
-        try: await c.send_text(data.model_dump_json())
-        except: pass
-    return {"status": "ok"}
 
 @web_app.get("/")
 async def root():

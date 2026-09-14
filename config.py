@@ -1,7 +1,10 @@
-import configparser, random
+import configparser, os, random
 from pathlib import Path
 import urllib3
 urllib3.disable_warnings()
+
+def _env(name):
+    return os.environ.get(name)
 
 config_parser = configparser.ConfigParser()
 config_parser.read([str(Path("in/config.ini")), str(Path("in/config/config.ini"))])
@@ -10,8 +13,9 @@ USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTM
 TIMEOUT = 15
 MIN_DELAY = config_parser.getfloat("SETTINGS", "min_delay", fallback=1.0)
 MAX_DELAY = config_parser.getfloat("SETTINGS", "max_delay", fallback=3.0)
-ABUSEIPDB_KEY = config_parser.get("SETTINGS", "abuseipdb_key", fallback=None)
-UI_USER = "admin"
+ABUSEIPDB_KEY = _env("GOLF_ABUSEIPDB_KEY") or config_parser.get("SETTINGS", "abuseipdb_key", fallback=None)
+UI_USER = _env("GOLF_UI_USER") or config_parser.get("SETTINGS", "ui_user", fallback="admin")
+UI_PASS = _env("GOLF_UI_PASS") or config_parser.get("SETTINGS", "ui_pass", fallback=None)
 DEFAULT_MAX_WITHDRAW = 3776.0
 
 def load_proxies():
@@ -31,7 +35,13 @@ def parse_urls_and_accounts(shuffle=False):
         scores = db.get_url_scores()
         urls.sort(key=lambda url_item: scores.get(url_item, 0), reverse=True)
         
-    accounts = [(config_parser[section]["u"], config_parser[section]["p"]) for section in config_parser.sections() if section and section[0] == "U"]
+    accounts = []
+    for section in config_parser.sections():
+        if section and section[0] == "U":
+            # Env vars win over the committed INI so credentials can live outside git.
+            user = _env(f"GOLF_{section.upper()}_USER") or config_parser[section]["u"]
+            pwd = _env(f"GOLF_{section.upper()}_PASS") or config_parser[section]["p"]
+            accounts.append((user, pwd))
     return urls, accounts
 
 def normalize_url(url):

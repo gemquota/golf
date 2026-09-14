@@ -6,13 +6,18 @@ import config
 CACHE_PATH = Path("data/ip_health.json")
 
 def create_session(proxy=None):
-    scraper_session = cloudscraper.create_scraper(
-        browser={
-            'browser': 'chrome',
-            'platform': 'windows',
-            'desktop': True
-        }
-    )
+    try:
+        scraper_session = cloudscraper.create_scraper(
+            browser={
+                'browser': 'chrome',
+                'platform': 'windows',
+                'desktop': True
+            }
+        )
+    except Exception:
+        # cloudscraper can break on very new Python versions (e.g. Termux 3.14).
+        # Degrade to a plain session - some sites don't challenge anyway.
+        scraper_session = requests.Session()
     scraper_session.headers.update({
         "User-Agent": config.USER_AGENT,
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8",
