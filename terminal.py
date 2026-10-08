@@ -106,7 +106,7 @@ def update_display(d):
     SAMPLES.append(elapsed)
     est = ((total - idx) * (sum(SAMPLES)/len(SAMPLES) + (config.MIN_DELAY + config.MAX_DELAY) / 2)) / max(nw, 1)
     time_str = f"{int(est//60)}m{est%60:06.3f}s"
-    ok = 1 if msg.startswith("\u2705") else 0
+    ok = 1 if msg.startswith("\u2705") or msg == "DONE" else 0
     HISTORY.append(ok)
     if STREAK_TYPE[0] is None or STREAK_TYPE[0] != bool(ok): STREAK_TYPE[0], STREAK_CNT[0] = bool(ok), 1
     else: STREAK_CNT[0] += 1
@@ -118,7 +118,7 @@ def update_display(d):
     r100 = int(sum(r[-100:])/max(len(r[-100:]),1)*100) if len(r)>=100 else r50
     rate = (d["successes"]/idx*100) if idx>0 else 0
     yield_v = (total_new/idx*100) if idx>0 else 0
-    if msg.startswith("\u2705"): sfmt, col = "\u2705DONE\u2705", "bright_green"
+    if msg.startswith("\u2705") or msg == "DONE": sfmt, col = "\u2705DONE\u2705", "bright_green"
     else:
         m = re.search(r"E(\d+)", msg)
         if m:
