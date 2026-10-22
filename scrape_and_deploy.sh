@@ -10,15 +10,15 @@ sleep 2
 
 echo "=== Running scraper ==="
 python3 -u run_scraper.py 2>&1 | tee /tmp/scrape_run.log
-
 echo "=== Exporting from DB to CSV ==="
 python3 -c "
-import csv, sqlite3, json, math
+import csv, sqlite3, json, math, os
+from urllib.parse import urlparse
 
 conn = sqlite3.connect('data/base.db')
 c = conn.cursor()
 
-HEADERS = ['url','mname','id','name','transactiontype','bonusfixed','amount','minwithdraw','maxwithdraw','rollover','balance','claimconfig','claimcondition','bonus','bonusrandom','reset','mintopup','maxtopup','referlink','perceived_value','is_new','weighted_score']
+HEADERS = ['url','mname','id','name','transactiontype','bonusfixed','amount','minwithdraw','site_minwithdraw','maxwithdraw','rollover','balance','claimconfig','claimcondition','bonus','bonusrandom','reset','mintopup','maxtopup','referlink','perceived_value','is_new','weighted_score']
 
 def num(v):
     try:
@@ -26,6 +26,29 @@ def num(v):
         return x if math.isfinite(x) else None
     except (TypeError, ValueError):
         return None
+
+def domain_for(url):
+    try:
+        host = (urlparse(str(url)).hostname or '').lower()
+        if host.startswith('www.'):
+            host = host[4:]
+        return host
+    except Exception:
+        return ''
+
+def load_site_minimums(path):
+    minimums = {}
+    if not os.path.exists(path):
+        return minimums
+    with open(path, newline='') as f:
+        for row in csv.DictReader(f):
+            domain = (row.get('domain') or '').strip().lower()
+            value = num(row.get('site_minwithdraw'))
+            if domain and value is not None and value > 0:
+                minimums[domain] = value
+    return minimums
+
+site_minimums = load_site_minimums('data/site_min_withdrawals.csv')
 
 c.execute('SELECT uid, eid, u, v, pv, raw, exp, fp, mirrors, s1, sl, mname, name FROM b')
 rows = c.fetchall()
@@ -45,10 +68,19 @@ with open('data/Dayne_Bonuses.csv', 'w', newline='') as f:
         minwithdraw = normalized.get('minwithdraw', '')
         maxwithdraw = normalized.get('maxwithdraw', '')
         amt = num(amount)
-        effective_min = num(minwithdraw)
+        bonus_min = num(minwithdraw)
+        domain = domain_for(u)
+        site_min = site_minimums.get(domain)
+
+        # Effective minimum for Weighted Score:
+        # 1) bonus-specific minimum, 2) known site-wide minimum, 3) default 50.
+        effective_min = bonus_min if bonus_min is not None and bonus_min > 0 else site_min
+        if effective_min is None or effective_min <= 0:
+            effective_min = 50.0
+
         maxw = num(maxwithdraw)
         weighted_score = ''
-        if amt is not None and effective_min is not None and effective_min > 0 and maxw is not None and maxw >= 0:
+        if amt is not None and maxw is not None and maxw >= 0:
             weighted_score = round((amt / effective_min) * math.sqrt(maxw), 4)
 
         csv_row = {
@@ -57,6 +89,7 @@ with open('data/Dayne_Bonuses.csv', 'w', newline='') as f:
             'bonusfixed': normalized.get('bonusfixed', ''),
             'amount': amount,
             'minwithdraw': minwithdraw,
+            'site_minwithdraw': site_min if site_min is not None else '',
             'maxwithdraw': maxwithdraw,
             'rollover': normalized.get('rollover', ''),
             'balance': normalized.get('balance', ''),
@@ -73,7 +106,7 @@ with open('data/Dayne_Bonuses.csv', 'w', newline='') as f:
             'weighted_score': weighted_score,
         }
         writer.writerow(csv_row)
-print(f'Exported {len(rows)} bonuses')
+print(f'Exported {len(rows)} bonuses; loaded {len(site_minimums)} site-wide withdrawal minimums')
 "
 
 echo "=== Cleaning CSV ==="
