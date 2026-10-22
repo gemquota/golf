@@ -13,12 +13,19 @@ python3 -u run_scraper.py 2>&1 | tee /tmp/scrape_run.log
 
 echo "=== Exporting from DB to CSV ==="
 python3 -c "
-import csv, sqlite3, json
+import csv, sqlite3, json, math
 
 conn = sqlite3.connect('data/base.db')
 c = conn.cursor()
 
-HEADERS = ['url','mname','id','name','transactiontype','bonusfixed','amount','minwithdraw','maxwithdraw','rollover','balance','claimconfig','claimcondition','bonus','bonusrandom','reset','mintopup','maxtopup','referlink','perceived_value','is_new']
+HEADERS = ['url','mname','id','name','transactiontype','bonusfixed','amount','minwithdraw','maxwithdraw','rollover','balance','claimconfig','claimcondition','bonus','bonusrandom','reset','mintopup','maxtopup','referlink','perceived_value','is_new','weighted_score']
+
+def num(v):
+    try:
+        x = float(v)
+        return x if math.isfinite(x) else None
+    except (TypeError, ValueError):
+        return None
 
 c.execute('SELECT uid, eid, u, v, pv, raw, exp, fp, mirrors, s1, sl, mname, name FROM b')
 rows = c.fetchall()
@@ -30,16 +37,27 @@ with open('data/Dayne_Bonuses.csv', 'w', newline='') as f:
         uid, eid, u, v, pv, raw_json, exp, fp, mirrors, s1, sl, mname, name = row
         try:
             bonus = json.loads(raw_json) if raw_json else {}
-        except:
+        except Exception:
             bonus = {}
         normalized = {k.lower(): val for k, val in bonus.items()} if bonus else {}
+
+        amount = v if v else normalized.get('amount', '')
+        minwithdraw = normalized.get('minwithdraw', '')
+        maxwithdraw = normalized.get('maxwithdraw', '')
+        amt = num(amount)
+        effective_min = num(minwithdraw)
+        maxw = num(maxwithdraw)
+        weighted_score = ''
+        if amt is not None and effective_min is not None and effective_min > 0 and maxw is not None and maxw >= 0:
+            weighted_score = round((amt / effective_min) * math.sqrt(maxw), 4)
+
         csv_row = {
             'url': u, 'mname': mname or '', 'id': eid or '', 'name': name or '',
             'transactiontype': normalized.get('transactiontype', ''),
             'bonusfixed': normalized.get('bonusfixed', ''),
-            'amount': v if v else normalized.get('amount', ''),
-            'minwithdraw': normalized.get('minwithdraw', ''),
-            'maxwithdraw': normalized.get('maxwithdraw', ''),
+            'amount': amount,
+            'minwithdraw': minwithdraw,
+            'maxwithdraw': maxwithdraw,
             'rollover': normalized.get('rollover', ''),
             'balance': normalized.get('balance', ''),
             'claimconfig': normalized.get('claimconfig', ''),
@@ -52,6 +70,7 @@ with open('data/Dayne_Bonuses.csv', 'w', newline='') as f:
             'referlink': normalized.get('referlink', ''),
             'perceived_value': pv if pv else '',
             'is_new': 1 if sl and sl == s1 else 0,
+            'weighted_score': weighted_score,
         }
         writer.writerow(csv_row)
 print(f'Exported {len(rows)} bonuses')
