@@ -71,18 +71,18 @@ def clean_bonuses(csv_file):
 
     # Sort by weighted score descending when available.
     if 'weighted_score' in df.columns:
-        df = df.sort_values('weighted_score', ascending=False, na_position='last')
+        df = df.sort_values('weighted_score', ascending=True, na_position='last')
     elif 'perceived_value' in df.columns:
         df = df.sort_values('perceived_value', ascending=False)
 
-    # Move effective minimum, ratio and weighted_score after rollover.
+    # Move the calculation columns together after rollover.
     cols = df.columns.tolist()
-    for col in ['effective_minwithdraw', 'ratio', 'weighted_score']:
+    for col in ['effective_minwithdraw', 'ratio', 'rollover_ratio_average', 'weighted_score']:
         if col in cols:
             cols.remove(col)
     if 'rollover' in cols:
         ri = cols.index('rollover') + 1
-        cols[ri:ri] = ['effective_minwithdraw', 'ratio', 'weighted_score']
+        cols[ri:ri] = ['effective_minwithdraw', 'ratio', 'rollover_ratio_average', 'weighted_score']
     df = df[[c for c in cols if c in df.columns]]
 
     print(f"Filtered: {before} -> {len(df)} rows ({before - len(df)} removed)")
