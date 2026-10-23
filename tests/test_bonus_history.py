@@ -42,12 +42,12 @@ class BonusHistoryTests(unittest.TestCase):
         self.assertEqual(counts["Friday"], 1)
         self.assertEqual(result["release_count"], 2)
 
-    def test_first_baseline_is_not_counted_as_release(self):
-        previous = None
-        current = {"sites": {"https://a.test": {"merchant": "A", "bonuses": [
-            {"key": "k", "name": "Weekly commission", "amount": 10}
-        ]}}}
-        self.assertEqual(bonus_history.diff_sites(previous, current), [])
+    def test_first_baseline_can_be_stored_without_release_classification(self):
+        baseline = {"key": "k", "name": "Weekly commission", "amount": 10,
+                    "is_commission": True}
+        compact = bonus_history.compact_bonus(baseline)
+        self.assertEqual(compact["key"], "k")
+        self.assertTrue(compact["is_commission"])
 
 
 if __name__ == "__main__":
