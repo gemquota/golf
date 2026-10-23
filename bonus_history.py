@@ -191,7 +191,8 @@ def main():
             "merchant": state["merchant"] or (old_site or {}).get("merchant") or url,
             "last_success_date": snapshot_date,
             "last_success_at": state["checked_at"],
-            "observed_days": int((old_site or {}).get("observed_days", 0)) + 1,
+            "observed_days": int((old_site or {}).get("observed_days", 0)) +
+                             (0 if old_site and old_site.get("last_success_date") == snapshot_date else 1),
             "bonuses": [compact_bonus(bonus) for bonus in bonuses]
         }
 
