@@ -1,0 +1,86 @@
+.release-page {
+  height: auto;
+  min-height: 100vh;
+  overflow: auto;
+  background:
+    radial-gradient(900px 420px at 90% -10%, #18233a 0%, transparent 62%),
+    var(--bg);
+}
+.release-header {
+  display: flex; align-items: center; justify-content: space-between; gap: 20px;
+  padding: 28px clamp(16px, 4vw, 48px); border-bottom: 1px solid var(--line);
+  background: rgba(18, 23, 34, .88);
+}
+.release-eyebrow { color: var(--accent); font: 600 11px var(--font-mono); letter-spacing: 1.5px; margin-bottom: 8px; }
+.release-header h1 { font-size: clamp(25px, 4vw, 38px); letter-spacing: -.7px; }
+.release-header p { color: var(--muted); margin-top: 8px; max-width: 720px; line-height: 1.5; }
+.release-header nav a { color: var(--accent); text-decoration: none; border: 1px solid var(--line); border-radius: 8px; padding: 10px 14px; white-space: nowrap; }
+.release-header nav a:hover { background: var(--panel-2); }
+.release-main { max-width: 1500px; margin: 0 auto; padding: 22px clamp(12px, 3vw, 36px) 48px; display: grid; gap: 18px; }
+.release-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.release-stat, .release-panel { background: rgba(18, 23, 34, .88); border: 1px solid var(--line); border-radius: 14px; }
+.release-stat { padding: 16px 18px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.release-stat span { color: var(--muted); font-size: 12px; }
+.release-stat strong { font: 600 clamp(18px, 2.4vw, 28px) var(--font-mono); overflow-wrap: anywhere; }
+.release-panel { padding: 18px; min-width: 0; }
+.release-panel-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 16px; }
+.release-panel-head h2 { font-size: 18px; }
+.release-panel-head p { color: var(--muted); font-size: 12px; line-height: 1.5; margin-top: 5px; max-width: 800px; }
+.release-controls { align-items: end; }
+.release-controls label { color: var(--muted); font-size: 12px; display: grid; gap: 6px; }
+.release-controls select, #siteSearch {
+  color: var(--text); background: var(--panel-2); border: 1px solid var(--line); border-radius: 8px;
+  padding: 9px 11px; font: inherit; min-width: 150px;
+}
+#siteSearch { min-width: 200px; }
+.weekday-chart { display: grid; gap: 8px; }
+.weekday-item {
+  display: grid; grid-template-columns: 100px minmax(50px, 1fr) 42px 42px; align-items: center; gap: 12px;
+  border: 1px solid transparent; background: transparent; color: var(--text); text-align: left;
+  border-radius: 8px; padding: 7px 10px; cursor: pointer; font: inherit;
+}
+.weekday-item:hover { background: var(--panel-2); border-color: var(--line); }
+.weekday-label { font-size: 13px; }
+.weekday-track { height: 10px; border-radius: 99px; overflow: hidden; background: #222c3d; }
+.weekday-bar { display: block; height: 100%; min-width: 0; border-radius: inherit; background: linear-gradient(90deg, #58b5d4, #7c9cff); }
+.weekday-count, .weekday-share { font: 12px var(--font-mono); text-align: right; }
+.weekday-share { color: var(--muted); }
+.release-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 330px), 1fr)); gap: 10px; }
+.release-card, .change-card { border: 1px solid var(--line); background: rgba(24, 31, 45, .72); border-radius: 10px; padding: 14px; min-width: 0; }
+.release-card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.release-name { font-size: 14px; overflow-wrap: anywhere; }
+.release-amount { color: #a5e7bf; font: 600 15px var(--font-mono); white-space: nowrap; }
+.release-meta, .change-meta { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 12px; color: var(--muted); font-size: 12px; margin-top: 10px; }
+.site-link { color: #a7caff; text-decoration: none; overflow-wrap: anywhere; }
+.site-link:hover { text-decoration: underline; }
+.release-details { display: flex; flex-wrap: wrap; gap: 6px 12px; color: var(--muted); font-size: 11px; line-height: 1.5; margin-top: 12px; }
+.release-table-wrap { width: 100%; overflow: auto; }
+.release-table { width: 100%; min-width: 760px; border-collapse: collapse; font-size: 12px; }
+.release-table th { text-align: left; text-transform: uppercase; letter-spacing: .5px; font-size: 10px; color: var(--muted); padding: 11px 10px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+.release-table td { padding: 12px 10px; border-bottom: 1px solid var(--line-soft); white-space: normal; vertical-align: top; }
+.release-table tbody tr:hover { background: var(--panel-2); }
+.numeric-cell { font-family: var(--font-mono); text-align: right; }
+.pattern-cell { color: #c5d4ec; min-width: 190px; }
+.confidence { display: inline-block; border-radius: 99px; padding: 4px 8px; font-size: 10px; text-transform: capitalize; white-space: nowrap; }
+.confidence-low { color: #f2cb82; background: #3a2d19; }
+.confidence-moderate { color: #a7d8ff; background: #1d3045; }
+.confidence-higher { color: #a5e7bf; background: #1d382a; }
+.change-card { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 8px 12px; }
+.change-kind { font: 600 10px var(--font-mono); letter-spacing: .4px; border-radius: 5px; padding: 5px 7px; background: #1d3045; color: #a7d8ff; white-space: nowrap; }
+.change-new { background: #1d382a; color: #a5e7bf; }
+.change-updated { background: #3a2d19; color: #f2cb82; }
+.change-gone { background: #3b2428; color: #ffb2b2; }
+.change-description { font-size: 13px; overflow-wrap: anywhere; }
+.change-meta, .change-note { grid-column: 1 / -1; margin-top: 0; }
+.change-note { color: var(--muted); font-size: 11px; }
+.empty-state, .empty-cell { color: var(--muted); padding: 18px 8px; line-height: 1.5; }
+.release-method { color: var(--muted); font-size: 11px; line-height: 1.6; padding: 0 3px; }
+@media (max-width: 760px) {
+  .release-header { align-items: flex-start; flex-direction: column; padding: 22px 16px; }
+  .release-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .release-stat { padding: 12px; }
+  .release-panel { padding: 13px; }
+  .release-panel-head, .release-controls { flex-direction: column; align-items: stretch; }
+  .weekday-item { grid-template-columns: 78px minmax(30px, 1fr) 30px 32px; gap: 7px; padding: 7px 4px; }
+  #siteSearch { width: 100%; min-width: 0; }
+}
