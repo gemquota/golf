@@ -17,7 +17,7 @@ COMPARE_FIELDS = ["name", "amount", "minwithdraw", "maxwithdraw", "rollover", "r
 
 
 def clean(value):
-    return re.sub(r"\\s+", " ", str(value or "")).strip()
+    return re.sub(r"\s+", " ", str(value or "")).strip()
 
 
 def number(value):
