@@ -1,31 +1,38 @@
-"""Standalone CLI scraper — outputs CSV to stdout, no server."""
-import csv, sys, os, threading, time
+"""Standalone CLI scraper with silent output and persistent pipeline maintenance."""
+import os
+import sys
+from pathlib import Path
 
-# Suppress terminal output
-os.environ["PYTHONIOENCODING"] = "utf-8"
+import db, scraper
 
-import db, scraper, config
 
-# Monkey-patch terminal callbacks to be silent
-def noop(*a, **kw): pass
+def noop(*a, **kw):
+    pass
+
 
 db.initialize_database()
 
-# Ensure stopped flag is cleared
 import server
 server.STOPPED = False
 server.PAUSED = False
 server.IS_RUNNING = True
 
-# Run scraper with silent callbacks
+run_started = __import__("datetime").datetime.now(__import__("datetime").timezone.utc).isoformat()
+os.environ["GOLF_RUN_STARTED"] = run_started
+
 scraper.run_scrape(
     on_update=noop,
     on_launcher=noop,
-    on_completion=lambda s: print(f"\nDone: {s['successes']} sites, {s['total_bonuses']} bonuses, {s['new_bonuses']} new", file=sys.stderr)
+    on_completion=lambda s: print(
+        f"\nDone: {s['successes']} sites, {s['total_bonuses']} bonuses, {s['new_bonuses']} new",
+        file=sys.stderr,
+    ),
 )
 
-# Find latest CSV
-from pathlib import Path
+# Maintain site health, down.txt, local account inventory and historical data.
+import subprocess
+subprocess.run([sys.executable, "maintain_pipeline.py"], check=True)
+
 csv_files = sorted(Path("data").glob("bonuses_*.csv"))
 if csv_files:
     latest = csv_files[-1]
