@@ -49,14 +49,14 @@ def account_phone_map():
 
 def maintain_sites(run_started):
     urls=unique(load_lines(URLS)); down=load_lines(DOWN); state=load_json(STATE,{}); successes=load_json(ACCOUNT_SUCCESS,{})
-    run_started=parse_dt(run_started) or now()
+    run_started=parse_dt(run_started) or now(); run_marker=run_started.strftime("%Y-%m-%d %H:%M:%S")
     conn=sqlite3.connect(DB)
     try: rows=conn.execute("SELECT u,ec,ts FROM t").fetchall()
     finally: conn.close()
     current_success={}; attempts=0; success_count=0
     for url,ec,ts in rows:
         checked=parse_dt(ts)
-        if url and checked and checked>=run_started-dt.timedelta(minutes=10):
+        if url and checked and checked>=run_started:
             attempts+=1
             if ec==200:
                 success_count+=1; current_success[url]=checked
@@ -91,10 +91,10 @@ def maintain_sites(run_started):
     return len(kept),moved,state,attempts,success_count
 
 def append_history(run_started):
-    run_started=parse_dt(run_started) or now(); conn=sqlite3.connect(DB); conn.row_factory=sqlite3.Row
+    run_started=parse_dt(run_started) or now(); marker=run_started.strftime("%Y-%m-%d %H:%M:%S"); conn=sqlite3.connect(DB); conn.row_factory=sqlite3.Row
     try:
         rows=conn.execute("SELECT uid,eid,u,v,pv,raw,exp,fp,mirrors,s1,sl,mname,name FROM b").fetchall()
-        success_urls={r[0] for r in conn.execute("SELECT u FROM t WHERE ec=200 AND ts>=?",(run_started.strftime("%Y-%m-%d %H:%M:%S"),)).fetchall()}
+        success_urls={r[0] for r in conn.execute("SELECT u FROM t WHERE ec=200 AND ts>=?",(marker,)).fetchall()}
     finally: conn.close()
     fields=["run_ts","uid","eid","url","merchant","name","amount","perceived_value","expiry","first_seen","last_seen","fingerprint","mirrors"]
     existing=HISTORY.exists(); HISTORY.parent.mkdir(parents=True,exist_ok=True)
@@ -103,7 +103,7 @@ def append_history(run_started):
         if not existing:w.writeheader()
         for r in rows:
             if r[2] not in success_urls: continue
-            w.writerow({"run_ts":fmt(run_started),"uid":r[0],"eid":r[1],"url":r[2],"merchant":r[11] or "","name":r[12] or "","amount":r[3] or "","perceived_value":r[4] or "","expiry":r[10] or "","first_seen":r[9] or "","last_seen":r[10] or "","fingerprint":r[7] or "","mirrors":r[8] or ""})
+            w.writerow({"run_ts":fmt(run_started),"uid":r[0],"eid":r[1],"url":r[2],"merchant":r[11] or "","name":r[12] or "","amount":r[3] or "","perceived_value":r[4] or "","expiry":r[6] or "","first_seen":r[9] or "","last_seen":r[10] or "","fingerprint":r[7] or "","mirrors":r[8] or ""})
     return len(rows)
 
 def log_run(run_started,kept,moved,attempts,successes,history_rows):
