@@ -1,6 +1,7 @@
 """Standalone CLI scraper with silent output and persistent pipeline maintenance."""
 import os
 import sys
+import shutil
 from pathlib import Path
 
 import db, scraper
@@ -37,6 +38,15 @@ subprocess.run([sys.executable, "maintain_pipeline.py"], check=True)
 # data/Dayne_Bonuses.csv. This gives the pipeline three durable layers:
 # raw scraped data -> enriched calculations -> cleaned presentation.
 subprocess.run([sys.executable, "build_exports.py"], check=True)
+
+# Feed the static viewer with the historical operational datasets. The legacy
+# deployment script will also copy the enriched and cleaned current CSVs.
+public = Path("viewer/public")
+public.mkdir(parents=True, exist_ok=True)
+for name in ("Dayne_Bonuses_Raw.csv", "bonus_history.csv", "scrape_runs.csv", "site_state.json"):
+    source = Path("data") / name
+    if source.exists():
+        shutil.copy2(source, public / name.replace("_", "-").lower())
 
 csv_files = sorted(Path("data").glob("bonuses_*.csv"))
 if csv_files:
