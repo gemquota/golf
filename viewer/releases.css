@@ -28,6 +28,11 @@
 .release-panel-head p { color: var(--muted); font-size: 12px; line-height: 1.5; margin-top: 5px; max-width: 800px; }
 .release-controls { align-items: end; }
 .release-controls label { color: var(--muted); font-size: 12px; display: grid; gap: 6px; }
+.release-filter-row { display: flex; align-items: end; gap: 10px; }
+.release-filter-row input, .release-filter-row select {
+  color: var(--text); background: var(--panel-2); border: 1px solid var(--line);
+  border-radius: 8px; padding: 9px 11px; font: inherit; min-width: 145px;
+}
 .release-controls select, #siteSearch {
   color: var(--text); background: var(--panel-2); border: 1px solid var(--line); border-radius: 8px;
   padding: 9px 11px; font: inherit; min-width: 150px;
@@ -81,6 +86,8 @@
   .release-stat { padding: 12px; }
   .release-panel { padding: 13px; }
   .release-panel-head, .release-controls { flex-direction: column; align-items: stretch; }
+  .release-filter-row { flex-wrap: wrap; }
+  .release-filter-row input, .release-filter-row select { width: 100%; }
   .weekday-item { grid-template-columns: 78px minmax(30px, 1fr) 30px 32px; gap: 7px; padding: 7px 4px; }
   #siteSearch { width: 100%; min-width: 0; }
 }
