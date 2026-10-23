@@ -1,1 +1,11 @@
 tests/
+data/accounts.csv
+data/account_success.json
+data/site_state.json
+data/bonus_history.csv
+data/scrape_runs.csv
+in/config/down.txt
+viewer/public/bonus-history.csv
+viewer/public/scrape-runs.csv
+viewer/public/site-state.json
+viewer/public/dayne-bonuses-raw.csv
