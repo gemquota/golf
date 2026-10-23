@@ -74,12 +74,14 @@ function commissionEvents() {
 function renderCommissions() {
   const host = $("commissionList");
   const filter = $("weekdayFilter").value;
+  const exactDate = $("dateFilter").value;
   const events = commissionEvents()
-    .filter(event => filter === "all" || weekdayOf(event.date) === filter)
+    .filter(event => (!exactDate || event.date === exactDate) &&
+      (filter === "all" || weekdayOf(event.date) === filter))
     .sort((a, b) => String(b.date).localeCompare(String(a.date)) || String(a.merchant).localeCompare(String(b.merchant)));
   host.replaceChildren();
   if (!events.length) {
-    empty(host, filter === "all" ? "No newly observed commission releases yet." : `No recorded commission releases first observed on ${filter}s yet.`);
+    empty(host, exactDate ? `No recorded commission releases on ${formatDate(exactDate)}.` : filter === "all" ? "No newly observed commission releases yet." : `No recorded commission releases first observed on ${filter}s yet.`);
     return;
   }
   for (const event of events.slice(0, 250)) {
@@ -166,6 +168,7 @@ function renderChangeLog() {
 }
 async function init() {
   $("weekdayFilter").addEventListener("change", renderCommissions);
+  $("dateFilter").addEventListener("change", renderCommissions);
   $("siteSearch").addEventListener("input", renderSites);
   try {
     const response = await fetch("./bonus-history.json", { cache: "no-store" });
