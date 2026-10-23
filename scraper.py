@@ -12,13 +12,14 @@ RAW_DIR = Path("data/raw_responses")
 TMP_DIR = Path("data")
 DEBUG_DIR = Path("data/debug")
 ACCOUNT_SUCCESS = Path("data/account_success.json")
+ACCOUNT_SUCCESS_LOCK = threading.Lock()
 
 ERROR_MAP = [("MERCHANT", 201), ("Captcha", 202), ("gaierror", 102), ("Timeout", 104),
     ("Refused", 101), ("Connection", 103), ("403", 403)]
 
 USER_AGENTS = [
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/605.1.15",
     "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:121.0) Gecko/20100101 Firefox/121.0",
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.2 Safari/605.1.15",
@@ -131,13 +132,14 @@ def try_scrape_url(scraper_session, url, username, password, record_raw, chunk_i
 
 def record_account_success(url, account_id):
     """Persist only the non-secret account identifier that successfully scraped a URL."""
-    ACCOUNT_SUCCESS.parent.mkdir(parents=True, exist_ok=True)
-    try:
-        data = json.loads(ACCOUNT_SUCCESS.read_text()) if ACCOUNT_SUCCESS.exists() else {}
-    except Exception:
-        data = {}
-    data[url] = account_id
-    ACCOUNT_SUCCESS.write_text(json.dumps(data, indent=2, sort_keys=True) + "\n")
+    with ACCOUNT_SUCCESS_LOCK:
+        ACCOUNT_SUCCESS.parent.mkdir(parents=True, exist_ok=True)
+        try:
+            data = json.loads(ACCOUNT_SUCCESS.read_text()) if ACCOUNT_SUCCESS.exists() else {}
+        except Exception:
+            data = {}
+        data[url] = account_id
+        ACCOUNT_SUCCESS.write_text(json.dumps(data, indent=2, sort_keys=True) + "\n")
 
 def worker(chunk_id, stats, stats_lock, total_tasks, ip_score, record_raw, worker_count, tasks, proxy_pool, on_update):
     scraper_session = net.create_session(random.choice(proxy_pool) if proxy_pool else None)
