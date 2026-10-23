@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0b0e14">
+  <title>Commission Release Calendar · Dayne Bonuses</title>
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./releases.css">
+</head>
+<body class="release-page">
+  <header class="release-header">
+    <div>
+      <div class="release-eyebrow">DAYNE BONUSES / HISTORY</div>
+      <h1>Commission release tracker</h1>
+      <p>Daily observations, newly appearing commissions, and each site's observed release pattern.</p>
+    </div>
+    <nav><a href="./index.html">Bonus viewer</a></nav>
+  </header>
+
+  <main class="release-main">
+    <section class="release-stats" id="stats" aria-live="polite">
+      <article class="release-stat"><span>Tracked days</span><strong id="trackedDays">—</strong></article>
+      <article class="release-stat"><span>Observed commission releases</span><strong id="releaseCount">—</strong></article>
+      <article class="release-stat"><span>Sites tracked</span><strong id="siteCount">—</strong></article>
+      <article class="release-stat"><span>Last update</span><strong id="lastUpdate">—</strong></article>
+    </section>
+
+    <section class="release-panel">
+      <div class="release-panel-head">
+        <div><h2>Commission releases by weekday</h2><p>Counts are first observations after a prior successful scrape, not guessed publication times.</p></div>
+      </div>
+      <div id="weekdayChart" class="weekday-chart"></div>
+    </section>
+
+    <section class="release-panel">
+      <div class="release-panel-head release-controls">
+        <div><h2>Commissions first observed</h2><p>Filter historical releases by the weekday they appeared.</p></div>
+        <label>Weekday
+          <select id="weekdayFilter">
+            <option value="all">All days</option>
+            <option>Monday</option><option>Tuesday</option><option>Wednesday</option>
+            <option>Thursday</option><option>Friday</option><option>Saturday</option><option>Sunday</option>
+          </select>
+        </label>
+      </div>
+      <div id="commissionList" class="release-list"></div>
+    </section>
+
+    <section class="release-panel">
+      <div class="release-panel-head">
+        <div><h2>Site release patterns</h2><p>Patterns strengthen with repeated observations. Early estimates are marked low confidence.</p></div>
+        <input id="siteSearch" type="search" placeholder="Filter sites…" aria-label="Filter sites">
+      </div>
+      <div class="release-table-wrap">
+        <table class="release-table">
+          <thead><tr><th>Site</th><th>Likely day</th><th>Releases</th><th>Observed pattern</th><th>Last release</th><th>Confidence</th></tr></thead>
+          <tbody id="siteRows"><tr><td colspan="6">Loading history…</td></tr></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="release-panel">
+      <div class="release-panel-head">
+        <div><h2>Daily change log</h2><p>New, changed, and disappeared bonuses. Disappearances are only recorded after a successful scrape of that site.</p></div>
+      </div>
+      <div id="changeLog" class="release-list"></div>
+    </section>
+
+    <p class="release-method" id="methodology">Loading methodology…</p>
+  </main>
+  <script type="module" src="./releases.js"></script>
+</body>
+</html>
