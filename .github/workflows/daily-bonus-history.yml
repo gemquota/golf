@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 concurrency:
   group: golf-daily-scrape
@@ -52,6 +53,7 @@ jobs:
         run: python daily_scrape.py
 
       - name: Publish current data and history
+        id: publish
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -63,7 +65,15 @@ jobs:
                   viewer/public/bonus-history.json
           if git diff --cached --quiet; then
             echo "No published data changes."
+            echo "published=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
           git commit -m "Daily bonus snapshot and commission release history"
           git push origin HEAD:main
+          echo "published=true" >> "$GITHUB_OUTPUT"
+
+      - name: Trigger GitHub Pages deployment
+        if: steps.publish.outputs.published == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run deploy-viewer.yml --ref main
