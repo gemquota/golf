@@ -36,13 +36,18 @@
     <section class="release-panel">
       <div class="release-panel-head release-controls">
         <div><h2>Commissions first observed</h2><p>Filter historical releases by the weekday they appeared.</p></div>
-        <label>Weekday
-          <select id="weekdayFilter">
-            <option value="all">All days</option>
-            <option>Monday</option><option>Tuesday</option><option>Wednesday</option>
-            <option>Thursday</option><option>Friday</option><option>Saturday</option><option>Sunday</option>
-          </select>
-        </label>
+        <div class="release-filter-row">
+          <label>Date
+            <input id="dateFilter" type="date">
+          </label>
+          <label>Weekday
+            <select id="weekdayFilter">
+              <option value="all">All days</option>
+              <option>Monday</option><option>Tuesday</option><option>Wednesday</option>
+              <option>Thursday</option><option>Friday</option><option>Saturday</option><option>Sunday</option>
+            </select>
+          </label>
+        </div>
       </div>
       <div id="commissionList" class="release-list"></div>
     </section>
