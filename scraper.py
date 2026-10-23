@@ -12,6 +12,7 @@ RAW_DIR = Path("data/raw_responses")
 TMP_DIR = Path("data")
 DEBUG_DIR = Path("data/debug")
 ACCOUNT_SUCCESS = Path("data/account_success.json")
+ACCOUNT_STATE = Path("data/account_state.json")
 ACCOUNT_SUCCESS_LOCK = threading.Lock()
 
 ERROR_MAP = [("MERCHANT", 201), ("Captcha", 202), ("gaierror", 102), ("Timeout", 104),
@@ -26,6 +27,9 @@ USER_AGENTS = [
 ]
 
 def classify_error(exception):
+    # Authentication failures are distinct from site/network failures.
+    if isinstance(exception, net.AuthenticationError):
+        return 304
     # Type checks first - substring matching is a last resort.
     if isinstance(exception, HTTPError):
         return exception.response.status_code
@@ -130,16 +134,65 @@ def try_scrape_url(scraper_session, url, username, password, record_raw, chunk_i
         
     return True, html_content, site_bonuses, site_new
 
+def _load_json_mapping(path):
+    try:
+        data = json.loads(path.read_text()) if path.exists() else {}
+        return data if isinstance(data, dict) else {}
+    except Exception:
+        return {}
+
+
+def load_account_successes():
+    """Load legacy URL -> U# success mappings without exposing account credentials."""
+    with ACCOUNT_SUCCESS_LOCK:
+        return _load_json_mapping(ACCOUNT_SUCCESS)
+
+
+def _save_account_state_locked(data):
+    ACCOUNT_STATE.parent.mkdir(parents=True, exist_ok=True)
+    ACCOUNT_STATE.write_text(json.dumps(data, indent=2, sort_keys=True) + "\n")
+
+
 def record_account_success(url, account_id):
-    """Persist only the non-secret account identifier that successfully scraped a URL."""
+    """Persist the successful account and its verified registration state."""
+    verified_at = datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds")
     with ACCOUNT_SUCCESS_LOCK:
         ACCOUNT_SUCCESS.parent.mkdir(parents=True, exist_ok=True)
-        try:
-            data = json.loads(ACCOUNT_SUCCESS.read_text()) if ACCOUNT_SUCCESS.exists() else {}
-        except Exception:
-            data = {}
-        data[url] = account_id
-        ACCOUNT_SUCCESS.write_text(json.dumps(data, indent=2, sort_keys=True) + "\n")
+        successes = _load_json_mapping(ACCOUNT_SUCCESS)
+        successes[url] = account_id
+        ACCOUNT_SUCCESS.write_text(json.dumps(successes, indent=2, sort_keys=True) + "\n")
+        state = _load_json_mapping(ACCOUNT_STATE)
+        state[url] = {
+            "status": "registered",
+            "account_id": account_id,
+            "verified_at": verified_at,
+            "last_attempt_at": verified_at,
+            "last_error_code": None
+        }
+        _save_account_state_locked(state)
+
+
+def record_account_discovery_result(url, attempted_codes):
+    """Record an unsuccessful account discovery without mistaking outages for non-registration."""
+    checked_at = datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds")
+    conclusive_failures = bool(attempted_codes) and all(code == 304 for code in attempted_codes)
+    with ACCOUNT_SUCCESS_LOCK:
+        state = _load_json_mapping(ACCOUNT_STATE)
+        previous = state.get(url, {})
+        # A previous confirmed association is not erased by a transient failed scrape.
+        if previous.get("status") == "registered" and previous.get("account_id"):
+            previous["last_attempt_at"] = checked_at
+            previous["last_error_code"] = attempted_codes[-1] if attempted_codes else None
+            state[url] = previous
+        else:
+            state[url] = {
+                "status": "unregistered" if conclusive_failures else "unknown",
+                "account_id": None,
+                "verified_at": checked_at if conclusive_failures else None,
+                "last_attempt_at": checked_at,
+                "attempted_error_codes": attempted_codes
+            }
+        _save_account_state_locked(state)
 
 def worker(chunk_id, stats, stats_lock, total_tasks, ip_score, record_raw, worker_count, tasks, proxy_pool, on_update):
     scraper_session = net.create_session(random.choice(proxy_pool) if proxy_pool else None)
@@ -262,21 +315,27 @@ def run_scrape(on_update=None, on_launcher=None, on_completion=None):
     db._init_csv(str(final_csv_path))
 
     def process_url_batch(current_url_list, account_index=0):
+        if not current_url_list:
+            return
         username, password = account_list[account_index]
         account_id = f"U{account_index + 1}"
         task_list = [(url, username, password, account_id) for url in current_url_list]
         max_workers = config.config_parser.getint("SETTINGS", "workers", fallback=10)
         num_workers = min(max_workers, len(task_list))
         task_chunks = [task_list[i::num_workers] for i in range(num_workers)]
-        
+
         with ThreadPoolExecutor(max_workers=num_workers) as executor:
-            for i in range(num_workers):
+            futures = [
                 executor.submit(
-                    worker, i, execution_stats, thread_locks, len(task_list), 
-                    ip_score, record_raw_responses, num_workers, task_chunks[i], 
+                    worker, i, execution_stats, thread_locks, len(task_list),
+                    ip_score, record_raw_responses, num_workers, task_chunks[i],
                     proxy_list, on_update
                 )
-                
+                for i in range(num_workers)
+            ]
+            for future in futures:
+                future.result()
+
         for i in range(num_workers):
             temp_file_path = TMP_DIR / f"tmp_{i}.csv"
             if temp_file_path.exists():
@@ -288,20 +347,50 @@ def run_scrape(on_update=None, on_launcher=None, on_completion=None):
     if on_launcher:
         max_configured_workers = config.config_parser.getint("SETTINGS", "workers", fallback=10)
         on_launcher(len(url_list), len(proxy_list), min(max_configured_workers, len(url_list)), shuffle_mode, ip_score)
-        
-    process_url_batch(url_list)
 
-    retry_error_codes = (101, 102, 103, 104, 201, 202, 301, 302, 304, 403)
-    placeholders = ",".join("?" for _ in url_list)
-    failed_urls = [row[0] for row in db.execute(f"SELECT u FROM t WHERE u IN ({placeholders}) AND ec IN (?,?,?,?,?,?,?,?,?,?)", (*url_list, *retry_error_codes)) if row[0]]
-    
-    if failed_urls and len(account_list) > 1:
-        for account_index in range(1, len(account_list)):
-            if not failed_urls:
-                break
-            process_url_batch(failed_urls, account_index)
-            failed_placeholders = ",".join("?" for _ in failed_urls)
-            failed_urls = [row[0] for row in db.execute(f"SELECT u FROM t WHERE u IN ({failed_placeholders}) AND ec IN (?,?,?,?,?,?,?,?,?,?)", (*failed_urls, *retry_error_codes)) if row[0]]
+    # A prior successful association is authoritative: test that account only.
+    # Sites with no valid association are discovery cases: test configured accounts
+    # in order and stop at the first successful scrape.
+    known_successes = load_account_successes()
+    known_by_account = {index: [] for index in range(len(account_list))}
+    discovery_urls = []
+    for url in url_list:
+        account_id = known_successes.get(url)
+        try:
+            account_index = int(str(account_id)[1:]) - 1 if str(account_id).startswith("U") else -1
+        except (TypeError, ValueError):
+            account_index = -1
+        if 0 <= account_index < len(account_list):
+            known_by_account[account_index].append(url)
+        else:
+            discovery_urls.append(url)
+
+    # Known site + known account: no cross-account fallback on failure.
+    for account_index, urls_for_account in known_by_account.items():
+        if urls_for_account:
+            process_url_batch(urls_for_account, account_index)
+
+    # Unknown site/account: try each configured account until a scrape succeeds.
+    discovery_error_codes = {url: [] for url in discovery_urls}
+    remaining = list(discovery_urls)
+    for account_index in range(len(account_list)):
+        if not remaining or server.STOPPED:
+            break
+        process_url_batch(remaining, account_index)
+        next_remaining = []
+        for url in remaining:
+            rows = db.execute("SELECT ec FROM t WHERE u=?", (url,))
+            error_code = rows[0][0] if rows else None
+            if error_code == 200:
+                continue
+            next_remaining.append(url)
+            discovery_error_codes[url].append(error_code)
+        remaining = next_remaining
+
+    # E304 is the explicit authentication-rejection code. Network/HTTP/CAPTCHA
+    # failures are inconclusive and must not be labelled unregistered.
+    for url in remaining:
+        record_account_discovery_result(url, discovery_error_codes.get(url, []))
 
     server.IS_RUNNING = False
     if on_completion:

@@ -75,6 +75,10 @@ def parse_merchant_info(html):
 def build_api_url(url):
     return f"{url.rstrip('/')}/api/v1/index.php"
 
+class AuthenticationError(Exception):
+    """The site explicitly failed to return an authenticated user session."""
+
+
 def login(session, url, username, password, merchant_id):
     payload = {
         "module": "/users/login",
@@ -86,7 +90,20 @@ def login(session, url, username, password, merchant_id):
         "accessToken": "",
         "walletIsAdmin": ""
     }
-    return post_json(session, url, payload).get("data", {})
+    try:
+        response_data = post_json(session, url, payload)
+    except requests.exceptions.HTTPError as exc:
+        # HTTP 401 is an explicit authentication rejection; 403 may instead
+        # mean site-level blocking, so leave it classified as an HTTP failure.
+        if exc.response is not None and exc.response.status_code == 401:
+            raise AuthenticationError("login failed: HTTP 401 authentication rejected") from exc
+        raise
+    user_data = response_data.get("data", {}) if isinstance(response_data, dict) else {}
+    # The scraper depends on both values for syncData. A 200 response with an
+    # API-level login rejection must not be counted as a successful scrape.
+    if not isinstance(user_data, dict) or not user_data.get("token") or not user_data.get("id"):
+        raise AuthenticationError("login failed: response did not contain token and user id")
+    return user_data
 
 def sync_user_data(session, url, merchant_id, access_token, access_id):
     payload = {
