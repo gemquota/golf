@@ -11,6 +11,7 @@ import network as net
 RAW_DIR = Path("data/raw_responses")
 TMP_DIR = Path("data")
 DEBUG_DIR = Path("data/debug")
+ACCOUNT_SUCCESS = Path("data/account_success.json")
 
 ERROR_MAP = [("MERCHANT", 201), ("Captcha", 202), ("gaierror", 102), ("Timeout", 104),
     ("Refused", 101), ("Connection", 103), ("403", 403)]
@@ -128,11 +129,21 @@ def try_scrape_url(scraper_session, url, username, password, record_raw, chunk_i
         
     return True, html_content, site_bonuses, site_new
 
+def record_account_success(url, account_id):
+    """Persist only the non-secret account identifier that successfully scraped a URL."""
+    ACCOUNT_SUCCESS.parent.mkdir(parents=True, exist_ok=True)
+    try:
+        data = json.loads(ACCOUNT_SUCCESS.read_text()) if ACCOUNT_SUCCESS.exists() else {}
+    except Exception:
+        data = {}
+    data[url] = account_id
+    ACCOUNT_SUCCESS.write_text(json.dumps(data, indent=2, sort_keys=True) + "\n")
+
 def worker(chunk_id, stats, stats_lock, total_tasks, ip_score, record_raw, worker_count, tasks, proxy_pool, on_update):
     scraper_session = net.create_session(random.choice(proxy_pool) if proxy_pool else None)
     current_ua_index = 0
     
-    for url, username, password in tasks:
+    for url, username, password, account_id in tasks:
         if server.STOPPED:
             break
         while server.PAUSED and not server.STOPPED:
@@ -185,6 +196,7 @@ def worker(chunk_id, stats, stats_lock, total_tasks, ip_score, record_raw, worke
                     continue
                     
         if success:
+            record_account_success(url, account_id)
             with stats_lock["stats"]:
                 stats["total_bonuses"] += site_bonuses
                 stats["successes"] += 1
@@ -249,7 +261,8 @@ def run_scrape(on_update=None, on_launcher=None, on_completion=None):
 
     def process_url_batch(current_url_list, account_index=0):
         username, password = account_list[account_index]
-        task_list = [(url, username, password) for url in current_url_list]
+        account_id = f"U{account_index + 1}"
+        task_list = [(url, username, password, account_id) for url in current_url_list]
         max_workers = config.config_parser.getint("SETTINGS", "workers", fallback=10)
         num_workers = min(max_workers, len(task_list))
         task_chunks = [task_list[i::num_workers] for i in range(num_workers)]
