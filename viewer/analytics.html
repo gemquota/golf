@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Golf · Analytics</title>
+  <link rel="stylesheet" href="/analytics.css">
+</head>
+<body>
+  <header class="top">
+    <div><a href="/">← Database</a><h1>Scrape intelligence</h1><p>Repeated observations turned into trends instead of another heroic pile of CSV files.</p></div>
+    <div id="meta" class="meta">Loading…</div>
+  </header>
+  <main>
+    <section class="cards" id="cards"></section>
+    <section class="grid">
+      <article class="panel wide"><h2>Scrape volume over time</h2><div id="trend" class="chart"></div></article>
+      <article class="panel"><h2>Current top sites</h2><div id="sites" class="chart"></div></article>
+      <article class="panel"><h2>Amount vs rollover</h2><div id="scatter" class="chart"></div></article>
+      <article class="panel wide"><h2>Perceived value vs weighted score</h2><div id="compare" class="chart"></div></article>
+    </section>
+    <section class="panel"><h2>Derived observations</h2><div id="insights" class="insights"></div></section>
+  </main>
+  <script type="module" src="/analytics.js"></script>
+</body>
+</html>
