@@ -1,0 +1,54 @@
+name: Validate daily bonus history
+
+on:
+  pull_request:
+    paths:
+      - 'bonus_history.py'
+      - 'daily_scrape.py'
+      - 'tests/test_bonus_history.py'
+      - 'viewer/**'
+      - '.github/workflows/daily-bonus-history.yml'
+      - '.github/workflows/validate-daily-history.yml'
+  push:
+    branches: [feature/daily-bonus-history]
+    paths:
+      - 'bonus_history.py'
+      - 'daily_scrape.py'
+      - 'tests/test_bonus_history.py'
+      - 'viewer/**'
+      - '.github/workflows/daily-bonus-history.yml'
+      - '.github/workflows/validate-daily-history.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Check Python syntax
+        run: python -m py_compile bonus_history.py daily_scrape.py
+      - name: Run history tests
+        run: python -m unittest discover -s tests -p 'test_bonus_history.py' -v
+
+  viewer:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: viewer/package-lock.json
+      - name: Install viewer dependencies
+        working-directory: viewer
+        run: npm ci
+      - name: Build viewer
+        working-directory: viewer
+        env:
+          BASE_PATH: /golf/
+        run: npm run build

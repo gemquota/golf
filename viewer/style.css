@@ -56,6 +56,13 @@ body {
 .tab:hover { color: var(--text); background: var(--panel-2); }
 .tab.active { color: #f4f6fa; background: var(--panel-2); }
 
+.tab-link {
+  display: flex; align-items: center; justify-content: center;
+  padding: 12px 24px; font-size: 15px; font-weight: 600;
+  color: var(--muted); text-decoration: none; white-space: nowrap;
+  border-left: 1px solid var(--line-soft);
+}
+.tab-link:hover { color: var(--text); background: var(--panel-2); }
 .tab.active::after {
   content: ''; position: absolute; bottom: 0; left: 20%; width: 60%;
   height: 3px; background: var(--accent); border-radius: 3px 3px 0 0;
