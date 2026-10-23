@@ -29,9 +29,14 @@ scraper.run_scrape(
     ),
 )
 
-# Maintain site health, down.txt, local account inventory and historical data.
+# Maintain site health, down list, local account inventory and historical data.
 import subprocess
 subprocess.run([sys.executable, "maintain_pipeline.py"], check=True)
+
+# Preserve an explicit raw snapshot before the legacy shell export rewrites
+# data/Dayne_Bonuses.csv. This gives the pipeline three durable layers:
+# raw scraped data -> enriched calculations -> cleaned presentation.
+subprocess.run([sys.executable, "build_exports.py"], check=True)
 
 csv_files = sorted(Path("data").glob("bonuses_*.csv"))
 if csv_files:
