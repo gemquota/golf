@@ -7,6 +7,7 @@ export default {
       input: {
         main: 'index.html',
         colors: 'colors.html',
+        releases: 'releases.html',
       },
     },
   },
