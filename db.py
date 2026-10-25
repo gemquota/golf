@@ -1,4 +1,4 @@
-import csv, datetime, difflib, hashlib, json, re, sqlite3
+import csv, datetime, difflib, hashlib, json, re, sqlite3, threading
 from contextlib import contextmanager
 from math import log2, log10, pow
 from pathlib import Path
@@ -10,33 +10,42 @@ DB_PATH = "data/base.db"
 _csv_cache: dict = {}
 _cache: dict[str, sqlite3.Connection] = {}
 
+# A single SQLite connection is shared by scraper workers. Serialize every
+# cursor/transaction operation; check_same_thread=False alone is not thread-safe.
+_db_lock = threading.RLock()
+
 HEADERS = ["url","mname","id","name","transactiontype","bonusfixed","amount","minwithdraw",
     "maxwithdraw","rollover","balance","claimconfig","claimcondition","bonus","bonusrandom",
     "reset","mintopup","maxtopup","referlink","perceived_value","is_new"]
 
 def get_connection():
-    if DB_PATH not in _cache:
-        conn = sqlite3.connect(DB_PATH, check_same_thread=False, timeout=30)
-        # WAL lets readers proceed during writes; busy_timeout stops
-        # "database is locked" errors when worker threads collide.
-        conn.execute("PRAGMA journal_mode=WAL")
-        conn.execute("PRAGMA synchronous=NORMAL")
-        conn.execute("PRAGMA busy_timeout=30000")
-        _cache[DB_PATH] = conn
-    return _cache[DB_PATH]
+    # RLock is re-entrant because cursor_context also holds it while calling here.
+    with _db_lock:
+        if DB_PATH not in _cache:
+            conn = sqlite3.connect(DB_PATH, check_same_thread=False, timeout=30)
+            # WAL helps external readers; busy_timeout handles other connections.
+            conn.execute("PRAGMA journal_mode=WAL")
+            conn.execute("PRAGMA synchronous=NORMAL")
+            conn.execute("PRAGMA busy_timeout=30000")
+            _cache[DB_PATH] = conn
+        return _cache[DB_PATH]
 
 @contextmanager
 def cursor_context():
-    conn = get_connection()
-    cursor = conn.cursor()
-    try:
-        yield cursor
-        conn.commit()
-    except Exception:
-        conn.rollback()
-        raise
-    finally:
-        cursor.close()
+    # Hold the lock across execute/fetch AND commit/rollback. Locking only
+    # connection creation would still let worker threads corrupt each other's
+    # transaction/cursor state.
+    with _db_lock:
+        conn = get_connection()
+        cursor = conn.cursor()
+        try:
+            yield cursor
+            conn.commit()
+        except Exception:
+            conn.rollback()
+            raise
+        finally:
+            cursor.close()
 
 def execute(query, params=()):
     with cursor_context() as c:
