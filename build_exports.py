@@ -100,13 +100,21 @@ def write_enriched(rows, mins):
             maxw = num(x.get("maxwithdraw"))
             rollover = num(x.get("rollover"))
             ratio = round(effective / amount, 4) if amount and amount > 0 else None
+
+            # Keep the two derived concepts separate:
+            #   rollover_ratio_average = 60:40 rollover/minimum burden metric
+            #   weighted_score = reward/minimum burden scaled by withdrawal capacity
             average = round(0.60 * rollover + 0.40 * ratio, 4) if rollover is not None and ratio is not None else None
+            weighted_score = None
+            if amount is not None and amount > 0 and maxw is not None and maxw >= 0:
+                weighted_score = round((amount / effective) * math.sqrt(maxw), 4)
+
             writer.writerow({
                 "url": r["u"], "mname": r["mname"] or "", "eid": r["eid"] or "", "name": r["name"] or x.get("name", ""),
                 "transactiontype": x.get("transactiontype", ""), "bonusfixed": x.get("bonusfixed", ""), "amount": x.get("amount", r["v"]),
                 "minwithdraw": x.get("minwithdraw", ""), "site_minwithdraw": site_min or "", "effective_minwithdraw": effective,
                 "maxwithdraw": x.get("maxwithdraw", ""), "rollover": x.get("rollover", ""), "ratio": ratio,
-                "rollover_ratio_average": average, "weighted_score": average, "perceived_value": r["pv"] or "",
+                "rollover_ratio_average": average, "weighted_score": weighted_score, "perceived_value": r["pv"] or "",
                 "is_new": 0, "expiry": r["exp"] or "", "first_seen": r["s1"] or "", "last_seen": r["sl"] or "",
                 "referlink": x.get("referlink", ""), "claimconfig": x.get("claimconfig", ""), "claimcondition": x.get("claimcondition", ""),
                 "bonus": x.get("bonus", ""), "bonusrandom": x.get("bonusrandom", ""), "reset": x.get("reset", ""),
