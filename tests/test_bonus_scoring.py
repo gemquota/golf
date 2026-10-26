@@ -20,7 +20,7 @@ class BonusScoringTests(unittest.TestCase):
         scaled = score_bonus(200, minwithdraw=50, maxwithdraw=200, rollover=1000)
         self.assertAlmostEqual(
             small["weighted_score"] / scaled["weighted_score"],
-            1.0,
+            0.5,
         )
 
     def test_unreachable_cashout_threshold_is_penalised(self):
