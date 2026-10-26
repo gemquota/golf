@@ -51,6 +51,16 @@ python publish_viewer.py --export-only
 python -m unittest discover -s tests -v
 ```
 
+For the separate analysis/export pipeline, run:
+
+```bash
+python build_exports.py
+python clean_bonuses.py data/Dayne_Bonuses.csv
+python compare_bonus_scores.py data/Dayne_Bonuses_Cleaned.csv
+```
+
+This produces an enriched `data/Dayne_Bonuses.csv`, a cleaned/ranked `data/Dayne_Bonuses_Cleaned.csv`, and a deduplicated rank comparison at `data/score_comparison.csv`. The analysis pipeline is distinct from the automatic viewer publisher above.
+
 The scraper is long-running and interactive: its local dashboard is normally at `http://127.0.0.1:8000`. A scrape can fail at individual sites without invalidating all other records. Check the completion summary and `data/events.jsonl` for failures.
 
 ## Validation before promoting v2
