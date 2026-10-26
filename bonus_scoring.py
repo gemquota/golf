@@ -1,6 +1,6 @@
 """Transparent bonus scoring helpers.
 
-The rollover field is treated as a wagering multiplier, not a currency amount.
+The rollover field is treated as the total wagering amount required, normalized by the advertised bonus amount.
 Higher weighted scores are better; rollover_ratio_average remains a separate
 burden metric where lower is better.
 """
