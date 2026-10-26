@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import csv
 import os
 import subprocess
 import sys
@@ -128,9 +129,25 @@ def interactive(args) -> int:
     return 0
 
 
+def _latest_recorded_run() -> str | None:
+    path = ROOT / "data" / "scrape_runs.csv"
+    if not path.exists():
+        return None
+    try:
+        with path.open(newline="") as handle:
+            rows = list(csv.DictReader(handle))
+        if rows:
+            return rows[-1].get("run_ts") or None
+    except (OSError, csv.Error):
+        return None
+    return None
+
+
 def pipeline(args) -> int:
     _prepare_database()
-    started = os.environ.get("GOLF_RUN_STARTED") or datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    started = os.environ.get("GOLF_RUN_STARTED") or _latest_recorded_run()
+    if not started:
+        raise RuntimeError("No recorded scrape run exists. Run the full scrape first, or set GOLF_RUN_STARTED to the run start time.")
     run_pipeline(started, publish=not args.no_publish, analysis=not args.no_analysis)
     return 0
 
