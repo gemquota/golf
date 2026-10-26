@@ -5,7 +5,7 @@ from bonus_scoring import score_bonus
 
 class BonusScoringTests(unittest.TestCase):
     def test_v2_caps_advertised_amount_at_maximum_bonus(self):
-        score = score_bonus(1000, minwithdraw=50, maxwithdraw=100, rollover=1)
+        score = score_bonus(1000, minwithdraw=50, maxwithdraw=100, rollover=10)
         capped = score_bonus(100, minwithdraw=50, maxwithdraw=100, rollover=1)
         self.assertLess(score["weighted_score"], score["weighted_score_v1"])
         self.assertAlmostEqual(score["weighted_score"], capped["weighted_score"])
