@@ -3,6 +3,9 @@ import sys
 import numpy as np
 from pathlib import Path
 import shutil
+from statistics import median
+from urllib.parse import urlparse
+from bonus_scoring import score_bonus
 
 
 def clean_bonuses(csv_file):
@@ -18,39 +21,67 @@ def clean_bonuses(csv_file):
         if col in df.columns:
             df[col] = pd.to_numeric(df[col], errors='coerce')
 
-    bonus_min = df['minwithdraw'] if 'minwithdraw' in df.columns else pd.Series(np.nan, index=df.index)
-    site_min = df['site_minwithdraw'] if 'site_minwithdraw' in df.columns else pd.Series(np.nan, index=df.index)
-    effective_min = bonus_min.where(bonus_min > 0, site_min)
-    effective_min = effective_min.where(effective_min > 0, 50.0)
-    df['effective_minwithdraw'] = effective_min
-    df['ratio'] = (effective_min / df['amount']).round(4)
+    # Estimate missing fields from the same site first, then the dataset.
+    def host(value):
+        try:
+            return (urlparse(str(value)).hostname or '').lower().removeprefix('www.')
+        except Exception:
+            return ''
 
-    rollover = pd.to_numeric(df['rollover'], errors='coerce') if 'rollover' in df.columns else pd.Series(np.nan, index=df.index)
-    df['rollover_ratio_average'] = (rollover * 0.60 + df['ratio'] * 0.40).round(4)
-    df['weighted_score'] = df['rollover_ratio_average']
+    df['_score_host'] = df['url'].map(host) if 'url' in df.columns else ''
+    maximums = pd.to_numeric(df['maxwithdraw'], errors='coerce') if 'maxwithdraw' in df.columns else pd.Series(np.nan, index=df.index)
+    rollovers = pd.to_numeric(df['rollover'], errors='coerce') if 'rollover' in df.columns else pd.Series(np.nan, index=df.index)
+    known_max = maximums[maximums > 0].dropna()
+    known_roll = rollovers[rollovers >= 0].dropna()
+    global_max = float(known_max.median()) if not known_max.empty else None
+    global_roll = float(known_roll.median()) if not known_roll.empty else None
+    site_max = df.assign(_v=maximums).loc[maximums > 0].groupby('_score_host')['_v'].median().to_dict()
+    site_roll = df.assign(_v=rollovers).loc[rollovers >= 0].groupby('_score_host')['_v'].median().to_dict()
+
+    def score_row(row):
+        h = row.get('_score_host', '')
+        result = score_bonus(
+            amount=row.get('amount'),
+            minwithdraw=row.get('minwithdraw'),
+            site_minwithdraw=row.get('site_minwithdraw'),
+            maxwithdraw=row.get('maxwithdraw'),
+            rollover=row.get('rollover'),
+            site_maxwithdraw=site_max.get(h),
+            site_rollover=site_roll.get(h),
+            global_maxwithdraw=global_max,
+            global_rollover=global_roll,
+        )
+        return pd.Series(result)
+
+    score_columns = df.apply(score_row, axis=1)
+    for column in score_columns.columns:
+        df[column] = score_columns[column]
+    df['ratio'] = (pd.to_numeric(df['effective_minwithdraw'], errors='coerce') / df['amount']).round(4)
 
     if 'perceived_value' in df.columns:
         df['perceived_value'] = pd.to_numeric(df['perceived_value'], errors='coerce')
         df['perceived_value_rank'] = df['perceived_value'].rank(ascending=False, method='min', na_option='bottom').astype('Int64')
-        df['weighted_score_rank'] = df['weighted_score'].rank(ascending=True, method='min', na_option='bottom').astype('Int64')
+        df['weighted_score_v1_rank'] = df['weighted_score_v1'].rank(ascending=False, method='min', na_option='bottom').astype('Int64')
+        df['weighted_score_rank'] = df['weighted_score'].rank(ascending=False, method='min', na_option='bottom').astype('Int64')
         df['score_rank_change'] = df['perceived_value_rank'] - df['weighted_score_rank']
+    df.drop(columns=['_score_host'], inplace=True, errors='ignore')
 
     df = df[df['ratio'].isna() | (df['ratio'] <= 500)].copy()
     before = len(df)
     df = df.drop_duplicates(subset=['url', 'name', 'amount'], keep='first')
 
     if 'weighted_score' in df.columns:
-        df = df.sort_values('weighted_score', ascending=True, na_position='last')
+        df = df.sort_values('weighted_score', ascending=False, na_position='last')
     elif 'perceived_value' in df.columns:
         df = df.sort_values('perceived_value', ascending=False)
 
     cols = df.columns.tolist()
-    for col in ['effective_minwithdraw', 'ratio', 'rollover_ratio_average', 'weighted_score']:
+    for col in ['effective_minwithdraw', 'ratio', 'rollover_ratio_average', 'weighted_score_v1', 'weighted_score', 'score_confidence', 'score_status', 'score_maxwithdraw_source', 'score_rollover_source', 'score_maxwithdraw_used', 'score_rollover_used']:
         if col in cols:
             cols.remove(col)
     if 'rollover' in cols:
         ri = cols.index('rollover') + 1
-        cols[ri:ri] = ['effective_minwithdraw', 'ratio', 'rollover_ratio_average', 'weighted_score']
+        cols[ri:ri] = ['effective_minwithdraw', 'ratio', 'rollover_ratio_average', 'weighted_score_v1', 'weighted_score', 'score_confidence', 'score_status', 'score_maxwithdraw_source', 'score_rollover_source', 'score_maxwithdraw_used', 'score_rollover_used']
     df = df[[c for c in cols if c in df.columns]]
 
     print(f"Filtered: {before} -> {len(df)} rows ({before - len(df)} removed)")
