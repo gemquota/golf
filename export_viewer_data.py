@@ -16,14 +16,21 @@ import sqlite3
 import sys
 from datetime import datetime, timedelta
 from pathlib import Path
+from urllib.parse import urlparse
+from statistics import median
+from bonus_scoring import score_bonus
 
 DB_PATH = Path("data/base.db")
 OUT_DIR = Path(sys.argv[1]) if len(sys.argv) > 1 else Path("viewer/public")
 
+SCORE_HEADERS = ["effective_minwithdraw", "ratio", "rollover_ratio_average",
+                 "weighted_score_v1", "weighted_score", "score_confidence",
+                 "score_status", "score_maxwithdraw_source", "score_rollover_source",
+                 "score_maxwithdraw_used", "score_rollover_used"]
 RAW_HEADERS = ["url", "mname", "id", "name", "transactiontype", "bonusfixed",
                "amount", "minwithdraw", "maxwithdraw", "rollover", "balance",
                "claimconfig", "claimcondition", "bonus", "bonusrandom", "reset",
-               "mintopup", "maxtopup", "referlink", "perceived_value", "is_new"]
+               "mintopup", "maxtopup", "referlink", "perceived_value", "is_new"] + SCORE_HEADERS
 
 ALL_HEADERS = ["url", "mname", "id", "name", "amount", "perceived_value",
                "expiry", "first_seen", "last_seen", "angpaoid", "angpaoimage",
@@ -104,6 +111,43 @@ def main():
     raw_rows = []
     all_rows = []
     by_url = {}
+
+    def host(url):
+        value = (urlparse(str(url or "")).hostname or "").lower()
+        return value[4:] if value.startswith("www.") else value
+
+    # Site-specific minimum withdrawals are curated separately from observed offers.
+    site_minimums = {}
+    min_path = Path("data/site_min_withdrawals.csv")
+    if min_path.exists():
+        with min_path.open(newline="") as f:
+            for item in csv.DictReader(f):
+                key = str(item.get("domain") or "").strip().lower()
+                value = num(item.get("site_minwithdraw"))
+                if key and value and value > 0:
+                    site_minimums[key] = value
+
+    site_max_values, site_roll_values, all_max_values, all_roll_values = {}, {}, [], []
+    parsed = {}
+    for item in bonus_rows:
+        try:
+            x = json.loads(item["raw"] or "{}")
+            x = {str(k).lower(): v for k, v in x.items()} if isinstance(x, dict) else {}
+        except (ValueError, TypeError):
+            x = {}
+        h = host(item["u"])
+        mx, rl = num(x.get("maxwithdraw")), num(x.get("rollover"))
+        parsed[item["uid"]] = (x, h)
+        if mx is not None and mx > 0:
+            all_max_values.append(mx)
+            site_max_values.setdefault(h, []).append(mx)
+        if rl is not None and rl >= 0:
+            all_roll_values.append(rl)
+            site_roll_values.setdefault(h, []).append(rl)
+    global_max = median(all_max_values) if all_max_values else None
+    global_roll = median(all_roll_values) if all_roll_values else None
+    site_max_medians = {k: median(v) for k, v in site_max_values.items() if v}
+    site_roll_medians = {k: median(v) for k, v in site_roll_values.items() if v}
     for b in bonus_rows:
         raw_json = b["raw"]
         try:
@@ -111,6 +155,31 @@ def main():
             bonus = {k.lower(): val for k, val in bonus.items()} if isinstance(bonus, dict) else {}
         except (ValueError, TypeError):
             bonus = {}
+        host_name = host(b["u"])
+        score = score_bonus(
+            amount=amount if False else (b["v"] if b["v"] is not None else bonus.get("amount", "")),
+            minwithdraw=bonus.get("minwithdraw"),
+            site_minwithdraw=site_minimums.get(host_name),
+            maxwithdraw=bonus.get("maxwithdraw"),
+            rollover=bonus.get("rollover"),
+            site_maxwithdraw=site_max_medians.get(host_name),
+            site_rollover=site_roll_medians.get(host_name),
+            global_maxwithdraw=global_max,
+            global_rollover=global_roll,
+        )
+        score_fields = {
+            "effective_minwithdraw": score["effective_minwithdraw"] if score["effective_minwithdraw"] is not None else "",
+            "ratio": round(score["effective_minwithdraw"] / float(b["v"]), 4) if score["effective_minwithdraw"] is not None and num(b["v"]) and num(b["v"]) > 0 else "",
+            "rollover_ratio_average": score["rollover_ratio_average"] if score["rollover_ratio_average"] is not None else "",
+            "weighted_score_v1": score["weighted_score_v1"] if score["weighted_score_v1"] is not None else "",
+            "weighted_score": score["weighted_score"] if score["weighted_score"] is not None else "",
+            "score_confidence": score["score_confidence"],
+            "score_status": score["score_status"],
+            "score_maxwithdraw_source": score["score_maxwithdraw_source"],
+            "score_rollover_source": score["score_rollover_source"],
+            "score_maxwithdraw_used": score["score_maxwithdraw_used"] if score["score_maxwithdraw_used"] is not None else "",
+            "score_rollover_used": score["score_rollover_used"] if score["score_rollover_used"] is not None else "",
+        }
         amount = b["v"] if b["v"] is not None else bonus.get("amount", "")
         pv = b["pv"]
         exp, s1, sl = b["exp"], b["s1"], b["sl"]
@@ -130,6 +199,7 @@ def main():
             "reset": bonus.get("reset", ""), "mintopup": bonus.get("mintopup", ""),
             "maxtopup": bonus.get("maxtopup", ""), "referlink": bonus.get("referlink", ""),
             "perceived_value": pv if pv is not None else "", "is_new": is_new,
+            **score_fields,
         })
 
         # ── all row (49-col all-time export) ──
@@ -153,6 +223,7 @@ def main():
             "url": b["u"] or "", "mname": b["mname"] or "", "id": b["eid"] or "",
             "name": b["name"] or "", "amount": amount,
             "perceived_value": pv if pv is not None else "",
+            **score_fields,
             "expiry": fmt_dt(exp), "first_seen": fmt_dt(s1), "last_seen": fmt_dt(sl),
             "angpaoid": bonus.get("angpaoid", ""), "angpaoimage": bonus.get("angpaoimage", ""),
             "bonus": bonus.get("bonus", ""), "bonusfixed": bonus.get("bonusfixed", ""),
