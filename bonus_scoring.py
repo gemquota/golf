@@ -97,7 +97,7 @@ def score_bonus(
             (usable_bonus / effective_min)
             * sqrt(maximum)
             * cashout_feasibility
-            / (1.0 + ROLLOVER_PENALTY * roll)
+            / (1.0 + ROLLOVER_PENALTY * (roll / amount))
         )
     else:
         score_v2 = None
