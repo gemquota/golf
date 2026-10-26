@@ -2,9 +2,9 @@ name: Bonus scoring tests
 
 on:
   push:
-    branches: [main, "feature/**"]
+    branches: [main, "feature/**", "refactor/**"]
   pull_request:
-    branches: [main]
+    branches: [main, "feature/bonus-score-v2"]
 
 jobs:
   test:
