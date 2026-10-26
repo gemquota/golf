@@ -44,7 +44,7 @@ ALL_HEADERS = ["url", "mname", "id", "name", "amount", "perceived_value",
                "transactionid", "transactiontype", "updata", "ratio",
                "headroom", "rollover_amount", "value_per_rollover",
                "days_visible", "bonus_lifetime_days", "is_commission",
-               "is_surprise"]
+               "is_surprise"] + SCORE_HEADERS
 
 SITES_HEADERS = ["url", "mname", "source", "status", "failures",
                  "last_checked", "first_seen", "last_seen", "tracked_days",
@@ -157,7 +157,7 @@ def main():
             bonus = {}
         host_name = host(b["u"])
         score = score_bonus(
-            amount=amount if False else (b["v"] if b["v"] is not None else bonus.get("amount", "")),
+            amount=(b["v"] if b["v"] is not None else bonus.get("amount", "")),
             minwithdraw=bonus.get("minwithdraw"),
             site_minwithdraw=site_minimums.get(host_name),
             maxwithdraw=bonus.get("maxwithdraw"),
