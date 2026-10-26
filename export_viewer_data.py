@@ -44,7 +44,7 @@ ALL_HEADERS = ["url", "mname", "id", "name", "amount", "perceived_value",
                "transactionid", "transactiontype", "updata", "ratio",
                "headroom", "rollover_amount", "value_per_rollover",
                "days_visible", "bonus_lifetime_days", "is_commission",
-               "is_surprise"] + SCORE_HEADERS
+               "is_surprise"] + [h for h in SCORE_HEADERS if h != "ratio"]
 
 SITES_HEADERS = ["url", "mname", "source", "status", "failures",
                  "last_checked", "first_seen", "last_seen", "tracked_days",
