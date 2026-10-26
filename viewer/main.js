@@ -14,7 +14,17 @@ const HEADER_RENAME = {
   'name': 'Bonus',
   'transactiontype': 'Tx Type',
   'mintopup': 'Min $ In',
-  'perceived_value': 'Value',
+  'perceived_value': 'Perceived Value',
+  'weighted_score_v1': 'Weighted v1',
+  'weighted_score': 'Weighted v2',
+  'rollover_ratio_average': 'Rollover Burden',
+  'effective_minwithdraw': 'Effective Min WD',
+  'score_confidence': 'Score Confidence',
+  'score_status': 'Score Status',
+  'score_maxwithdraw_source': 'Max WD Source',
+  'score_rollover_source': 'Rollover Source',
+  'score_maxwithdraw_used': 'Max WD Used',
+  'score_rollover_used': 'Rollover Used',
   'bonusfixed': 'Fixed $',
   'rollover_amount': 'Rollover $',
   'value_per_rollover': 'Value/Roll',
@@ -89,6 +99,7 @@ const KNOWN_HEADERS = ['url','mname','id','name','transactiontype','bonusfixed',
 const NUMERIC_COLS = new Set([
   'id','amount','minwithdraw','maxwithdraw','rollover','ratio','perceived_value','mintopup','maxtopup','balance','bonus',
   'bonusfixed','headroom','rollover_amount','value_per_rollover','days_visible','bonus_lifetime_days',
+  'weighted_score_v1','weighted_score','rollover_ratio_average','effective_minwithdraw','score_maxwithdraw_used','score_rollover_used',
   'minround','maxround','initialfreelimit','depositfreelimit','minbet','transactioncash','displayorder'
 ]);
 
