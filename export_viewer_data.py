@@ -274,7 +274,7 @@ def main():
             continue
         seen.add(key)
         row = dict(r)
-        minw = num(r["minwithdraw"])
+        minw = num(r.get("effective_minwithdraw"))
         row["ratio"] = round(minw / amt, 2) if minw and minw > 0 else 0.0
         cleaned_rows.append(row)
     cleaned_rows.sort(key=lambda r: num(r["perceived_value"]) or 0.0, reverse=True)
