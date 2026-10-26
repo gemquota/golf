@@ -8,9 +8,9 @@ The exports retain the existing **Perceived Value** field and add two comparable
 - `weighted_score` (shown as **Weighted v2** in the viewer): higher is better. It caps the credited bonus at the maximum payout, penalises a maximum payout below the minimum withdrawal threshold, and applies a rollover-multiplier penalty.
 - `rollover_ratio_average`: the existing 60:40 burden metric, `0.60 * rollover + 0.40 * (effective_minwithdraw / amount)`. Lower is better. It is not a benefit score and is deliberately kept separate.
 
-For v2, with amount A, effective minimum withdrawal M, maximum bonus payout X, and rollover multiplier r:
+For v2, with advertised bonus A, effective minimum withdrawal M, maximum bonus payout X, and total wagering requirement R:
 
-`min(A, X) / M * sqrt(X) * min(1, X / M) / (1 + 0.20 * r)`
+`min(A, X) / M * sqrt(X) * min(1, X / M) / (1 + 0.20 * (R / A))`
 
 The 0.20 penalty is a tunable starting point, not a calibrated probability or claim of expected profit.
 
