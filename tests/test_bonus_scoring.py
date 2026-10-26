@@ -15,6 +15,14 @@ class BonusScoringTests(unittest.TestCase):
         hard = score_bonus(100, minwithdraw=50, maxwithdraw=200, rollover=20)
         self.assertGreater(easy["weighted_score"], hard["weighted_score"])
 
+    def test_rollover_penalty_is_normalized_by_bonus_amount(self):
+        small = score_bonus(100, minwithdraw=50, maxwithdraw=200, rollover=500)
+        scaled = score_bonus(200, minwithdraw=50, maxwithdraw=200, rollover=1000)
+        self.assertAlmostEqual(
+            small["weighted_score"] / scaled["weighted_score"],
+            1.0,
+        )
+
     def test_unreachable_cashout_threshold_is_penalised(self):
         reachable = score_bonus(100, minwithdraw=50, maxwithdraw=200, rollover=2)
         unreachable = score_bonus(100, minwithdraw=100, maxwithdraw=20, rollover=2)
