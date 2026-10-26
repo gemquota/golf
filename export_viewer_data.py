@@ -249,7 +249,7 @@ def main():
             "transactioncash": bonus.get("transactioncash", ""),
             "transactionid": bonus.get("transactionid", ""),
             "transactiontype": bonus.get("transactiontype", ""),
-            "updata": bonus.get("updata", ""), "ratio": ratio, "headroom": headroom,
+            "updata": bonus.get("updata", ""), "headroom": headroom,
             "rollover_amount": roll_amt, "value_per_rollover": vpr,
             "days_visible": days_vis, "bonus_lifetime_days": days_vis,
             "is_commission": 1 if ("commission" in name_l or "downline" in name_l) else 0,
@@ -408,7 +408,7 @@ def main():
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     write_csv("dayne-bonuses.csv", RAW_HEADERS, raw_rows)
     write_csv("dayne-bonuses-fresh.csv", RAW_HEADERS, raw_rows)
-    cleaned_headers = RAW_HEADERS[:10] + ["ratio"] + RAW_HEADERS[10:]
+    cleaned_headers = RAW_HEADERS[:10] + ["ratio"] + [h for h in RAW_HEADERS[10:] if h != "ratio"]
     write_csv("dayne-bonuses-cleaned.csv", cleaned_headers, cleaned_final)
     write_csv("dayne-bonuses-all.csv", ALL_HEADERS, all_rows)
     write_csv("dayne-sites.csv", SITES_HEADERS, sites_rows)
