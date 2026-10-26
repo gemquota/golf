@@ -122,7 +122,7 @@ def main():
     if min_path.exists():
         with min_path.open(newline="") as f:
             for item in csv.DictReader(f):
-                key = str(item.get("domain") or "").strip().lower()
+                key = str(item.get("domain") or "").strip().lower().removeprefix("www.")
                 value = num(item.get("site_minwithdraw"))
                 if key and value and value > 0:
                     site_minimums[key] = value
@@ -155,9 +155,10 @@ def main():
             bonus = {k.lower(): val for k, val in bonus.items()} if isinstance(bonus, dict) else {}
         except (ValueError, TypeError):
             bonus = {}
+        amount = b["v"] if b["v"] is not None else bonus.get("amount", "")
         host_name = host(b["u"])
         score = score_bonus(
-            amount=(b["v"] if b["v"] is not None else bonus.get("amount", "")),
+            amount=amount,
             minwithdraw=bonus.get("minwithdraw"),
             site_minwithdraw=site_minimums.get(host_name),
             maxwithdraw=bonus.get("maxwithdraw"),
@@ -180,7 +181,6 @@ def main():
             "score_maxwithdraw_used": score["score_maxwithdraw_used"] if score["score_maxwithdraw_used"] is not None else "",
             "score_rollover_used": score["score_rollover_used"] if score["score_rollover_used"] is not None else "",
         }
-        amount = b["v"] if b["v"] is not None else bonus.get("amount", "")
         pv = b["pv"]
         exp, s1, sl = b["exp"], b["s1"], b["sl"]
         is_new = 1 if sl and s1 and sl == s1 else 0
