@@ -296,7 +296,8 @@ def worker(chunk_id, stats, stats_lock, total_tasks, ip_score, record_raw, worke
 def run_scrape(on_update=None, on_launcher=None, on_completion=None):
     resume_mode = "-r" in sys.argv
     shuffle_mode = "-s" in sys.argv
-    record_raw_responses = "-v" in sys.argv and sys.argv[sys.argv.index("-v") + 1] == "max" if "-v" in sys.argv else False
+    verbose_index = sys.argv.index("-v") if "-v" in sys.argv else -1
+    record_raw_responses = verbose_index >= 0 and verbose_index + 1 < len(sys.argv) and sys.argv[verbose_index + 1] == "max"
     
     url_list, account_list = config.parse_urls_and_accounts(shuffle_mode)
     execution_stats = {"index": 0, "successes": 0, "failures": 0, "total_bonuses": 0, "new_bonuses": 0}
@@ -324,7 +325,7 @@ def run_scrape(on_update=None, on_launcher=None, on_completion=None):
         username, password = account_list[account_index]
         account_id = f"U{account_index + 1}"
         task_list = [(url, username, password, account_id) for url in current_url_list]
-        max_workers = config.config_parser.getint("SETTINGS", "workers", fallback=10)
+        max_workers = max(1, config.config_parser.getint("SETTINGS", "workers", fallback=10))
         num_workers = min(max_workers, len(task_list))
         task_chunks = [task_list[i::num_workers] for i in range(num_workers)]
 
