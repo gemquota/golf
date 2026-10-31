@@ -85,7 +85,7 @@ class UrlLifecycleTests(unittest.TestCase):
         self.assertIn(self.url, pipeline.load_lines(self.paths["DOWN"]))
 
         # Manually re-add a quarantined URL; a real successful attempt recovers it.
-        self.paths["URLS"].write_text(self.url + "\\n")
+        self.paths["URLS"].write_text(self.url + "\n")
         recovered_at = first + dt.timedelta(hours=73)
         self.attempt(recovered_at, 200)
         active, moved, state, attempts, successes = self.run_at(recovered_at)
