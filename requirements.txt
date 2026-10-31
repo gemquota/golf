@@ -6,4 +6,3 @@ cloudscraper
 pandas
 rich
 urllib3
-psutil

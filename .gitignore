@@ -1,4 +1,3 @@
-tests/
 data/accounts.csv
 data/account_success.json
 data/site_state.json

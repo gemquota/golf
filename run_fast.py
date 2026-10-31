@@ -1,5 +1,6 @@
 """Fast scraper: single pass, no multi-account retries, exports DB to CSV."""
 import csv, json, sqlite3, sys, threading, time, os
+import datetime as dt
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from requests.exceptions import HTTPError
@@ -19,6 +20,7 @@ USER_AGENTS = [
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 14_4) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4 Safari/605.1.15",
 ]
 
+
 def classify_error(exception):
     error_string = str(exception)
     if isinstance(exception, HTTPError):
@@ -26,8 +28,10 @@ def classify_error(exception):
     for pattern, code in ERROR_MAP:
         if pattern in error_string:
             return code
-    if "login" in error_string.lower(): return 304
+    if "login" in error_string.lower():
+        return 304
     return 301
+
 
 def process_bonus(bonus, merchant_name, url, fingerprint, perceived_value, expiry):
     existing = db.execute("SELECT uid, mirrors FROM b WHERE fp=?", (fingerprint,))
@@ -44,36 +48,37 @@ def process_bonus(bonus, merchant_name, url, fingerprint, perceived_value, expir
          json.dumps(bonus), expiry_str, fingerprint, url, merchant_name, bonus.get("name")))
     return unique_id, 1
 
+
 def try_scrape(scraper_session, url, username, password):
     html_content = net.get_page(scraper_session, url)
     merchant_id, merchant_name = net.parse_merchant_info(html_content)
     db.execute("UPDATE t SET m=? WHERE u=?", (merchant_name, url))
     api_url = net.build_api_url(url)
-    
+
     session_data = db.load_session(url, username)
     user_data = None
     if session_data:
         try:
-            ts = session_data["ts"]
-            if ts:
-                import datetime as dt
-                timestamp = dt.datetime.fromisoformat(ts).replace(tzinfo=dt.timezone.utc)
-                if (dt.datetime.now(dt.timezone.utc) - timestamp).total_seconds() < 21600:
-                    scraper_session.cookies.update(session_data["ck"])
-                    user_data = session_data["data"]
-        except: pass
-    
+            timestamp = dt.datetime.fromisoformat(session_data["ts"])
+            if timestamp.tzinfo is None:
+                timestamp = timestamp.replace(tzinfo=dt.timezone.utc)
+            if (dt.datetime.now(dt.timezone.utc) - timestamp.astimezone(dt.timezone.utc)).total_seconds() < 21600:
+                scraper_session.cookies.update(session_data["ck"])
+                user_data = session_data["data"]
+        except (TypeError, ValueError, KeyError):
+            pass
+
     if not user_data:
         user_data = net.login(scraper_session, api_url, username, password, merchant_id)
         db.save_session(url, username, scraper_session.cookies.get_dict(), user_data)
-    
+
     try:
         sync_response = net.sync_user_data(scraper_session, api_url, merchant_id, user_data.get("token"), user_data.get("id"))
-    except:
+    except Exception:
         user_data = net.login(scraper_session, api_url, username, password, merchant_id)
         db.save_session(url, username, scraper_session.cookies.get_dict(), user_data)
         sync_response = net.sync_user_data(scraper_session, api_url, merchant_id, user_data.get("token"), user_data.get("id"))
-    
+
     bonuses = sync_response.get("data", {}).get("bonus", []) + sync_response.get("data", {}).get("promotions", [])
     new_count = 0
     for bonus in bonuses:
@@ -85,28 +90,27 @@ def try_scrape(scraper_session, url, username, password):
         fingerprint = db.fingerprint_bonus(normalized)
         _, is_new = process_bonus(normalized, merchant_name, url, fingerprint, perceived_val, expiry)
         new_count += is_new
-    
+
     db.execute("UPDATE t SET ts=CURRENT_TIMESTAMP, ec=200 WHERE u=?", (url,))
     return True, len(bonuses), new_count
+
 
 def worker(tasks, stats, lock, total):
     import random
     scraper_session = net.create_session()
     ua_idx = 0
-    
-    for idx, (url, username, password) in enumerate(tasks):
+
+    for url, username, password in tasks:
         with lock:
             stats["processed"] += 1
             current = stats["processed"]
-        
+
         db.execute("INSERT OR IGNORE INTO t(u) VALUES (?)", (url,))
         time.sleep(random.uniform(config.MIN_DELAY, config.MAX_DELAY))
-        
         success = False
-        bonus_count = 0
-        new_count = 0
+        bonus_count = new_count = 0
         error_code = 301
-        
+
         for attempt in range(2):
             try:
                 if attempt > 0:
@@ -119,7 +123,7 @@ def worker(tasks, stats, lock, total):
                 if attempt == 1:
                     error_code = classify_error(exc)
                     db.execute("UPDATE t SET ts=CURRENT_TIMESTAMP, ec=? WHERE u=?", (error_code, url))
-        
+
         with lock:
             if success:
                 stats["successes"] += 1
@@ -127,82 +131,89 @@ def worker(tasks, stats, lock, total):
                 stats["new"] += new_count
             else:
                 stats["failures"] += 1
-            
             if current % 50 == 0 or current == total:
                 pct = current / total * 100
-                rate = stats["successes"] / current * 100 if current > 0 else 0
+                rate = stats["successes"] / current * 100 if current else 0
                 print(f"[{current}/{total}] {pct:.0f}% | OK:{stats['successes']}({rate:.1f}%) FAIL:{stats['failures']} BONUSES:{stats['bonuses']} NEW:{stats['new']}", flush=True)
 
+
 def export_db_to_csv():
-    conn = sqlite3.connect('data/base.db')
-    c = conn.cursor()
-    HEADERS = ['url','mname','id','name','transactiontype','bonusfixed','amount','minwithdraw','maxwithdraw','rollover','balance','claimconfig','claimcondition','bonus','bonusrandom','reset','mintopup','maxtopup','referlink','perceived_value','is_new']
-    c.execute('SELECT uid, eid, u, v, pv, raw, exp, fp, mirrors, s1, sl, mname, name FROM b')
-    rows = c.fetchall()
-    with open('data/Dayne_Bonuses.csv', 'w', newline='') as f:
-        writer = csv.DictWriter(f, fieldnames=HEADERS)
+    conn = sqlite3.connect("data/base.db")
+    try:
+        rows = conn.execute("SELECT uid, eid, u, v, pv, raw, exp, fp, mirrors, s1, sl, mname, name FROM b").fetchall()
+    finally:
+        conn.close()
+    headers = ["url","mname","id","name","transactiontype","bonusfixed","amount","minwithdraw","maxwithdraw","rollover","balance","claimconfig","claimcondition","bonus","bonusrandom","reset","mintopup","maxtopup","referlink","perceived_value","is_new"]
+    with open("data/Dayne_Bonuses.csv", "w", newline="", encoding="utf-8") as stream:
+        writer = csv.DictWriter(stream, fieldnames=headers)
         writer.writeheader()
         for row in rows:
-            uid, eid, u, v, pv, raw_json, exp, fp, mirrors, s1, sl, mname, name = row
-            try: bonus = json.loads(raw_json) if raw_json else {}
-            except: bonus = {}
-            n = {k.lower(): val for k, val in bonus.items()} if bonus else {}
-            writer.writerow({'url': u, 'mname': mname or '', 'id': eid or '', 'name': name or '',
-                'transactiontype': n.get('transactiontype', ''), 'bonusfixed': n.get('bonusfixed', ''),
-                'amount': v if v else n.get('amount', ''), 'minwithdraw': n.get('minwithdraw', ''),
-                'maxwithdraw': n.get('maxwithdraw', ''), 'rollover': n.get('rollover', ''),
-                'balance': n.get('balance', ''), 'claimconfig': n.get('claimconfig', ''),
-                'claimcondition': n.get('claimcondition', ''), 'bonus': n.get('bonus', ''),
-                'bonusrandom': n.get('bonusrandom', ''), 'reset': n.get('reset', ''),
-                'mintopup': n.get('mintopup', ''), 'maxtopup': n.get('maxtopup', ''),
-                'referlink': n.get('referlink', ''), 'perceived_value': pv if pv else '',
-                'is_new': 1 if sl and sl == s1 else 0})
+            uid, eid, url, value, pv, raw_json, expiry, fingerprint, mirrors, first_seen, last_seen, merchant, name = row
+            try:
+                bonus = json.loads(raw_json) if raw_json else {}
+            except (TypeError, ValueError):
+                bonus = {}
+            normalized = {key.lower(): val for key, val in bonus.items()}
+            writer.writerow({
+                "url": url, "mname": merchant or "", "id": eid or "", "name": name or "",
+                "transactiontype": normalized.get("transactiontype", ""), "bonusfixed": normalized.get("bonusfixed", ""),
+                "amount": value if value else normalized.get("amount", ""), "minwithdraw": normalized.get("minwithdraw", ""),
+                "maxwithdraw": normalized.get("maxwithdraw", ""), "rollover": normalized.get("rollover", ""),
+                "balance": normalized.get("balance", ""), "claimconfig": normalized.get("claimconfig", ""),
+                "claimcondition": normalized.get("claimcondition", ""), "bonus": normalized.get("bonus", ""),
+                "bonusrandom": normalized.get("bonusrandom", ""), "reset": normalized.get("reset", ""),
+                "mintopup": normalized.get("mintopup", ""), "maxtopup": normalized.get("maxtopup", ""),
+                "referlink": normalized.get("referlink", ""), "perceived_value": pv if pv else "",
+                "is_new": 1 if last_seen and last_seen == first_seen else 0,
+            })
     print(f"\nExported {len(rows)} bonuses to data/Dayne_Bonuses.csv")
+
 
 def main():
     Path("data").mkdir(parents=True, exist_ok=True)
     db.initialize_database()
-    try: db.execute("ALTER TABLE t ADD COLUMN ec INTEGER")
-    except: pass
-    
-    import server as srv
-    srv.STOPPED = False
-    srv.PAUSED = False
-    
+    os.environ["GOLF_RUN_STARTED"] = dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds")
+    server.STOPPED = False
+    server.PAUSED = False
+
     url_list, account_list = config.parse_urls_and_accounts(shuffle=True)
-    # Skip URLs with ec=200 in last 24h
-    from datetime import datetime, timezone, timedelta
-    completed = {r[0] for r in db.execute("SELECT u FROM t WHERE ts > date('now','-1 day') AND ec=200")}
-    url_list = [u for u in url_list if u not in completed]
-    
+    completed = {row[0] for row in db.execute("SELECT u FROM t WHERE ts > datetime('now','-1 day') AND ec=200")}
+    url_list = [url for url in url_list if url not in completed]
+
     print(f"URLs to scrape: {len(url_list)} (skipped {len(completed)} recently successful)")
     print(f"Accounts: {len(account_list)}, Workers: min(20, {len(url_list)})")
-    
+
     if not url_list:
         print("Nothing to scrape!")
+        import maintain_pipeline
+        maintain_pipeline.run_pipeline(os.environ["GOLF_RUN_STARTED"])
         export_db_to_csv()
         return
-    
+    if not account_list:
+        raise RuntimeError("No scraper accounts configured; refusing to start workers.")
+
     workers = min(20, len(url_list))
     tasks = [(url, account_list[0][0], account_list[0][1]) for url in url_list]
-    chunks = [tasks[i::workers] for i in range(workers)]
-    
+    chunks = [tasks[index::workers] for index in range(workers)]
     stats = {"processed": 0, "successes": 0, "failures": 0, "bonuses": 0, "new": 0}
     lock = threading.Lock()
     total = len(tasks)
-    
+
     start = time.time()
     with ThreadPoolExecutor(max_workers=workers) as executor:
-        for chunk in chunks:
-            executor.submit(worker, chunk, stats, lock, total)
-    
+        futures = [executor.submit(worker, chunk, stats, lock, total) for chunk in chunks]
+        for future in futures:
+            future.result()
+
     elapsed = time.time() - start
     print(f"\nCompleted in {elapsed/60:.1f} minutes")
     print(f"Processed: {stats['processed']}, Success: {stats['successes']}, Failed: {stats['failures']}")
     print(f"Bonuses found: {stats['bonuses']}, New: {stats['new']}")
-    
-    # Export DB to CSV
+
+    import maintain_pipeline
+    maintain_pipeline.run_pipeline(os.environ["GOLF_RUN_STARTED"])
     export_db_to_csv()
+
 
 if __name__ == "__main__":
     main()

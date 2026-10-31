@@ -1,135 +1,50 @@
 #!/bin/bash
-set -e
-cd /data/data/com.termux/files/home/dev/codex/golf
+# Legacy full scrape/export/deploy wrapper. Paths are resolved relative to this repo.
+set -euo pipefail
+ROOT="$(cd "$(dirname "$0")" && pwd)"
+cd "$ROOT"
+PYTHON="$ROOT/.venv/bin/python"
+if [ ! -x "$PYTHON" ]; then PYTHON="$(command -v python3)"; fi
 
-echo "=== Killing old processes ==="
-fuser -k 8000/tcp 2>/dev/null || true
-pkill -9 -f "python3.*main.py" 2>/dev/null || true
-pkill -9 -f "python3.*run_scraper" 2>/dev/null || true
-sleep 2
+echo "=== Running canonical scraper + URL lifecycle maintenance ==="
+"$PYTHON" -u run_scraper.py 2>&1 | tee "${TMPDIR:-/tmp}/golf_scrape_run.log"
 
-echo "=== Running scraper ==="
-python3 -u run_scraper.py 2>&1 | tee /tmp/scrape_run.log
-echo "=== Exporting from DB to CSV ==="
-python3 -c "
-import csv, sqlite3, json, math, os
-from urllib.parse import urlparse
+# run_scraper.py already builds the current exports. Keep the optional cleaner.
+if [ -f clean_bonuses.py ] && [ -f data/Dayne_Bonuses.csv ]; then
+    echo "=== Cleaning CSV ==="
+    "$PYTHON" clean_bonuses.py data/Dayne_Bonuses.csv
+fi
 
-conn = sqlite3.connect('data/base.db')
-c = conn.cursor()
+# Preserve the historical Anyclaw deployment when the legacy viewer source is
+# present. Newer checkouts without it still get the scrape and CSV exports.
+VIEWER_DIR="$ROOT/dayne-bonuses-viewer"
+if [ -d "$VIEWER_DIR" ] && [ -f "$VIEWER_DIR/package.json" ]; then
+    echo "=== Building legacy viewer ==="
+    cd "$VIEWER_DIR"
+    npm run build
+    cp app.json icon.svg dist/ 2>/dev/null || true
+    if command -v zip >/dev/null 2>&1 && [ -d dist ]; then
+        (cd dist && zip -qr ../dayne-bonuses.zip .)
+    fi
 
-HEADERS = ['url','mname','id','name','transactiontype','bonusfixed','amount','minwithdraw','site_minwithdraw','maxwithdraw','rollover','balance','claimconfig','claimcondition','bonus','bonusrandom','reset','mintopup','maxtopup','referlink','perceived_value','is_new','weighted_score']
+    if [ -f dayne-bonuses.zip ] && command -v curl >/dev/null 2>&1; then
+        echo "=== Deploying legacy viewer to Anyclaw ==="
+        "$PYTHON" -c '
+import base64, json
+with open("dayne-bonuses.zip", "rb") as stream:
+    encoded = base64.b64encode(stream.read()).decode()
+print(json.dumps({"app_id":"dayne-bonuses","zip_b64":encoded,"app_type":"web_app","site_map":["/"]}))
+' | curl --fail --silent --show-error -X POST https://anyclaw.store/api/deploy \
+    -H "Content-Type: application/json" -d @- | "$PYTHON" -c '
+import json, sys
+data = json.load(sys.stdin)
+print("Deployed:", data.get("claim_url", data))
+'
+    else
+        echo "zip or curl unavailable; skipping Anyclaw deployment."
+    fi
+else
+    echo "Legacy dayne-bonuses-viewer directory not present; skipping legacy web deployment."
+fi
 
-def num(v):
-    try:
-        x = float(v)
-        return x if math.isfinite(x) else None
-    except (TypeError, ValueError):
-        return None
-
-def domain_for(url):
-    try:
-        host = (urlparse(str(url)).hostname or '').lower()
-        if host.startswith('www.'):
-            host = host[4:]
-        return host
-    except Exception:
-        return ''
-
-def load_site_minimums(path):
-    minimums = {}
-    if not os.path.exists(path):
-        return minimums
-    with open(path, newline='') as f:
-        for row in csv.DictReader(f):
-            domain = (row.get('domain') or '').strip().lower()
-            value = num(row.get('site_minwithdraw'))
-            if domain and value is not None and value > 0:
-                minimums[domain] = value
-    return minimums
-
-site_minimums = load_site_minimums('data/site_min_withdrawals.csv')
-
-c.execute('SELECT uid, eid, u, v, pv, raw, exp, fp, mirrors, s1, sl, mname, name FROM b')
-rows = c.fetchall()
-
-with open('data/Dayne_Bonuses.csv', 'w', newline='') as f:
-    writer = csv.DictWriter(f, fieldnames=HEADERS)
-    writer.writeheader()
-    for row in rows:
-        uid, eid, u, v, pv, raw_json, exp, fp, mirrors, s1, sl, mname, name = row
-        try:
-            bonus = json.loads(raw_json) if raw_json else {}
-        except Exception:
-            bonus = {}
-        normalized = {k.lower(): val for k, val in bonus.items()} if bonus else {}
-
-        amount = v if v else normalized.get('amount', '')
-        minwithdraw = normalized.get('minwithdraw', '')
-        maxwithdraw = normalized.get('maxwithdraw', '')
-        amt = num(amount)
-        bonus_min = num(minwithdraw)
-        domain = domain_for(u)
-        site_min = site_minimums.get(domain)
-
-        # Effective minimum for Weighted Score:
-        # 1) bonus-specific minimum, 2) known site-wide minimum, 3) default 50.
-        effective_min = bonus_min if bonus_min is not None and bonus_min > 0 else site_min
-        if effective_min is None or effective_min <= 0:
-            effective_min = 50.0
-
-        maxw = num(maxwithdraw)
-        weighted_score = ''
-        if amt is not None and maxw is not None and maxw >= 0:
-            weighted_score = round((amt / effective_min) * math.sqrt(maxw), 4)
-
-        csv_row = {
-            'url': u, 'mname': mname or '', 'id': eid or '', 'name': name or '',
-            'transactiontype': normalized.get('transactiontype', ''),
-            'bonusfixed': normalized.get('bonusfixed', ''),
-            'amount': amount,
-            'minwithdraw': minwithdraw,
-            'site_minwithdraw': site_min if site_min is not None else '',
-            'maxwithdraw': maxwithdraw,
-            'rollover': normalized.get('rollover', ''),
-            'balance': normalized.get('balance', ''),
-            'claimconfig': normalized.get('claimconfig', ''),
-            'claimcondition': normalized.get('claimcondition', ''),
-            'bonus': normalized.get('bonus', ''),
-            'bonusrandom': normalized.get('bonusrandom', ''),
-            'reset': normalized.get('reset', ''),
-            'mintopup': normalized.get('mintopup', ''),
-            'maxtopup': normalized.get('maxtopup', ''),
-            'referlink': normalized.get('referlink', ''),
-            'perceived_value': pv if pv else '',
-            'is_new': 1 if sl and sl == s1 else 0,
-            'weighted_score': weighted_score,
-        }
-        writer.writerow(csv_row)
-print(f'Exported {len(rows)} bonuses; loaded {len(site_minimums)} site-wide withdrawal minimums')
-"
-
-echo "=== Cleaning CSV ==="
-python3 clean_bonuses.py data/Dayne_Bonuses.csv
-
-echo "=== Updating viewer app ==="
-cp data/Dayne_Bonuses.csv dayne-bonuses-viewer/public/dayne-bonuses.csv
-cp data/Dayne_Bonuses_Cleaned.csv dayne-bonuses-viewer/public/dayne-bonuses-cleaned.csv
-
-echo "=== Building viewer ==="
-cd dayne-bonuses-viewer
-npm run build 2>&1 | tail -5
-cp app.json icon.svg dist/ 2>/dev/null || true
-cd dist
-zip -qr ../dayne-bonuses.zip .
-
-echo "=== Deploying to Anyclaw ==="
-python3 -c "
-import json, base64
-with open('../dayne-bonuses.zip','rb') as f:
-    z = base64.b64encode(f.read()).decode()
-payload = {'app_id':'dayne-bonuses','zip_b64':z,'app_type':'web_app','site_map':['/']}
-print(json.dumps(payload))
-" | curl -s -X POST https://anyclaw.store/api/deploy -H "Content-Type: application/json" -d @- | python3 -c "import sys,json;d=json.load(sys.stdin);print('Deployed:',d.get('claim_url',d))"
-
-echo "=== Done ==="
+echo "=== Scrape, export and optional deployment complete ==="
