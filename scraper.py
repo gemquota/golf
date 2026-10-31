@@ -203,7 +203,9 @@ def worker(chunk_id, stats, stats_lock, total_tasks, ip_score, record_raw, worke
             break
         while server.PAUSED and not server.STOPPED:
             time.sleep(0.5)
-            
+        if server.STOPPED:
+            break
+
         with stats_lock["index"]:
             stats["index"] += 1
             current_index = stats["index"]
@@ -297,15 +299,17 @@ def run_scrape(on_update=None, on_launcher=None, on_completion=None):
     record_raw_responses = "-v" in sys.argv and sys.argv[sys.argv.index("-v") + 1] == "max" if "-v" in sys.argv else False
     
     url_list, account_list = config.parse_urls_and_accounts(shuffle_mode)
+    execution_stats = {"index": 0, "successes": 0, "failures": 0, "total_bonuses": 0, "new_bonuses": 0}
     if resume_mode:
-        completed_urls = {row[0] for row in db.execute("SELECT u FROM t WHERE ts > date('now','-1 day') AND ec=200")}
+        # datetime(), unlike date(), enforces a true rolling 24-hour window.
+        completed_urls = {row[0] for row in db.execute("SELECT u FROM t WHERE ts > datetime('now','-1 day') AND ec=200")}
         url_list = [url for url in url_list if url not in completed_urls]
-        
+
     if not url_list or not account_list:
         server.IS_RUNNING = False
+        if on_completion:
+            on_completion(execution_stats)
         return
-        
-    execution_stats = {"index": 0, "successes": 0, "failures": 0, "total_bonuses": 0, "new_bonuses": 0}
     thread_locks = {"index": threading.Lock(), "stats": threading.Lock()}
     ip_score, _ = net.check_ip_reputation(config.ABUSEIPDB_KEY)
     proxy_list = config.load_proxies()
@@ -324,6 +328,8 @@ def run_scrape(on_update=None, on_launcher=None, on_completion=None):
         num_workers = min(max_workers, len(task_list))
         task_chunks = [task_list[i::num_workers] for i in range(num_workers)]
 
+        if server.STOPPED:
+            return
         with ThreadPoolExecutor(max_workers=num_workers) as executor:
             futures = [
                 executor.submit(
@@ -367,6 +373,8 @@ def run_scrape(on_update=None, on_launcher=None, on_completion=None):
 
     # Known site + known account: no cross-account fallback on failure.
     for account_index, urls_for_account in known_by_account.items():
+        if server.STOPPED:
+            break
         if urls_for_account:
             process_url_batch(urls_for_account, account_index)
 
