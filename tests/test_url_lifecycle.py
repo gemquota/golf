@@ -78,8 +78,17 @@ class UrlLifecycleTests(unittest.TestCase):
         first = self.started + dt.timedelta(minutes=5)
         self.attempt(first, 503)
         self.run_at(self.started)
-        self.attempt(first + dt.timedelta(hours=72), 200)
+        self.attempt(first + dt.timedelta(hours=72), 503)
         active, moved, state, attempts, successes = self.run_at(first + dt.timedelta(hours=72))
+        self.assertEqual(active, 0)
+        self.assertEqual(moved, [self.url])
+        self.assertIn(self.url, pipeline.load_lines(self.paths["DOWN"]))
+
+        # Manually re-add a quarantined URL; a real successful attempt recovers it.
+        self.paths["URLS"].write_text(self.url + "\\n")
+        recovered_at = first + dt.timedelta(hours=73)
+        self.attempt(recovered_at, 200)
+        active, moved, state, attempts, successes = self.run_at(recovered_at)
         self.assertEqual(active, 1)
         self.assertEqual(moved, [])
         self.assertEqual(state[self.url]["status"], "up")
