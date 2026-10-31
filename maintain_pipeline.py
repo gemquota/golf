@@ -56,6 +56,8 @@ def fmt(value):
 def sql_timestamp(value):
     parsed = value if isinstance(value, dt.datetime) else parse_dt(value)
     parsed = parsed or now()
+    if parsed.tzinfo is None:
+        parsed = parsed.replace(tzinfo=UTC)
     return parsed.astimezone(UTC).strftime("%Y-%m-%d %H:%M:%S")
 
 
