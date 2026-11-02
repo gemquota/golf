@@ -8,3 +8,6 @@ viewer/public/bonus-history.csv
 viewer/public/scrape-runs.csv
 viewer/public/site-state.json
 viewer/public/dayne-bonuses-raw.csv
+
+.codey/checkpoint.json
+.codey/lock

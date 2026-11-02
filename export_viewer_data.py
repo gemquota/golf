@@ -96,29 +96,29 @@ def main():
     c = conn.cursor()
 
     bonus_rows = [dict(r) for r in c.execute(
-        "SELECT uid, eid, u, v, pv, raw, exp, s1, sl, mname, name FROM b")]
+        "SELECT bonus_uid, external_id, url, amount, perceived_value, raw_json, expiry, first_seen, last_seen, merchant_name, name FROM bonuses")]
     site_rows = [dict(r) for r in c.execute(
-        "SELECT u, m, p, g, ts, ec FROM t")]
+        "SELECT url, merchant_name, referral_url, short_url, updated_at, error_code FROM sites")]
 
     now = datetime.now()
     raw_rows = []
     all_rows = []
     by_url = {}
     for b in bonus_rows:
-        raw_json = b["raw"]
+        raw_json = b["raw_json"]
         try:
             bonus = json.loads(raw_json) if raw_json else {}
             bonus = {k.lower(): val for k, val in bonus.items()} if isinstance(bonus, dict) else {}
         except (ValueError, TypeError):
             bonus = {}
-        amount = b["v"] if b["v"] is not None else bonus.get("amount", "")
-        pv = b["pv"]
-        exp, s1, sl = b["exp"], b["s1"], b["sl"]
+        amount = b["amount"] if b["amount"] is not None else bonus.get("amount", "")
+        pv = b["perceived_value"]
+        exp, s1, sl = b["expiry"], b["first_seen"], b["last_seen"]
         is_new = 1 if sl and s1 and sl == s1 else 0
 
         # ── raw / fresh row (same export logic as scrape_and_deploy.sh) ──
         raw_rows.append({
-            "url": b["u"] or "", "mname": b["mname"] or "", "id": b["eid"] or "",
+            "url": b["url"] or "", "mname": b["merchant_name"] or "", "id": b["external_id"] or "",
             "name": b["name"] or "", "transactiontype": bonus.get("transactiontype", ""),
             "bonusfixed": bonus.get("bonusfixed", ""), "amount": amount,
             "minwithdraw": bonus.get("minwithdraw", ""),
@@ -150,7 +150,7 @@ def main():
                 days_vis = round(d, 2)
         name_l = (b["name"] or "").lower()
         all_rows.append({
-            "url": b["u"] or "", "mname": b["mname"] or "", "id": b["eid"] or "",
+            "url": b["url"] or "", "mname": b["merchant_name"] or "", "id": b["external_id"] or "",
             "name": b["name"] or "", "amount": amount,
             "perceived_value": pv if pv is not None else "",
             "expiry": fmt_dt(exp), "first_seen": fmt_dt(s1), "last_seen": fmt_dt(sl),
@@ -186,8 +186,8 @@ def main():
                                  or "angpao" in name_l) else 0,
         })
 
-        by_url.setdefault(b["u"], []).append({
-            "v": b["v"], "pv": pv, "s1": s1, "sl": sl, "raw": bonus,
+        by_url.setdefault(b["url"], []).append({
+            "v": b["amount"], "pv": pv, "s1": s1, "sl": sl, "raw": bonus,
             "name": b["name"] or "",
         })
 
@@ -221,10 +221,10 @@ def main():
     # ── sites rollup ──
     sites_rows = []
     for s in site_rows:
-        u = s["u"] or ""
+        u = s["url"] or ""
         bs = by_url.get(u, [])
         bc = len(bs)
-        last_checked = s["ts"] or ""
+        last_checked = s["updated_at"] or ""
         first_seen = min((b["s1"] for b in bs if b["s1"]), default="")
         last_seen = max((b["sl"] for b in bs if b["sl"]), default="")
         span_ref = last_seen or last_checked
@@ -279,7 +279,7 @@ def main():
                 if d is not None:
                     lifetime.append(d)
 
-        ec = s["ec"]
+        ec = s["error_code"]
         status = STATUS_BY_EC.get(ec, "Error" if ec not in (None,) else "")
 
         def avg(xs, nd=1):
@@ -295,7 +295,7 @@ def main():
             vpr_vals.append(pvn / rl if rl and rl > 0 else pvn)
 
         sites_rows.append({
-            "url": u, "mname": s["m"] or "", "source": "urls",
+            "url": u, "mname": s["merchant_name"] or "", "source": "urls",
             "status": status, "failures": 0, "last_checked": fmt_dt(last_checked),
             "first_seen": fmt_dt(first_seen), "last_seen": fmt_dt(last_seen),
             "tracked_days": fnum(tracked, 1) if tracked is not None else "",
@@ -322,7 +322,7 @@ def main():
             "stability": fnum(distinct_days / tracked, 3) if tracked and tracked > 0 else "",
             "avg_daily_value": fnum(total_pv / tracked, 2) if tracked and tracked > 0 else "",
             "active_today": 1 if last24 else 0,
-            "referral_url": s["p"] or "", "short_url": s["g"] or "",
+            "referral_url": s["referral_url"] or "", "short_url": s["short_url"] or "",
         })
 
     def write_csv(name, headers, rows):

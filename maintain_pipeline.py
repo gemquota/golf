@@ -130,7 +130,7 @@ def _attempts_for_run(run_started):
     conn = sqlite3.connect(DB)
     try:
         rows = conn.execute(
-            "SELECT u, ec, ts FROM t WHERE ts IS NOT NULL AND ts >= ? ORDER BY ts",
+            "SELECT url, error_code, updated_at FROM sites WHERE updated_at IS NOT NULL AND updated_at >= ? ORDER BY updated_at",
             (marker,),
         ).fetchall()
     except sqlite3.Error:
@@ -254,10 +254,10 @@ def append_history(run_started):
     conn = sqlite3.connect(DB)
     conn.row_factory = sqlite3.Row
     try:
-        rows = conn.execute("SELECT uid,eid,u,v,pv,raw,exp,fp,mirrors,s1,sl,mname,name FROM b").fetchall()
+        rows = conn.execute("SELECT bonus_uid,external_id,url,amount,perceived_value,raw_json,expiry,fingerprint,mirrors,first_seen,last_seen,merchant_name,name FROM bonuses").fetchall()
         success_urls = {
             row[0] for row in conn.execute(
-                "SELECT u FROM t WHERE ec=200 AND ts>=?", (marker,)
+                "SELECT url FROM sites WHERE error_code=200 AND updated_at>=?", (marker,)
             ).fetchall()
         }
     finally:
@@ -272,14 +272,14 @@ def append_history(run_started):
         if not existing:
             writer.writeheader()
         for row in rows:
-            if row["u"] not in success_urls:
+            if row["url"] not in success_urls:
                 continue
             writer.writerow({
-                "run_ts": fmt(started), "uid": row["uid"], "eid": row["eid"], "url": row["u"],
-                "merchant": row["mname"] or "", "name": row["name"] or "", "amount": row["v"] or "",
-                "perceived_value": row["pv"] or "", "expiry": row["exp"] or "",
-                "first_seen": row["s1"] or "", "last_seen": row["sl"] or "",
-                "fingerprint": row["fp"] or "", "mirrors": row["mirrors"] or "",
+                "run_ts": fmt(started), "uid": row["bonus_uid"], "eid": row["external_id"], "url": row["url"],
+                "merchant": row["merchant_name"] or "", "name": row["name"] or "", "amount": row["amount"] or "",
+                "perceived_value": row["perceived_value"] or "", "expiry": row["expiry"] or "",
+                "first_seen": row["first_seen"] or "", "last_seen": row["last_seen"] or "",
+                "fingerprint": row["fingerprint"] or "", "mirrors": row["mirrors"] or "",
             })
     return len(rows)
 
