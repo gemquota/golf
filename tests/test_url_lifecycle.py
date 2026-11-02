@@ -1,5 +1,4 @@
 import datetime as dt
-import json
 import sqlite3
 import tempfile
 import unittest
@@ -28,8 +27,15 @@ class UrlLifecycleTests(unittest.TestCase):
         self.patcher = patch.multiple(pipeline, **self.paths)
         self.patcher.start()
         conn = sqlite3.connect(self.paths["DB"])
-        conn.execute("CREATE TABLE t (u TEXT PRIMARY KEY, ec INTEGER, ts DATETIME)")
-        conn.execute("CREATE TABLE b (uid TEXT,eid TEXT,u TEXT,v REAL,pv REAL,raw TEXT,exp TEXT,fp TEXT,mirrors TEXT,s1 TEXT,sl TEXT,mname TEXT,name TEXT)")
+        conn.execute(
+            "CREATE TABLE sites (url TEXT PRIMARY KEY, error_code INTEGER, updated_at DATETIME)"
+        )
+        conn.execute(
+            "CREATE TABLE bonuses ("
+            "bonus_uid TEXT, external_id TEXT, url TEXT, amount REAL, perceived_value REAL, "
+            "raw_json TEXT, expiry TEXT, fingerprint TEXT, mirrors TEXT, first_seen TEXT, "
+            "last_seen TEXT, merchant_name TEXT, name TEXT)"
+        )
         conn.commit()
         conn.close()
         self.url = "https://example.test"
@@ -43,7 +49,8 @@ class UrlLifecycleTests(unittest.TestCase):
     def attempt(self, timestamp, code):
         conn = sqlite3.connect(self.paths["DB"])
         conn.execute(
-            "INSERT INTO t(u,ec,ts) VALUES (?,?,?) ON CONFLICT(u) DO UPDATE SET ec=excluded.ec, ts=excluded.ts",
+            "INSERT INTO sites(url,error_code,updated_at) VALUES (?,?,?) "
+            "ON CONFLICT(url) DO UPDATE SET error_code=excluded.error_code, updated_at=excluded.updated_at",
             (self.url, code, timestamp.strftime("%Y-%m-%d %H:%M:%S")),
         )
         conn.commit()
@@ -84,7 +91,6 @@ class UrlLifecycleTests(unittest.TestCase):
         self.assertEqual(moved, [self.url])
         self.assertIn(self.url, pipeline.load_lines(self.paths["DOWN"]))
 
-        # Manually re-add a quarantined URL; a real successful attempt recovers it.
         self.paths["URLS"].write_text(self.url + "\n")
         recovered_at = first + dt.timedelta(hours=73)
         self.attempt(recovered_at, 200)

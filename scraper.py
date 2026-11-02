@@ -1,12 +1,18 @@
 import csv, datetime, json, random, threading, time
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
-import requests
-from requests.exceptions import HTTPError
 import sys
 
 import config, db, server
 import network as net
+from scrape_worker import (
+    USER_AGENTS,
+    classify_error,
+    ensure_site,
+    mark_site_result,
+    process_bonus,
+    try_scrape,
+)
 
 RAW_DIR = Path("data/raw_responses")
 TMP_DIR = Path("data")
@@ -15,124 +21,9 @@ ACCOUNT_SUCCESS = Path("data/account_success.json")
 ACCOUNT_STATE = Path("data/account_state.json")
 ACCOUNT_SUCCESS_LOCK = threading.Lock()
 
-ERROR_MAP = [("MERCHANT", 201), ("Captcha", 202), ("gaierror", 102), ("Timeout", 104),
-    ("Refused", 101), ("Connection", 103), ("403", 403)]
+# Back-compat aliases for callers/tests that imported these from scraper.
+try_scrape_url = try_scrape
 
-USER_AGENTS = [
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/605.1.15",
-    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:121.0) Gecko/20100101 Firefox/121.0",
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.2 Safari/605.1.15",
-]
-
-def classify_error(exception):
-    # Authentication failures are distinct from site/network failures.
-    if isinstance(exception, net.AuthenticationError):
-        return 304
-    # Type checks first - substring matching is a last resort.
-    if isinstance(exception, HTTPError):
-        return exception.response.status_code
-    if isinstance(exception, requests.exceptions.Timeout):
-        return 104
-    if isinstance(exception, requests.exceptions.ConnectionError):
-        return 103
-    if isinstance(exception, ValueError):  # malformed JSON / unexpected response shape
-        return 302
-    error_string = str(exception)
-    for error_pattern, error_code in ERROR_MAP:
-        if error_pattern in error_string:
-            return error_code
-    if "login" in error_string.lower():
-        return 304
-    return 301
-
-def process_bonus(bonus, merchant_name, url, fingerprint, perceived_value, expiry):
-    existing_records = db.execute("SELECT uid, mirrors FROM b WHERE fp=?", (fingerprint,))
-    if existing_records:
-        unique_id, mirrors = existing_records[0]
-        if url not in str(mirrors):
-            db.execute("UPDATE b SET mirrors=?, sl=CURRENT_TIMESTAMP WHERE uid=?", (f"{mirrors},{url}", unique_id))
-        return unique_id, 0
-        
-    merchant_name_rows = db.execute("SELECT name, uid, mirrors FROM b WHERE mname=?", (merchant_name,))
-    if merchant_name_rows:
-        existing_names = [row[0] for row in merchant_name_rows if row[0]]
-        matched_name = db.find_matching_name(bonus.get("name"), existing_names)
-        if matched_name:
-            matched_row = next((row for row in merchant_name_rows if row[0] == matched_name), None)
-            if matched_row and url not in str(matched_row[2]):
-                db.execute("UPDATE b SET mirrors=?, sl=CURRENT_TIMESTAMP WHERE uid=?", (f"{matched_row[2]},{url}", matched_row[1]))
-            return (matched_row[1] if matched_row else None), 0
-            
-    unique_id = f"{url}|{bonus.get('id')}"
-    expiry_string = expiry.isoformat() if expiry else None
-    db.execute(
-        "REPLACE INTO b(uid, eid, u, v, pv, raw, exp, fp, mirrors, sl, mname, name) VALUES (?,?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP,?,?)",
-        (unique_id, bonus.get("id"), url, str(bonus.get("amount", 0)), perceived_value, json.dumps(bonus),
-         expiry_string, fingerprint, url, merchant_name, bonus.get("name"))
-    )
-    return unique_id, 1
-
-def try_scrape_url(scraper_session, url, username, password, record_raw, chunk_id):
-    html_content = net.get_page(scraper_session, url)
-    merchant_id, merchant_name = net.parse_merchant_info(html_content)
-    db.execute("UPDATE t SET m=? WHERE u=?", (merchant_name, url))
-    api_url = net.build_api_url(url)
-    
-    session_data = db.load_session(url, username)
-    user_data = None
-    if session_data:
-        try:
-            timestamp = datetime.datetime.fromisoformat(session_data["ts"]).replace(tzinfo=datetime.timezone.utc)
-            if (datetime.datetime.now(datetime.timezone.utc) - timestamp).total_seconds() < 21600:
-                scraper_session.cookies.update(session_data["ck"])
-                user_data = session_data["data"]
-        except Exception:
-            pass
-            
-    if not user_data:
-        user_data = net.login(scraper_session, api_url, username, password, merchant_id)
-        db.save_session(url, username, scraper_session.cookies.get_dict(), user_data)
-        
-    try:
-        sync_response = net.sync_user_data(scraper_session, api_url, merchant_id, user_data.get("token"), user_data.get("id"))
-    except Exception:
-        user_data = net.login(scraper_session, api_url, username, password, merchant_id)
-        db.save_session(url, username, scraper_session.cookies.get_dict(), user_data)
-        sync_response = net.sync_user_data(scraper_session, api_url, merchant_id, user_data.get("token"), user_data.get("id"))
-        
-    if record_raw:
-        RAW_DIR.mkdir(parents=True, exist_ok=True)
-        timestamp_string = datetime.datetime.now().strftime('%Y%m%d_%H%M%S')
-        safe_url = url.replace("https://", "").replace("/", "_")
-        (RAW_DIR / f"{timestamp_string}_{safe_url}.json").write_text(json.dumps(sync_response, indent=2))
-        
-    bonuses = sync_response.get("data", {}).get("bonus", []) + sync_response.get("data", {}).get("promotions", [])
-    site_bonuses = 0
-    site_new = 0
-    
-    csv_path = TMP_DIR / f"tmp_{chunk_id}.csv"
-    
-    for bonus in bonuses:
-        normalized = {k.lower(): v for k, v in bonus.items()}
-        if db.float_value(normalized.get("amount")) <= 0:
-            continue
-        site_bonuses += 1
-        perceived_val = db.perceived_value(normalized)
-        expiry = db.parse_expiry(str(normalized.get("name", "")) + str(normalized.get("claimcondition", "")))
-        fingerprint = db.fingerprint_bonus(normalized)
-        uid, is_new = process_bonus(normalized, merchant_name, url, fingerprint, perceived_val, expiry)
-        site_new += is_new
-        
-        row_data = {k: normalized.get(k, normalized.get(k.upper(), "")) for k in db.HEADERS[:-2]}
-        row_data["url"] = url
-        row_data["mname"] = merchant_name
-        row_data["perceived_value"] = perceived_val
-        row_data["is_new"] = 1 if is_new else 0
-        db.append_csv_row(row_data, str(csv_path))
-        
-    return True, html_content, site_bonuses, site_new
 
 def _load_json_mapping(path):
     try:
@@ -197,7 +88,7 @@ def record_account_discovery_result(url, attempted_codes):
 def worker(chunk_id, stats, stats_lock, total_tasks, ip_score, record_raw, worker_count, tasks, proxy_pool, on_update):
     scraper_session = net.create_session(random.choice(proxy_pool) if proxy_pool else None)
     current_ua_index = 0
-    
+
     for url, username, password, account_id in tasks:
         if server.STOPPED:
             break
@@ -209,17 +100,19 @@ def worker(chunk_id, stats, stats_lock, total_tasks, ip_score, record_raw, worke
         with stats_lock["index"]:
             stats["index"] += 1
             current_index = stats["index"]
-            
-        db.execute("INSERT OR IGNORE INTO t(u) VALUES (?)", (url,))
+
+        ensure_site(url)
         start_time = time.perf_counter()
         time.sleep(random.uniform(config.MIN_DELAY, config.MAX_DELAY))
-        
+
         html_content = ""
         success = False
         error_code = 0
         exception = None
+        site_bonuses = 0
+        site_new = 0
         max_retries = 3
-        
+
         for attempt in range(max_retries):
             try:
                 if attempt > 0:
@@ -227,40 +120,41 @@ def worker(chunk_id, stats, stats_lock, total_tasks, ip_score, record_raw, worke
                     scraper_session.headers.update({"User-Agent": USER_AGENTS[current_ua_index]})
                     scraper_session.timeout = config.TIMEOUT + (attempt * 10)
                     time.sleep(random.uniform(2.0, 4.0) * attempt)
-                    
-                success, html_content, site_bonuses, site_new = try_scrape_url(
-                    scraper_session, url, username, password, record_raw, chunk_id
+
+                success, html_content, site_bonuses, site_new = try_scrape(
+                    scraper_session, url, username, password,
+                    record_raw=record_raw, chunk_id=chunk_id, write_csv=True,
                 )
                 break
-                
+
             except Exception as exc:
                 exception = exc
                 if attempt == max_retries - 1:
                     error_code = classify_error(exception)
-                    db.execute("UPDATE t SET ts=CURRENT_TIMESTAMP, ec=? WHERE u=?", (error_code, url))
+                    mark_site_result(url, error_code)
                     with stats_lock["stats"]:
                         stats["failures"] += 1
-                    
+
                     if error_code in (201, 202, 302):
                         DEBUG_DIR.mkdir(parents=True, exist_ok=True)
                         safe_url = url.replace("https://", "").replace("/", "_")
                         timestamp_string = datetime.datetime.now().strftime('%Y%m%d_%H%M%S')
                         if html_content:
                             (DEBUG_DIR / f"E{error_code}_{timestamp_string}_{safe_url}.html").write_text(html_content)
-                            
+
                     db.log_event(f"E{error_code}", url, str(exception))
                 else:
                     continue
-                    
+
         if success:
             record_account_success(url, account_id)
             with stats_lock["stats"]:
                 stats["total_bonuses"] += site_bonuses
                 stats["successes"] += 1
                 stats["new_bonuses"] += site_new
-                
-            db.execute("UPDATE t SET ts=CURRENT_TIMESTAMP, ec=200 WHERE u=?", (url,))
-            
+
+            mark_site_result(url, 200)
+
             if on_update:
                 on_update({
                     "index": current_index,
@@ -277,13 +171,14 @@ def worker(chunk_id, stats, stats_lock, total_tasks, ip_score, record_raw, worke
                     "total_new_bonuses": stats["new_bonuses"],
                     "nw": worker_count
                 })
-        elif on_update:            on_update({
-                    "index": current_index,
-                    "successes": stats["successes"],
-                    "failures": stats["failures"],
-                    "total_bonuses": stats["total_bonuses"],
-                    "site_url": url,
-                    "status_message": f"E{error_code}" if error_code else "FAIL",
+        elif on_update:
+            on_update({
+                "index": current_index,
+                "successes": stats["successes"],
+                "failures": stats["failures"],
+                "total_bonuses": stats["total_bonuses"],
+                "site_url": url,
+                "status_message": f"E{error_code}" if error_code else "FAIL",
                 "site_bonuses_gt_zero": 0,
                 "N": total_tasks,
                 "elapsed": time.perf_counter() - start_time,
@@ -298,12 +193,17 @@ def run_scrape(on_update=None, on_launcher=None, on_completion=None):
     shuffle_mode = "-s" in sys.argv
     verbose_index = sys.argv.index("-v") if "-v" in sys.argv else -1
     record_raw_responses = verbose_index >= 0 and verbose_index + 1 < len(sys.argv) and sys.argv[verbose_index + 1] == "max"
-    
+
     url_list, account_list = config.parse_urls_and_accounts(shuffle_mode)
     execution_stats = {"index": 0, "successes": 0, "failures": 0, "total_bonuses": 0, "new_bonuses": 0}
     if resume_mode:
         # datetime(), unlike date(), enforces a true rolling 24-hour window.
-        completed_urls = {row[0] for row in db.execute("SELECT u FROM t WHERE ts > datetime('now','-1 day') AND ec=200")}
+        completed_urls = {
+            row[0]
+            for row in db.execute(
+                "SELECT url FROM sites WHERE updated_at > datetime('now','-1 day') AND error_code=200"
+            )
+        }
         url_list = [url for url in url_list if url not in completed_urls]
 
     if not url_list or not account_list:
@@ -314,7 +214,7 @@ def run_scrape(on_update=None, on_launcher=None, on_completion=None):
     thread_locks = {"index": threading.Lock(), "stats": threading.Lock()}
     ip_score, _ = net.check_ip_reputation(config.ABUSEIPDB_KEY)
     proxy_list = config.load_proxies()
-    
+
     run_timestamp = datetime.datetime.now().strftime('%Y%m%d_%H%M%S')
     final_csv_path = TMP_DIR / f"bonuses_{run_timestamp}.csv"
     db._init_csv(str(final_csv_path))
@@ -388,7 +288,7 @@ def run_scrape(on_update=None, on_launcher=None, on_completion=None):
         process_url_batch(remaining, account_index)
         next_remaining = []
         for url in remaining:
-            rows = db.execute("SELECT ec FROM t WHERE u=?", (url,))
+            rows = db.execute("SELECT error_code FROM sites WHERE url=?", (url,))
             error_code = rows[0][0] if rows else None
             if error_code == 200:
                 continue
