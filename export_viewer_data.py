@@ -382,7 +382,6 @@ def main():
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     write_csv("dayne-bonuses.csv", RAW_HEADERS, raw_rows)
-    write_csv("dayne-bonuses-fresh.csv", RAW_HEADERS, raw_rows)
     cleaned_headers = RAW_HEADERS[:10] + ["ratio"] + RAW_HEADERS[10:]
     write_csv("dayne-bonuses-cleaned.csv", cleaned_headers, cleaned_final)
     write_csv("dayne-bonuses-all.csv", ALL_HEADERS, all_rows)
