@@ -43,8 +43,9 @@ def classify_error(exception):
     if isinstance(exception, ValueError):
         return 302
     error_string = str(exception)
+    lowered_error = error_string.lower()
     for error_pattern, error_code in ERROR_MAP:
-        if error_pattern in error_string:
+        if error_pattern.lower() in lowered_error:
             return error_code
     if "login" in error_string.lower():
         return 304
