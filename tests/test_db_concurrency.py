@@ -13,6 +13,7 @@ class SQLiteThreadSafetyTests(unittest.TestCase):
         self.original_cache = db._cache
         db.DB_PATH = str(Path(self.temp_dir.name) / "thread-safety.sqlite")
         db._cache = {}
+        db.execute("CREATE TABLE t (u TEXT PRIMARY KEY)")
         db.execute("CREATE TABLE sites (url TEXT PRIMARY KEY)")
 
     def tearDown(self):

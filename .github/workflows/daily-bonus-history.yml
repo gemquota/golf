@@ -1,0 +1,80 @@
+name: Daily bonus scrape and release tracking
+
+on:
+  schedule:
+    # 00:05 and 10:05 Australia/Brisbane (UTC+10, no daylight saving).
+    - cron: "5 14 * * *"
+    - cron: "5 0 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: golf-daily-scrape
+  cancel-in-progress: false
+
+jobs:
+  scrape-and-track:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+
+      - name: Require private scraper configuration
+        env:
+          GOLF_CONFIG_INI: ${{ secrets.GOLF_CONFIG_INI }}
+        run: |
+          if [ -z "$GOLF_CONFIG_INI" ]; then
+            echo "::error::Add the GOLF_CONFIG_INI repository secret before enabling scheduled scraping."
+            echo "It must contain the private scraper INI configuration, including the configured U1, U2, etc. accounts."
+            exit 1
+          fi
+          mkdir -p in/config
+          printf '%s' "$GOLF_CONFIG_INI" > in/config/config.ini
+          chmod 600 in/config/config.ini
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run daily scrape, export snapshot, and compare history
+        env:
+          GOLF_ABUSEIPDB_KEY: ${{ secrets.GOLF_ABUSEIPDB_KEY }}
+        run: python daily_scrape.py
+
+      - name: Publish current data and history
+        id: publish
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add viewer/public/dayne-bonuses.csv \
+                  viewer/public/dayne-bonuses-cleaned.csv \
+                  viewer/public/dayne-bonuses-fresh.csv \
+                  viewer/public/dayne-bonuses-all.csv \
+                  viewer/public/dayne-sites.csv \
+                  viewer/public/bonus-history.json
+          if git diff --cached --quiet; then
+            echo "No published data changes."
+            echo "published=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git commit -m "Daily bonus snapshot and commission release history"
+          git push origin HEAD:main
+          echo "published=true" >> "$GITHUB_OUTPUT"
+
+      - name: Trigger GitHub Pages deployment
+        if: steps.publish.outputs.published == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run deploy-viewer.yml --ref main

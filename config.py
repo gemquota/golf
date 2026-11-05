@@ -7,7 +7,7 @@ def _env(name):
     return os.environ.get(name)
 
 config_parser = configparser.ConfigParser()
-config_parser.read([str(Path("in/config.ini")), str(Path("in/config/config.ini"))])
+config_parser.read([str(Path("in/config.ini")), str(Path("in/config/config.ini")), str(Path("in/config/config.local.ini"))])
 
 USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
 TIMEOUT = 15
@@ -39,8 +39,11 @@ def parse_urls_and_accounts(shuffle=False):
     for section in config_parser.sections():
         if section and section[0] == "U":
             # Env vars win over the committed INI so credentials can live outside git.
-            user = _env(f"GOLF_{section.upper()}_USER") or config_parser[section]["u"]
-            pwd = _env(f"GOLF_{section.upper()}_PASS") or config_parser[section]["p"]
+            user = _env(f"GOLF_{section.upper()}_USER") or config_parser[section].get("u", "").strip()
+            pwd = _env(f"GOLF_{section.upper()}_PASS") or config_parser[section].get("p", "").strip()
+            # Ignore template/empty credentials rather than attempting blank logins.
+            if not user or not pwd:
+                continue
             accounts.append((user, pwd))
     return urls, accounts
 
