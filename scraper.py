@@ -20,6 +20,9 @@ DEBUG_DIR = Path("data/debug")
 ACCOUNT_SUCCESS = Path("data/account_success.json")
 ACCOUNT_STATE = Path("data/account_state.json")
 ACCOUNT_SUCCESS_LOCK = threading.Lock()
+ERROR_REPORT_LOCK = threading.Lock()
+SITE_ERRORS_CSV = Path("data/site_errors.csv")
+CAPTCHA_QUEUE = Path("data/captcha_required.txt")
 
 # Back-compat aliases for callers/tests that imported these from scraper.
 try_scrape_url = try_scrape
@@ -42,6 +45,50 @@ def load_account_successes():
 def _save_account_state_locked(data):
     ACCOUNT_STATE.parent.mkdir(parents=True, exist_ok=True)
     ACCOUNT_STATE.write_text(json.dumps(data, indent=2, sort_keys=True) + "\n")
+
+
+def record_site_error(url, account_id, error_code, exception):
+    """Append non-authentication failures to a durable report and CAPTCHA queue."""
+    if error_code == 304:
+        return
+    labels = {
+        101: "connection_refused",
+        102: "dns_error",
+        103: "connection_error",
+        104: "timeout",
+        201: "merchant_error",
+        202: "captcha_required",
+        301: "unknown_error",
+        302: "invalid_response",
+        403: "http_forbidden",
+    }
+    category = labels.get(error_code, f"http_{error_code}" if 400 <= error_code < 600 else "other_error")
+    checked_at = datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds")
+    message = " ".join(str(exception).split())[:1000]
+    with ERROR_REPORT_LOCK:
+        SITE_ERRORS_CSV.parent.mkdir(parents=True, exist_ok=True)
+        needs_header = not SITE_ERRORS_CSV.exists() or SITE_ERRORS_CSV.stat().st_size == 0
+        with SITE_ERRORS_CSV.open("a", newline="", encoding="utf-8") as stream:
+            writer = csv.DictWriter(stream, fieldnames=[
+                "timestamp", "url", "account_id", "error_code", "category", "message"
+            ])
+            if needs_header:
+                writer.writeheader()
+            writer.writerow({
+                "timestamp": checked_at, "url": url, "account_id": account_id,
+                "error_code": error_code, "category": category, "message": message,
+            })
+
+        # Keep this manual-review queue until the user removes a checked URL.
+        # A later CAPTCHA failure adds the URL again.
+        if error_code == 202:
+            CAPTCHA_QUEUE.parent.mkdir(parents=True, exist_ok=True)
+            existing = set(
+                line.strip() for line in CAPTCHA_QUEUE.read_text(encoding="utf-8").splitlines()
+            ) if CAPTCHA_QUEUE.exists() else set()
+            if url not in existing:
+                with CAPTCHA_QUEUE.open("a", encoding="utf-8") as stream:
+                    stream.write(url + "\n")
 
 
 def record_account_success(url, account_id):
@@ -131,6 +178,7 @@ def worker(chunk_id, stats, stats_lock, total_tasks, ip_score, record_raw, worke
                 exception = exc
                 if attempt == max_retries - 1:
                     error_code = classify_error(exception)
+                    record_site_error(url, account_id, error_code, exception)
                     mark_site_result(url, error_code)
                     with stats_lock["stats"]:
                         stats["failures"] += 1
