@@ -21,6 +21,12 @@ mistaken for three days of confirmed failure.
 All run markers and SQLite `CURRENT_TIMESTAMP` comparisons use UTC. The
 health processor is idempotent for the same per-URL attempt timestamp.
 
+## Account selection
+
+The scraper runs URLs with a previously verified `data/account_success.json` association using that same account only. Those known URL/account batches are randomized before execution. URLs without a verified association are randomized into a separate discovery phase and receive one attempt using the primary configured account (`U1`). A failed or inconclusive attempt does not trigger a sweep of the remaining configured accounts. This keeps account associations site-specific and prevents credentials for one site from being replayed against unrelated sites.
+
+The worker may perform its existing bounded network retries for the same URL/account pair; those retries do not change accounts. A successful scrape records the URL/account association for subsequent runs.
+
 ## Recovery
 
 To retry a quarantined URL, add it back to `in/config/urls.txt`. A successful
