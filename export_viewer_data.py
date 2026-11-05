@@ -15,6 +15,10 @@ import json
 import sqlite3
 import sys
 from datetime import datetime, timedelta
+from statistics import median
+
+from bonus_scoring import score_bonus
+from export_csv import domain, site_minimums
 from pathlib import Path
 
 DB_PATH = Path("data/base.db")
@@ -26,7 +30,9 @@ RAW_HEADERS = ["url", "mname", "id", "name", "transactiontype", "bonusfixed",
                "mintopup", "maxtopup", "referlink", "perceived_value", "is_new"]
 
 ALL_HEADERS = ["url", "mname", "id", "name", "amount", "perceived_value",
-               "expiry", "first_seen", "last_seen", "angpaoid", "angpaoimage",
+               "effective_minwithdraw", "rollover_ratio_average", "weighted_score_v1", "weighted_score",
+               "score_confidence", "score_status", "score_maxwithdraw_source", "score_rollover_source",
+               "score_maxwithdraw_used", "score_rollover_used", "expiry", "first_seen", "last_seen", "angpaoid", "angpaoimage",
                "bonus", "bonusfixed", "bonusrandom", "claimcondition",
                "claimconfig", "claimdatetime", "createddatetime",
                "depositfreelimit", "description", "displayamount",
@@ -101,6 +107,30 @@ def main():
         "SELECT url, merchant_name, referral_url, short_url, updated_at, error_code FROM sites")]
 
     now = datetime.now()
+
+    # Use the same scoring implementation and dataset/site medians as the
+    # analysis export so the published viewer cannot silently omit score fields.
+    mins = site_minimums(Path("data"))
+    site_maxes, site_rolls, all_maxes, all_rolls = {}, {}, [], []
+    for item in bonus_rows:
+        try:
+            raw = json.loads(item["raw_json"] or "{}")
+            raw = {str(k).lower(): v for k, v in raw.items()} if isinstance(raw, dict) else {}
+        except (ValueError, TypeError):
+            raw = {}
+        host = domain(item["url"])
+        maximum, rollover = num(raw.get("maxwithdraw")), num(raw.get("rollover"))
+        if maximum is not None and maximum > 0:
+            all_maxes.append(maximum)
+            site_maxes.setdefault(host, []).append(maximum)
+        if rollover is not None and rollover >= 0:
+            all_rolls.append(rollover)
+            site_rolls.setdefault(host, []).append(rollover)
+    site_max_medians = {host: median(values) for host, values in site_maxes.items()}
+    site_roll_medians = {host: median(values) for host, values in site_rolls.items()}
+    global_max = median(all_maxes) if all_maxes else None
+    global_roll = median(all_rolls) if all_rolls else None
+
     raw_rows = []
     all_rows = []
     by_url = {}
@@ -149,10 +179,26 @@ def main():
             if d is not None:
                 days_vis = round(d, 2)
         name_l = (b["name"] or "").lower()
+        host = domain(b["url"])
+        score = score_bonus(
+            amt, bonus.get("minwithdraw"), mins.get(host), num(bonus.get("maxwithdraw")),
+            num(bonus.get("rollover")), site_max_medians.get(host), site_roll_medians.get(host),
+            global_max, global_roll,
+        )
         all_rows.append({
             "url": b["url"] or "", "mname": b["merchant_name"] or "", "id": b["external_id"] or "",
             "name": b["name"] or "", "amount": amount,
             "perceived_value": pv if pv is not None else "",
+            "effective_minwithdraw": score["effective_minwithdraw"] if score["effective_minwithdraw"] is not None else "",
+            "rollover_ratio_average": score["rollover_ratio_average"] if score["rollover_ratio_average"] is not None else "",
+            "weighted_score_v1": score["weighted_score_v1"] if score["weighted_score_v1"] is not None else "",
+            "weighted_score": score["weighted_score"] if score["weighted_score"] is not None else "",
+            "score_confidence": score["score_confidence"],
+            "score_status": score["score_status"],
+            "score_maxwithdraw_source": score["score_maxwithdraw_source"],
+            "score_rollover_source": score["score_rollover_source"],
+            "score_maxwithdraw_used": score["score_maxwithdraw_used"] if score["score_maxwithdraw_used"] is not None else "",
+            "score_rollover_used": score["score_rollover_used"] if score["score_rollover_used"] is not None else "",
             "expiry": fmt_dt(exp), "first_seen": fmt_dt(s1), "last_seen": fmt_dt(sl),
             "angpaoid": bonus.get("angpaoid", ""), "angpaoimage": bonus.get("angpaoimage", ""),
             "bonus": bonus.get("bonus", ""), "bonusfixed": bonus.get("bonusfixed", ""),
