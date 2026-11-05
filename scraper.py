@@ -257,12 +257,11 @@ def run_scrape(on_update=None, on_launcher=None, on_completion=None):
         max_configured_workers = config.config_parser.getint("SETTINGS", "workers", fallback=10)
         on_launcher(len(url_list), len(proxy_list), min(max_configured_workers, len(url_list)), shuffle_mode, ip_score)
 
-    # A prior successful association is authoritative: test that account only.
-    # Sites with no valid association are discovery cases: test configured accounts
-    # in order and stop at the first successful scrape.
+    # The configured accounts belong to this authorised site family. Run the
+    # primary account across the full eligible list first, then honour known
+    # URL/account associations, then rotate remaining authentication failures.
     known_successes = load_account_successes()
-    known_by_account = {index: [] for index in range(len(account_list))}
-    discovery_urls = []
+    original_known_by_account = {index: [] for index in range(len(account_list))}
     for url in url_list:
         account_id = known_successes.get(url)
         try:
@@ -270,38 +269,62 @@ def run_scrape(on_update=None, on_launcher=None, on_completion=None):
         except (TypeError, ValueError):
             account_index = -1
         if 0 <= account_index < len(account_list):
-            known_by_account[account_index].append(url)
-        else:
-            discovery_urls.append(url)
+            original_known_by_account[account_index].append(url)
 
-    # Known site + known account: no cross-account fallback on failure.
-    for account_index, urls_for_account in known_by_account.items():
+    # Track attempts per URL so fallback never repeats an account already tried.
+    attempted_accounts = {url: set() for url in url_list}
+    attempted_codes = {url: [] for url in url_list}
+
+    def current_error_code(url):
+        rows = db.execute("SELECT error_code FROM sites WHERE url=?", (url,))
+        return rows[0][0] if rows else None
+
+    def run_account_batch(urls, account_index):
+        pending = [url for url in urls if url in attempted_accounts and
+                   current_error_code(url) != 200 and
+                   account_index not in attempted_accounts[url]]
+        if not pending or server.STOPPED:
+            return
+        random.shuffle(pending)
+        for url in pending:
+            attempted_accounts[url].add(account_index)
+        process_url_batch(pending, account_index)
+        for url in pending:
+            code = current_error_code(url)
+            attempted_codes[url].append(code)
+            if code == 200:
+                continue
+
+    # Pass 1: U1 gets the entire eligible URL list, in randomized order.
+    primary_urls = list(url_list)
+    random.shuffle(primary_urls)
+    run_account_batch(primary_urls, 0)
+
+    # Pass 2: process previously verified sites with their associated U2, U3,
+    # etc. in deterministic account order. Successful U1 results are skipped.
+    for account_index in range(1, len(account_list)):
         if server.STOPPED:
             break
-        if urls_for_account:
-            process_url_batch(urls_for_account, account_index)
+        run_account_batch(original_known_by_account[account_index], account_index)
 
-    # Unknown site/account: try each configured account until a scrape succeeds.
-    discovery_error_codes = {url: [] for url in discovery_urls}
-    remaining = list(discovery_urls)
-    for account_index in range(len(account_list)):
-        if not remaining or server.STOPPED:
+    # Pass 3: only conclusive authentication rejections enter fallback. A
+    # timeout, outage, HTTP error or CAPTCHA is not evidence that credentials
+    # are invalid, so those URLs remain untouched by account rotation.
+    for account_index in range(1, len(account_list)):
+        if server.STOPPED:
             break
-        process_url_batch(remaining, account_index)
-        next_remaining = []
-        for url in remaining:
-            rows = db.execute("SELECT error_code FROM sites WHERE url=?", (url,))
-            error_code = rows[0][0] if rows else None
-            if error_code == 200:
-                continue
-            next_remaining.append(url)
-            discovery_error_codes[url].append(error_code)
-        remaining = next_remaining
+        fallback_urls = [
+            url for url in url_list
+            if current_error_code(url) == 304
+            and account_index not in attempted_accounts[url]
+        ]
+        run_account_batch(fallback_urls, account_index)
 
-    # E304 is the explicit authentication-rejection code. Network/HTTP/CAPTCHA
-    # failures are inconclusive and must not be labelled unregistered.
-    for url in remaining:
-        record_account_discovery_result(url, discovery_error_codes.get(url, []))
+    # Persist the aggregate discovery outcome. A URL is labelled unregistered
+    # only when every attempted account produced the explicit E304 rejection.
+    for url in url_list:
+        if attempted_codes[url] and current_error_code(url) != 200:
+            record_account_discovery_result(url, attempted_codes[url])
 
     server.IS_RUNNING = False
     if on_completion:
