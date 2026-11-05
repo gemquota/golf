@@ -18,7 +18,6 @@ VIEWER_PUBLIC = ROOT / "viewer" / "public"
 CSV_FILES = [
     "dayne-bonuses.csv",
     "dayne-bonuses-cleaned.csv",
-    "dayne-bonuses-fresh.csv",
     "dayne-bonuses-all.csv",
     "dayne-sites.csv",
 ]
