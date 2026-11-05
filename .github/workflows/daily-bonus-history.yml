@@ -60,7 +60,6 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add viewer/public/dayne-bonuses.csv \
                   viewer/public/dayne-bonuses-cleaned.csv \
-                  viewer/public/dayne-bonuses-fresh.csv \
                   viewer/public/dayne-bonuses-all.csv \
                   viewer/public/dayne-sites.csv \
                   viewer/public/bonus-history.json
