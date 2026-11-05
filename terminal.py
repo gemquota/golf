@@ -130,7 +130,7 @@ def update_display(d):
             c = m.group(1); icon = "\U0001f69a" if c=="301" else "\U0001f4e1" if c=="101" else "\U0001f4bb"
             sfmt, col = f"{icon}E{c}\u274c", "red" if c!="301" else "cyan"
         else: sfmt, col = "\u274cFAIL\u274c", "red"
-    line = (f"[white]{display_count:03d}[/] [{_ec(idx,total)}]{idx:03d}[/] [bright_cyan]W{worker_number:02d}[/] [{col}]{sfmt}[/][{col}]{STREAK_CNT[0]:02d}[/] "
+    line = (f"[white]{display_count:03d}[/] [{_ec(batch_idx,total)}]{idx:03d}[/] [bright_cyan]W{worker_number:02d}[/] [{col}]{sfmt}[/][{col}]{STREAK_CNT[0]:02d}[/] "
         f"[{_sc(r5)}]{_rv(r5)}[/] [{_sc(r10)}]{_rv(r10)}[/] [{_sc(r20)}]{_rv(r20)}[/] [{_sc(r50)}]{_rv(r50)}[/] "
         f"[{_sc(r100)}]{_rv(r100)}[/] [{_sc(rate)}]{int(rate):03d}[/] "
         f"[{_yc(yield_v)}]{yield_v:05.1f}[/]\U0001f48e{site_new:02d}|{total_new:02d} "
