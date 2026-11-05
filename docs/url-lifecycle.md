@@ -34,6 +34,23 @@ Each batch is randomized, but account-pass order is stable. The worker's bounded
 
 Only `E304` is treated as a conclusive authentication rejection for fallback. Timeouts, network failures, server errors, HTTP errors and CAPTCHA responses are inconclusive and do not trigger credential rotation. URLs that receive only conclusive authentication rejections across all attempted accounts are recorded as unregistered; mixed or transient outcomes remain unknown.
 
+## Error reports and CAPTCHA review
+
+Every final failed URL/account attempt with a non-authentication error is appended
+to `data/site_errors.csv`. The report includes the timestamp, URL, account ID,
+numeric error code, category and exception message. Authentication rejection
+(`E304`) is deliberately excluded because it is handled by account discovery.
+
+CAPTCHA failures (`E202`) are also added to `data/captcha_required.txt`, a
+deduplicated manual-review queue. The queue persists across runs. Open the file
+to review the affected sites, then remove each URL after manually checking it.
+If that URL triggers another CAPTCHA later, it is added to the queue again.
+A successful scrape does not silently erase an outstanding manual-review item.
+
+Both files are created under `data/` on the first applicable failure. They are
+local runtime reports and should not be committed if they contain private site
+or account information.
+
 ## Recovery
 
 To retry a quarantined URL, add it back to `in/config/urls.txt`. A successful
