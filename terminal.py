@@ -15,6 +15,7 @@ HISTORY = collections.deque(maxlen=100)
 STREAK_TYPE = [None]
 STREAK_CNT = [0]
 START_TIME = time.time()
+DISPLAY_COUNT = [0]
 
 def _sc(p):
     if p < 25: r, g = 255, int(165 * p / 25)
@@ -100,11 +101,15 @@ def print_launcher(tasks, proxies, workers, shuffle, ip_score):
 def update_display(d):
     global STREAK_TYPE, STREAK_CNT
     idx, url = d["index"], d["site_url"].replace("https://","").replace("www.","")
+    DISPLAY_COUNT[0] += 1
+    display_count = DISPLAY_COUNT[0]
+    batch_idx = int(d.get("batch_index", idx))
+    worker_number = int(d.get("worker_number", 0))
     msg, total = d["status_message"], d.get("N",0)
     site_new, total_new = int(d.get("site_new_bonuses",0)), int(d.get("total_new_bonuses",0))
     elapsed, nw = d.get("elapsed",0), int(d.get("nw",1))
     SAMPLES.append(elapsed)
-    est = ((total - idx) * (sum(SAMPLES)/len(SAMPLES) + (config.MIN_DELAY + config.MAX_DELAY) / 2)) / max(nw, 1)
+    est = ((total - batch_idx) * (sum(SAMPLES)/len(SAMPLES) + (config.MIN_DELAY + config.MAX_DELAY) / 2)) / max(nw, 1)
     time_str = f"{int(est//60)}m{est%60:06.3f}s"
     ok = 1 if msg.startswith("\u2705") or msg == "DONE" else 0
     HISTORY.append(ok)
@@ -116,8 +121,8 @@ def update_display(d):
     r20 = int(sum(r[-20:])/max(len(r[-20:]),1)*100) if len(r)>=20 else r10
     r50 = int(sum(r[-50:])/max(len(r[-50:]),1)*100) if len(r)>=50 else r20
     r100 = int(sum(r[-100:])/max(len(r[-100:]),1)*100) if len(r)>=100 else r50
-    rate = (d["successes"]/idx*100) if idx>0 else 0
-    yield_v = (total_new/idx*100) if idx>0 else 0
+    rate = d["successes"]/max(display_count, 1)*100
+    yield_v = total_new/max(display_count, 1)*100
     if msg.startswith("\u2705") or msg == "DONE": sfmt, col = "\u2705DONE\u2705", "bright_green"
     else:
         m = re.search(r"E(\d+)", msg)
@@ -125,11 +130,11 @@ def update_display(d):
             c = m.group(1); icon = "\U0001f69a" if c=="301" else "\U0001f4e1" if c=="101" else "\U0001f4bb"
             sfmt, col = f"{icon}E{c}\u274c", "red" if c!="301" else "cyan"
         else: sfmt, col = "\u274cFAIL\u274c", "red"
-    line = (f"[{_ec(idx,total)}]{idx:03d}[/][{col}]{sfmt}[/][{col}]{STREAK_CNT[0]:02d}[/] "
+    line = (f"[white]{display_count:03d}[/] [{_ec(batch_idx,total)}]{idx:03d}[/] [bright_cyan]W{worker_number:02d}[/] [{col}]{sfmt}[/][{col}]{STREAK_CNT[0]:02d}[/] "
         f"[{_sc(r5)}]{_rv(r5)}[/] [{_sc(r10)}]{_rv(r10)}[/] [{_sc(r20)}]{_rv(r20)}[/] [{_sc(r50)}]{_rv(r50)}[/] "
         f"[{_sc(r100)}]{_rv(r100)}[/] [{_sc(rate)}]{int(rate):03d}[/] "
         f"[{_yc(yield_v)}]{yield_v:05.1f}[/]\U0001f48e{site_new:02d}|{total_new:02d} "
-        f"\u23f1\ufe0f[{_ec(idx,total)}]{time_str}[/]\U0001f310{url}")
+        f" #️⃣{d.get('account_username', '?')} ⏱️[{_ec(batch_idx,total)}]{time_str}[/]🌐{url}")
     console.print(line)
     try: server.broadcast_event(d)
     except Exception: pass
