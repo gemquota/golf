@@ -223,6 +223,8 @@ def worker(chunk_id, stats, stats_lock, total_tasks, ip_score, record_raw, worke
         elif on_update:
             on_update({
                 "index": current_index,
+                "batch_index": batch_position,
+                "worker_number": chunk_id + 1,
                 "successes": stats["successes"],
                 "failures": stats["failures"],
                 "total_bonuses": stats["total_bonuses"],
