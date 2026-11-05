@@ -88,7 +88,7 @@ def record_site_error(url, account_id, error_code, exception):
             ) if CAPTCHA_QUEUE.exists() else set()
             if url not in existing:
                 with CAPTCHA_QUEUE.open("a", encoding="utf-8") as stream:
-                    stream.write(url + "\\n")
+                    stream.write(url + "\n")
 
 
 def record_account_success(url, account_id):
