@@ -49,6 +49,29 @@ class BonusHistoryTests(unittest.TestCase):
         self.assertEqual(compact["key"], "k")
         self.assertTrue(compact["is_commission"])
 
+    def test_attempt_loader_uses_canonical_sites_schema(self):
+        import sqlite3
+        connection = sqlite3.connect(":memory:")
+        connection.execute(
+            "CREATE TABLE sites (url TEXT, merchant_name TEXT, updated_at TEXT, error_code INTEGER)"
+        )
+        connection.executemany(
+            "INSERT INTO sites VALUES (?, ?, ?, ?)",
+            [
+                ("https://success.example", "Success", "2026-11-06 01:00:00", 200),
+                ("https://blocked.example", "Blocked", "2026-11-06 01:05:00", 403),
+                ("https://old.example", "Old", "2026-11-05 23:00:00", 200),
+            ],
+        )
+        attempts = bonus_history.load_attempts(connection, "2026-11-06 00:00:00")
+        self.assertEqual(set(attempts), {
+            "https://success.example", "https://blocked.example"
+        })
+        self.assertEqual(attempts["https://success.example"]["status"], "success")
+        self.assertEqual(attempts["https://blocked.example"]["status"], "failed")
+        self.assertEqual(attempts["https://blocked.example"]["error_code"], 403)
+        connection.close()
+
 
 if __name__ == "__main__":
     unittest.main()
