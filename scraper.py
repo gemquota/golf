@@ -136,7 +136,7 @@ def worker(chunk_id, stats, stats_lock, total_tasks, ip_score, record_raw, worke
     scraper_session = net.create_session(random.choice(proxy_pool) if proxy_pool else None)
     current_ua_index = 0
 
-    for url, username, password, account_id in tasks:
+    for sequence, batch_position, url, username, password, account_id in tasks:
         if server.STOPPED:
             break
         while server.PAUSED and not server.STOPPED:
@@ -144,9 +144,7 @@ def worker(chunk_id, stats, stats_lock, total_tasks, ip_score, record_raw, worke
         if server.STOPPED:
             break
 
-        with stats_lock["index"]:
-            stats["index"] += 1
-            current_index = stats["index"]
+        current_index = sequence
 
         ensure_site(url)
         start_time = time.perf_counter()
@@ -206,6 +204,8 @@ def worker(chunk_id, stats, stats_lock, total_tasks, ip_score, record_raw, worke
             if on_update:
                 on_update({
                     "index": current_index,
+                    "batch_index": batch_position,
+                    "worker_number": chunk_id + 1,
                     "successes": stats["successes"],
                     "failures": stats["failures"],
                     "total_bonuses": stats["total_bonuses"],
@@ -269,24 +269,46 @@ def run_scrape(on_update=None, on_launcher=None, on_completion=None):
     final_csv_path = TMP_DIR / f"bonuses_{run_timestamp}.csv"
     db._init_csv(str(final_csv_path))
 
+    next_attempt_sequence = 0
+
     def process_url_batch(current_url_list, account_index=0):
         if not current_url_list:
             return
         username, password = account_list[account_index]
         account_id = f"U{account_index + 1}"
-        task_list = [(url, username, password, account_id) for url in current_url_list]
+        nonlocal next_attempt_sequence
+        task_list = []
+        for batch_position, url in enumerate(current_url_list, start=1):
+            next_attempt_sequence += 1
+            task_list.append((next_attempt_sequence, batch_position, url, username, password, account_id))
         max_workers = max(1, config.config_parser.getint("SETTINGS", "workers", fallback=10))
         num_workers = min(max_workers, len(task_list))
         task_chunks = [task_list[i::num_workers] for i in range(num_workers)]
 
         if server.STOPPED:
             return
+        # Workers finish concurrently; emit their results in task order.
+        pending_updates = {}
+        next_display_position = [1]
+        display_lock = threading.Lock()
+
+        def ordered_update(data):
+            if not on_update:
+                return
+            position = data.get("batch_index")
+            with display_lock:
+                pending_updates[position] = data
+                while next_display_position[0] in pending_updates:
+                    ready = pending_updates.pop(next_display_position[0])
+                    next_display_position[0] += 1
+                    on_update(ready)
+
         with ThreadPoolExecutor(max_workers=num_workers) as executor:
             futures = [
                 executor.submit(
                     worker, i, execution_stats, thread_locks, len(task_list),
                     ip_score, record_raw_responses, num_workers, task_chunks[i],
-                    proxy_list, on_update
+                    proxy_list, ordered_update if on_update else None
                 )
                 for i in range(num_workers)
             ]
