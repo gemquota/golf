@@ -157,7 +157,10 @@ def main():
     generated_at = datetime.now(timezone.utc).isoformat(timespec="seconds")
     import db
     db.initialize_database()
-    rows = db.execute("SELECT u, m, ts, ec FROM t WHERE ts >= ?", (args.started_at,))
+    rows = db.execute(\
+        "SELECT url, merchant_name, updated_at, error_code FROM sites WHERE updated_at >= ?",\
+        (args.started_at,),\
+    )
     attempts = {}
     for url, merchant, checked_at, error_code in rows:
         attempts[url] = {"status": "success" if error_code == 200 else "failed",
