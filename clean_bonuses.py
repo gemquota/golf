@@ -14,7 +14,7 @@ def clean_bonuses(csv_file):
         if c in df.columns:
             df = df.drop(columns=[c])
 
-    for col in ['minwithdraw', 'site_minwithdraw', 'effective_minwithdraw', 'maxwithdraw', 'rollover', 'perceived_value']:
+    for col in ['minwithdraw', 'site_minwithdraw', 'effective_minwithdraw', 'maxwithdraw', 'rollover', 'ratio', 'perceived_value', 'weighted_score']:
         if col in df.columns:
             df[col] = pd.to_numeric(df[col], errors='coerce')
 
@@ -27,12 +27,22 @@ def clean_bonuses(csv_file):
 
     rollover = pd.to_numeric(df['rollover'], errors='coerce') if 'rollover' in df.columns else pd.Series(np.nan, index=df.index)
     df['rollover_ratio_average'] = (rollover * 0.60 + df['ratio'] * 0.40).round(4)
-    df['weighted_score'] = df['rollover_ratio_average']
+
+    # Weighted Score is deliberately distinct from the 60:40 rollover/minimum
+    # burden metric above. It measures reward relative to effective minimum,
+    # scaled by the square root of maximum withdrawal capacity.
+    maxwithdraw = pd.to_numeric(df['maxwithdraw'], errors='coerce') if 'maxwithdraw' in df.columns else pd.Series(np.nan, index=df.index)
+    df['weighted_score'] = np.where(
+        (df['amount'] > 0) & (effective_min > 0) & maxwithdraw.notna() & (maxwithdraw >= 0),
+        (df['amount'] / effective_min) * np.sqrt(maxwithdraw),
+        np.nan,
+    )
+    df['weighted_score'] = pd.to_numeric(df['weighted_score'], errors='coerce').round(4)
 
     if 'perceived_value' in df.columns:
         df['perceived_value'] = pd.to_numeric(df['perceived_value'], errors='coerce')
         df['perceived_value_rank'] = df['perceived_value'].rank(ascending=False, method='min', na_option='bottom').astype('Int64')
-        df['weighted_score_rank'] = df['weighted_score'].rank(ascending=True, method='min', na_option='bottom').astype('Int64')
+        df['weighted_score_rank'] = df['weighted_score'].rank(ascending=False, method='min', na_option='bottom').astype('Int64')
         df['score_rank_change'] = df['perceived_value_rank'] - df['weighted_score_rank']
 
     df = df[df['ratio'].isna() | (df['ratio'] <= 500)].copy()
@@ -40,7 +50,7 @@ def clean_bonuses(csv_file):
     df = df.drop_duplicates(subset=['url', 'name', 'amount'], keep='first')
 
     if 'weighted_score' in df.columns:
-        df = df.sort_values('weighted_score', ascending=True, na_position='last')
+        df = df.sort_values('weighted_score', ascending=False, na_position='last')
     elif 'perceived_value' in df.columns:
         df = df.sort_values('perceived_value', ascending=False)
 

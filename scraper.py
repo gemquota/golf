@@ -1,170 +1,163 @@
 import csv, datetime, json, random, threading, time
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
-import requests
-from requests.exceptions import HTTPError
 import sys
 
 import config, db, server
 import network as net
+from scrape_worker import (
+    USER_AGENTS,
+    classify_error,
+    ensure_site,
+    mark_site_result,
+    process_bonus,
+    try_scrape,
+)
 
 RAW_DIR = Path("data/raw_responses")
 TMP_DIR = Path("data")
 DEBUG_DIR = Path("data/debug")
 ACCOUNT_SUCCESS = Path("data/account_success.json")
+ACCOUNT_STATE = Path("data/account_state.json")
 ACCOUNT_SUCCESS_LOCK = threading.Lock()
+ERROR_REPORT_LOCK = threading.Lock()
+SITE_ERRORS_CSV = Path("data/site_errors.csv")
+CAPTCHA_QUEUE = Path("data/captcha_required.txt")
 
-ERROR_MAP = [("MERCHANT", 201), ("Captcha", 202), ("gaierror", 102), ("Timeout", 104),
-    ("Refused", 101), ("Connection", 103), ("403", 403)]
+# Back-compat aliases for callers/tests that imported these from scraper.
+try_scrape_url = try_scrape
 
-USER_AGENTS = [
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/605.1.15",
-    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:121.0) Gecko/20100101 Firefox/121.0",
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.2 Safari/605.1.15",
-]
 
-def classify_error(exception):
-    # Type checks first - substring matching is a last resort.
-    if isinstance(exception, HTTPError):
-        return exception.response.status_code
-    if isinstance(exception, requests.exceptions.Timeout):
-        return 104
-    if isinstance(exception, requests.exceptions.ConnectionError):
-        return 103
-    if isinstance(exception, ValueError):  # malformed JSON / unexpected response shape
-        return 302
-    error_string = str(exception)
-    for error_pattern, error_code in ERROR_MAP:
-        if error_pattern in error_string:
-            return error_code
-    if "login" in error_string.lower():
-        return 304
-    return 301
-
-def process_bonus(bonus, merchant_name, url, fingerprint, perceived_value, expiry):
-    existing_records = db.execute("SELECT uid, mirrors FROM b WHERE fp=?", (fingerprint,))
-    if existing_records:
-        unique_id, mirrors = existing_records[0]
-        if url not in str(mirrors):
-            db.execute("UPDATE b SET mirrors=?, sl=CURRENT_TIMESTAMP WHERE uid=?", (f"{mirrors},{url}", unique_id))
-        return unique_id, 0
-        
-    merchant_name_rows = db.execute("SELECT name, uid, mirrors FROM b WHERE mname=?", (merchant_name,))
-    if merchant_name_rows:
-        existing_names = [row[0] for row in merchant_name_rows if row[0]]
-        matched_name = db.find_matching_name(bonus.get("name"), existing_names)
-        if matched_name:
-            matched_row = next((row for row in merchant_name_rows if row[0] == matched_name), None)
-            if matched_row and url not in str(matched_row[2]):
-                db.execute("UPDATE b SET mirrors=?, sl=CURRENT_TIMESTAMP WHERE uid=?", (f"{matched_row[2]},{url}", matched_row[1]))
-            return (matched_row[1] if matched_row else None), 0
-            
-    unique_id = f"{url}|{bonus.get('id')}"
-    expiry_string = expiry.isoformat() if expiry else None
-    db.execute(
-        "REPLACE INTO b(uid, eid, u, v, pv, raw, exp, fp, mirrors, sl, mname, name) VALUES (?,?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP,?,?)",
-        (unique_id, bonus.get("id"), url, str(bonus.get("amount", 0)), perceived_value, json.dumps(bonus),
-         expiry_string, fingerprint, url, merchant_name, bonus.get("name"))
-    )
-    return unique_id, 1
-
-def try_scrape_url(scraper_session, url, username, password, record_raw, chunk_id):
-    html_content = net.get_page(scraper_session, url)
-    merchant_id, merchant_name = net.parse_merchant_info(html_content)
-    db.execute("UPDATE t SET m=? WHERE u=?", (merchant_name, url))
-    api_url = net.build_api_url(url)
-    
-    session_data = db.load_session(url, username)
-    user_data = None
-    if session_data:
-        try:
-            timestamp = datetime.datetime.fromisoformat(session_data["ts"]).replace(tzinfo=datetime.timezone.utc)
-            if (datetime.datetime.now(datetime.timezone.utc) - timestamp).total_seconds() < 21600:
-                scraper_session.cookies.update(session_data["ck"])
-                user_data = session_data["data"]
-        except Exception:
-            pass
-            
-    if not user_data:
-        user_data = net.login(scraper_session, api_url, username, password, merchant_id)
-        db.save_session(url, username, scraper_session.cookies.get_dict(), user_data)
-        
+def _load_json_mapping(path):
     try:
-        sync_response = net.sync_user_data(scraper_session, api_url, merchant_id, user_data.get("token"), user_data.get("id"))
+        data = json.loads(path.read_text()) if path.exists() else {}
+        return data if isinstance(data, dict) else {}
     except Exception:
-        user_data = net.login(scraper_session, api_url, username, password, merchant_id)
-        db.save_session(url, username, scraper_session.cookies.get_dict(), user_data)
-        sync_response = net.sync_user_data(scraper_session, api_url, merchant_id, user_data.get("token"), user_data.get("id"))
-        
-    if record_raw:
-        RAW_DIR.mkdir(parents=True, exist_ok=True)
-        timestamp_string = datetime.datetime.now().strftime('%Y%m%d_%H%M%S')
-        safe_url = url.replace("https://", "").replace("/", "_")
-        (RAW_DIR / f"{timestamp_string}_{safe_url}.json").write_text(json.dumps(sync_response, indent=2))
-        
-    bonuses = sync_response.get("data", {}).get("bonus", []) + sync_response.get("data", {}).get("promotions", [])
-    site_bonuses = 0
-    site_new = 0
-    
-    csv_path = TMP_DIR / f"tmp_{chunk_id}.csv"
-    
-    for bonus in bonuses:
-        normalized = {k.lower(): v for k, v in bonus.items()}
-        if db.float_value(normalized.get("amount")) <= 0:
-            continue
-        site_bonuses += 1
-        perceived_val = db.perceived_value(normalized)
-        expiry = db.parse_expiry(str(normalized.get("name", "")) + str(normalized.get("claimcondition", "")))
-        fingerprint = db.fingerprint_bonus(normalized)
-        uid, is_new = process_bonus(normalized, merchant_name, url, fingerprint, perceived_val, expiry)
-        site_new += is_new
-        
-        row_data = {k: normalized.get(k, normalized.get(k.upper(), "")) for k in db.HEADERS[:-2]}
-        row_data["url"] = url
-        row_data["mname"] = merchant_name
-        row_data["perceived_value"] = perceived_val
-        row_data["is_new"] = 1 if is_new else 0
-        db.append_csv_row(row_data, str(csv_path))
-        
-    return True, html_content, site_bonuses, site_new
+        return {}
+
+
+def load_account_successes():
+    """Load legacy URL -> U# success mappings without exposing account credentials."""
+    with ACCOUNT_SUCCESS_LOCK:
+        return _load_json_mapping(ACCOUNT_SUCCESS)
+
+
+def _save_account_state_locked(data):
+    ACCOUNT_STATE.parent.mkdir(parents=True, exist_ok=True)
+    ACCOUNT_STATE.write_text(json.dumps(data, indent=2, sort_keys=True) + "\n")
+
+
+def record_site_error(url, account_id, error_code, exception):
+    """Append non-authentication failures to a durable report and CAPTCHA queue."""
+    if error_code == 304:
+        return
+    labels = {
+        101: "connection_refused",
+        102: "dns_error",
+        103: "connection_error",
+        104: "timeout",
+        201: "merchant_error",
+        202: "captcha_required",
+        301: "unknown_error",
+        302: "invalid_response",
+        403: "http_forbidden",
+    }
+    category = labels.get(error_code, f"http_{error_code}" if 400 <= error_code < 600 else "other_error")
+    checked_at = datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds")
+    message = " ".join(str(exception).split())[:1000]
+    with ERROR_REPORT_LOCK:
+        SITE_ERRORS_CSV.parent.mkdir(parents=True, exist_ok=True)
+        needs_header = not SITE_ERRORS_CSV.exists() or SITE_ERRORS_CSV.stat().st_size == 0
+        with SITE_ERRORS_CSV.open("a", newline="", encoding="utf-8") as stream:
+            writer = csv.DictWriter(stream, fieldnames=[
+                "timestamp", "url", "account_id", "error_code", "category", "message"
+            ])
+            if needs_header:
+                writer.writeheader()
+            writer.writerow({
+                "timestamp": checked_at, "url": url, "account_id": account_id,
+                "error_code": error_code, "category": category, "message": message,
+            })
+
+        # Keep this manual-review queue until the user removes a checked URL.
+        # A later CAPTCHA failure adds the URL again.
+        if error_code == 202:
+            CAPTCHA_QUEUE.parent.mkdir(parents=True, exist_ok=True)
+            existing = set(
+                line.strip() for line in CAPTCHA_QUEUE.read_text(encoding="utf-8").splitlines()
+            ) if CAPTCHA_QUEUE.exists() else set()
+            if url not in existing:
+                with CAPTCHA_QUEUE.open("a", encoding="utf-8") as stream:
+                    stream.write(url + "\n")
+
 
 def record_account_success(url, account_id):
-    """Persist only the non-secret account identifier that successfully scraped a URL."""
+    """Persist the successful account and its verified registration state."""
+    verified_at = datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds")
     with ACCOUNT_SUCCESS_LOCK:
         ACCOUNT_SUCCESS.parent.mkdir(parents=True, exist_ok=True)
-        try:
-            data = json.loads(ACCOUNT_SUCCESS.read_text()) if ACCOUNT_SUCCESS.exists() else {}
-        except Exception:
-            data = {}
-        data[url] = account_id
-        ACCOUNT_SUCCESS.write_text(json.dumps(data, indent=2, sort_keys=True) + "\n")
+        successes = _load_json_mapping(ACCOUNT_SUCCESS)
+        successes[url] = account_id
+        ACCOUNT_SUCCESS.write_text(json.dumps(successes, indent=2, sort_keys=True) + "\n")
+        state = _load_json_mapping(ACCOUNT_STATE)
+        state[url] = {
+            "status": "registered",
+            "account_id": account_id,
+            "verified_at": verified_at,
+            "last_attempt_at": verified_at,
+            "last_error_code": None
+        }
+        _save_account_state_locked(state)
+
+
+def record_account_discovery_result(url, attempted_codes):
+    """Record an unsuccessful account discovery without mistaking outages for non-registration."""
+    checked_at = datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds")
+    conclusive_failures = bool(attempted_codes) and all(code == 304 for code in attempted_codes)
+    with ACCOUNT_SUCCESS_LOCK:
+        state = _load_json_mapping(ACCOUNT_STATE)
+        previous = state.get(url, {})
+        # A previous confirmed association is not erased by a transient failed scrape.
+        if previous.get("status") == "registered" and previous.get("account_id"):
+            previous["last_attempt_at"] = checked_at
+            previous["last_error_code"] = attempted_codes[-1] if attempted_codes else None
+            state[url] = previous
+        else:
+            state[url] = {
+                "status": "unregistered" if conclusive_failures else "unknown",
+                "account_id": None,
+                "verified_at": checked_at if conclusive_failures else None,
+                "last_attempt_at": checked_at,
+                "attempted_error_codes": attempted_codes
+            }
+        _save_account_state_locked(state)
 
 def worker(chunk_id, stats, stats_lock, total_tasks, ip_score, record_raw, worker_count, tasks, proxy_pool, on_update):
     scraper_session = net.create_session(random.choice(proxy_pool) if proxy_pool else None)
     current_ua_index = 0
-    
-    for url, username, password, account_id in tasks:
+
+    for sequence, batch_position, url, username, password, account_id in tasks:
         if server.STOPPED:
             break
         while server.PAUSED and not server.STOPPED:
             time.sleep(0.5)
-            
-        with stats_lock["index"]:
-            stats["index"] += 1
-            current_index = stats["index"]
-            
-        db.execute("INSERT OR IGNORE INTO t(u) VALUES (?)", (url,))
+        if server.STOPPED:
+            break
+
+        current_index = sequence
+
+        ensure_site(url)
         start_time = time.perf_counter()
         time.sleep(random.uniform(config.MIN_DELAY, config.MAX_DELAY))
-        
+
         html_content = ""
         success = False
         error_code = 0
         exception = None
+        site_bonuses = 0
+        site_new = 0
         max_retries = 3
-        
+
         for attempt in range(max_retries):
             try:
                 if attempt > 0:
@@ -172,47 +165,52 @@ def worker(chunk_id, stats, stats_lock, total_tasks, ip_score, record_raw, worke
                     scraper_session.headers.update({"User-Agent": USER_AGENTS[current_ua_index]})
                     scraper_session.timeout = config.TIMEOUT + (attempt * 10)
                     time.sleep(random.uniform(2.0, 4.0) * attempt)
-                    
-                success, html_content, site_bonuses, site_new = try_scrape_url(
-                    scraper_session, url, username, password, record_raw, chunk_id
+
+                success, html_content, site_bonuses, site_new = try_scrape(
+                    scraper_session, url, username, password,
+                    record_raw=record_raw, chunk_id=chunk_id, write_csv=True,
                 )
                 break
-                
+
             except Exception as exc:
                 exception = exc
                 if attempt == max_retries - 1:
                     error_code = classify_error(exception)
-                    db.execute("UPDATE t SET ts=CURRENT_TIMESTAMP, ec=? WHERE u=?", (error_code, url))
+                    record_site_error(url, account_id, error_code, exception)
+                    mark_site_result(url, error_code)
                     with stats_lock["stats"]:
                         stats["failures"] += 1
-                    
+
                     if error_code in (201, 202, 302):
                         DEBUG_DIR.mkdir(parents=True, exist_ok=True)
                         safe_url = url.replace("https://", "").replace("/", "_")
                         timestamp_string = datetime.datetime.now().strftime('%Y%m%d_%H%M%S')
                         if html_content:
                             (DEBUG_DIR / f"E{error_code}_{timestamp_string}_{safe_url}.html").write_text(html_content)
-                            
+
                     db.log_event(f"E{error_code}", url, str(exception))
                 else:
                     continue
-                    
+
         if success:
             record_account_success(url, account_id)
             with stats_lock["stats"]:
                 stats["total_bonuses"] += site_bonuses
                 stats["successes"] += 1
                 stats["new_bonuses"] += site_new
-                
-            db.execute("UPDATE t SET ts=CURRENT_TIMESTAMP, ec=200 WHERE u=?", (url,))
-            
+
+            mark_site_result(url, 200)
+
             if on_update:
                 on_update({
                     "index": current_index,
+                    "batch_index": batch_position,
+                    "worker_number": chunk_id + 1,
                     "successes": stats["successes"],
                     "failures": stats["failures"],
                     "total_bonuses": stats["total_bonuses"],
                     "site_url": url,
+                    "account_username": username,
                     "status_message": "DONE",
                     "site_bonuses_gt_zero": site_bonuses,
                     "N": total_tasks,
@@ -222,13 +220,17 @@ def worker(chunk_id, stats, stats_lock, total_tasks, ip_score, record_raw, worke
                     "total_new_bonuses": stats["new_bonuses"],
                     "nw": worker_count
                 })
-        elif on_update:            on_update({
-                    "index": current_index,
-                    "successes": stats["successes"],
-                    "failures": stats["failures"],
-                    "total_bonuses": stats["total_bonuses"],
-                    "site_url": url,
-                    "status_message": f"E{error_code}" if error_code else "FAIL",
+        elif on_update:
+            on_update({
+                "index": current_index,
+                "batch_index": batch_position,
+                "worker_number": chunk_id + 1,
+                "successes": stats["successes"],
+                "failures": stats["failures"],
+                "total_bonuses": stats["total_bonuses"],
+                "site_url": url,
+                "account_username": username,
+                "status_message": f"E{error_code}" if error_code else "FAIL",
                 "site_bonuses_gt_zero": 0,
                 "N": total_tasks,
                 "elapsed": time.perf_counter() - start_time,
@@ -241,42 +243,80 @@ def worker(chunk_id, stats, stats_lock, total_tasks, ip_score, record_raw, worke
 def run_scrape(on_update=None, on_launcher=None, on_completion=None):
     resume_mode = "-r" in sys.argv
     shuffle_mode = "-s" in sys.argv
-    record_raw_responses = "-v" in sys.argv and sys.argv[sys.argv.index("-v") + 1] == "max" if "-v" in sys.argv else False
-    
+    verbose_index = sys.argv.index("-v") if "-v" in sys.argv else -1
+    record_raw_responses = verbose_index >= 0 and verbose_index + 1 < len(sys.argv) and sys.argv[verbose_index + 1] == "max"
+
     url_list, account_list = config.parse_urls_and_accounts(shuffle_mode)
+    execution_stats = {"index": 0, "successes": 0, "failures": 0, "total_bonuses": 0, "new_bonuses": 0}
     if resume_mode:
-        completed_urls = {row[0] for row in db.execute("SELECT u FROM t WHERE ts > date('now','-1 day') AND ec=200")}
+        # datetime(), unlike date(), enforces a true rolling 24-hour window.
+        completed_urls = {
+            row[0]
+            for row in db.execute(
+                "SELECT url FROM sites WHERE updated_at > datetime('now','-1 day') AND error_code=200"
+            )
+        }
         url_list = [url for url in url_list if url not in completed_urls]
-        
+
     if not url_list or not account_list:
         server.IS_RUNNING = False
+        if on_completion:
+            on_completion(execution_stats)
         return
-        
-    execution_stats = {"index": 0, "successes": 0, "failures": 0, "total_bonuses": 0, "new_bonuses": 0}
     thread_locks = {"index": threading.Lock(), "stats": threading.Lock()}
     ip_score, _ = net.check_ip_reputation(config.ABUSEIPDB_KEY)
     proxy_list = config.load_proxies()
-    
+
     run_timestamp = datetime.datetime.now().strftime('%Y%m%d_%H%M%S')
     final_csv_path = TMP_DIR / f"bonuses_{run_timestamp}.csv"
     db._init_csv(str(final_csv_path))
 
+    next_attempt_sequence = 0
+
     def process_url_batch(current_url_list, account_index=0):
+        if not current_url_list:
+            return
         username, password = account_list[account_index]
         account_id = f"U{account_index + 1}"
-        task_list = [(url, username, password, account_id) for url in current_url_list]
-        max_workers = config.config_parser.getint("SETTINGS", "workers", fallback=10)
+        nonlocal next_attempt_sequence
+        task_list = []
+        for batch_position, url in enumerate(current_url_list, start=1):
+            next_attempt_sequence += 1
+            task_list.append((next_attempt_sequence, batch_position, url, username, password, account_id))
+        max_workers = max(1, config.config_parser.getint("SETTINGS", "workers", fallback=10))
         num_workers = min(max_workers, len(task_list))
         task_chunks = [task_list[i::num_workers] for i in range(num_workers)]
-        
+
+        if server.STOPPED:
+            return
+        # Workers finish concurrently; emit their results in task order.
+        pending_updates = {}
+        next_display_position = [1]
+        display_lock = threading.Lock()
+
+        def ordered_update(data):
+            if not on_update:
+                return
+            position = data.get("batch_index")
+            with display_lock:
+                pending_updates[position] = data
+                while next_display_position[0] in pending_updates:
+                    ready = pending_updates.pop(next_display_position[0])
+                    next_display_position[0] += 1
+                    on_update(ready)
+
         with ThreadPoolExecutor(max_workers=num_workers) as executor:
-            for i in range(num_workers):
+            futures = [
                 executor.submit(
-                    worker, i, execution_stats, thread_locks, len(task_list), 
-                    ip_score, record_raw_responses, num_workers, task_chunks[i], 
-                    proxy_list, on_update
+                    worker, i, execution_stats, thread_locks, len(task_list),
+                    ip_score, record_raw_responses, num_workers, task_chunks[i],
+                    proxy_list, ordered_update if on_update else None
                 )
-                
+                for i in range(num_workers)
+            ]
+            for future in futures:
+                future.result()
+
         for i in range(num_workers):
             temp_file_path = TMP_DIR / f"tmp_{i}.csv"
             if temp_file_path.exists():
@@ -288,20 +328,83 @@ def run_scrape(on_update=None, on_launcher=None, on_completion=None):
     if on_launcher:
         max_configured_workers = config.config_parser.getint("SETTINGS", "workers", fallback=10)
         on_launcher(len(url_list), len(proxy_list), min(max_configured_workers, len(url_list)), shuffle_mode, ip_score)
-        
-    process_url_batch(url_list)
 
-    retry_error_codes = (101, 102, 103, 104, 201, 202, 301, 302, 304, 403)
-    placeholders = ",".join("?" for _ in url_list)
-    failed_urls = [row[0] for row in db.execute(f"SELECT u FROM t WHERE u IN ({placeholders}) AND ec IN (?,?,?,?,?,?,?,?,?,?)", (*url_list, *retry_error_codes)) if row[0]]
-    
-    if failed_urls and len(account_list) > 1:
-        for account_index in range(1, len(account_list)):
-            if not failed_urls:
-                break
-            process_url_batch(failed_urls, account_index)
-            failed_placeholders = ",".join("?" for _ in failed_urls)
-            failed_urls = [row[0] for row in db.execute(f"SELECT u FROM t WHERE u IN ({failed_placeholders}) AND ec IN (?,?,?,?,?,?,?,?,?,?)", (*failed_urls, *retry_error_codes)) if row[0]]
+    # The configured accounts belong to this authorised site family. Run the
+    # primary account across the full eligible list first, then honour known
+    # URL/account associations, then rotate remaining authentication failures.
+    known_successes = load_account_successes()
+    original_known_by_account = {index: [] for index in range(len(account_list))}
+    for url in url_list:
+        account_id = known_successes.get(url)
+        try:
+            account_index = int(str(account_id)[1:]) - 1 if str(account_id).startswith("U") else -1
+        except (TypeError, ValueError):
+            account_index = -1
+        if 0 <= account_index < len(account_list):
+            original_known_by_account[account_index].append(url)
+
+    # Track attempts per URL so fallback never repeats an account already tried.
+    attempted_accounts = {url: set() for url in url_list}
+    attempted_codes = {url: [] for url in url_list}
+
+    def current_error_code(url):
+        rows = db.execute("SELECT error_code FROM sites WHERE url=?", (url,))
+        return rows[0][0] if rows else None
+
+    def run_account_batch(urls, account_index):
+        pending = [url for url in urls if url in attempted_accounts and
+                   current_error_code(url) != 200 and
+                   account_index not in attempted_accounts[url]]
+        if not pending or server.STOPPED:
+            return
+        random.shuffle(pending)
+        for url in pending:
+            attempted_accounts[url].add(account_index)
+        process_url_batch(pending, account_index)
+        for url in pending:
+            code = current_error_code(url)
+            attempted_codes[url].append(code)
+            if code == 200:
+                continue
+
+    # Pass 1: U1 gets the entire eligible URL list, in randomized order.
+    primary_urls = list(url_list)
+    random.shuffle(primary_urls)
+    run_account_batch(primary_urls, 0)
+
+    # Pass 2: process previously verified sites with their associated U2, U3,
+    # etc. in deterministic account order. Successful U1 results are skipped.
+    for account_index in range(1, len(account_list)):
+        if server.STOPPED:
+            break
+        run_account_batch(original_known_by_account[account_index], account_index)
+
+    # Pass 3: only conclusive authentication rejections enter fallback. A
+    # timeout, outage, HTTP error or CAPTCHA is not evidence that credentials
+    # are invalid, so those URLs remain untouched by account rotation.
+    for account_index in range(1, len(account_list)):
+        if server.STOPPED:
+            break
+        fallback_urls = [
+            url for url in url_list
+            if current_error_code(url) == 304
+            and account_index not in attempted_accounts[url]
+        ]
+        run_account_batch(fallback_urls, account_index)
+
+    # Persist the aggregate discovery outcome. A URL is labelled unregistered
+    # only when every attempted account produced the explicit E304 rejection.
+    for url in url_list:
+        if attempted_codes[url] and current_error_code(url) != 200:
+            record_account_discovery_result(url, attempted_codes[url])
+
+    if SITE_ERRORS_CSV.exists():
+        with SITE_ERRORS_CSV.open(newline="", encoding="utf-8") as stream:
+            error_count = max(0, sum(1 for _ in stream) - 1)
+        print(f"Non-authentication error report: {SITE_ERRORS_CSV} ({error_count} recorded events)")
+    if CAPTCHA_QUEUE.exists():
+        captcha_count = sum(1 for line in CAPTCHA_QUEUE.read_text(encoding="utf-8").splitlines() if line.strip())
+        print(f"Manual CAPTCHA review queue: {CAPTCHA_QUEUE} ({captcha_count} sites pending)")
 
     server.IS_RUNNING = False
     if on_completion:

@@ -1,3 +1,5 @@
 #!/bin/bash
-cd /data/data/com.termux/files/home/dev/golf
-python3 -u main.py -r
+# Portable compatibility wrapper; use device_run.sh for all normal runs.
+set -euo pipefail
+cd "$(dirname "$0")"
+exec bash ./device_run.sh "${@}"
