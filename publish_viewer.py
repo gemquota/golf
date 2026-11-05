@@ -43,12 +43,15 @@ def publish():
         print("publish_viewer: no CSVs found, skipping")
         return False
     run(["git", "add", *csv_paths])
-    status = run(["git", "status", "--porcelain", "--cached", "--", "viewer/public"])
-    if not status.stdout.strip():
+    # `git status` has no --cached option. Inspect the index directly so
+    # only staged changes to the exported CSVs trigger a publication.
+    staged = run(["git", "diff", "--cached", "--name-only", "--", *csv_paths])
+    if not staged.stdout.strip():
         print("publish_viewer: no changes to publish")
         return False
     stamp = datetime.now().strftime("%Y-%m-%d %H:%M")
-    run(["git", "commit", "-m", f"Refresh viewer data snapshot ({stamp})"])
+    # Keep unrelated staged work out of the automated data-refresh commit.
+    run(["git", "commit", "-m", f"Refresh viewer data snapshot ({stamp})", "--", *csv_paths])
     run(["git", "push", "origin", "HEAD"])
     print("publish_viewer: pushed refreshed viewer data")
     return True
