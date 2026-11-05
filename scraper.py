@@ -374,6 +374,14 @@ def run_scrape(on_update=None, on_launcher=None, on_completion=None):
         if attempted_codes[url] and current_error_code(url) != 200:
             record_account_discovery_result(url, attempted_codes[url])
 
+    if SITE_ERRORS_CSV.exists():
+        with SITE_ERRORS_CSV.open(newline="", encoding="utf-8") as stream:
+            error_count = max(0, sum(1 for _ in stream) - 1)
+        print(f"Non-authentication error report: {SITE_ERRORS_CSV} ({error_count} recorded events)")
+    if CAPTCHA_QUEUE.exists():
+        captcha_count = sum(1 for line in CAPTCHA_QUEUE.read_text(encoding="utf-8").splitlines() if line.strip())
+        print(f"Manual CAPTCHA review queue: {CAPTCHA_QUEUE} ({captcha_count} sites pending)")
+
     server.IS_RUNNING = False
     if on_completion:
         on_completion(execution_stats)
