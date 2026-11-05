@@ -23,7 +23,9 @@ BONUS_SELECT = (
 ENRICHED_HEADERS = [
     "url", "mname", "eid", "name", "transactiontype", "bonusfixed", "amount", "minwithdraw",
     "site_minwithdraw", "effective_minwithdraw", "maxwithdraw", "rollover", "ratio",
-    "rollover_ratio_average", "weighted_score_v1", "weighted_score", "perceived_value",\n    "score_confidence", "score_status", "score_maxwithdraw_source", "score_rollover_source",\n    "score_maxwithdraw_used", "score_rollover_used", "is_new", "expiry",
+    "rollover_ratio_average", "weighted_score_v1", "weighted_score", "perceived_value",
+    "score_confidence", "score_status", "score_maxwithdraw_source", "score_rollover_source",
+    "score_maxwithdraw_used", "score_rollover_used", "is_new", "expiry",
     "first_seen", "last_seen", "referlink", "claimconfig", "claimcondition", "bonus",
     "bonusrandom", "reset", "mintopup", "maxtopup",
 ]
