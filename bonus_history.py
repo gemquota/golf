@@ -45,6 +45,23 @@ def signature(bonus):
     return hashlib.sha256(json.dumps(stable, sort_keys=True, ensure_ascii=False).encode()).hexdigest()
 
 
+def load_attempts(database, started_at):
+    """Return per-site scrape outcomes using the canonical SQLite schema."""
+    rows = database.execute(
+        "SELECT url, merchant_name, updated_at, error_code FROM sites WHERE updated_at >= ?",
+        (started_at,),
+    )
+    attempts = {}
+    for url, merchant, checked_at, error_code in rows:
+        attempts[url] = {
+            "status": "success" if error_code == 200 else "failed",
+            "merchant": merchant or "",
+            "checked_at": checked_at or "",
+            "error_code": error_code,
+        }
+    return attempts
+
+
 def load_csv(path):
     grouped = defaultdict(list)
     with Path(path).open("r", encoding="utf-8-sig", newline="") as stream:
@@ -157,15 +174,7 @@ def main():
     generated_at = datetime.now(timezone.utc).isoformat(timespec="seconds")
     import db
     db.initialize_database()
-    rows = db.execute(
-        "SELECT url, merchant_name, updated_at, error_code FROM sites WHERE updated_at >= ?",
-        (args.started_at,),
-    )
-    attempts = {}
-    for url, merchant, checked_at, error_code in rows:
-        attempts[url] = {"status": "success" if error_code == 200 else "failed",
-                         "merchant": merchant or "", "checked_at": checked_at or "",
-                         "error_code": error_code}
+    attempts = load_attempts(db, args.started_at)
     grouped = load_csv(args.csv)
     history = load_history()
     baseline = history["site_baseline"]
