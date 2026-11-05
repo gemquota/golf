@@ -28,15 +28,15 @@ def clean_bonuses(csv_file):
     rollover = pd.to_numeric(df['rollover'], errors='coerce') if 'rollover' in df.columns else pd.Series(np.nan, index=df.index)
     df['rollover_ratio_average'] = (rollover * 0.60 + df['ratio'] * 0.40).round(4)
 
-    # Weighted Score is deliberately distinct from the 60:40 rollover/minimum
-    # burden metric above. It measures reward relative to effective minimum,
-    # scaled by the square root of maximum withdrawal capacity.
-    maxwithdraw = pd.to_numeric(df['maxwithdraw'], errors='coerce') if 'maxwithdraw' in df.columns else pd.Series(np.nan, index=df.index)
-    df['weighted_score'] = np.where(
-        (df['amount'] > 0) & (effective_min > 0) & maxwithdraw.notna() & (maxwithdraw >= 0),
-        (df['amount'] / effective_min) * np.sqrt(maxwithdraw),
-        np.nan,
-    )
+    # Preserve the canonical export's v2 score. Older input CSVs without
+    # weighted_score_v1 retain the legacy benefit-only calculation.
+    if 'weighted_score_v1' not in df.columns:
+        maxwithdraw = pd.to_numeric(df['maxwithdraw'], errors='coerce') if 'maxwithdraw' in df.columns else pd.Series(np.nan, index=df.index)
+        df['weighted_score'] = np.where(
+            (df['amount'] > 0) & (effective_min > 0) & maxwithdraw.notna() & (maxwithdraw >= 0),
+            (df['amount'] / effective_min) * np.sqrt(maxwithdraw),
+            np.nan,
+        )
     df['weighted_score'] = pd.to_numeric(df['weighted_score'], errors='coerce').round(4)
 
     if 'perceived_value' in df.columns:
