@@ -6,6 +6,8 @@ import csv
 import json
 import math
 import sqlite3
+from statistics import median
+from bonus_scoring import score_bonus
 from pathlib import Path
 from urllib.parse import urlparse
 
@@ -21,7 +23,7 @@ BONUS_SELECT = (
 ENRICHED_HEADERS = [
     "url", "mname", "eid", "name", "transactiontype", "bonusfixed", "amount", "minwithdraw",
     "site_minwithdraw", "effective_minwithdraw", "maxwithdraw", "rollover", "ratio",
-    "rollover_ratio_average", "weighted_score", "perceived_value", "is_new", "expiry",
+    "rollover_ratio_average", "weighted_score_v1", "weighted_score", "perceived_value",\n    "score_confidence", "score_status", "score_maxwithdraw_source", "score_rollover_source",\n    "score_maxwithdraw_used", "score_rollover_used", "is_new", "expiry",
     "first_seen", "last_seen", "referlink", "claimconfig", "claimcondition", "bonus",
     "bonusrandom", "reset", "mintopup", "maxtopup",
 ]
@@ -124,58 +126,57 @@ def write_enriched(rows, mins=None, out_dir: Path | None = None):
     out_dir = out_dir or DEFAULT_OUT
     out_dir.mkdir(parents=True, exist_ok=True)
     mins = mins if mins is not None else site_minimums(out_dir)
+    prepared = []
+    site_maxes, site_rolls, all_maxes, all_rolls = {}, {}, [], []
+    for row in rows:
+        try:
+            raw = json.loads(row["raw_json"] or "{}")
+        except Exception:
+            raw = {}
+        normalized = {str(k).lower(): v for k, v in raw.items()}
+        amount, maxw, rollover = num(normalized.get("amount", row["amount"])), num(normalized.get("maxwithdraw")), num(normalized.get("rollover"))
+        host = domain(row["url"])
+        prepared.append((row, normalized, amount, maxw, rollover, host))
+        if maxw is not None and maxw > 0:
+            all_maxes.append(maxw); site_maxes.setdefault(host, []).append(maxw)
+        if rollover is not None and rollover >= 0:
+            all_rolls.append(rollover); site_rolls.setdefault(host, []).append(rollover)
+    global_max = median(all_maxes) if all_maxes else None
+    global_roll = median(all_rolls) if all_rolls else None
+    site_max_medians = {host: median(values) for host, values in site_maxes.items()}
+    site_roll_medians = {host: median(values) for host, values in site_rolls.items()}
     with (out_dir / "Dayne_Bonuses.csv").open("w", newline="", encoding="utf-8") as handle:
         writer = csv.DictWriter(handle, fieldnames=ENRICHED_HEADERS)
         writer.writeheader()
-        for row in rows:
-            try:
-                raw = json.loads(row["raw_json"] or "{}")
-            except Exception:
-                raw = {}
-            normalized = {str(k).lower(): v for k, v in raw.items()}
-            amount = num(normalized.get("amount", row["amount"]))
-            bonus_min = num(normalized.get("minwithdraw"))
-            site_min = mins.get(domain(row["url"]))
-            effective = bonus_min if bonus_min and bonus_min > 0 else site_min
-            if not effective or effective <= 0:
-                effective = 50.0
-            maxw = num(normalized.get("maxwithdraw"))
-            rollover = num(normalized.get("rollover"))
-            ratio = round(effective / amount, 4) if amount and amount > 0 else None
-            average = (
-                round(0.60 * rollover + 0.40 * ratio, 4)
-                if rollover is not None and ratio is not None else None
-            )
-            weighted_score = None
-            if amount is not None and amount > 0 and maxw is not None and maxw >= 0:
-                weighted_score = round((amount / effective) * math.sqrt(maxw), 4)
+        for row, normalized, amount, maxw, rollover, host in prepared:
+            site_min = mins.get(host)
+            score = score_bonus(amount, normalized.get("minwithdraw"), site_min, maxw, rollover,
+                                site_max_medians.get(host), site_roll_medians.get(host),
+                                global_max, global_roll)
+            effective = score["effective_minwithdraw"]
+            ratio = round(effective / amount, 4) if effective and amount and amount > 0 else None
             writer.writerow({
-                "url": row["url"], "mname": row["merchant_name"] or "",
-                "eid": row["external_id"] or "",
+                "url": row["url"], "mname": row["merchant_name"] or "", "eid": row["external_id"] or "",
                 "name": row["name"] or normalized.get("name", ""),
-                "transactiontype": normalized.get("transactiontype", ""),
-                "bonusfixed": normalized.get("bonusfixed", ""),
-                "amount": normalized.get("amount", row["amount"]),
-                "minwithdraw": normalized.get("minwithdraw", ""),
-                "site_minwithdraw": site_min or "",
-                "effective_minwithdraw": effective,
-                "maxwithdraw": normalized.get("maxwithdraw", ""),
-                "rollover": normalized.get("rollover", ""),
-                "ratio": ratio,
-                "rollover_ratio_average": average,
-                "weighted_score": weighted_score,
-                "perceived_value": row["perceived_value"] or "",
-                "is_new": 0,
-                "expiry": row["expiry"] or "",
-                "first_seen": row["first_seen"] or "",
-                "last_seen": row["last_seen"] or "",
-                "referlink": normalized.get("referlink", ""),
-                "claimconfig": normalized.get("claimconfig", ""),
-                "claimcondition": normalized.get("claimcondition", ""),
-                "bonus": normalized.get("bonus", ""),
-                "bonusrandom": normalized.get("bonusrandom", ""),
-                "reset": normalized.get("reset", ""),
-                "mintopup": normalized.get("mintopup", ""),
+                "transactiontype": normalized.get("transactiontype", ""), "bonusfixed": normalized.get("bonusfixed", ""),
+                "amount": normalized.get("amount", row["amount"]), "minwithdraw": normalized.get("minwithdraw", ""),
+                "site_minwithdraw": site_min or "", "effective_minwithdraw": effective if effective is not None else "",
+                "maxwithdraw": normalized.get("maxwithdraw", ""), "rollover": normalized.get("rollover", ""),
+                "ratio": ratio if ratio is not None else "",
+                "rollover_ratio_average": score["rollover_ratio_average"] if score["rollover_ratio_average"] is not None else "",
+                "weighted_score_v1": round(score["weighted_score_v1"], 4) if score["weighted_score_v1"] is not None else "",
+                "weighted_score": round(score["weighted_score"], 4) if score["weighted_score"] is not None else "",
+                "perceived_value": row["perceived_value"] if row["perceived_value"] is not None else "",
+                "score_confidence": score["score_confidence"], "score_status": score["score_status"],
+                "score_maxwithdraw_source": score["score_maxwithdraw_source"],
+                "score_rollover_source": score["score_rollover_source"],
+                "score_maxwithdraw_used": score["score_maxwithdraw_used"] if score["score_maxwithdraw_used"] is not None else "",
+                "score_rollover_used": score["score_rollover_used"] if score["score_rollover_used"] is not None else "",
+                "is_new": 0, "expiry": row["expiry"] or "", "first_seen": row["first_seen"] or "",
+                "last_seen": row["last_seen"] or "", "referlink": normalized.get("referlink", ""),
+                "claimconfig": normalized.get("claimconfig", ""), "claimcondition": normalized.get("claimcondition", ""),
+                "bonus": normalized.get("bonus", ""), "bonusrandom": normalized.get("bonusrandom", ""),
+                "reset": normalized.get("reset", ""), "mintopup": normalized.get("mintopup", ""),
                 "maxtopup": normalized.get("maxtopup", ""),
             })
 
