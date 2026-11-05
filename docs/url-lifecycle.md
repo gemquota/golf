@@ -23,9 +23,16 @@ health processor is idempotent for the same per-URL attempt timestamp.
 
 ## Account selection
 
-The scraper runs URLs with a previously verified `data/account_success.json` association using that same account only. Those known URL/account batches are randomized before execution. URLs without a verified association are randomized into a separate discovery phase and receive one attempt using the primary configured account (`U1`). A failed or inconclusive attempt does not trigger a sweep of the remaining configured accounts. This keeps account associations site-specific and prevents credentials for one site from being replayed against unrelated sites.
+All configured accounts are authorised for the URL family in `in/config/urls.txt`. Each run uses this ordered schedule:
 
-The worker may perform its existing bounded network retries for the same URL/account pair; those retries do not change accounts. A successful scrape records the URL/account association for subsequent runs.
+1. Randomize the full eligible URL list and attempt every URL with the primary account (`U1`).
+2. In account order (`U2`, `U3`, ...), retry URLs with a previously verified association to that account. Skip URLs already successful during the U1 pass.
+3. After all known-account batches finish, run fallback passes in account order (`U2`, `U3`, ...). Each pass includes only URLs whose latest result is the explicit authentication rejection `E304`, and skips any URL/account pair already attempted during this run.
+4. Stop trying a URL after a successful scrape or when all configured accounts have been exhausted.
+
+Each batch is randomized, but account-pass order is stable. The worker's bounded retries remain on the same URL/account pair. A successful scrape immediately persists the verified URL/account association for later runs.
+
+Only `E304` is treated as a conclusive authentication rejection for fallback. Timeouts, network failures, server errors, HTTP errors and CAPTCHA responses are inconclusive and do not trigger credential rotation. URLs that receive only conclusive authentication rejections across all attempted accounts are recorded as unregistered; mixed or transient outcomes remain unknown.
 
 ## Recovery
 
