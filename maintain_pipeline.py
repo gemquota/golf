@@ -13,6 +13,8 @@ from pathlib import Path
 import sqlite3
 import tempfile
 
+from bonus_scoring import number
+
 DB = Path("data/base.db")
 URLS = Path("in/config/urls.txt")
 DOWN = Path("in/config/down.txt")
@@ -20,7 +22,6 @@ STATE = Path("data/site_state.json")
 ACCOUNT_SUCCESS = Path("data/account_success.json")
 ACCOUNTS = Path("data/accounts.csv")
 HISTORY = Path("data/bonus_history.csv")
-RUN_LOG = Path("data/scrape_runs.csv")
 THREE_DAYS = dt.timedelta(hours=72)
 UTC = dt.timezone.utc
 
@@ -247,14 +248,19 @@ def maintain_sites(run_started):
 
 
 def append_history(run_started):
+    """Append successful-site bonus snapshots and return run-level aggregates."""
     started = parse_dt(run_started) or now()
     marker = sql_timestamp(started)
+    metrics = {"count": 0, "new_count": 0, "sum_perceived_value": 0.0}
     if not DB.exists():
-        return 0
+        return metrics
     conn = sqlite3.connect(DB)
     conn.row_factory = sqlite3.Row
     try:
-        rows = conn.execute("SELECT bonus_uid,external_id,url,amount,perceived_value,raw_json,expiry,fingerprint,mirrors,first_seen,last_seen,merchant_name,name FROM bonuses").fetchall()
+        rows = conn.execute(
+            "SELECT bonus_uid,external_id,url,amount,perceived_value,expiry,fingerprint,mirrors,"
+            "first_seen,last_seen,merchant_name,name FROM bonuses"
+        ).fetchall()
         success_urls = {
             row[0] for row in conn.execute(
                 "SELECT url FROM sites WHERE error_code=200 AND updated_at>=?", (marker,)
@@ -277,38 +283,79 @@ def append_history(run_started):
             writer.writerow({
                 "run_ts": fmt(started), "uid": row["bonus_uid"], "eid": row["external_id"], "url": row["url"],
                 "merchant": row["merchant_name"] or "", "name": row["name"] or "", "amount": row["amount"] or "",
-                "perceived_value": row["perceived_value"] or "", "expiry": row["expiry"] or "",
-                "first_seen": row["first_seen"] or "", "last_seen": row["last_seen"] or "",
-                "fingerprint": row["fingerprint"] or "", "mirrors": row["mirrors"] or "",
+                "perceived_value": row["perceived_value"] if row["perceived_value"] is not None else "",
+                "expiry": row["expiry"] or "", "first_seen": row["first_seen"] or "",
+                "last_seen": row["last_seen"] or "", "fingerprint": row["fingerprint"] or "",
+                "mirrors": row["mirrors"] or "",
             })
-    return len(rows)
+            metrics["count"] += 1
+            first_seen = parse_dt(row["first_seen"])
+            if first_seen and first_seen >= started:
+                metrics["new_count"] += 1
+            perceived = number(row["perceived_value"])
+            if perceived is not None:
+                metrics["sum_perceived_value"] += perceived
+    return metrics
 
 
-def log_run(run_started, kept, moved, attempts, successes, history_rows):
-    fields = ["run_ts", "active_sites", "moved_down", "attempts", "successes", "history_rows"]
-    RUN_LOG.parent.mkdir(parents=True, exist_ok=True)
-    existing = RUN_LOG.exists()
-    with RUN_LOG.open("a", newline="", encoding="utf-8") as stream:
-        writer = csv.DictWriter(stream, fieldnames=fields)
-        if not existing:
-            writer.writeheader()
-        writer.writerow({
-            "run_ts": fmt(run_started), "active_sites": kept, "moved_down": len(moved),
-            "attempts": attempts, "successes": successes, "history_rows": history_rows,
-        })
+def record_run(run_started, finished_at, active_sites, moved_down, attempts, successes, history):
+    """Persist one idempotent scrape-run summary in the canonical SQLite store."""
+    started = parse_dt(run_started) or now()
+    finished = parse_dt(finished_at) or now()
+    run_id = fmt(started)
+    conn = sqlite3.connect(DB, timeout=30)
+    try:
+        conn.execute("PRAGMA busy_timeout=30000")
+        conn.execute(
+            "CREATE TABLE IF NOT EXISTS scrape_runs ("
+            "run_id TEXT, created_at DATETIME DEFAULT CURRENT_TIMESTAMP, duration REAL, "
+            "count INT, new_count INT, sum_perceived_value REAL, error_count INT)"
+        )
+        columns = {row[1] for row in conn.execute("PRAGMA table_info(scrape_runs)")}
+        for name, declaration in (
+            ("active_sites", "INTEGER"), ("moved_down", "INTEGER"),
+            ("attempts", "INTEGER"), ("successes", "INTEGER"),
+        ):
+            if name not in columns:
+                conn.execute(f"ALTER TABLE scrape_runs ADD COLUMN {name} {declaration}")
+        conn.execute(
+            "DELETE FROM scrape_runs WHERE run_id IS NOT NULL AND rowid NOT IN "
+            "(SELECT MAX(rowid) FROM scrape_runs WHERE run_id IS NOT NULL GROUP BY run_id)"
+        )
+        conn.execute(
+            "CREATE UNIQUE INDEX IF NOT EXISTS idx_scrape_runs_run_id ON scrape_runs(run_id)"
+        )
+        conn.execute(
+            "INSERT OR REPLACE INTO scrape_runs "
+            "(run_id, created_at, duration, count, new_count, sum_perceived_value, error_count, "
+            "active_sites, moved_down, attempts, successes) "
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            (
+                run_id, sql_timestamp(started), max(0.0, (finished - started).total_seconds()),
+                int(history.get("count", 0)), int(history.get("new_count", 0)),
+                float(history.get("sum_perceived_value", 0.0)), max(0, attempts - successes),
+                active_sites, moved_down, attempts, successes,
+            ),
+        )
+        conn.commit()
+    except Exception:
+        conn.rollback()
+        raise
+    finally:
+        conn.close()
 
 
 def run_pipeline(run_started=None):
     started = parse_dt(run_started) or now()
     active, moved, _, attempts, successes = maintain_sites(started)
-    history_rows = append_history(started)
-    log_run(started, active, moved, attempts, successes, history_rows)
+    history = append_history(started)
+    finished = now()
+    record_run(started, finished, active, len(moved), attempts, successes, history)
     print(
         f"Pipeline state: {active} active URLs, {len(moved)} moved to down.txt, "
-        f"{attempts} attempted ({successes} successful), {history_rows} DB records considered"
+        f"{attempts} attempted ({successes} successful), {history['count']} bonus rows archived"
     )
-    return active, moved, attempts, successes, history_rows
-
+    return active, moved, attempts, successes, history["count"]
 
 if __name__ == "__main__":
     run_pipeline(os.environ.get("GOLF_RUN_STARTED"))
