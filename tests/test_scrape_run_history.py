@@ -63,6 +63,13 @@ class ScrapeRunHistoryTests(unittest.TestCase):
         finished = self.started + dt.timedelta(minutes=12)
         history = {"count": 2, "new_count": 1, "sum_perceived_value": 50.0}
         args = (self.started, finished, 4, 1, 6, 4, history)
+        conn = sqlite3.connect(self.db)
+        conn.execute(
+            "CREATE TABLE scrape_runs (created_at DATETIME, duration REAL, count INT, "
+            "new_count INT, sum_perceived_value REAL, error_count INT)"
+        )
+        conn.commit()
+        conn.close()
         pipeline.record_run(*args)
         pipeline.record_run(*args)
         conn = sqlite3.connect(self.db)
