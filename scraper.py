@@ -10,6 +10,7 @@ import network as net
 from scrape_worker import (
     USER_AGENTS,
     classify_error,
+    is_retryable_error,
     ensure_site,
     mark_site_result,
     process_bonus,
@@ -176,7 +177,7 @@ def _worker_tasks(scraper_session, chunk_id, stats, stats_lock, total_tasks, ip_
                     current_ua_index = (current_ua_index + 1) % len(USER_AGENTS)
                     scraper_session.headers.update({"User-Agent": USER_AGENTS[current_ua_index]})
                     scraper_session.timeout = config.TIMEOUT + (attempt * 10)
-                    time.sleep(random.uniform(2.0, 4.0) * attempt)
+                    time.sleep(min(30.0, 1.5 * (2 ** (attempt - 1)) + random.uniform(0.0, 0.5)))
 
                 success, html_content, site_bonuses, site_new = try_scrape(
                     scraper_session, url, username, password,
@@ -186,8 +187,8 @@ def _worker_tasks(scraper_session, chunk_id, stats, stats_lock, total_tasks, ip_
 
             except Exception as exc:
                 exception = exc
-                if attempt == max_retries - 1:
-                    error_code = classify_error(exception)
+                error_code = classify_error(exception)
+                if not is_retryable_error(exception) or attempt == max_retries - 1:
                     record_site_error(url, account_id, error_code, exception)
                     mark_site_result(url, error_code)
                     with stats_lock["stats"]:

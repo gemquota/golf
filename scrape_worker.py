@@ -30,6 +30,16 @@ USER_AGENTS = [
 ]
 
 
+def is_retryable_error(exception):
+    """Retry only transient transport failures and explicitly retryable HTTP statuses."""
+    if isinstance(exception, (requests.exceptions.Timeout, requests.exceptions.ConnectionError)):
+        return True
+    if isinstance(exception, HTTPError):
+        response = exception.response
+        return bool(response is not None and response.status_code in (429, 500, 502, 503, 504))
+    return False
+
+
 def classify_error(exception):
     """Map an exception to a stable numeric error_code."""
     if isinstance(exception, net.AuthenticationError):
