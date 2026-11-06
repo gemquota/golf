@@ -72,7 +72,7 @@ def inspect_config(path: Path) -> dict:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("databases", nargs="*", type=Path)
-    parser.add_argument("--config", type=Path)
+    parser.add_argument("--config", type=Path, action="append", default=[])
     parser.add_argument("--scrub-sessions", action="store_true",
                         help="Delete session rows in the supplied local audit copies.")
     args = parser.parse_args()
@@ -80,9 +80,9 @@ def main() -> int:
     for path in args.databases:
         result = inspect_database(path, scrub=args.scrub_sessions)
         print(f"database={path.name} " + " ".join(f"{key}={value}" for key, value in result.items()))
-    if args.config:
-        result = inspect_config(args.config)
-        print(f"config={args.config.name} " + " ".join(f"{key}={value}" for key, value in result.items()))
+    for path in args.config:
+        result = inspect_config(path)
+        print(f"config={path.name} " + " ".join(f"{key}={value}" for key, value in result.items()))
     return 0
 
 
