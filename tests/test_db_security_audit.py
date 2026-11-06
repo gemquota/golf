@@ -1,12 +1,10 @@
-import configparser
-import io
 import sqlite3
 import tempfile
 import unittest
 from contextlib import redirect_stdout
 from pathlib import Path
 
-from scripts.audit_db_security import inspect_config, inspect_database, main
+from scripts.audit_db_security import inspect_config, inspect_database
 
 
 class DatabaseSecurityAuditTests(unittest.TestCase):
