@@ -63,6 +63,8 @@ def cmd_scrape(args) -> int:
     server.PAUSED = False
     server.IS_RUNNING = True
 
+    pipeline_failed = [False]
+
     def completed(stats):
         print(
             f"\nScrape complete: {stats.get('successes', 0)} sites succeeded; "
@@ -80,6 +82,7 @@ def cmd_scrape(args) -> int:
             if not args.no_publish:
                 run_stage("publish_viewer.py")
         except Exception as exc:
+            pipeline_failed[0] = True
             db.log_event("PIPELINE_ERROR", "golf", str(exc))
             print(f"Post-scrape pipeline failed: {exc}", file=sys.stderr, flush=True)
 
@@ -93,7 +96,7 @@ def cmd_scrape(args) -> int:
         server.STOPPED = True
         db.log_event("INTERRUPTED", "golf", "Scrape interrupted by user")
         return 130
-    return 0
+    return 1 if pipeline_failed[0] else 0
 
 
 def cmd_run(args) -> int:
