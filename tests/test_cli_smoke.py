@@ -1,5 +1,6 @@
 """Network-free smoke tests for each CLI subcommand."""
 import io
+import os
 import sys
 import tempfile
 import types
@@ -46,6 +47,7 @@ class CliSmokeTests(unittest.TestCase):
         self.root = Path(self.temp.name)
         (self.root / "data").mkdir()
         self.db_path = self.root / "data" / "base.db"
+        self.original_cwd = Path.cwd()
         self.original_db_path = db.DB_PATH
         self.original_cache = db._cache
         self.original_root = cli.ROOT
@@ -60,6 +62,7 @@ class CliSmokeTests(unittest.TestCase):
         db.DB_PATH = self.original_db_path
         db._cache = self.original_cache
         cli.ROOT = self.original_root
+        os.chdir(self.original_cwd)
         self.temp.cleanup()
 
     def test_parser_exposes_required_subcommands(self):
