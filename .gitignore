@@ -46,3 +46,5 @@ data/debug/
 backup/
 
 # Local runtime and credential files are never source artifacts.
+
+in/config/config.local.ini
