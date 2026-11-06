@@ -14,7 +14,7 @@ class IntegrityCheckTests(unittest.TestCase):
         self.root = Path(self.temp.name)
         self.database = self.root / "base.db"
         self.history = self.root / "bonus_history.csv"
-        self.fragments = self.root / "tmp"
+        self.fragments = self.root / "data"
         self.fragments.mkdir()
 
     def tearDown(self):
@@ -67,7 +67,7 @@ class IntegrityCheckTests(unittest.TestCase):
         codes = {item["code"] for item in inspect_history(self.history)}
         self.assertIn("history_duplicate", codes)
 
-    def test_stale_worker_fragments_are_warnings(self):
+    def test_stale_worker_fragments_in_scrapers_data_directory_are_warnings(self):
         fragment = self.fragments / "tmp_4.csv"
         fragment.write_text("partial", encoding="utf-8")
         old = time.time() - 25 * 60 * 60
