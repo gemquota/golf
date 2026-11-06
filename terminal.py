@@ -88,7 +88,7 @@ def print_launcher(tasks, proxies, workers, shuffle, ip_score):
         _panel("\U0001f4ca SYSTEM HEALTH", [("CPU", _cpu),
             ("Uptime", f"[white]{time.strftime('%H:%M:%S', time.gmtime(time.time() - START_TIME))}[/]")], "bright_cyan"),
         _panel("\U0001f6e1\ufe0f SECURITY", [("Auth User", f"[magenta]{config.UI_USER}[/]"),
-            ("SSL Check", "[green]Disabled[/]"),("IP Reputation", f"[yellow]{ip_score}/100[/]")], "bright_red"))
+            ("SSL Check", "[green]Enabled[/]"),("IP Reputation", f"[yellow]{ip_score}/100[/]")], "bright_red"))
     mid.add_row(top, Panel(Text(marks, justify="left"), title="[bold]HEALTH[/]", border_style="white", width=14, height=20),
         Panel(Text(legend, style="white"), title="[bold]ERRORS[/]", border_style="grey58", width=14, height=20))
     console.print(Panel(Group(mid, Panel(Align.center(f"[bold white]User Agent Identity[/]\n[yellow]{config.USER_AGENT}[/]"),
