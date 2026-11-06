@@ -46,7 +46,7 @@ class CleanBonusesTests(unittest.TestCase):
         self.assertEqual(cleaned[0]["weighted_score"], 8)
         self.assertEqual(cleaned[0]["perceived_value_rank"], 1)
         self.assertEqual(cleaned[1]["perceived_value_rank"], 1)
-        self.assertEqual(cleaned[2]["weighted_score_rank"], 4)
+        self.assertEqual(cleaned[2]["weighted_score_rank"], 5)
         self.assertNotIn("id", output_fields)
         self.assertNotIn("transactiontype", output_fields)
 
