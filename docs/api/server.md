@@ -1,54 +1,29 @@
-# server.py
+# Dashboard server
 
-## Module Overview
+## Authentication model
 
-- **File:** `server.py`
-- **Functions:** 2
-- **Classes:** 2
-- **Imports:** 8
+The dashboard API requires HTTP Basic credentials. Authentication fails closed when GOLF_UI_PASS or SETTINGS.ui_pass is missing, and incorrect credentials receive HTTP 401. Comparisons use constant-time byte comparison.
 
-### Dependencies
-- `import json`
-- `from pathlib import Path`
-- `from fastapi import FastAPI`
-- `from fastapi import WebSocket`
-- `from fastapi import WebSocketDisconnect`
-- `from fastapi import Depends`
-- `from fastapi import HTTPException`
-- `from fastapi import status`
-- `from fastapi.responses import HTMLResponse`
-- `from fastapi.security import HTTPBasic`
-- `from fastapi.security import HTTPBasicCredentials`
-- `import uvicorn`
-- `from pydantic import BaseModel`
-- `from pydantic import Field`
-- `import config`
+The config endpoint returns only min_delay and max_delay. It never exposes account sections, proxy credentials, API keys, or passwords. Config writes accept only those two delay settings and validate their ranges.
 
-### Function Reference
+WebSocket clients first obtain a short-lived, single-use ticket through the authenticated POST /api/ws-ticket endpoint. The ticket is sent as a WebSocket subprotocol; direct unauthenticated connections are rejected.
 
-| Function | Line | Signature |
-|----------|------|-----------|
-| verify_auth | 39 | `verify_auth(credentials: HTTPBasicCredentials | None=Depends(security))` |
-| start_server | 97 | `start_server()` |
+## Routes
 
-### Function Details
+| Method | Path | Access |
+|---|---|---|
+| GET | / | Static dashboard page |
+| GET | /api/config | Authenticated |
+| POST | /api/config | Authenticated |
+| GET | /api/status | Authenticated |
+| POST | /api/control/{action} | Authenticated |
+| POST | /api/ws-ticket | Authenticated |
+| WebSocket | /ws | One-use ticket required |
 
-#### `verify_auth()`
+## Network binding
 
-**Location:** `server.py:39`
+The server binds to 127.0.0.1 by default. GOLF_BIND_HOST can explicitly override the bind address; only do so for a trusted deployment with suitable network and transport protections.
 
-**Docstring:** Optional auth — skip if no UI_PASS configured, else validate.
+## Runtime behavior
 
-- **Branches:** 2
-- **Calls:** 3
-- **Returns:** 2
-- **Body lines:** 8
-
-#### `start_server()`
-
-**Location:** `server.py:97`
-
-- **Branches:** 0
-- **Calls:** 1
-- **Returns:** 0
-- **Body lines:** 2
+Scraper worker threads enqueue progress events. The asynchronous broadcast pump fans events out to authenticated WebSocket clients. The dashboard uses the current page protocol to select ws or wss.
