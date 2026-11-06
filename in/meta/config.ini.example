@@ -5,7 +5,7 @@ max_delay=3.0
 
 # Security: Web Dashboard Credentials (MANDATORY: Change these)
 ui_user=admin
-ui_pass=password
+ui_pass=
 
 # Algorithm: Default value for perceived value calculation if max_withdraw is unknown
 default_max_withdraw=3776.0
