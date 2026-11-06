@@ -1,8 +1,5 @@
 import configparser, os, random
 from pathlib import Path
-import urllib3
-urllib3.disable_warnings()
-
 def _env(name):
     return os.environ.get(name)
 
