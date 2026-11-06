@@ -65,8 +65,8 @@ def verify_auth(credentials: HTTPBasicCredentials | None = Depends(security)):
         raise HTTPException(status_code=503, detail="Dashboard authentication is not configured")
     if (
         credentials is None
-        or not secrets.compare_digest(credentials.username, str(config.UI_USER or ""))
-        or not secrets.compare_digest(credentials.password, str(config.UI_PASS))
+        or not secrets.compare_digest(credentials.username.encode("utf-8"), str(config.UI_USER or "").encode("utf-8"))
+        or not secrets.compare_digest(credentials.password.encode("utf-8"), str(config.UI_PASS).encode("utf-8"))
     ):
         raise HTTPException(
             status_code=401,
