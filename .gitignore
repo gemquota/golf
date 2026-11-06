@@ -37,28 +37,14 @@ data/captcha_required.txt
 data/site_errors.csv
 data/events.jsonl
 data/bonuses_*.csv
-data/tmp_*.csv
-data/*.db
-data/*.db-wal
-data/*.db-shm
-data/raw_responses/
-data/debug/
 backup/
 
 # Local runtime and credential files are never source artifacts.
 
-in/config/config.local.ini
 
-in/config/proxies.txt
 
-data/account_state.json
 
-data/captcha_required.txt
 
-data/events.jsonl
 
-data/bonuses_*.csv
 
-data/tmp_*.csv
 
-data/debug/
