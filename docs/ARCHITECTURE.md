@@ -20,7 +20,7 @@
 4. Worker progress is sent to the terminal renderer and dashboard event queue.
 5. Export commands read canonical database rows. Shared normalization and scoring context are calculated in `export_csv.py`; scoring policy is applied by `bonus_scoring.py`.
 6. The viewer exporter performs viewer-specific column mapping and site rollups, then writes snapshots under `viewer/public/`.
-7. `daily_scrape.py` and `publish_viewer.py` coordinate scheduled scraping and publication. The historical `scrape_and_deploy.sh` wrapper is scrape-only; it no longer attempts to build or package a separate `dayne-bonuses-viewer` checkout.
+7. `daily_scrape.py` and `publish_viewer.py` coordinate scheduled scraping and publication. The historical `scrape_and_deploy.sh` wrapper runs scraping and the standalone analysis cleaner; it no longer attempts to build or package a separate `dayne-bonuses-viewer` checkout.
 
 ## Export ownership
 
