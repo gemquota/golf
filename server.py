@@ -2,6 +2,9 @@
 import asyncio
 import json
 import queue
+import secrets
+import threading
+import time
 from pathlib import Path
 
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect, Depends, HTTPException
@@ -15,6 +18,9 @@ import config
 web_app = FastAPI(title="Golf Scraper API")
 security = HTTPBasic(auto_error=False)
 conns = []
+_ws_ticket_lock = threading.Lock()
+_ws_tickets: dict[str, float] = {}
+_WS_TICKET_TTL = 30.0
 event_queue: "queue.Queue[dict]" = queue.Queue()
 PAUSED = False
 STOPPED = False
@@ -53,17 +59,57 @@ async def _start_pump():
 
 
 def verify_auth(credentials: HTTPBasicCredentials | None = Depends(security)):
-    """Optional auth — skip if no UI password configured, else validate."""
+    """Fail closed when credentials are absent or incorrect."""
     if not config.UI_PASS:
-        return True  # no auth configured
-    if not credentials:
-        raise HTTPException(status_code=401, detail="Auth required")
-    return credentials.username == config.UI_USER and credentials.password == config.UI_PASS
+        raise HTTPException(status_code=503, detail="Dashboard authentication is not configured")
+    if (
+        credentials is None
+        or not secrets.compare_digest(credentials.username, str(config.UI_USER or ""))
+        or not secrets.compare_digest(credentials.password, str(config.UI_PASS))
+    ):
+        raise HTTPException(
+            status_code=401,
+            detail="Invalid dashboard credentials",
+            headers={"WWW-Authenticate": "Basic"},
+        )
+    return True
+
+
+def issue_ws_ticket() -> str:
+    """Issue a one-use WebSocket ticket after HTTP Basic authentication."""
+    ticket = secrets.token_urlsafe(32)
+    now = time.monotonic()
+    with _ws_ticket_lock:
+        expired = [key for key, expiry in _ws_tickets.items() if expiry <= now]
+        for key in expired:
+            _ws_tickets.pop(key, None)
+        _ws_tickets[ticket] = now + _WS_TICKET_TTL
+    return ticket
+
+
+def consume_ws_ticket(ticket: str) -> bool:
+    """Consume a WebSocket ticket exactly once."""
+    now = time.monotonic()
+    with _ws_ticket_lock:
+        expiry = _ws_tickets.pop(ticket, None)
+    return expiry is not None and expiry > now
+
+
+@web_app.post("/api/ws-ticket")
+async def create_ws_ticket(auth=Depends(verify_auth)):
+    return {"ticket": issue_ws_ticket()}
 
 
 @web_app.websocket("/ws")
 async def ws(ws: WebSocket):
-    await ws.accept(); conns.append(ws)
+    offered = [part.strip() for part in ws.headers.get("sec-websocket-protocol", "").split(",")]
+    ticket_protocol = next((part for part in offered if part.startswith("golf-ticket.")), "")
+    ticket = ticket_protocol.removeprefix("golf-ticket.")
+    if not ticket or not consume_ws_ticket(ticket):
+        await ws.close(code=4401)
+        return
+    await ws.accept(subprotocol="golf")
+    conns.append(ws)
     try:
         while True:
             d = await ws.receive_text()
@@ -74,16 +120,30 @@ async def ws(ws: WebSocket):
 
 @web_app.get("/api/config")
 async def get_config(auth=Depends(verify_auth)):
-    return config.load_config_dict()
+    settings = config.load_config_dict().get("SETTINGS", {})
+    # Never return account sections, passwords, API keys, or proxy credentials.
+    return {"SETTINGS": {key: settings.get(key, "") for key in ("min_delay", "max_delay")}}
+
 
 @web_app.post("/api/config")
 async def post_config(data: ConfigData, auth=Depends(verify_auth)):
     if data.SETTINGS:
-        config.save_config_dict({"SETTINGS": data.SETTINGS})
+        allowed = {"min_delay", "max_delay"}
+        if set(data.SETTINGS) - allowed:
+            raise HTTPException(status_code=422, detail="Only min_delay and max_delay may be changed here")
+        try:
+            minimum = float(data.SETTINGS.get("min_delay", config.MIN_DELAY))
+            maximum = float(data.SETTINGS.get("max_delay", config.MAX_DELAY))
+        except (TypeError, ValueError):
+            raise HTTPException(status_code=422, detail="Delays must be numeric")
+        if not (0.1 <= minimum <= 60 and 0.1 <= maximum <= 120 and maximum >= minimum):
+            raise HTTPException(status_code=422, detail="Delay range is invalid")
+        config.save_config_dict({"SETTINGS": {"min_delay": minimum, "max_delay": maximum}})
     return {"status": "ok"}
 
+
 @web_app.get("/api/status")
-async def get_status():
+async def get_status(auth=Depends(verify_auth)):
     return {"paused": PAUSED, "stopped": STOPPED, "is_running": IS_RUNNING}
 
 VALID_ACTIONS = {"pause", "resume", "stop"}
@@ -104,4 +164,4 @@ async def root():
     return HTMLResponse(Path("templates/index.html").read_text())
 
 def start_server():
-    uvicorn.run(web_app, host="0.0.0.0", port=8000, log_level="error")
+    uvicorn.run(web_app, host=__import__("os").environ.get("GOLF_BIND_HOST", "127.0.0.1"), port=8000, log_level="error")
