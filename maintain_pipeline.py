@@ -312,6 +312,9 @@ def record_run(run_started, finished_at, active_sites, moved_down, attempts, suc
             "count INT, new_count INT, sum_perceived_value REAL, error_count INT)"
         )
         columns = {row[1] for row in conn.execute("PRAGMA table_info(scrape_runs)")}
+        if "run_id" not in columns:
+            conn.execute("ALTER TABLE scrape_runs ADD COLUMN run_id TEXT")
+            columns.add("run_id")
         for name, declaration in (
             ("active_sites", "INTEGER"), ("moved_down", "INTEGER"),
             ("attempts", "INTEGER"), ("successes", "INTEGER"),
