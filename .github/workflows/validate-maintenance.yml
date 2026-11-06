@@ -20,6 +20,7 @@ on:
     branches: [main]
     paths:
       - 'maintain_pipeline.py'
+      - 'integrity_check.py'
       - 'network.py'
       - 'scraper.py'
       - 'scrape_worker.py'
