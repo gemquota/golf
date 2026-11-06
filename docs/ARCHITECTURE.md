@@ -4,13 +4,14 @@
 
 - `golf/cli.py` is the command-line entry point and dispatches scrape, export, and maintenance commands.
 - `scraper.py` coordinates site/account work and worker threads.
-- `network.py` owns HTTP sessions, proxy routing, login, merchant API requests, and response parsing.
+- `network.py` owns HTTP sessions, proxy routing, login, merchant API requests, response validation, and resilient reputation-cache handling.
 - `config.py` resolves local configuration and environment overrides.
-- `db.py` owns SQLite schema initialization, migrations, sessions, bonus records, and diagnostics.
+- `db.py` owns SQLite schema initialization, migrations, sessions, bonus records, scrape-run summaries, and diagnostics.
 - `terminal.py` and `server.py` are presentation/control surfaces. They consume progress events; they should not own scrape or scoring policy.
 - `bonus_scoring.py` owns the scoring formula and confidence/source semantics.
 - `export_csv.py` owns shared raw-payload normalization, site/dataset scoring context, and common CSV serialization.
 - `export_viewer_data.py` adapts canonical records into the active Vite viewer's published CSV schemas.
+- `maintain_pipeline.py` maintains URL health and writes idempotent run summaries into SQLite.
 
 ## Data flow
 
@@ -20,7 +21,8 @@
 4. Worker progress is sent to the terminal renderer and dashboard event queue.
 5. Export commands read canonical database rows. Shared normalization and scoring context are calculated in `export_csv.py`; scoring policy is applied by `bonus_scoring.py`.
 6. The viewer exporter performs viewer-specific column mapping and site rollups, then writes snapshots under `viewer/public/`.
-7. `daily_scrape.py` and `publish_viewer.py` coordinate scheduled scraping and publication. The historical `scrape_and_deploy.sh` wrapper runs scraping and the standalone analysis cleaner; it no longer attempts to build or package a separate `dayne-bonuses-viewer` checkout.
+7. `daily_scrape.py` uses the same URL-health/run-summary maintenance stage as CLI and interactive scrapes before exporting viewer snapshots; `publish_viewer.py` coordinates local publication. The historical `scrape_and_deploy.sh` wrapper runs scraping and the standalone analysis cleaner; it no longer attempts to build or package a separate `dayne-bonuses-viewer` checkout.
+8. `maintain_pipeline.py` records one row per completed run in `scrape_runs`, keyed by the UTC run-start marker. Replaying the same run marker replaces the prior summary instead of duplicating it.
 
 ## Export ownership
 
@@ -30,8 +32,28 @@ Exporters own only their output schemas and presentation-specific aggregation. D
 
 ## Runtime state and publication
 
-SQLite is local/per-run runtime state. Published viewer snapshots and bonus history are explicit files under `viewer/public/`; these are not interchangeable with the runtime database. Keep database files, session material, local config, and generated caches out of version control.
+SQLite is local/per-run runtime state and the single source of truth for scrape-run summaries. The old parallel `data/scrape_runs.csv` writer has been removed. Published viewer snapshots and bonus history are explicit files under `viewer/public/`; these are not interchangeable with the runtime database. Keep database files, session material, local config, and generated caches out of version control.
+
+The standalone `clean_bonuses.py` utility uses the Python standard library and the shared finite-number parser from `bonus_scoring.py`. It does not install or import pandas/NumPy and does not mutate its input snapshot.
+
+The duplicate icon assets are intentionally retained: `viewer/icon.svg` is referenced by the external `viewer/app.json` package manifest, while `viewer/public/icon.svg` is a Vite public asset. They serve separate packaging contexts and should not be collapsed without changing the packaging contract.
 
 ## Documentation
 
 The `docs/api/` pages describe module responsibilities and stable entry points. They intentionally avoid generated line numbers and call-count metrics, which become stale after ordinary refactoring. Source code remains authoritative for exact signatures and behavior.
+
+
+## Runtime resilience
+
+Scrape entry points wrap the shared worker lifecycle so HTTP sessions are closed and the process running flag is reset even when a worker or callback raises. Failed batches remove worker temporary CSV fragments rather than leaving them to contaminate a later run.
+
+The AbuseIPDB cache is validated before use and replaced atomically; malformed cache or API data cannot abort a scrape or become a trusted cache entry. Bonus-history CSV writes are idempotent by UTC run marker and bonus UID. The scheduled workflow now invokes the same URL-health and SQLite run-summary stage as normal CLI/interactive execution before publishing viewer snapshots.
+
+
+## Integrity auditing and recovery
+
+Run `python integrity_check.py` before publishing or after an interrupted maintenance run. The command is read-only: it checks SQLite structural integrity, required canonical tables and columns, duplicate or missing run identifiers, impossible run metrics, foreign-key violations, bonus-history keys, and stale worker CSV fragments. Use `--json` for machine-readable output or override `--db`, `--history`, and `--tmp-dir` for a staged data directory.
+
+Errors produce a non-zero exit status; stale fragments and legacy rows without run IDs are warnings. The audit never deletes, repairs, or rewrites source data. Investigate findings and take a backup before any manual repair.
+
+Bonus-history snapshots are now rebuilt through a same-directory temporary file and atomic replacement. Existing extension columns are retained, and replayed run/bonus keys are not appended twice. Scrape-run updates use SQLite conflict updates rather than delete-and-reinsert replacement semantics.

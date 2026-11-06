@@ -1,0 +1,54 @@
+name: Validate maintenance pipeline and standard-library cleaner
+
+on:
+  pull_request:
+    paths:
+      - 'maintain_pipeline.py'
+      - 'integrity_check.py'
+      - 'network.py'
+      - 'scraper.py'
+      - 'scrape_worker.py'
+      - 'daily_scrape.py'
+      - 'db.py'
+      - 'clean_bonuses.py'
+      - 'bonus_scoring.py'
+      - 'requirements.txt'
+      - 'termux_setup.sh'
+      - 'tests/**'
+      - '.github/workflows/validate-maintenance.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'maintain_pipeline.py'
+      - 'integrity_check.py'
+      - 'network.py'
+      - 'scraper.py'
+      - 'scrape_worker.py'
+      - 'daily_scrape.py'
+      - 'db.py'
+      - 'clean_bonuses.py'
+      - 'bonus_scoring.py'
+      - 'requirements.txt'
+      - 'tests/**'
+
+permissions:
+  contents: read
+
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install runtime dependencies
+        run: pip install -r requirements.txt
+      - name: Compile maintained Python modules
+        run: python -m py_compile maintain_pipeline.py integrity_check.py db.py clean_bonuses.py bonus_scoring.py network.py scraper.py scrape_worker.py daily_scrape.py
+      - name: Run complete regression suite
+        run: python -m unittest discover -s tests -v
+      - name: Verify cleaner has no scientific-stack dependency
+        run: |
+          ! grep -Eq '^(pandas|numpy)([<=>~!].*)?$' requirements.txt
+          ! grep -Eq '^(import pandas|import numpy|from pandas|from numpy)' clean_bonuses.py

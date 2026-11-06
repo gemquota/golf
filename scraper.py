@@ -133,7 +133,18 @@ def record_account_discovery_result(url, attempted_codes):
         _save_account_state_locked(state)
 
 def worker(chunk_id, stats, stats_lock, total_tasks, ip_score, record_raw, worker_count, tasks, proxy_pool, on_update):
-    scraper_session = net.create_session(random.choice(proxy_pool) if proxy_pool else None)
+    """Run one worker batch and always release its HTTP session."""
+    session = net.create_session(random.choice(proxy_pool) if proxy_pool else None)
+    try:
+        return _worker_tasks(
+            session, chunk_id, stats, stats_lock, total_tasks, ip_score,
+            record_raw, worker_count, tasks, proxy_pool, on_update,
+        )
+    finally:
+        session.close()
+
+
+def _worker_tasks(scraper_session, chunk_id, stats, stats_lock, total_tasks, ip_score, record_raw, worker_count, tasks, proxy_pool, on_update):
     current_ua_index = 0
 
     for sequence, batch_position, url, username, password, account_id in tasks:
@@ -240,7 +251,7 @@ def worker(chunk_id, stats, stats_lock, total_tasks, ip_score, record_raw, worke
                 "nw": worker_count
             })
 
-def run_scrape(on_update=None, on_launcher=None, on_completion=None):
+def _run_scrape(on_update=None, on_launcher=None, on_completion=None):
     resume_mode = "-r" in sys.argv
     shuffle_mode = "-s" in sys.argv
     verbose_index = sys.argv.index("-v") if "-v" in sys.argv else -1
@@ -409,3 +420,20 @@ def run_scrape(on_update=None, on_launcher=None, on_completion=None):
     server.IS_RUNNING = False
     if on_completion:
         on_completion(execution_stats)
+    return final_csv_path
+
+
+def run_scrape(on_update=None, on_launcher=None, on_completion=None):
+    """Run a scrape while guaranteeing process state and worker temp cleanup."""
+    server.IS_RUNNING = True
+    try:
+        return _run_scrape(on_update, on_launcher, on_completion)
+    except BaseException:
+        for temporary in TMP_DIR.glob("tmp_*.csv"):
+            try:
+                temporary.unlink()
+            except OSError:
+                pass
+        raise
+    finally:
+        server.IS_RUNNING = False

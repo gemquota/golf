@@ -22,7 +22,6 @@ class UrlLifecycleTests(unittest.TestCase):
             "ACCOUNT_SUCCESS": self.root / "account_success.json",
             "ACCOUNTS": self.root / "accounts.csv",
             "HISTORY": self.root / "history.csv",
-            "RUN_LOG": self.root / "runs.csv",
         }
         self.patcher = patch.multiple(pipeline, **self.paths)
         self.patcher.start()
