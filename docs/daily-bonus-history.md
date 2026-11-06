@@ -48,7 +48,7 @@ u = YOUR_SECOND_ACCOUNT_USERNAME
 p = YOUR_SECOND_ACCOUNT_PASSWORD
 ```
 
-The parser reads `config.local.ini` after the tracked template, so local values override it. Environment variables such as `GOLF_U1_USER` and `GOLF_U1_PASS` take precedence over INI values. Do not remove `in/config/config.local.ini` from `.gitignore`.
+The parser reads `config.local.ini` after the tracked template, so local values override it. Environment variables such as `GOLF_U1_USER` and `GOLF_U1_PASS` take precedence over INI values. Do not remove `in/config/config.local.ini` from `.gitignore`. Set a unique non-empty `ui_pass` locally or provide `GOLF_UI_PASS`; the dashboard API intentionally remains unavailable until authentication is configured.
 
 ## Interpreting release-day results
 
