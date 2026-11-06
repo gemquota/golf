@@ -1,4 +1,4 @@
-import base64, json, os, re, tempfile, time
+import base64, ipaddress, json, os, re, tempfile, time
 from pathlib import Path
 import cloudscraper, requests
 import config
@@ -57,7 +57,7 @@ def _parklogic_redirect(session, html):
             return None
         parameters.update({
             "adBlockingDetected": 0,
-            "timezoneBrowser": "Australia/Brisbane",
+            "timezoneBrowser": "Australia/Sydney",
             "webdriver": 0,
             "gpu": None,
         })
@@ -148,9 +148,9 @@ def _load_ip_cache():
             return None
         timestamp = float(value["ts"])
         score = int(value["score"])
-        ip = str(value["ip"]).strip()
+        ip = str(ipaddress.ip_address(str(value["ip"]).strip()))
         age = time.time() - timestamp
-        if 0 <= age < 3600 and ip:
+        if 0 <= age < 3600 and 0 <= score <= 100:
             return score, ip
     except (OSError, ValueError, TypeError, KeyError):
         return None
@@ -197,8 +197,8 @@ def check_ip_reputation(api_key):
         if not isinstance(data, dict):
             raise ValueError("AbuseIPDB response is missing its data object")
         score = int(data["abuseConfidenceScore"])
-        ip = str(data["ipAddress"]).strip()
-        if not ip or not 0 <= score <= 100:
+        ip = str(ipaddress.ip_address(str(data["ipAddress"]).strip()))
+        if not 0 <= score <= 100:
             raise ValueError("AbuseIPDB returned invalid reputation data")
         _save_ip_cache(score, ip)
         return score, ip
