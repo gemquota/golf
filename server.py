@@ -2,6 +2,7 @@
 import asyncio
 import json
 import queue
+import os
 import secrets
 import threading
 import time
@@ -164,4 +165,4 @@ async def root():
     return HTMLResponse(Path("templates/index.html").read_text())
 
 def start_server():
-    uvicorn.run(web_app, host=__import__("os").environ.get("GOLF_BIND_HOST", "127.0.0.1"), port=8000, log_level="error")
+    uvicorn.run(web_app, host=os.environ.get("GOLF_BIND_HOST", "127.0.0.1"), port=8000, log_level="error")
