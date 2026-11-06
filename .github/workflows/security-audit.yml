@@ -1,0 +1,31 @@
+name: Security and legacy-state audit
+
+on:
+  pull_request:
+    paths:
+      - 'backup/**'
+      - 'data/base.db'
+      - 'db.py'
+      - 'server.py'
+      - 'config.py'
+      - 'scripts/audit_db_security.py'
+      - 'tests/test_db_security_audit.py'
+
+permissions:
+  contents: read
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Inspect legacy database and credential metadata
+        run: |
+          git fetch origin main
+          git show origin/main:data/base.db > /tmp/base.db
+          git show origin/main:backup/data/base.db > /tmp/backup.db
+          git show origin/main:backup/in/config/config.ini > /tmp/backup-config.ini
+          python scripts/audit_db_security.py --scrub-sessions /tmp/base.db /tmp/backup.db --config /tmp/backup-config.ini
