@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - 'maintain_pipeline.py'
+      - 'integrity_check.py'
       - 'network.py'
       - 'scraper.py'
       - 'scrape_worker.py'
@@ -43,7 +44,7 @@ jobs:
       - name: Install runtime dependencies
         run: pip install -r requirements.txt
       - name: Compile maintained Python modules
-        run: python -m py_compile maintain_pipeline.py db.py clean_bonuses.py bonus_scoring.py network.py scraper.py scrape_worker.py daily_scrape.py
+        run: python -m py_compile maintain_pipeline.py integrity_check.py db.py clean_bonuses.py bonus_scoring.py network.py scraper.py scrape_worker.py daily_scrape.py
       - name: Run complete regression suite
         run: python -m unittest discover -s tests -v
       - name: Verify cleaner has no scientific-stack dependency
