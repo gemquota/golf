@@ -9,6 +9,7 @@ from zoneinfo import ZoneInfo
 import db
 import scraper
 import server
+import maintain_pipeline
 
 
 def main():
@@ -21,14 +22,15 @@ def main():
     server.IS_RUNNING = True
 
     print(f"Daily scrape started at {started_sql} UTC", flush=True)
-    scraper.run_scrape()
+    current_csv = scraper.run_scrape()
     if server.STOPPED:
         raise RuntimeError("Scrape was stopped before the daily history could be finalized")
-
-    csv_files = list(Path("data").glob("bonuses_*.csv"))
-    if not csv_files:
+    if current_csv is None or not Path(current_csv).is_file():
         raise RuntimeError("Scraper did not produce a bonuses_*.csv file")
-    current_csv = max(csv_files, key=lambda path: path.stat().st_mtime)
+
+    # Use the same URL-health and SQLite run-summary stage as CLI and
+    # interactive scrapes before publishing the viewer snapshot.
+    maintain_pipeline.run_pipeline(started)
 
     # Refresh the current-viewer CSVs from the completed run's database.
     subprocess.run(
