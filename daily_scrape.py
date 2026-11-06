@@ -29,6 +29,8 @@ def main():
     if not csv_files:
         raise RuntimeError("Scraper did not produce a bonuses_*.csv file")
     current_csv = max(csv_files, key=lambda path: path.stat().st_mtime)
+    if current_csv.stat().st_mtime < started.timestamp():
+        raise RuntimeError("Scraper did not produce a fresh bonuses_*.csv file for this run")
 
     # Refresh the current-viewer CSVs from the completed run's database.
     subprocess.run(
