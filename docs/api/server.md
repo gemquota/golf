@@ -1,54 +1,14 @@
-# server.py
+# Dashboard server API
 
-## Module Overview
+`server.py` exposes the local FastAPI dashboard, receives control requests, and broadcasts scraper progress to connected WebSocket clients.
 
-- **File:** `server.py`
-- **Functions:** 2
-- **Classes:** 2
-- **Imports:** 8
+## Main responsibilities
 
-### Dependencies
-- `import json`
-- `from pathlib import Path`
-- `from fastapi import FastAPI`
-- `from fastapi import WebSocket`
-- `from fastapi import WebSocketDisconnect`
-- `from fastapi import Depends`
-- `from fastapi import HTTPException`
-- `from fastapi import status`
-- `from fastapi.responses import HTMLResponse`
-- `from fastapi.security import HTTPBasic`
-- `from fastapi.security import HTTPBasicCredentials`
-- `import uvicorn`
-- `from pydantic import BaseModel`
-- `from pydantic import Field`
-- `import config`
+- Serve the dashboard page.
+- Expose configuration, status, and pause/resume/stop endpoints.
+- Queue events emitted by scraper worker threads and broadcast them asynchronously.
+- Keep UI transport concerns separate from scraper execution.
 
-### Function Reference
+Authentication and network exposure are security-sensitive. Review the current implementation before exposing the server beyond localhost; do not assume that a dashboard running on a private device is automatically protected.
 
-| Function | Line | Signature |
-|----------|------|-----------|
-| verify_auth | 39 | `verify_auth(credentials: HTTPBasicCredentials | None=Depends(security))` |
-| start_server | 97 | `start_server()` |
-
-### Function Details
-
-#### `verify_auth()`
-
-**Location:** `server.py:39`
-
-**Docstring:** Optional auth — skip if no UI_PASS configured, else validate.
-
-- **Branches:** 2
-- **Calls:** 3
-- **Returns:** 2
-- **Body lines:** 8
-
-#### `start_server()`
-
-**Location:** `server.py:97`
-
-- **Branches:** 0
-- **Calls:** 1
-- **Returns:** 0
-- **Body lines:** 2
+See [server.py](../../server.py) and [the dashboard template](../../templates/index.html).

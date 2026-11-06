@@ -1,25 +1,24 @@
 #!/usr/bin/env python3
-"""Export the scraper DB into the dayne-bonuses viewer's 5 CSVs.
+"""Export canonical scraper records into the active viewer's four CSVs.
 
-Matches the schemas the viewer (dayne-bonuses/main.js) consumes:
-  dayne-bonuses.csv          - 21-col raw export (same as scrape_and_deploy.sh)
-  dayne-bonuses-cleaned.csv  - raw + ratio, amount>0, deduped, pv-sorted
-  dayne-bonuses-fresh.csv    - copy of raw (historical behavior)
-  dayne-bonuses-all.csv      - 49-col all-time export (raw JSON + db fields)
-  dayne-sites.csv            - 40-col per-site rollup
+Outputs:
+  dayne-bonuses.csv          - 21-column raw export
+  dayne-bonuses-cleaned.csv  - positive-amount, deduplicated, perceived-value-sorted
+  dayne-bonuses-all.csv      - expanded records with canonical score metadata
+  dayne-sites.csv            - per-site activity and value rollup
 
 Usage: python3 export_viewer_data.py [output_dir]
 """
 import csv
-import json
 import sqlite3
 import sys
 from datetime import datetime, timedelta
-from statistics import median
-
-from bonus_scoring import score_bonus
-from export_csv import domain, site_minimums
 from pathlib import Path
+
+from export_csv import (
+    build_scoring_context, normalize_bonus_json, num,
+    score_bonus_row, site_minimums,
+)
 
 DB_PATH = Path("data/base.db")
 OUT_DIR = Path(sys.argv[1]) if len(sys.argv) > 1 else Path("viewer/public")
@@ -75,14 +74,6 @@ def fnum(v, nd=1):
     return f"{v:.{nd}f}"
 
 
-def num(v):
-    try:
-        f = float(v)
-        return f if f == f else None
-    except (TypeError, ValueError):
-        return None
-
-
 def fmt_dt(v):
     return v if v else ""
 
@@ -108,45 +99,23 @@ def main():
 
     now = datetime.now()
 
-    # Use the same scoring implementation and dataset/site medians as the
-    # analysis export so the published viewer cannot silently omit score fields.
+    # Use the shared analysis-export context so median imputation and confidence
+    # labels cannot drift between the analysis CSV and the published viewer.
     mins = site_minimums(Path("data"))
-    site_maxes, site_rolls, all_maxes, all_rolls = {}, {}, [], []
-    for item in bonus_rows:
-        try:
-            raw = json.loads(item["raw_json"] or "{}")
-            raw = {str(k).lower(): v for k, v in raw.items()} if isinstance(raw, dict) else {}
-        except (ValueError, TypeError):
-            raw = {}
-        host = domain(item["url"])
-        maximum, rollover = num(raw.get("maxwithdraw")), num(raw.get("rollover"))
-        if maximum is not None and maximum > 0:
-            all_maxes.append(maximum)
-            site_maxes.setdefault(host, []).append(maximum)
-        if rollover is not None and rollover >= 0:
-            all_rolls.append(rollover)
-            site_rolls.setdefault(host, []).append(rollover)
-    site_max_medians = {host: median(values) for host, values in site_maxes.items()}
-    site_roll_medians = {host: median(values) for host, values in site_rolls.items()}
-    global_max = median(all_maxes) if all_maxes else None
-    global_roll = median(all_rolls) if all_rolls else None
+    scoring_context = build_scoring_context(bonus_rows)
 
     raw_rows = []
     all_rows = []
     by_url = {}
     for b in bonus_rows:
         raw_json = b["raw_json"]
-        try:
-            bonus = json.loads(raw_json) if raw_json else {}
-            bonus = {k.lower(): val for k, val in bonus.items()} if isinstance(bonus, dict) else {}
-        except (ValueError, TypeError):
-            bonus = {}
+        bonus = normalize_bonus_json(raw_json)
         amount = b["amount"] if b["amount"] is not None else bonus.get("amount", "")
         pv = b["perceived_value"]
         exp, s1, sl = b["expiry"], b["first_seen"], b["last_seen"]
         is_new = 1 if sl and s1 and sl == s1 else 0
 
-        # ── raw / fresh row (same export logic as scrape_and_deploy.sh) ──
+        # ── raw viewer row ──
         raw_rows.append({
             "url": b["url"] or "", "mname": b["merchant_name"] or "", "id": b["external_id"] or "",
             "name": b["name"] or "", "transactiontype": bonus.get("transactiontype", ""),
@@ -179,12 +148,8 @@ def main():
             if d is not None:
                 days_vis = round(d, 2)
         name_l = (b["name"] or "").lower()
-        host = domain(b["url"])
-        score = score_bonus(
-            amt, bonus.get("minwithdraw"), mins.get(host), num(bonus.get("maxwithdraw")),
-            num(bonus.get("rollover")), site_max_medians.get(host), site_roll_medians.get(host),
-            global_max, global_roll,
-        )
+        # Preserve the viewer's historical DB-first amount precedence.
+        score = score_bonus_row(b, {**bonus, "amount": amount}, mins, scoring_context)
         all_rows.append({
             "url": b["url"] or "", "mname": b["merchant_name"] or "", "id": b["external_id"] or "",
             "name": b["name"] or "", "amount": amount,

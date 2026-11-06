@@ -1,72 +1,16 @@
-# config.py
+# Configuration API
 
-## Module Overview
+`config.py` owns application configuration loading, URL/account parsing, proxy loading, and local settings persistence.
 
-- **File:** `config.py`
-- **Functions:** 5
-- **Classes:** 0
-- **Imports:** 4
+## Responsibilities
 
-### Dependencies
-- `import configparser`
-- `import random`
-- `from pathlib import Path`
-- `import urllib3`
-- `import db`
+- Resolve configuration from the repository's configuration files and supported environment overrides.
+- Parse configured account sections and site URLs for scraper workers.
+- Normalize site URLs consistently before scraping.
+- Load and persist dashboard settings through the configuration helpers.
 
-### Function Reference
+## Operational notes
 
-| Function | Line | Signature |
-|----------|------|-----------|
-| load_proxies | 16 | `load_proxies()` |
-| parse_urls_and_accounts | 20 | `parse_urls_and_accounts(shuffle=False)` |
-| normalize_url | 31 | `normalize_url(url)` |
-| load_config_dict | 36 | `load_config_dict()` |
-| save_config_dict | 39 | `save_config_dict(data: dict)` |
+Keep secrets in local configuration or environment variables. Do not add credentials, session values, or proxy authentication to tracked examples or generated documentation.
 
-### Function Details
-
-#### `load_proxies()`
-
-**Location:** `config.py:16`
-
-- **Branches:** 1
-- **Calls:** 6
-- **Returns:** 1
-- **Body lines:** 3
-
-#### `parse_urls_and_accounts()`
-
-**Location:** `config.py:20`
-
-- **Branches:** 1
-- **Calls:** 11
-- **Returns:** 1
-- **Body lines:** 10
-
-#### `normalize_url()`
-
-**Location:** `config.py:31`
-
-- **Branches:** 1
-- **Calls:** 4
-- **Returns:** 1
-- **Body lines:** 4
-
-#### `load_config_dict()`
-
-**Location:** `config.py:36`
-
-- **Branches:** 0
-- **Calls:** 2
-- **Returns:** 1
-- **Body lines:** 2
-
-#### `save_config_dict()`
-
-**Location:** `config.py:39`
-
-- **Branches:** 1
-- **Calls:** 7
-- **Returns:** 0
-- **Body lines:** 7
+See [config.py](../../config.py) and [the example configuration](../../in/meta/config.ini.example).
