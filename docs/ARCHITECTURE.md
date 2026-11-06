@@ -48,3 +48,12 @@ The `docs/api/` pages describe module responsibilities and stable entry points. 
 Scrape entry points wrap the shared worker lifecycle so HTTP sessions are closed and the process running flag is reset even when a worker or callback raises. Failed batches remove worker temporary CSV fragments rather than leaving them to contaminate a later run.
 
 The AbuseIPDB cache is validated before use and replaced atomically; malformed cache or API data cannot abort a scrape or become a trusted cache entry. Bonus-history CSV writes are idempotent by UTC run marker and bonus UID. The scheduled workflow now invokes the same URL-health and SQLite run-summary stage as normal CLI/interactive execution before publishing viewer snapshots.
+
+
+## Integrity auditing and recovery
+
+Run `python integrity_check.py` before publishing or after an interrupted maintenance run. The command is read-only: it checks SQLite structural integrity, required canonical tables and columns, duplicate or missing run identifiers, impossible run metrics, foreign-key violations, bonus-history keys, and stale worker CSV fragments. Use `--json` for machine-readable output or override `--db`, `--history`, and `--tmp-dir` for a staged data directory.
+
+Errors produce a non-zero exit status; stale fragments and legacy rows without run IDs are warnings. The audit never deletes, repairs, or rewrites source data. Investigate findings and take a backup before any manual repair.
+
+Bonus-history snapshots are now rebuilt through a same-directory temporary file and atomic replacement. Existing extension columns are retained, and replayed run/bonus keys are not appended twice. Scrape-run updates use SQLite conflict updates rather than delete-and-reinsert replacement semantics.
