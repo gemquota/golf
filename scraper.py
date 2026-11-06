@@ -345,7 +345,8 @@ def _run_scrape(on_update=None, on_launcher=None, on_completion=None):
     # start with U1; known URLs start with the account that last succeeded.
     known_successes = load_account_successes()
     original_known_by_account, unknown_urls = partition_urls_by_account(
-        url_list, known_successes, len(account_list)
+        url_list, known_successes, len(account_list),
+        account_ids=[record[0] for record in account_list],
     )
     # Persisted site status is historical state, not evidence that this run
     # attempted the URL. Keep all scheduling decisions scoped to this run.
