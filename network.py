@@ -1,4 +1,4 @@
-import base64, json, re, time
+import base64, json, os, re, tempfile, time
 from pathlib import Path
 import cloudscraper, requests
 import config
@@ -37,7 +37,10 @@ def create_session(proxy=None):
 def post_json(session, url, data):
     response = session.post(url, data=data, timeout=config.TIMEOUT)
     response.raise_for_status()
-    return response.json()
+    payload = response.json()
+    if not isinstance(payload, dict):
+        raise ValueError("API response must be a JSON object")
+    return payload
 
 def _parklogic_redirect(session, html):
     if "<title>Redirecting" not in html or "parklogic" not in html:
@@ -47,13 +50,28 @@ def _parklogic_redirect(session, html):
     if not match:
         return None
         
-    payload = json.loads(base64.b64decode(match.group(1)))
-    payload["parameters"].update({"adBlockingDetected": 0, "timezoneBrowser": "Australia/Sydney", "webdriver": 0, "gpu": None})
-    
-    response = session.post("https://router.parklogic.com/", data=json.dumps(payload), timeout=config.TIMEOUT)
-    if response.text[:4] == "http":
-        return response.text
-    return None
+    try:
+        payload = json.loads(base64.b64decode(match.group(1), validate=True))
+        parameters = payload.get("parameters") if isinstance(payload, dict) else None
+        if not isinstance(parameters, dict):
+            return None
+        parameters.update({
+            "adBlockingDetected": 0,
+            "timezoneBrowser": "Australia/Brisbane",
+            "webdriver": 0,
+            "gpu": None,
+        })
+    except (ValueError, TypeError):
+        return None
+
+    response = session.post(
+        "https://router.parklogic.com/",
+        data=json.dumps(payload),
+        timeout=config.TIMEOUT,
+    )
+    response.raise_for_status()
+    destination = response.text.strip()
+    return destination if destination.startswith(("http://", "https://")) else None
 
 def get_page(session, url):
     response = session.get(url, timeout=config.TIMEOUT)
@@ -62,12 +80,18 @@ def get_page(session, url):
     redirect_url = _parklogic_redirect(session, response.text)
     if redirect_url:
         response = session.get(redirect_url, timeout=config.TIMEOUT)
-        
+        response.raise_for_status()
+
     return response.text
 
 def _extract_var(html, name):
-    start_index = html.index(f"var {name} = ") + len(f"var {name} = ")
-    return html[start_index:html.index(";", start_index)].strip('" ')
+    marker = f"var {name} = "
+    try:
+        start_index = html.index(marker) + len(marker)
+        end_index = html.index(";", start_index)
+    except ValueError:
+        raise ValueError(f"Merchant page is missing a valid {name} declaration") from None
+    return html[start_index:end_index].strip().strip(chr(34) + chr(39) + " ")
 
 def parse_merchant_info(html):
     return _extract_var(html, "MERCHANTID"), _extract_var(html, "MERCHANTNAME")
@@ -116,30 +140,67 @@ def sync_user_data(session, url, merchant_id, access_token, access_id):
     }
     return post_json(session, url, payload)
 
+def _load_ip_cache():
+    """Return a valid, unexpired reputation cache entry or None."""
+    try:
+        value = json.loads(CACHE_PATH.read_text(encoding="utf-8"))
+        if not isinstance(value, dict):
+            return None
+        timestamp = float(value["ts"])
+        score = int(value["score"])
+        ip = str(value["ip"]).strip()
+        age = time.time() - timestamp
+        if 0 <= age < 3600 and ip:
+            return score, ip
+    except (OSError, ValueError, TypeError, KeyError):
+        return None
+    return None
+
+
+def _save_ip_cache(score, ip):
+    """Atomically replace the cache so an interrupted write cannot poison later runs."""
+    CACHE_PATH.parent.mkdir(parents=True, exist_ok=True)
+    fd, temp_name = tempfile.mkstemp(prefix=".ip-health-", dir=str(CACHE_PATH.parent))
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as stream:
+            json.dump({"ts": time.time(), "score": int(score), "ip": str(ip)}, stream)
+            stream.write("\n")
+            stream.flush()
+            os.fsync(stream.fileno())
+        os.replace(temp_name, CACHE_PATH)
+    except Exception:
+        try:
+            os.unlink(temp_name)
+        except OSError:
+            pass
+        raise
+
+
 def check_ip_reputation(api_key):
-    if CACHE_PATH.exists():
-        cache_data = json.loads(CACHE_PATH.read_text())
-        if time.time() - cache_data["ts"] < 3600:
-            return cache_data["score"], cache_data["ip"]
-            
+    cached = _load_ip_cache()
+    if cached is not None:
+        return cached
+
     if not api_key or api_key == "YOUR_KEY_HERE":
         return 0, "Unknown"
-        
+
     try:
         response = requests.get(
             "https://api.abuseipdb.com/api/v2/check",
             headers={"Accept": "application/json", "Key": api_key},
             params={"maxAgeInDays": "90"},
-            timeout=10
+            timeout=10,
         )
-        api_data = response.json()["data"]
-        
-        CACHE_PATH.write_text(json.dumps({
-            "ts": time.time(),
-            "score": api_data["abuseConfidenceScore"],
-            "ip": api_data["ipAddress"]
-        }))
-        
-        return api_data["abuseConfidenceScore"], api_data["ipAddress"]
+        response.raise_for_status()
+        payload = response.json()
+        data = payload.get("data") if isinstance(payload, dict) else None
+        if not isinstance(data, dict):
+            raise ValueError("AbuseIPDB response is missing its data object")
+        score = int(data["abuseConfidenceScore"])
+        ip = str(data["ipAddress"]).strip()
+        if not ip or not 0 <= score <= 100:
+            raise ValueError("AbuseIPDB returned invalid reputation data")
+        _save_ip_cache(score, ip)
+        return score, ip
     except Exception:
         return -1, "Error"
