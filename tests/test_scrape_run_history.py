@@ -54,9 +54,12 @@ class ScrapeRunHistoryTests(unittest.TestCase):
 
     def test_history_metrics_only_include_successful_sites(self):
         metrics = pipeline.append_history(self.started)
+        repeated_metrics = pipeline.append_history(self.started)
         self.assertEqual(metrics, {"count": 2, "new_count": 1, "sum_perceived_value": 50.0})
+        self.assertEqual(repeated_metrics, metrics)
         with self.history.open(newline="", encoding="utf-8") as stream:
             rows = list(csv.DictReader(stream))
+        self.assertEqual(len(rows), 2)
         self.assertEqual({row["name"] for row in rows}, {"New bonus", "Old bonus"})
 
     def test_run_record_is_idempotent_and_keeps_operational_metrics(self):
