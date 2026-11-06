@@ -1,81 +1,156 @@
-import pandas as pd
+"""Standard-library CSV cleaner for legacy bonus snapshots.
+
+The canonical score is preserved when present. Older CSVs without a v2 score
+retain the historical benefit-only fallback so existing files remain usable.
+"""
+import csv
 import sys
-import numpy as np
+from math import sqrt
 from pathlib import Path
-import shutil
+
+from bonus_scoring import number
+
+
+DROP_COLUMNS = {"id", "transactiontype", "bonusfixed", "balance"}
+NUMERIC_COLUMNS = {
+    "amount", "minwithdraw", "site_minwithdraw", "effective_minwithdraw",
+    "maxwithdraw", "rollover", "ratio", "perceived_value", "weighted_score",
+}
+
+
+def _rank_desc_min(values):
+    """Pandas-compatible descending rank(method='min', na_option='bottom')."""
+    valid = sorted((value for value in values if value is not None), reverse=True)
+    ranks = {}
+    for index, value in enumerate(valid, start=1):
+        ranks.setdefault(value, index)
+    missing_rank = len(valid) + 1
+    return [ranks.get(value, missing_rank) for value in values]
 
 
 def clean_bonuses(csv_file):
-    df = pd.read_csv(csv_file)
-    df['amount'] = pd.to_numeric(df['amount'], errors='coerce')
-    df = df[df['amount'] > 0].copy()
+    """Return (output fieldnames, cleaned rows) without third-party dependencies."""
+    with Path(csv_file).open(newline="", encoding="utf-8-sig") as stream:
+        reader = csv.DictReader(stream)
+        source_fields = list(reader.fieldnames or [])
+        if "amount" not in source_fields:
+            raise ValueError("Input CSV must contain an amount column")
+        rows = []
+        for source in reader:
+            row = dict(source)
+            amount = number(row.get("amount"))
+            if amount is None or amount <= 0:
+                continue
+            row["amount"] = amount
+            for field in NUMERIC_COLUMNS.intersection(row):
+                if field != "amount":
+                    row[field] = number(row.get(field))
 
-    for c in ['id', 'transactiontype', 'bonusfixed', 'balance']:
-        if c in df.columns:
-            df = df.drop(columns=[c])
+            for field in DROP_COLUMNS:
+                row.pop(field, None)
 
-    for col in ['minwithdraw', 'site_minwithdraw', 'effective_minwithdraw', 'maxwithdraw', 'rollover', 'ratio', 'perceived_value', 'weighted_score']:
-        if col in df.columns:
-            df[col] = pd.to_numeric(df[col], errors='coerce')
+            bonus_min = number(row.get("minwithdraw"))
+            site_min = number(row.get("site_minwithdraw"))
+            effective_min = bonus_min if bonus_min is not None and bonus_min > 0 else site_min
+            if effective_min is None or effective_min <= 0:
+                effective_min = 50.0
+            ratio = round(effective_min / amount, 4)
 
-    bonus_min = df['minwithdraw'] if 'minwithdraw' in df.columns else pd.Series(np.nan, index=df.index)
-    site_min = df['site_minwithdraw'] if 'site_minwithdraw' in df.columns else pd.Series(np.nan, index=df.index)
-    effective_min = bonus_min.where(bonus_min > 0, site_min)
-    effective_min = effective_min.where(effective_min > 0, 50.0)
-    df['effective_minwithdraw'] = effective_min
-    df['ratio'] = (effective_min / df['amount']).round(4)
+            rollover = number(row.get("rollover"))
+            burden = round(rollover * 0.60 + ratio * 0.40, 4) if rollover is not None else None
 
-    rollover = pd.to_numeric(df['rollover'], errors='coerce') if 'rollover' in df.columns else pd.Series(np.nan, index=df.index)
-    df['rollover_ratio_average'] = (rollover * 0.60 + df['ratio'] * 0.40).round(4)
+            # Exported v2 scores remain authoritative. Older files retain the
+            # original benefit-only fallback instead of silently changing rank.
+            if "weighted_score_v1" not in source_fields:
+                maximum = number(row.get("maxwithdraw"))
+                score = (
+                    round((amount / effective_min) * sqrt(maximum), 4)
+                    if maximum is not None and maximum >= 0 else None
+                )
+            else:
+                score = number(row.get("weighted_score"))
+                score = round(score, 4) if score is not None else None
 
-    # Preserve the canonical export's v2 score. Older input CSVs without
-    # weighted_score_v1 retain the legacy benefit-only calculation.
-    if 'weighted_score_v1' not in df.columns:
-        maxwithdraw = pd.to_numeric(df['maxwithdraw'], errors='coerce') if 'maxwithdraw' in df.columns else pd.Series(np.nan, index=df.index)
-        df['weighted_score'] = np.where(
-            (df['amount'] > 0) & (effective_min > 0) & maxwithdraw.notna() & (maxwithdraw >= 0),
-            (df['amount'] / effective_min) * np.sqrt(maxwithdraw),
-            np.nan,
+            row["effective_minwithdraw"] = effective_min
+            row["ratio"] = ratio
+            row["rollover_ratio_average"] = burden
+            row["weighted_score"] = score
+            rows.append(row)
+
+    fields = [field for field in source_fields if field not in DROP_COLUMNS]
+    for field in ("effective_minwithdraw", "ratio", "rollover_ratio_average", "weighted_score"):
+        if field not in fields:
+            fields.append(field)
+
+    if "perceived_value" in fields:
+        perceived = [number(row.get("perceived_value")) for row in rows]
+        scores = [number(row.get("weighted_score")) for row in rows]
+        perceived_ranks = _rank_desc_min(perceived)
+        score_ranks = _rank_desc_min(scores)
+        for row, pv_rank, score_rank in zip(rows, perceived_ranks, score_ranks):
+            row["perceived_value_rank"] = pv_rank
+            row["weighted_score_rank"] = score_rank
+            row["score_rank_change"] = pv_rank - score_rank
+        for field in ("perceived_value_rank", "weighted_score_rank", "score_rank_change"):
+            if field not in fields:
+                fields.append(field)
+
+    # Match the established filter and first-occurrence duplicate policy.
+    rows = [row for row in rows if row["ratio"] is None or row["ratio"] <= 500]
+    filtered_count = len(rows)
+    seen = set()
+    deduplicated = []
+    for row in rows:
+        key = (row.get("url"), row.get("name"), row.get("amount"))
+        if key in seen:
+            continue
+        seen.add(key)
+        deduplicated.append(row)
+
+    # Stable sorting keeps source order for equal scores and puts missing
+    # scores last, matching the previous DataFrame behavior.
+    if "weighted_score" in fields:
+        deduplicated.sort(
+            key=lambda row: (
+                number(row.get("weighted_score")) is None,
+                -(number(row.get("weighted_score")) or 0.0),
+            )
         )
-    df['weighted_score'] = pd.to_numeric(df['weighted_score'], errors='coerce').round(4)
+    elif "perceived_value" in fields:
+        deduplicated.sort(
+            key=lambda row: (
+                number(row.get("perceived_value")) is None,
+                -(number(row.get("perceived_value")) or 0.0),
+            )
+        )
 
-    if 'perceived_value' in df.columns:
-        df['perceived_value'] = pd.to_numeric(df['perceived_value'], errors='coerce')
-        df['perceived_value_rank'] = df['perceived_value'].rank(ascending=False, method='min', na_option='bottom').astype('Int64')
-        df['weighted_score_rank'] = df['weighted_score'].rank(ascending=False, method='min', na_option='bottom').astype('Int64')
-        df['score_rank_change'] = df['perceived_value_rank'] - df['weighted_score_rank']
+    derived = ["effective_minwithdraw", "ratio", "rollover_ratio_average", "weighted_score"]
+    fields = [field for field in fields if field not in derived]
+    if "rollover" in fields:
+        index = fields.index("rollover") + 1
+        fields[index:index] = derived
+    else:
+        fields.extend(derived)
 
-    df = df[df['ratio'].isna() | (df['ratio'] <= 500)].copy()
-    before = len(df)
-    df = df.drop_duplicates(subset=['url', 'name', 'amount'], keep='first')
+    print(
+        f"Filtered: {filtered_count} -> {len(deduplicated)} rows "
+        f"({filtered_count - len(deduplicated)} duplicates removed)"
+    )
+    return fields, deduplicated
 
-    if 'weighted_score' in df.columns:
-        df = df.sort_values('weighted_score', ascending=False, na_position='last')
-    elif 'perceived_value' in df.columns:
-        df = df.sort_values('perceived_value', ascending=False)
 
-    cols = df.columns.tolist()
-    for col in ['effective_minwithdraw', 'ratio', 'rollover_ratio_average', 'weighted_score']:
-        if col in cols:
-            cols.remove(col)
-    if 'rollover' in cols:
-        ri = cols.index('rollover') + 1
-        cols[ri:ri] = ['effective_minwithdraw', 'ratio', 'rollover_ratio_average', 'weighted_score']
-    df = df[[c for c in cols if c in df.columns]]
-
-    print(f"Filtered: {before} -> {len(df)} rows ({before - len(df)} removed)")
-    return df
+def write_cleaned_csv(fieldnames, rows, output_path):
+    output = Path(output_path)
+    output.parent.mkdir(parents=True, exist_ok=True)
+    with output.open("w", newline="", encoding="utf-8") as stream:
+        writer = csv.DictWriter(stream, fieldnames=fieldnames, extrasaction="ignore")
+        writer.writeheader()
+        writer.writerows(rows)
 
 
 if __name__ == "__main__":
-    csv_file = sys.argv[1] if len(sys.argv) > 1 else "data/Dayne_Bonuses.csv"
-    enriched_copy = Path('data/Dayne_Bonuses_Enriched.csv')
-    df = clean_bonuses(csv_file)
-    df.to_csv('data/Dayne_Bonuses_Cleaned.csv', index=False)
-    # Preserve the enriched input as its own explicit layer. The legacy shell
-    # copies Dayne_Bonuses.csv into the viewer, so restore the raw snapshot there
-    # after cleaning to make the Raw tab genuinely raw.
-    if Path('data/Dayne_Bonuses_Raw.csv').exists():
-        shutil.copy2(csv_file, enriched_copy)
-        shutil.copy2('data/Dayne_Bonuses_Raw.csv', csv_file)
-    print(f'Saved: data/Dayne_Bonuses_Cleaned.csv ({len(df)} rows)')
+    source = sys.argv[1] if len(sys.argv) > 1 else "data/Dayne_Bonuses.csv"
+    fields, cleaned = clean_bonuses(source)
+    destination = Path("data/Dayne_Bonuses_Cleaned.csv")
+    write_cleaned_csv(fields, cleaned, destination)
+    print(f"Saved: {destination} ({len(cleaned)} rows)")
