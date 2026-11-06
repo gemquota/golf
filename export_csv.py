@@ -64,6 +64,54 @@ def site_minimums(out_dir: Path | None = None):
     return result
 
 
+def normalize_bonus_json(raw_json):
+    """Decode a raw bonus payload and normalize keys without trusting its shape."""
+    try:
+        value = json.loads(raw_json or "{}")
+    except (TypeError, ValueError):
+        return {}
+    if not isinstance(value, dict):
+        return {}
+    return {str(key).lower(): item for key, item in value.items()}
+
+
+def build_scoring_context(rows):
+    """Calculate the shared per-site and dataset medians used by every exporter."""
+    site_maxes, site_rolls, all_maxes, all_rolls = {}, {}, [], []
+    for row in rows:
+        raw = normalize_bonus_json(row["raw_json"])
+        host = domain(row["url"])
+        maximum, rollover = num(raw.get("maxwithdraw")), num(raw.get("rollover"))
+        if maximum is not None and maximum > 0:
+            all_maxes.append(maximum)
+            site_maxes.setdefault(host, []).append(maximum)
+        if rollover is not None and rollover >= 0:
+            all_rolls.append(rollover)
+            site_rolls.setdefault(host, []).append(rollover)
+    return {
+        "site_maxwithdraw": {host: median(values) for host, values in site_maxes.items()},
+        "site_rollover": {host: median(values) for host, values in site_rolls.items()},
+        "global_maxwithdraw": median(all_maxes) if all_maxes else None,
+        "global_rollover": median(all_rolls) if all_rolls else None,
+    }
+
+
+def score_bonus_row(row, normalized=None, mins=None, context=None):
+    """Score one DB row using the same medians and fallback rules in all exports."""
+    normalized = normalized if normalized is not None else normalize_bonus_json(row["raw_json"])
+    mins = mins or {}
+    context = context or {}
+    host = domain(row["url"])
+    amount = num(normalized.get("amount", row["amount"]))
+    return score_bonus(
+        amount, normalized.get("minwithdraw"), mins.get(host),
+        num(normalized.get("maxwithdraw")), num(normalized.get("rollover")),
+        context.get("site_maxwithdraw", {}).get(host),
+        context.get("site_rollover", {}).get(host),
+        context.get("global_maxwithdraw"), context.get("global_rollover"),
+    )
+
+
 def connect(db_path: Path | str | None = None):
     if db_path is None:
         try:
@@ -129,32 +177,18 @@ def write_enriched(rows, mins=None, out_dir: Path | None = None):
     out_dir.mkdir(parents=True, exist_ok=True)
     mins = mins if mins is not None else site_minimums(out_dir)
     prepared = []
-    site_maxes, site_rolls, all_maxes, all_rolls = {}, {}, [], []
+    scoring_context = build_scoring_context(rows)
     for row in rows:
-        try:
-            raw = json.loads(row["raw_json"] or "{}")
-        except Exception:
-            raw = {}
-        normalized = {str(k).lower(): v for k, v in raw.items()}
-        amount, maxw, rollover = num(normalized.get("amount", row["amount"])), num(normalized.get("maxwithdraw")), num(normalized.get("rollover"))
+        normalized = normalize_bonus_json(row["raw_json"])
+        amount = num(normalized.get("amount", row["amount"]))
         host = domain(row["url"])
-        prepared.append((row, normalized, amount, maxw, rollover, host))
-        if maxw is not None and maxw > 0:
-            all_maxes.append(maxw); site_maxes.setdefault(host, []).append(maxw)
-        if rollover is not None and rollover >= 0:
-            all_rolls.append(rollover); site_rolls.setdefault(host, []).append(rollover)
-    global_max = median(all_maxes) if all_maxes else None
-    global_roll = median(all_rolls) if all_rolls else None
-    site_max_medians = {host: median(values) for host, values in site_maxes.items()}
-    site_roll_medians = {host: median(values) for host, values in site_rolls.items()}
+        prepared.append((row, normalized, amount, host))
     with (out_dir / "Dayne_Bonuses.csv").open("w", newline="", encoding="utf-8") as handle:
         writer = csv.DictWriter(handle, fieldnames=ENRICHED_HEADERS)
         writer.writeheader()
-        for row, normalized, amount, maxw, rollover, host in prepared:
+        for row, normalized, amount, host in prepared:
             site_min = mins.get(host)
-            score = score_bonus(amount, normalized.get("minwithdraw"), site_min, maxw, rollover,
-                                site_max_medians.get(host), site_roll_medians.get(host),
-                                global_max, global_roll)
+            score = score_bonus_row(row, normalized, mins, scoring_context)
             effective = score["effective_minwithdraw"]
             ratio = round(effective / amount, 4) if effective and amount and amount > 0 else None
             writer.writerow({
@@ -191,11 +225,7 @@ def write_dayne_simple(rows, out_path: Path | str | None = None):
         writer = csv.DictWriter(handle, fieldnames=DAYNE_HEADERS)
         writer.writeheader()
         for row in rows:
-            try:
-                bonus = json.loads(row["raw_json"]) if row["raw_json"] else {}
-            except (TypeError, ValueError):
-                bonus = {}
-            normalized = {key.lower(): val for key, val in bonus.items()}
+            normalized = normalize_bonus_json(row["raw_json"])
             writer.writerow({
                 "url": row["url"],
                 "mname": row["merchant_name"] or "",

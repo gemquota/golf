@@ -1,33 +1,12 @@
-# main.py
+# Application entry point
 
-## Module Overview
+`main.py` is the compatibility entry point for starting the scraper application. The maintained command interface lives in `golf/cli.py`; new commands and orchestration should be added there rather than expanding the legacy entry point.
 
-- **File:** `main.py`
-- **Functions:** 1
-- **Classes:** 0
-- **Imports:** 3
+## Runtime flow
 
-### Dependencies
-- `import sys`
-- `import threading`
-- `from pathlib import Path`
-- `import db`
-- `import server`
-- `import scraper`
+1. Initialize the SQLite schema through `db.initialize_database()`.
+2. Start the dashboard server.
+3. Run the scraper in its worker thread.
+4. Report completion and shutdown through the application lifecycle.
 
-### Function Reference
-
-| Function | Line | Signature |
-|----------|------|-----------|
-| main | 6 | `main()` |
-
-### Function Details
-
-#### `main()`
-
-**Location:** `main.py:6`
-
-- **Branches:** 1
-- **Calls:** 9
-- **Returns:** 0
-- **Body lines:** 9
+See [CLI](../../golf/cli.py), [database](../../db.py), [scraper](../../scraper.py), and [dashboard](../../server.py).
