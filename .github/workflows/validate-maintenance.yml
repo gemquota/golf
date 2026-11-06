@@ -41,7 +41,7 @@ jobs:
         with:
           python-version: "3.12"
       - name: Compile maintained Python modules
-        run: python -m py_compile maintain_pipeline.py db.py clean_bonuses.py bonus_scoring.py
+        run: python -m py_compile maintain_pipeline.py db.py clean_bonuses.py bonus_scoring.py network.py scraper.py scrape_worker.py daily_scrape.py
       - name: Run complete regression suite
         run: python -m unittest discover -s tests -v
       - name: Verify cleaner has no scientific-stack dependency
