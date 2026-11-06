@@ -2,7 +2,7 @@
 
 ## What runs each day
 
-The scheduled GitHub Actions workflow runs at **02:17 Australia/Brisbane time** (16:17 UTC). It:
+The scheduled GitHub Actions workflow runs twice daily at **00:05 and 10:05 Australia/Brisbane time** (14:05 and 00:05 UTC, respectively). It:
 
 1. Runs the scraper in headless mode against the URLs configured in `in/config/urls.txt`.
 2. Exports the current bonus data for the existing viewer.

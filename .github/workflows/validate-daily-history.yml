@@ -5,6 +5,12 @@ on:
     paths:
       - 'bonus_history.py'
       - 'daily_scrape.py'
+      - 'export_viewer_data.py'
+      - 'export_csv.py'
+      - 'bonus_scoring.py'
+      - 'export_viewer_data.py'
+      - 'export_csv.py'
+      - 'bonus_scoring.py'
       - 'tests/test_bonus_history.py'
       - 'viewer/**'
       - '.github/workflows/daily-bonus-history.yml'
@@ -31,7 +37,7 @@ jobs:
         with:
           python-version: "3.12"
       - name: Check Python syntax
-        run: python -m py_compile bonus_history.py daily_scrape.py
+        run: python -m py_compile bonus_history.py daily_scrape.py export_viewer_data.py export_csv.py bonus_scoring.py
       - name: Run history tests
         run: python -m unittest discover -s tests -p 'test_bonus_history.py' -v
 

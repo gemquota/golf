@@ -6,7 +6,6 @@ const SHEETS = {
   cleaned: 'dayne-bonuses-cleaned.csv',
   sites: 'dayne-sites.csv',
   bonusesAll: 'dayne-bonuses-all.csv',
-  fresh: 'dayne-bonuses-fresh.csv'
 };
 
 const HEADER_RENAME = {
@@ -1446,9 +1445,9 @@ async function init() {
   const [ch, ...cr] = cleanedRaw;
   cleanedData = [ch, ...cr.filter(r => !isEmptyRow(r))];
 
-  const freshRaw = await loadSheet(SHEETS.fresh);
-  const [fh, ...fr] = freshRaw;
-  freshData = [fh, ...fr.filter(r => !isEmptyRow(r))];
+  // Fresh is a view over the raw snapshot, not a duplicate CSV artifact.
+  const isNewIdx = rh.indexOf('is_new');
+  freshData = [rh, ...rawRows.filter(row => isNewIdx !== -1 && String(row[isNewIdx]).trim() === '1')];
 
   const sitesRaw = await loadSheet(SHEETS.sites);
   const [sh, ...sr] = sitesRaw;

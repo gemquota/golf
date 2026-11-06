@@ -11,3 +11,20 @@ viewer/public/dayne-bonuses-raw.csv
 
 .codey/checkpoint.json
 .codey/lock
+
+# Runtime databases and SQLite sidecars (never commit session-bearing stores).
+data/*.db
+data/*.db-wal
+data/*.db-shm
+backup/data/*.db
+backup/data/*.db-wal
+backup/data/*.db-shm
+
+# Python/runtime artifacts.
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*.log
+data/tmp_*.csv
+data/raw_responses/
+data/debug/
