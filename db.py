@@ -1,4 +1,4 @@
-import csv, datetime, difflib, hashlib, json, re, sqlite3, threading
+import csv, datetime, difflib, hashlib, json, os, re, sqlite3, threading
 from contextlib import contextmanager
 from math import log2, log10, pow
 from pathlib import Path
@@ -6,8 +6,7 @@ from pathlib import Path
 import config
 
 TZ = datetime.timezone(datetime.timedelta(hours=10))
-DB_PATH = "data/base.db"
-_csv_cache: dict = {}
+DB_PATH = os.environ.get("GOLF_DB_PATH", "data/base.db")
 _cache: dict[str, sqlite3.Connection] = {}
 
 # A single SQLite connection is shared by scraper workers. Serialize every
@@ -30,7 +29,12 @@ def get_connection():
     # RLock is re-entrant because cursor_context also holds it while calling here.
     with _db_lock:
         if DB_PATH not in _cache:
+            Path(DB_PATH).parent.mkdir(parents=True, exist_ok=True)
             conn = sqlite3.connect(DB_PATH, check_same_thread=False, timeout=30)
+            try:
+                os.chmod(DB_PATH, 0o600)
+            except OSError:
+                pass
             # WAL helps external readers; busy_timeout handles other connections.
             conn.execute("PRAGMA journal_mode=WAL")
             conn.execute("PRAGMA synchronous=NORMAL")
@@ -59,15 +63,6 @@ def execute(query, params=()):
     with cursor_context() as c:
         c.execute(query, params)
         return c.fetchall()
-
-JSONL_PATH = Path("data/events.jsonl")
-
-# Ordered, named migrations applied once each; recorded in schema_version.
-# 001 kept for historical DBs that already recorded it before the ungolf rename.
-MIGRATIONS = (
-    ("001_add_ec_column", None),  # handled specially / no-op on new schema
-    ("002_ungolf_schema", None),  # applied by migrate_ungolf_schema()
-)
 
 _CANONICAL_SCHEMA = """
 CREATE TABLE IF NOT EXISTS sites(
@@ -380,18 +375,9 @@ def append_csv_row(row, path="data/bonuses.csv"):
         csv.DictWriter(f, fieldnames=list(row.keys())).writerow(row)
 
 def log_event(level, source, message):
-    execute("INSERT INTO logs(level, source, message) VALUES (?,?,?)", (level, source, message))
-    try:
-        JSONL_PATH.parent.mkdir(parents=True, exist_ok=True)
-        with JSONL_PATH.open("a") as f:
-            f.write(json.dumps({
-                "ts": datetime.datetime.now().isoformat(timespec="seconds"),
-                "lvl": level,
-                "src": source,
-                "msg": str(message)[:500],
-            }) + "\n")
-    except Exception:
-        pass  # JSONL is best-effort; the DB row above is the source of truth
+    """Persist diagnostics once, in the canonical SQLite logs table."""
+    execute("INSERT INTO logs(level, source, message) VALUES (?,?,?)", (level, source, str(message)[:500]))
+
 
 def search(query, min_pv=0):
     return execute(

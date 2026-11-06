@@ -29,3 +29,25 @@ data/Dayne_Bonuses_Cleaned.csv
 data/Dayne_Bonuses_Enriched.csv
 data/raw_responses/
 data/debug/
+
+# Local credentials and runtime-only state.
+in/config/config.local.ini
+in/config/proxies.txt
+data/account_state.json
+data/captcha_required.txt
+data/site_errors.csv
+data/events.jsonl
+data/bonuses_*.csv
+backup/
+
+# Local runtime and credential files are never source artifacts.
+
+
+
+
+
+
+
+
+
+data/ip_health.json

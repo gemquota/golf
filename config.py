@@ -1,8 +1,5 @@
 import configparser, os, random
 from pathlib import Path
-import urllib3
-urllib3.disable_warnings()
-
 def _env(name):
     return os.environ.get(name)
 
@@ -58,13 +55,21 @@ def load_config_dict():
     return {section: dict(config_parser[section]) for section in config_parser.sections()}
 
 def save_config_dict(data: dict):
+    """Persist dashboard-editable settings to the ignored local config only."""
+    local_path = Path("in/config/config.local.ini")
+    local_parser = configparser.ConfigParser()
+    local_parser.read(local_path)
     for section, keys in data.items():
+        if section not in local_parser:
+            local_parser[section] = {}
+        for key, value in keys.items():
+            local_parser[section][key] = str(value)
+
         if section not in config_parser:
             config_parser[section] = {}
         for key, value in keys.items():
             config_parser[section][key] = str(value)
-            
-    config_path = Path("in/config/config.ini")
-    config_path.parent.mkdir(parents=True, exist_ok=True)
-    with config_path.open("w") as config_file:
-        config_parser.write(config_file)
+
+    local_path.parent.mkdir(parents=True, exist_ok=True)
+    with local_path.open("w", encoding="utf-8") as config_file:
+        local_parser.write(config_file)

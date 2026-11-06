@@ -13,6 +13,8 @@ The scheduled GitHub Actions workflow runs twice daily at **00:05 and 10:05 Aust
 
 A failed scrape does **not** make a site's bonuses appear withdrawn. The comparison is updated only after a successful scrape for that site.
 
+The scheduled workflow does not persist the SQLite database between runs. It commits `viewer/public/bonus-history.json`, which carries the release baseline and observations. SQLite is a per-run cache on GitHub-hosted runners and a local store for interactive use, not the durable history mechanism.
+
 ## Configure the scheduled runner
 
 The workflow intentionally refuses to scrape until the private account configuration is supplied as a GitHub Actions secret.
@@ -46,7 +48,7 @@ u = YOUR_SECOND_ACCOUNT_USERNAME
 p = YOUR_SECOND_ACCOUNT_PASSWORD
 ```
 
-The parser reads `config.local.ini` after the tracked template, so local values override it. Environment variables such as `GOLF_U1_USER` and `GOLF_U1_PASS` take precedence over INI values. Do not remove `in/config/config.local.ini` from `.gitignore`.
+The parser reads `config.local.ini` after the tracked template, so local values override it. Environment variables such as `GOLF_U1_USER` and `GOLF_U1_PASS` take precedence over INI values. Do not remove `in/config/config.local.ini` from `.gitignore`. Set a unique non-empty `ui_pass` locally or provide `GOLF_UI_PASS`; the dashboard API intentionally remains unavailable until authentication is configured.
 
 ## Interpreting release-day results
 
