@@ -40,6 +40,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - name: Install runtime dependencies
+        run: pip install -r requirements.txt
       - name: Compile maintained Python modules
         run: python -m py_compile maintain_pipeline.py db.py clean_bonuses.py bonus_scoring.py network.py scraper.py scrape_worker.py daily_scrape.py
       - name: Run complete regression suite
