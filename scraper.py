@@ -202,6 +202,7 @@ def _worker_tasks(scraper_session, chunk_id, stats, stats_lock, total_tasks, ip_
                             (DEBUG_DIR / f"E{error_code}_{timestamp_string}_{safe_url}.html").write_text(html_content)
 
                     db.log_event(f"E{error_code}", url, str(exception))
+                    break
                 else:
                     continue
 
