@@ -1,4 +1,4 @@
-import csv, datetime, json, random, threading, time
+import csv, datetime, json, os, random, tempfile, threading, time
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 import sys
@@ -42,9 +42,28 @@ def load_account_successes():
         return _load_json_mapping(ACCOUNT_SUCCESS)
 
 
+def _atomic_write_json(path, data):
+    """Replace a JSON state file atomically so interrupted writes preserve the old copy."""
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    payload = json.dumps(data, indent=2, sort_keys=True) + "\n"
+    fd, temporary_name = tempfile.mkstemp(prefix=f".{path.name}.", suffix=".tmp", dir=path.parent)
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as stream:
+            stream.write(payload)
+            stream.flush()
+            os.fsync(stream.fileno())
+        os.replace(temporary_name, path)
+    except BaseException:
+        try:
+            os.unlink(temporary_name)
+        except FileNotFoundError:
+            pass
+        raise
+
+
 def _save_account_state_locked(data):
-    ACCOUNT_STATE.parent.mkdir(parents=True, exist_ok=True)
-    ACCOUNT_STATE.write_text(json.dumps(data, indent=2, sort_keys=True) + "\n")
+    _atomic_write_json(ACCOUNT_STATE, data)
 
 
 def record_site_error(url, account_id, error_code, exception):
@@ -98,7 +117,7 @@ def record_account_success(url, account_id):
         ACCOUNT_SUCCESS.parent.mkdir(parents=True, exist_ok=True)
         successes = _load_json_mapping(ACCOUNT_SUCCESS)
         successes[url] = account_id
-        ACCOUNT_SUCCESS.write_text(json.dumps(successes, indent=2, sort_keys=True) + "\n")
+        _atomic_write_json(ACCOUNT_SUCCESS, successes)
         state = _load_json_mapping(ACCOUNT_STATE)
         state[url] = {
             "status": "registered",
@@ -340,11 +359,11 @@ def _run_scrape(on_update=None, on_launcher=None, on_completion=None):
         max_configured_workers = config.config_parser.getint("SETTINGS", "workers", fallback=10)
         on_launcher(len(url_list), len(proxy_list), min(max_configured_workers, len(url_list)), shuffle_mode, ip_score)
 
-    # The configured accounts belong to this authorised site family. Run the
-    # primary account across the full eligible list first, then honour known
-    # URL/account associations, then rotate remaining authentication failures.
+    # Honour verified URL/account associations before discovery. Unknown URLs
+    # start with U1; known URLs start with the account that last succeeded.
     known_successes = load_account_successes()
     original_known_by_account = {index: [] for index in range(len(account_list))}
+    unknown_urls = []
     for url in url_list:
         account_id = known_successes.get(url)
         try:
@@ -353,8 +372,9 @@ def _run_scrape(on_update=None, on_launcher=None, on_completion=None):
             account_index = -1
         if 0 <= account_index < len(account_list):
             original_known_by_account[account_index].append(url)
+        else:
+            unknown_urls.append(url)
 
-    # Track attempts per URL so fallback never repeats an account already tried.
     attempted_accounts = {url: set() for url in url_list}
     attempted_codes = {url: [] for url in url_list}
 
@@ -373,27 +393,24 @@ def _run_scrape(on_update=None, on_launcher=None, on_completion=None):
             attempted_accounts[url].add(account_index)
         process_url_batch(pending, account_index)
         for url in pending:
-            code = current_error_code(url)
-            attempted_codes[url].append(code)
-            if code == 200:
-                continue
+            attempted_codes[url].append(current_error_code(url))
 
-    # Pass 1: U1 gets the entire eligible URL list, in randomized order.
-    primary_urls = list(url_list)
-    random.shuffle(primary_urls)
-    run_account_batch(primary_urls, 0)
-
-    # Pass 2: process previously verified sites with their associated U2, U3,
-    # etc. in deterministic account order. Successful U1 results are skipped.
-    for account_index in range(1, len(account_list)):
+    # Process each known account cohort first. Cohort order and URL order are
+    # shuffled, but each URL is always assigned to its verified account first.
+    known_account_order = list(original_known_by_account)
+    random.shuffle(known_account_order)
+    for account_index in known_account_order:
         if server.STOPPED:
             break
         run_account_batch(original_known_by_account[account_index], account_index)
 
-    # Pass 3: only conclusive authentication rejections enter fallback. A
-    # timeout, outage, HTTP error or CAPTCHA is not evidence that credentials
-    # are invalid, so those URLs remain untouched by account rotation.
-    for account_index in range(1, len(account_list)):
+    # Unknown URLs use the primary account for discovery.
+    if not server.STOPPED:
+        run_account_batch(unknown_urls, 0)
+
+    # Only explicit E304 authentication rejections permit account rotation.
+    # Network failures, timeouts, CAPTCHA and merchant errors never trigger it.
+    for account_index in range(len(account_list)):
         if server.STOPPED:
             break
         fallback_urls = [
