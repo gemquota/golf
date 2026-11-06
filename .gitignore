@@ -58,3 +58,5 @@ data/captcha_required.txt
 data/events.jsonl
 
 data/bonuses_*.csv
+
+data/tmp_*.csv
