@@ -281,34 +281,59 @@ def append_history(run_started):
                 if archived.get("run_ts") and archived.get("uid"):
                     existing_keys.add((archived["run_ts"], archived["uid"]))
 
-    with HISTORY.open("a", newline="", encoding="utf-8") as stream:
-        writer = csv.DictWriter(stream, fieldnames=fields)
-        if not has_content:
-            writer.writeheader()
-        for row in rows:
-            if row["url"] not in success_urls:
-                continue
-            uid = row["bonus_uid"]
-            key = (run_marker, uid)
-            metrics["count"] += 1
-            first_seen = parse_dt(row["first_seen"])
-            if first_seen and first_seen >= started:
-                metrics["new_count"] += 1
-            perceived = number(row["perceived_value"])
-            if perceived is not None:
-                metrics["sum_perceived_value"] += perceived
-            if key in existing_keys:
-                continue
-            writer.writerow({
-                "run_ts": run_marker, "uid": uid, "eid": row["external_id"], "url": row["url"],
-                "merchant": row["merchant_name"] or "", "name": row["name"] or "",
-                "amount": row["amount"] if row["amount"] is not None else "",
-                "perceived_value": row["perceived_value"] if row["perceived_value"] is not None else "",
-                "expiry": row["expiry"] or "", "first_seen": row["first_seen"] or "",
-                "last_seen": row["last_seen"] or "", "fingerprint": row["fingerprint"] or "",
-                "mirrors": row["mirrors"] or "",
-            })
-            existing_keys.add(key)
+    existing_rows = []
+    existing_fields = []
+    if has_content:
+        with HISTORY.open("r", newline="", encoding="utf-8") as stream:
+            reader = csv.DictReader(stream)
+            existing_fields = list(reader.fieldnames or [])
+            existing_rows = [dict(item) for item in reader]
+    output_fields = list(dict.fromkeys(existing_fields + fields))
+    additions = []
+    for row in rows:
+        if row["url"] not in success_urls or not row["bonus_uid"]:
+            continue
+        uid = str(row["bonus_uid"])
+        key = (run_marker, uid)
+        metrics["count"] += 1
+        first_seen = parse_dt(row["first_seen"])
+        if first_seen and first_seen >= started:
+            metrics["new_count"] += 1
+        perceived = number(row["perceived_value"])
+        if perceived is not None:
+            metrics["sum_perceived_value"] += perceived
+        if key in existing_keys:
+            continue
+        additions.append({
+            "run_ts": run_marker, "uid": uid, "eid": row["external_id"], "url": row["url"],
+            "merchant": row["merchant_name"] or "", "name": row["name"] or "",
+            "amount": row["amount"] if row["amount"] is not None else "",
+            "perceived_value": row["perceived_value"] if row["perceived_value"] is not None else "",
+            "expiry": row["expiry"] or "", "first_seen": row["first_seen"] or "",
+            "last_seen": row["last_seen"] or "", "fingerprint": row["fingerprint"] or "",
+            "mirrors": row["mirrors"] or "",
+        })
+        existing_keys.add(key)
+
+    # Rebuild through a same-directory temporary file. A process interruption
+    # can no longer leave a half-written CSV that breaks the next retry.
+    if additions or not has_content:
+        fd, temp_name = tempfile.mkstemp(prefix=f".{HISTORY.name}.", dir=str(HISTORY.parent))
+        try:
+            with os.fdopen(fd, "w", newline="", encoding="utf-8") as stream:
+                writer = csv.DictWriter(stream, fieldnames=output_fields)
+                writer.writeheader()
+                writer.writerows(existing_rows)
+                writer.writerows(additions)
+                stream.flush()
+                os.fsync(stream.fileno())
+            os.replace(temp_name, HISTORY)
+        except Exception:
+            try:
+                os.unlink(temp_name)
+            except OSError:
+                pass
+            raise
     return metrics
 
 
@@ -344,10 +369,15 @@ def record_run(run_started, finished_at, active_sites, moved_down, attempts, suc
             "CREATE UNIQUE INDEX IF NOT EXISTS idx_scrape_runs_run_id ON scrape_runs(run_id)"
         )
         conn.execute(
-            "INSERT OR REPLACE INTO scrape_runs "
+            "INSERT INTO scrape_runs "
             "(run_id, created_at, duration, count, new_count, sum_perceived_value, error_count, "
             "active_sites, moved_down, attempts, successes) "
-            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) "
+            "ON CONFLICT(run_id) DO UPDATE SET "
+            "created_at=excluded.created_at, duration=excluded.duration, count=excluded.count, "
+            "new_count=excluded.new_count, sum_perceived_value=excluded.sum_perceived_value, "
+            "error_count=excluded.error_count, active_sites=excluded.active_sites, "
+            "moved_down=excluded.moved_down, attempts=excluded.attempts, successes=excluded.successes",
             (
                 run_id, sql_timestamp(started), max(0.0, (finished - started).total_seconds()),
                 int(history.get("count", 0)), int(history.get("new_count", 0)),
