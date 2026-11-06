@@ -25,7 +25,7 @@ jobs:
       - name: Inspect legacy database and credential metadata
         run: |
           git fetch origin main
-          git show origin/main:data/base.db > /tmp/base.db
-          git show origin/main:backup/data/base.db > /tmp/backup.db
-          git show origin/main:backup/in/config/config.ini > /tmp/backup-config.ini
+          git show FETCH_HEAD:data/base.db > /tmp/base.db
+          git show FETCH_HEAD:backup/data/base.db > /tmp/backup.db
+          git show FETCH_HEAD:backup/in/config/config.ini > /tmp/backup-config.ini
           python scripts/audit_db_security.py --scrub-sessions /tmp/base.db /tmp/backup.db --config /tmp/backup-config.ini
