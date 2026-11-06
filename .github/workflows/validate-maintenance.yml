@@ -4,6 +4,10 @@ on:
   pull_request:
     paths:
       - 'maintain_pipeline.py'
+      - 'network.py'
+      - 'scraper.py'
+      - 'scrape_worker.py'
+      - 'daily_scrape.py'
       - 'db.py'
       - 'clean_bonuses.py'
       - 'bonus_scoring.py'
@@ -15,6 +19,10 @@ on:
     branches: [main]
     paths:
       - 'maintain_pipeline.py'
+      - 'network.py'
+      - 'scraper.py'
+      - 'scrape_worker.py'
+      - 'daily_scrape.py'
       - 'db.py'
       - 'clean_bonuses.py'
       - 'bonus_scoring.py'
