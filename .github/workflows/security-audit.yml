@@ -28,4 +28,6 @@ jobs:
           git show FETCH_HEAD:data/base.db > /tmp/base.db
           git show FETCH_HEAD:backup/data/base.db > /tmp/backup.db
           git show FETCH_HEAD:backup/in/config/config.ini > /tmp/backup-config.ini
-          python scripts/audit_db_security.py --scrub-sessions /tmp/base.db /tmp/backup.db --config /tmp/backup-config.ini
+          git show FETCH_HEAD:in/config/config.ini > /tmp/current-config.ini
+          git show FETCH_HEAD:in/meta/config.ini.example > /tmp/config-example.ini
+          python scripts/audit_db_security.py --scrub-sessions /tmp/base.db /tmp/backup.db --config /tmp/backup-config.ini --config /tmp/current-config.ini --config /tmp/config-example.ini
