@@ -1,35 +1,35 @@
-# Golf Scraper — Full Architecture Reference
+# Golf Scraper Architecture
 
-## Module Dependency Graph
+## Runtime structure
 
-```
-main.py  ──→  scraper.py  ──→  db.py  ──→  config.py
-                │              │
-                ├── network.py  └── (circular via local import)
-                │
-                ├── terminal.py ──→ config.py
-                │                 └── server.py (HTTP POST)
-                │
-                └── server.py (flags)
+- `golf/` is the canonical CLI package.
+- Root-level modules implement scraping, persistence, export, and maintenance.
+- `server.py` provides the local FastAPI dashboard and control API.
+- `terminal.py` renders the interactive terminal view.
+- `viewer/` is the separate Vite static viewer deployed to GitHub Pages.
 
-server.py ──→ config.py
-terminal.py ──→ config.py
-```
+## Data flow
 
-## Data Flow
+1. The CLI initializes the local SQLite database and starts the scraper.
+2. Workers fetch configured URLs, authenticate to target sites, sync bonus data, and persist local records.
+3. The export pipeline generates analysis and viewer CSVs.
+4. The daily workflow compares each scrape with `viewer/public/bonus-history.json`, the durable release-history store.
+5. The workflow commits public viewer outputs and release-history JSON, then triggers Pages deployment.
 
-1. `main.py` starts `server.py` (blocking) and `scraper.run_scrape()` (daemon thread)
-2. `run_scrape()` loads URLs, iterates accounts, spawns worker threads
-3. Each `worker()` fetches page → parses merchant → logs in → syncs data → processes bonuses
-4. Bonuses are fingerprinted, matched against existing records, stored in SQLite + CSV
-5. `terminal.update_display()` prints progress to console + POSTs to server
-6. `server.py` broadcasts updates to all connected WebSocket clients
+GitHub Actions creates SQLite for each run and does not commit it between scheduled runs.
 
-## Key Design Decisions
+## Security boundaries
 
-- **Threading:** Scraper runs on daemon thread, server on main (blocks for Ctrl+C)
-- **Auth:** Optional HTTP Basic Auth (enabled by setting `ui_pass` in config.ini)
-- **DB:** Single SQLite file with FTS5 full-text search on bonus data
-- **Sessions:** Pickle-serialized cookies for re-login avoidance (6hr TTL)
-- **Frontend:** Fully inline React via Babel standalone — no build step
-- **Color:** Red→yellow→green gradient for rates, spectral gradient for yield
+- Dashboard API authentication is mandatory and fails closed.
+- Incorrect credentials are rejected with HTTP 401.
+- The config API exposes only editable delay settings, never account credentials or secrets.
+- WebSocket access requires a short-lived, single-use ticket from an authenticated API request.
+- The server binds to `127.0.0.1` by default. Set `GOLF_BIND_HOST` only for an intentional, protected network deployment.
+- Local SQLite files contain reusable target-site session data. They are ignored by Git and created with owner-only file permissions where supported.
+- Real account credentials belong in `in/config/config.local.ini` or environment variables, never in tracked files.
+
+## Persistence
+
+- SQLite stores local site/bonus records, cached session data, and application logs.
+- `viewer/public/bonus-history.json` stores the scheduled release baseline and observations.
+- CSV files are exports, not the authoritative release-history store.
