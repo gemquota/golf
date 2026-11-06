@@ -57,7 +57,7 @@ def inspect_database(path: Path, scrub: bool = False) -> dict:
 def inspect_config(path: Path) -> dict:
     if not path.exists():
         return {"exists": False, "account_sections": 0, "populated_user_fields": 0,
-                "populated_password_fields": 0}
+                "populated_password_fields": 0, "dashboard_password_set": False}
     parser = configparser.ConfigParser()
     parser.read(path, encoding="utf-8")
     sections = [name for name in parser.sections() if name.upper().startswith("U")]
@@ -66,6 +66,7 @@ def inspect_config(path: Path) -> dict:
         "account_sections": len(sections),
         "populated_user_fields": sum(bool(parser.get(name, "u", fallback="").strip()) for name in sections),
         "populated_password_fields": sum(bool(parser.get(name, "p", fallback="").strip()) for name in sections),
+        "dashboard_password_set": bool(parser.get("SETTINGS", "ui_pass", fallback="").strip()),
     }
 
 
