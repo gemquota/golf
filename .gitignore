@@ -56,3 +56,5 @@ data/account_state.json
 data/captcha_required.txt
 
 data/events.jsonl
+
+data/bonuses_*.csv
