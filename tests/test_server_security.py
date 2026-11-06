@@ -1,3 +1,4 @@
+import asyncio
 import unittest
 from unittest.mock import patch
 
@@ -43,7 +44,7 @@ class DashboardSecurityTests(unittest.TestCase):
             "U1": {"u": "account", "p": "secret"},
         }
         with patch.object(server.config, "load_config_dict", return_value=values):
-            result = server.get_config()
+            result = asyncio.run(server.get_config())
         self.assertEqual(result, {"SETTINGS": {"min_delay": "1", "max_delay": "3"}})
 
     def test_config_update_rejects_sensitive_or_unknown_settings(self):
