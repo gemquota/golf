@@ -55,8 +55,16 @@ class CliSmokeTests(unittest.TestCase):
         db._cache = {}
         cli.ROOT = self.root
         _stub_heavy_modules()
+        self.scraper_module = sys.modules.get("scraper")
+        self.original_scraper_run_scrape = getattr(self.scraper_module, "run_scrape", None)
+        self.server_module = sys.modules.get("server")
+        self.original_server_start_server = getattr(self.server_module, "start_server", None)
 
     def tearDown(self):
+        if self.scraper_module is not None and self.original_scraper_run_scrape is not None:
+            self.scraper_module.run_scrape = self.original_scraper_run_scrape
+        if self.server_module is not None and self.original_server_start_server is not None:
+            self.server_module.start_server = self.original_server_start_server
         for connection in list(db._cache.values()):
             connection.close()
         db.DB_PATH = self.original_db_path

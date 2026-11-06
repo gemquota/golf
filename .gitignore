@@ -2,7 +2,6 @@ data/accounts.csv
 data/account_success.json
 data/site_state.json
 data/bonus_history.csv
-data/scrape_runs.csv
 in/config/down.txt
 viewer/public/bonus-history.csv
 viewer/public/scrape-runs.csv
@@ -26,6 +25,8 @@ __pycache__/
 *.py[cod]
 *.log
 data/tmp_*.csv
+data/Dayne_Bonuses_Cleaned.csv
+data/Dayne_Bonuses_Enriched.csv
 data/raw_responses/
 data/debug/
 

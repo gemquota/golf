@@ -314,6 +314,25 @@ def initialize_database():
             migrate_ungolf_schema(c)
 
         c.executescript(_CANONICAL_SCHEMA)
+        # Run IDs are stable per scrape start marker. Keep the latest legacy
+        # duplicate before enforcing idempotent writes from maintain_pipeline.
+        run_columns = _columns(c, "scrape_runs")
+        if "run_id" not in run_columns:
+            c.execute("ALTER TABLE scrape_runs ADD COLUMN run_id TEXT")
+            run_columns.add("run_id")
+        for name, declaration in (
+            ("active_sites", "INTEGER"), ("moved_down", "INTEGER"),
+            ("attempts", "INTEGER"), ("successes", "INTEGER"),
+        ):
+            if name not in run_columns:
+                c.execute(f"ALTER TABLE scrape_runs ADD COLUMN {name} {declaration}")
+        c.execute(
+            "DELETE FROM scrape_runs WHERE run_id IS NOT NULL AND rowid NOT IN "
+            "(SELECT MAX(rowid) FROM scrape_runs WHERE run_id IS NOT NULL GROUP BY run_id)"
+        )
+        c.execute(
+            "CREATE UNIQUE INDEX IF NOT EXISTS idx_scrape_runs_run_id ON scrape_runs(run_id)"
+        )
         names = _table_names(c)
         if "bonuses" in names and "bonuses_fts" not in names:
             c.executescript(_FTS_SCHEMA)
