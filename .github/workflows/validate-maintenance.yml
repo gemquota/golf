@@ -1,0 +1,42 @@
+name: Validate maintenance pipeline and standard-library cleaner
+
+on:
+  pull_request:
+    paths:
+      - 'maintain_pipeline.py'
+      - 'db.py'
+      - 'clean_bonuses.py'
+      - 'bonus_scoring.py'
+      - 'requirements.txt'
+      - 'termux_setup.sh'
+      - 'tests/**'
+      - '.github/workflows/validate-maintenance.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'maintain_pipeline.py'
+      - 'db.py'
+      - 'clean_bonuses.py'
+      - 'bonus_scoring.py'
+      - 'requirements.txt'
+      - 'tests/**'
+
+permissions:
+  contents: read
+
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Compile maintained Python modules
+        run: python -m py_compile maintain_pipeline.py db.py clean_bonuses.py bonus_scoring.py
+      - name: Run complete regression suite
+        run: python -m unittest discover -s tests -v
+      - name: Verify cleaner has no scientific-stack dependency
+        run: |
+          ! grep -Eq '^(pandas|numpy)([<=>~!].*)?$' requirements.txt
+          ! grep -Eq '^(import pandas|import numpy|from pandas|from numpy)' clean_bonuses.py
