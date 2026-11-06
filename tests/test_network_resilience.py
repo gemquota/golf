@@ -44,6 +44,16 @@ class NetworkResilienceTests(unittest.TestCase):
             self.assertEqual(network.check_ip_reputation("test-key"), (7, "203.0.113.10"))
             get.assert_not_called()
 
+    def test_out_of_range_cache_score_is_ignored(self):
+        self.cache.parent.mkdir(parents=True)
+        self.cache.write_text(json.dumps({
+            "ts": time.time(), "score": 900, "ip": "203.0.113.12"
+        }), encoding="utf-8")
+        with patch.object(network.requests, "get") as get:
+            self.assertEqual(network.check_ip_reputation(None), (0, "Unknown"))
+            get.assert_not_called()
+        self.assertIsNone(network._load_ip_cache())
+
     def test_missing_key_returns_unknown_without_network(self):
         with patch.object(network.requests, "get") as get:
             self.assertEqual(network.check_ip_reputation(None), (0, "Unknown"))
