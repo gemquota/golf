@@ -49,8 +49,8 @@ class DatabaseSecurityAuditTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "config.ini"
             path.write_text(
-                "[U1]\\nu = ACCOUNT_SECRET\\np = PASSWORD_SECRET\\n"
-                "[U2]\\nu =\\np =\\n",
+                "[U1]\nu = ACCOUNT_SECRET\np = PASSWORD_SECRET\n"
+                "[U2]\nu =\np =\n",
                 encoding="utf-8",
             )
             result = inspect_config(path)
