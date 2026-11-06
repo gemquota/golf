@@ -2,12 +2,13 @@
 
 The scraper maintains the active URL list in `in/config/urls.txt` and a
 quarantine list in `in/config/down.txt`. Runtime health history is stored in
-`data/site_state.json` (local runtime data; it is not committed).
+`data/site_state.json` (local runtime data; it is not committed). Run-level
+metrics are stored in SQLite's `scrape_runs` table, not a parallel CSV file.
 
 ## Removal rule
 
 A URL is not marked failed merely because it was absent from a run. Only a
-record in the SQLite `t` table with a timestamp at or after the run's UTC
+record in the SQLite `sites` table with a timestamp at or after the run's UTC
 start marker is considered an attempt. This excludes URLs skipped by resume
 mode, URLs not reached before a stop, and URLs omitted from a partial run.
 
