@@ -303,6 +303,7 @@ def record_run(run_started, finished_at, active_sites, moved_down, attempts, suc
     started = parse_dt(run_started) or now()
     finished = parse_dt(finished_at) or now()
     run_id = fmt(started)
+    DB.parent.mkdir(parents=True, exist_ok=True)
     conn = sqlite3.connect(DB, timeout=30)
     try:
         conn.execute("PRAGMA busy_timeout=30000")
