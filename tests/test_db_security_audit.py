@@ -1,7 +1,6 @@
 import sqlite3
 import tempfile
 import unittest
-from contextlib import redirect_stdout
 from pathlib import Path
 
 from scripts.audit_db_security import inspect_config, inspect_database
@@ -57,6 +56,7 @@ class DatabaseSecurityAuditTests(unittest.TestCase):
             self.assertEqual(result["account_sections"], 2)
             self.assertEqual(result["populated_user_fields"], 1)
             self.assertEqual(result["populated_password_fields"], 1)
+            self.assertTrue(result["dashboard_password_set"])
             self.assertNotIn("PASSWORD_SECRET", repr(result))
 
 
