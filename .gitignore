@@ -50,3 +50,5 @@ backup/
 in/config/config.local.ini
 
 in/config/proxies.txt
+
+data/account_state.json
