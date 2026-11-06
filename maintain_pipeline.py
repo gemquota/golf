@@ -248,9 +248,10 @@ def maintain_sites(run_started):
 
 
 def append_history(run_started):
-    """Append successful-site bonus snapshots and return run-level aggregates."""
+    """Append successful-site snapshots once per (run marker, bonus UID)."""
     started = parse_dt(run_started) or now()
     marker = sql_timestamp(started)
+    run_marker = fmt(started)
     metrics = {"count": 0, "new_count": 0, "sum_perceived_value": 0.0}
     if not DB.exists():
         return metrics
@@ -272,22 +273,23 @@ def append_history(run_started):
     fields = ["run_ts", "uid", "eid", "url", "merchant", "name", "amount", "perceived_value",
               "expiry", "first_seen", "last_seen", "fingerprint", "mirrors"]
     HISTORY.parent.mkdir(parents=True, exist_ok=True)
-    existing = HISTORY.exists()
+    existing_keys = set()
+    has_content = HISTORY.exists() and HISTORY.stat().st_size > 0
+    if has_content:
+        with HISTORY.open("r", newline="", encoding="utf-8") as stream:
+            for archived in csv.DictReader(stream):
+                if archived.get("run_ts") and archived.get("uid"):
+                    existing_keys.add((archived["run_ts"], archived["uid"]))
+
     with HISTORY.open("a", newline="", encoding="utf-8") as stream:
         writer = csv.DictWriter(stream, fieldnames=fields)
-        if not existing:
+        if not has_content:
             writer.writeheader()
         for row in rows:
             if row["url"] not in success_urls:
                 continue
-            writer.writerow({
-                "run_ts": fmt(started), "uid": row["bonus_uid"], "eid": row["external_id"], "url": row["url"],
-                "merchant": row["merchant_name"] or "", "name": row["name"] or "", "amount": row["amount"] or "",
-                "perceived_value": row["perceived_value"] if row["perceived_value"] is not None else "",
-                "expiry": row["expiry"] or "", "first_seen": row["first_seen"] or "",
-                "last_seen": row["last_seen"] or "", "fingerprint": row["fingerprint"] or "",
-                "mirrors": row["mirrors"] or "",
-            })
+            uid = row["bonus_uid"]
+            key = (run_marker, uid)
             metrics["count"] += 1
             first_seen = parse_dt(row["first_seen"])
             if first_seen and first_seen >= started:
@@ -295,6 +297,18 @@ def append_history(run_started):
             perceived = number(row["perceived_value"])
             if perceived is not None:
                 metrics["sum_perceived_value"] += perceived
+            if key in existing_keys:
+                continue
+            writer.writerow({
+                "run_ts": run_marker, "uid": uid, "eid": row["external_id"], "url": row["url"],
+                "merchant": row["merchant_name"] or "", "name": row["name"] or "",
+                "amount": row["amount"] if row["amount"] is not None else "",
+                "perceived_value": row["perceived_value"] if row["perceived_value"] is not None else "",
+                "expiry": row["expiry"] or "", "first_seen": row["first_seen"] or "",
+                "last_seen": row["last_seen"] or "", "fingerprint": row["fingerprint"] or "",
+                "mirrors": row["mirrors"] or "",
+            })
+            existing_keys.add(key)
     return metrics
 
 
