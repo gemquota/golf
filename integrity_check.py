@@ -166,7 +166,7 @@ def inspect_temporary_files(directory, now=None):
 
 
 def audit(db_path="data/base.db", history_path="data/bonus_history.csv",
-          temp_dir="data/tmp", now=None):
+          temp_dir="data", now=None):
     return (
         inspect_database(db_path)
         + inspect_history(history_path)
@@ -178,7 +178,7 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--db", default="data/base.db", help="SQLite database path")
     parser.add_argument("--history", default="data/bonus_history.csv", help="bonus history CSV")
-    parser.add_argument("--tmp-dir", default="data/tmp", help="worker temporary directory")
+    parser.add_argument("--tmp-dir", default="data", help="worker temporary directory (scraper writes data/tmp_*.csv)")
     parser.add_argument("--json", action="store_true", help="emit machine-readable JSON")
     args = parser.parse_args(argv)
     issues = audit(args.db, args.history, args.tmp_dir)
