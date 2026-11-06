@@ -17,6 +17,17 @@ STREAK_CNT = [0]
 START_TIME = time.time()
 DISPLAY_COUNT = [0]
 
+def reset_run_metrics():
+    """Reset process-global display telemetry before each independent scrape."""
+    global START_TIME
+    SAMPLES.clear()
+    HISTORY.clear()
+    STREAK_TYPE[0] = None
+    STREAK_CNT[0] = 0
+    DISPLAY_COUNT[0] = 0
+    START_TIME = time.time()
+
+
 def _sc(p):
     if p < 25: r, g = 255, int(165 * p / 25)
     elif p < 50: r, g = 255, int(165 + 90 * (p - 25) / 25)

@@ -21,7 +21,8 @@ def load_proxies():
         return [line.strip() for line in proxy_path.read_text().splitlines() if line.strip()]
     return []
 
-def parse_urls_and_accounts(shuffle=False):
+def parse_account_records(shuffle=False):
+    """Return URLs and (stable section ID, username, password) account records."""
     import db
     url_path = Path("in/config/urls.txt")
     urls = [line.strip() for line in url_path.read_text().splitlines() if line.strip()]
@@ -41,8 +42,14 @@ def parse_urls_and_accounts(shuffle=False):
             # Ignore template/empty credentials rather than attempting blank logins.
             if not user or not pwd:
                 continue
-            accounts.append((user, pwd))
+            accounts.append((section, user, pwd))
     return urls, accounts
+
+
+def parse_urls_and_accounts(shuffle=False):
+    """Backward-compatible URL/credential-pair interface."""
+    urls, records = parse_account_records(shuffle)
+    return urls, [(user, password) for _section, user, password in records]
 
 def normalize_url(url):
     for prefix in ["https://www.", "http://www.", "https://", "http://"]:

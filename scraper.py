@@ -258,7 +258,7 @@ def _run_scrape(on_update=None, on_launcher=None, on_completion=None):
     verbose_index = sys.argv.index("-v") if "-v" in sys.argv else -1
     record_raw_responses = verbose_index >= 0 and verbose_index + 1 < len(sys.argv) and sys.argv[verbose_index + 1] == "max"
 
-    url_list, account_list = config.parse_urls_and_accounts(shuffle_mode)
+    url_list, account_list = config.parse_account_records(shuffle_mode)
     execution_stats = {"index": 0, "successes": 0, "failures": 0, "total_bonuses": 0, "new_bonuses": 0}
     if resume_mode:
         # datetime(), unlike date(), enforces a true rolling 24-hour window.
@@ -288,8 +288,7 @@ def _run_scrape(on_update=None, on_launcher=None, on_completion=None):
     def process_url_batch(current_url_list, account_index=0):
         if not current_url_list:
             return
-        username, password = account_list[account_index]
-        account_id = f"U{account_index + 1}"
+        account_id, username, password = account_list[account_index]
         nonlocal next_attempt_sequence
         task_list = []
         for batch_position, url in enumerate(current_url_list, start=1):
@@ -347,6 +346,10 @@ def _run_scrape(on_update=None, on_launcher=None, on_completion=None):
     original_known_by_account, unknown_urls = partition_urls_by_account(
         url_list, known_successes, len(account_list)
     )
+    # Persisted site status is historical state, not evidence that this run
+    # attempted the URL. Keep all scheduling decisions scoped to this run.
+    run_success_urls = set()
+    run_error_codes = {}
 
     attempted_accounts = {url: set() for url in url_list}
     attempted_codes = {url: [] for url in url_list}
@@ -357,7 +360,7 @@ def _run_scrape(on_update=None, on_launcher=None, on_completion=None):
 
     def run_account_batch(urls, account_index):
         pending = [url for url in urls if url in attempted_accounts and
-                   current_error_code(url) != 200 and
+                   url not in run_success_urls and
                    account_index not in attempted_accounts[url]]
         if not pending or server.STOPPED:
             return
@@ -366,7 +369,11 @@ def _run_scrape(on_update=None, on_launcher=None, on_completion=None):
             attempted_accounts[url].add(account_index)
         process_url_batch(pending, account_index)
         for url in pending:
-            attempted_codes[url].append(current_error_code(url))
+            code = current_error_code(url)
+            run_error_codes[url] = code
+            if code == 200:
+                run_success_urls.add(url)
+            attempted_codes[url].append(code)
 
     # Process each known account cohort first. Cohort order and URL order are
     # shuffled, but each URL is always assigned to its verified account first.
@@ -388,7 +395,7 @@ def _run_scrape(on_update=None, on_launcher=None, on_completion=None):
             break
         fallback_urls = [
             url for url in url_list
-            if current_error_code(url) == 304
+            if run_error_codes.get(url) == 304
             and account_index not in attempted_accounts[url]
         ]
         run_account_batch(fallback_urls, account_index)
@@ -396,7 +403,7 @@ def _run_scrape(on_update=None, on_launcher=None, on_completion=None):
     # Persist the aggregate discovery outcome. A URL is labelled unregistered
     # only when every attempted account produced the explicit E304 rejection.
     for url in url_list:
-        if attempted_codes[url] and current_error_code(url) != 200:
+        if attempted_codes[url] and url not in run_success_urls:
             record_account_discovery_result(url, attempted_codes[url])
 
     if SITE_ERRORS_CSV.exists():
