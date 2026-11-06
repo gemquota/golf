@@ -322,6 +322,9 @@ def initialize_database():
         # Run IDs are stable per scrape start marker. Keep the latest legacy
         # duplicate before enforcing idempotent writes from maintain_pipeline.
         run_columns = _columns(c, "scrape_runs")
+        if "run_id" not in run_columns:
+            c.execute("ALTER TABLE scrape_runs ADD COLUMN run_id TEXT")
+            run_columns.add("run_id")
         for name, declaration in (
             ("active_sites", "INTEGER"), ("moved_down", "INTEGER"),
             ("attempts", "INTEGER"), ("successes", "INTEGER"),
