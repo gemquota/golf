@@ -8,8 +8,8 @@ config_parser.read([str(Path("in/config.ini")), str(Path("in/config/config.ini")
 
 USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
 TIMEOUT = 15
-MIN_DELAY = config_parser.getfloat("SETTINGS", "min_delay", fallback=1.0)
-MAX_DELAY = config_parser.getfloat("SETTINGS", "max_delay", fallback=3.0)
+MIN_DELAY = config_parser.getfloat("SETTINGS", "min_delay", fallback=8.0)
+MAX_DELAY = config_parser.getfloat("SETTINGS", "max_delay", fallback=15.0)
 ABUSEIPDB_KEY = _env("GOLF_ABUSEIPDB_KEY") or config_parser.get("SETTINGS", "abuseipdb_key", fallback=None)
 UI_USER = _env("GOLF_UI_USER") or config_parser.get("SETTINGS", "ui_user", fallback="admin")
 UI_PASS = _env("GOLF_UI_PASS") or config_parser.get("SETTINGS", "ui_pass", fallback=None)

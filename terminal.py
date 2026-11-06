@@ -72,7 +72,7 @@ def _panel(title, info, bs):
     return Panel(t, title=f"[bold]{title}[/]", border_style=bs, expand=True)
 
 def _rv(v):
-    return "\U0001f4af" if v == 100 else str(v)
+    return "\U0001f4af" if v == 100 else f"{int(v):02d}"
 
 def print_launcher(tasks, proxies, workers, shuffle, ip_score):
     tp = f"~{int((60 / ((config.MIN_DELAY + config.MAX_DELAY) / 2)) * workers)} URLs/min"
@@ -87,7 +87,7 @@ def print_launcher(tasks, proxies, workers, shuffle, ip_score):
     top = Table.grid(expand=True); top.add_column(ratio=1); top.add_column(ratio=1); top.add_column(ratio=1)
     top.add_row(
         _panel("\u26a1 PERFORMANCE", [("Concurrency", f"[yellow]{workers} Workers[/]"),
-            ("Throughput", f"[green]{tp}[/]"),("Delays", f"[green]{config.MIN_DELAY}-{config.MAX_DELAY}s[/]"),
+            ("Throughput", f"[green]{tp}[/]"),("Delays", f"[green]{config.MIN_DELAY:g}-{config.MAX_DELAY:g}s[/]"),
             ("Timeout", f"[green]{config.TIMEOUT}s[/]")], "bright_cyan"),
         _panel("\U0001f310 INFRASTRUCTURE", [("Proxy Pool", f"[green]{proxies} Active[/]"),
             ("Proxy Logic", "[magenta]Per-Worker Pool[/]")], "bright_cyan"),
@@ -141,11 +141,11 @@ def update_display(d):
             c = m.group(1); icon = "\U0001f69a" if c=="301" else "\U0001f4e1" if c=="101" else "\U0001f4bb"
             sfmt, col = f"{icon}E{c}\u274c", "red" if c!="301" else "cyan"
         else: sfmt, col = "\u274cFAIL\u274c", "red"
-    line = (f"[white]{display_count:03d}[/] [{_ec(batch_idx,total)}]{idx:03d}[/] [bright_cyan]W{worker_number:02d}[/] [{col}]{sfmt}[/][{col}]{STREAK_CNT[0]:02d}[/] "
+    line = (f"[white]{display_count:03d}[/] [bright_cyan]W{worker_number:02d}[/] [{col}]{sfmt}[/][{col}]{STREAK_CNT[0]:02d}[/] "
         f"[{_sc(r5)}]{_rv(r5)}[/] [{_sc(r10)}]{_rv(r10)}[/] [{_sc(r20)}]{_rv(r20)}[/] [{_sc(r50)}]{_rv(r50)}[/] "
         f"[{_sc(r100)}]{_rv(r100)}[/] [{_sc(rate)}]{int(rate):03d}[/] "
         f"[{_yc(yield_v)}]{yield_v:05.1f}[/]\U0001f48e{site_new:02d}|{total_new:02d} "
-        f" #️⃣{d.get('account_username', '?')} ⏱️[{_ec(batch_idx,total)}]{time_str}[/]🌐{url}")
+        f"#️⃣{d.get('account_id', '?')}:{d.get('account_username', '?')} ⏱️{time_str}🌐{url}")
     console.print(line)
     try: server.broadcast_event(d)
     except Exception: pass

@@ -8,7 +8,6 @@ from account_scheduler import partition_urls_by_account
 from state_persistence import atomic_write_json
 import network as net
 from scrape_worker import (
-    USER_AGENTS,
     classify_error,
     is_retryable_error,
     ensure_site,
@@ -147,8 +146,6 @@ def worker(chunk_id, stats, stats_lock, total_tasks, ip_score, record_raw, worke
 
 
 def _worker_tasks(scraper_session, chunk_id, stats, stats_lock, total_tasks, ip_score, record_raw, worker_count, tasks, proxy_pool, on_update):
-    current_ua_index = 0
-
     for sequence, batch_position, url, username, password, account_id in tasks:
         if server.STOPPED:
             break
@@ -174,8 +171,6 @@ def _worker_tasks(scraper_session, chunk_id, stats, stats_lock, total_tasks, ip_
         for attempt in range(max_retries):
             try:
                 if attempt > 0:
-                    current_ua_index = (current_ua_index + 1) % len(USER_AGENTS)
-                    scraper_session.headers.update({"User-Agent": USER_AGENTS[current_ua_index]})
                     scraper_session.timeout = config.TIMEOUT + (attempt * 10)
                     time.sleep(min(30.0, 1.5 * (2 ** (attempt - 1)) + random.uniform(0.0, 0.5)))
 
@@ -224,6 +219,7 @@ def _worker_tasks(scraper_session, chunk_id, stats, stats_lock, total_tasks, ip_
                     "failures": stats["failures"],
                     "total_bonuses": stats["total_bonuses"],
                     "site_url": url,
+                    "account_id": account_id,
                     "account_username": username,
                     "status_message": "DONE",
                     "site_bonuses_gt_zero": site_bonuses,
@@ -243,6 +239,7 @@ def _worker_tasks(scraper_session, chunk_id, stats, stats_lock, total_tasks, ip_
                 "failures": stats["failures"],
                 "total_bonuses": stats["total_bonuses"],
                 "site_url": url,
+                "account_id": account_id,
                 "account_username": username,
                 "status_message": f"E{error_code}" if error_code else "FAIL",
                 "site_bonuses_gt_zero": 0,
