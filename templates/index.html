@@ -53,7 +53,10 @@
                 api("/api/status").then(r => r.json()).then(data => {
                     setStats(prev => ({ ...prev, is_paused: data.paused, is_stopped: data.stopped, is_running: data.is_running }));
                 }).catch(console.error);
-                const ws = new WebSocket((window.location.protocol === "https:" ? "wss://" : "ws://") + window.location.host + "/ws");
+                let ws = null;
+                let ping = null;
+                api("/api/ws-ticket").then(r => r.json()).then(({ticket}) => {
+                    ws = new WebSocket((window.location.protocol === "https:" ? "wss://" : "ws://") + window.location.host + "/ws", ["golf", "golf-ticket." + ticket]);
                 ws.onmessage = (event) => {
                     const data = JSON.parse(event.data);
                     setStats(prev => ({ ...prev, ...data }));
@@ -64,8 +67,9 @@
                         if (!data.is_running && !data.stopped) setStats(prev => ({ ...prev, status_message: "COMPLETED", is_running: false }));
                     }).catch(() => {});
                 };
-                const ping = setInterval(() => { if (ws.readyState === WebSocket.OPEN) ws.send("ping"); }, 15000);
-                return () => { ws.close(); clearInterval(ping); };
+                    ping = setInterval(() => { if (ws && ws.readyState === WebSocket.OPEN) ws.send("ping"); }, 15000);
+                }).catch(() => setLoginOpen(true));
+                return () => { if (ws) ws.close(); if (ping) clearInterval(ping); };
             }, [auth]);
 
             function doLogin(e) {
