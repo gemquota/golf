@@ -4,7 +4,7 @@
 
 - `golf/cli.py` is the command-line entry point and dispatches scrape, export, and maintenance commands.
 - `scraper.py` coordinates site/account work and worker threads.
-- `network.py` owns HTTP sessions, proxy routing, login, merchant API requests, and response parsing.
+- `network.py` owns HTTP sessions, proxy routing, login, merchant API requests, response validation, and resilient reputation-cache handling.
 - `config.py` resolves local configuration and environment overrides.
 - `db.py` owns SQLite schema initialization, migrations, sessions, bonus records, scrape-run summaries, and diagnostics.
 - `terminal.py` and `server.py` are presentation/control surfaces. They consume progress events; they should not own scrape or scoring policy.
@@ -21,7 +21,7 @@
 4. Worker progress is sent to the terminal renderer and dashboard event queue.
 5. Export commands read canonical database rows. Shared normalization and scoring context are calculated in `export_csv.py`; scoring policy is applied by `bonus_scoring.py`.
 6. The viewer exporter performs viewer-specific column mapping and site rollups, then writes snapshots under `viewer/public/`.
-7. `daily_scrape.py` and `publish_viewer.py` coordinate scheduled scraping and publication. The historical `scrape_and_deploy.sh` wrapper runs scraping and the standalone analysis cleaner; it no longer attempts to build or package a separate `dayne-bonuses-viewer` checkout.
+7. `daily_scrape.py` uses the same URL-health/run-summary maintenance stage as CLI and interactive scrapes before exporting viewer snapshots; `publish_viewer.py` coordinates local publication. The historical `scrape_and_deploy.sh` wrapper runs scraping and the standalone analysis cleaner; it no longer attempts to build or package a separate `dayne-bonuses-viewer` checkout.
 8. `maintain_pipeline.py` records one row per completed run in `scrape_runs`, keyed by the UTC run-start marker. Replaying the same run marker replaces the prior summary instead of duplicating it.
 
 ## Export ownership
@@ -41,3 +41,10 @@ The duplicate icon assets are intentionally retained: `viewer/icon.svg` is refer
 ## Documentation
 
 The `docs/api/` pages describe module responsibilities and stable entry points. They intentionally avoid generated line numbers and call-count metrics, which become stale after ordinary refactoring. Source code remains authoritative for exact signatures and behavior.
+
+
+## Runtime resilience
+
+Scrape entry points wrap the shared worker lifecycle so HTTP sessions are closed and the process running flag is reset even when a worker or callback raises. Failed batches remove worker temporary CSV fragments rather than leaving them to contaminate a later run.
+
+The AbuseIPDB cache is validated before use and replaced atomically; malformed cache or API data cannot abort a scrape or become a trusted cache entry. Bonus-history CSV writes are idempotent by UTC run marker and bonus UID. The scheduled workflow now invokes the same URL-health and SQLite run-summary stage as normal CLI/interactive execution before publishing viewer snapshots.
