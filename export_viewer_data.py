@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
-"""Export the scraper DB into the dayne-bonuses viewer's 5 CSVs.
+"""Export canonical scraper records into the active viewer's four CSVs.
 
-Matches the schemas the viewer (dayne-bonuses/main.js) consumes:
-  dayne-bonuses.csv          - 21-col raw export (same as scrape_and_deploy.sh)
-  dayne-bonuses-cleaned.csv  - raw + ratio, amount>0, deduped, pv-sorted
-  dayne-bonuses-fresh.csv    - copy of raw (historical behavior)
-  dayne-bonuses-all.csv      - 49-col all-time export (raw JSON + db fields)
-  dayne-sites.csv            - 40-col per-site rollup
+Outputs:
+  dayne-bonuses.csv          - 21-column raw export
+  dayne-bonuses-cleaned.csv  - positive-amount, deduplicated, perceived-value-sorted
+  dayne-bonuses-all.csv      - expanded records with canonical score metadata
+  dayne-sites.csv            - per-site activity and value rollup
 
 Usage: python3 export_viewer_data.py [output_dir]
 """
@@ -17,7 +16,7 @@ from datetime import datetime, timedelta
 from pathlib import Path
 
 from export_csv import (
-    build_scoring_context, domain, normalize_bonus_json, num,
+    build_scoring_context, normalize_bonus_json, num,
     score_bonus_row, site_minimums,
 )
 
@@ -116,7 +115,7 @@ def main():
         exp, s1, sl = b["expiry"], b["first_seen"], b["last_seen"]
         is_new = 1 if sl and s1 and sl == s1 else 0
 
-        # ── raw / fresh row (same export logic as scrape_and_deploy.sh) ──
+        # ── raw viewer row ──
         raw_rows.append({
             "url": b["url"] or "", "mname": b["merchant_name"] or "", "id": b["external_id"] or "",
             "name": b["name"] or "", "transactiontype": bonus.get("transactiontype", ""),
@@ -149,7 +148,6 @@ def main():
             if d is not None:
                 days_vis = round(d, 2)
         name_l = (b["name"] or "").lower()
-        host = domain(b["url"])
         # Preserve the viewer's historical DB-first amount precedence.
         score = score_bonus_row(b, {**bonus, "amount": amount}, mins, scoring_context)
         all_rows.append({
