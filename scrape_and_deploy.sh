@@ -1,5 +1,5 @@
 #!/bin/bash
-# Thin wrapper around the canonical CLI scrape + optional legacy Anyclaw deploy.
+# Compatibility wrapper for canonical scraping and the analysis CSV cleaner.
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")" && pwd)"
 cd "$ROOT"
