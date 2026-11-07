@@ -375,8 +375,8 @@ def _run_scrape(on_update=None, on_launcher=None, on_completion=None):
                 run_success_urls.add(url)
             attempted_codes[url].append(code)
 
-    # Process each known account cohort first. Cohort order and URL order are
-    # shuffled, but each URL is always assigned to its verified account first.
+    # Process known account cohorts sequentially (U1 through U5). URLs are
+    # shuffled within each cohort, and each URL keeps its verified account first.
     known_account_order = sorted(original_known_by_account)
     for account_index in known_account_order:
         if server.STOPPED:
