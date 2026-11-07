@@ -377,8 +377,7 @@ def _run_scrape(on_update=None, on_launcher=None, on_completion=None):
 
     # Process each known account cohort first. Cohort order and URL order are
     # shuffled, but each URL is always assigned to its verified account first.
-    known_account_order = list(original_known_by_account)
-    random.shuffle(known_account_order)
+    known_account_order = sorted(original_known_by_account)
     for account_index in known_account_order:
         if server.STOPPED:
             break
