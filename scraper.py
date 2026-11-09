@@ -57,6 +57,7 @@ def record_site_error(url, account_id, error_code, exception):
         102: "dns_error",
         103: "connection_error",
         104: "timeout",
+        105: "ssl_tls_error",
         201: "merchant_error",
         202: "captcha_required",
         301: "unknown_error",
@@ -195,6 +196,12 @@ def _worker_tasks(scraper_session, chunk_id, stats, stats_lock, total_tasks, ip_
                         timestamp_string = datetime.datetime.now().strftime('%Y%m%d_%H%M%S')
                         if html_content:
                             (DEBUG_DIR / f"E{error_code}_{timestamp_string}_{safe_url}.html").write_text(html_content)
+                        diagnostics = getattr(exception, "diagnostics", None)
+                        if isinstance(diagnostics, dict):
+                            (DEBUG_DIR / f"E{error_code}_{timestamp_string}_{safe_url}.json").write_text(
+                                json.dumps(diagnostics, indent=2, ensure_ascii=False) + "\\n",
+                                encoding="utf-8",
+                            )
 
                     db.log_event(f"E{error_code}", url, str(exception))
                     break
