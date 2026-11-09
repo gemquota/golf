@@ -48,6 +48,27 @@ def classify_error(exception):
         return exception.response.status_code
     if isinstance(exception, requests.exceptions.Timeout):
         return 104
+
+    # requests wraps several distinct transport failures in ConnectionError.
+    # Test the specific cases before the broad superclass or they collapse to E103.
+    if isinstance(exception, requests.exceptions.SSLError):
+        return 105
+
+    message = str(exception).lower()
+    if (
+        "nameresolutionerror" in message
+        or "failed to resolve" in message
+        or "getaddrinfo failed" in message
+        or "temporary failure in name resolution" in message
+        or "name or service not known" in message
+    ):
+        return 102
+    if (
+        isinstance(exception, ConnectionRefusedError)
+        or "connection refused" in message
+        or "errno 111" in message
+    ):
+        return 101
     if isinstance(exception, requests.exceptions.ConnectionError):
         return 103
     if isinstance(exception, ValueError):
@@ -113,8 +134,14 @@ def try_scrape(scraper_session, url, username, password, record_raw=False, chunk
 
     Returns (success, html_content, site_bonuses, site_new).
     """
-    html_content = net.get_page(scraper_session, url)
-    merchant_id, merchant_name = net.parse_merchant_info(html_content)
+    page_response = net.get_page_response(scraper_session, url)
+    html_content = page_response.text
+    try:
+        merchant_id, merchant_name = net.parse_merchant_info(html_content)
+    except ValueError as exc:
+        # Keep response metadata on the exception so the caller can diagnose
+        # templates/redirects without dumping potentially sensitive page HTML.
+        raise net.MerchantPageError(exc, page_response) from exc
     db.execute("UPDATE sites SET merchant_name=? WHERE url=?", (merchant_name, url))
     api_url = net.build_api_url(url)
 
