@@ -39,7 +39,11 @@ Only `E304` is treated as a conclusive authentication rejection for fallback. Ti
 
 Every final failed URL/account attempt with a non-authentication error is appended
 to `data/site_errors.csv`. The report includes the timestamp, URL, account ID,
-numeric error code, category and exception message. Authentication rejection
+numeric error code, category and exception message. Transport failures retain
+separate categories: `E101` connection refused, `E102` DNS resolution,
+`E103` other connection failures, `E104` timeout and `E105` SSL/TLS.
+These codes describe the observed failure at scrape time; a DNS failure is not
+proof that a domain is permanently dead. Authentication rejection
 (`E304`) is deliberately excluded because it is handled by account discovery.
 
 CAPTCHA failures (`E202`) are also added to `data/captcha_required.txt`, a
@@ -51,6 +55,13 @@ A successful scrape does not silently erase an outstanding manual-review item.
 Both files are created under `data/` on the first applicable failure. They are
 local runtime reports and should not be committed if they contain private site
 or account information.
+
+For merchant-page parse failures (`E302`), the worker also writes a small JSON
+diagnostic under `data/debug/` containing the HTTP status, final URL without
+query/fragment, content type, page title and parser reason. It deliberately
+does not save the response body: merchant pages can contain session or other
+sensitive data. A missing `MERCHANTID` is a parser/template mismatch, not
+automatically evidence that the hostname is dead.
 
 ## Recovery
 
