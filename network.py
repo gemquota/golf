@@ -99,7 +99,7 @@ class MerchantPageError(ValueError):
         parts = urlsplit(response.url)
         safe_url = urlunsplit((parts.scheme, parts.netloc, parts.path, "", ""))
         title_match = re.search(r"<title[^>]*>(.*?)</title>", response.text, re.I | re.S)
-        title = re.sub(r"\\s+", " ", title_match.group(1)).strip() if title_match else ""
+        title = re.sub(r"\s+", " ", title_match.group(1)).strip() if title_match else ""
         title = title[:160]
         self.diagnostics = {
             "status_code": response.status_code,
