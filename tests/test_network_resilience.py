@@ -109,6 +109,33 @@ class NetworkResilienceTests(unittest.TestCase):
         self.assertNotIn("session=secret", diagnostics["final_url"])
         self.assertNotIn("private", str(diagnostics))
 
+    def test_login_failure_captures_response_shape_without_values(self):
+        response = Mock()
+        response.status_code = 200
+        response.headers = {"Content-Type": "application/json"}
+        response.json.return_value = {
+            "code": 401,
+            "message": "invalid account",
+            "data": {"userInfo": {"userId": "private-id"}, "accessToken": "secret-token"},
+        }
+        response.raise_for_status.return_value = None
+        session = Mock()
+        session.post.return_value = response
+
+        with self.assertRaises(network.AuthenticationError) as caught:
+            network.login(session, "https://example.test/api", "private-user", "private-pass", "merchant")
+
+        diagnostics = caught.exception.diagnostics
+        self.assertEqual(diagnostics["http_status"], 200)
+        self.assertIn("userInfo", diagnostics["data_keys"])
+        self.assertNotIn("secret-token", str(diagnostics))
+        self.assertNotIn("private-id", str(diagnostics))
+        self.assertNotIn("private-pass", str(diagnostics))
+        self.assertEqual(
+            diagnostics["response_shape"]["fields"]["data"]["fields"]["userInfo"]["type"],
+            "object",
+        )
+
     def test_post_json_rejects_non_object_payload(self):
         response = Mock()
         response.json.return_value = ["not", "an", "object"]
