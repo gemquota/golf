@@ -199,7 +199,7 @@ def _worker_tasks(scraper_session, chunk_id, stats, stats_lock, total_tasks, ip_
                         diagnostics = getattr(exception, "diagnostics", None)
                         if isinstance(diagnostics, dict):
                             (DEBUG_DIR / f"E{error_code}_{timestamp_string}_{safe_url}.json").write_text(
-                                json.dumps(diagnostics, indent=2, ensure_ascii=False) + "\\n",
+                                json.dumps(diagnostics, indent=2, ensure_ascii=False) + "\n",
                                 encoding="utf-8",
                             )
 
