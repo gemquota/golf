@@ -126,7 +126,34 @@ def build_api_url(url):
     return f"{url.rstrip('/')}/api/v1/index.php"
 
 class AuthenticationError(Exception):
-    """The site explicitly failed to return an authenticated user session."""
+    """The site failed to return an authenticated user session."""
+
+    def __init__(self, message, diagnostics=None):
+        self.diagnostics = diagnostics or {}
+        super().__init__(message)
+
+
+def _json_shape(value, depth=0):
+    """Describe JSON structure without retaining any response values."""
+    if isinstance(value, dict):
+        if depth >= 3:
+            return {"type": "object", "keys": sorted(str(k) for k in value)[:60]}
+        return {
+            "type": "object",
+            "fields": {
+                str(key)[:80]: _json_shape(item, depth + 1)
+                for key, item in list(value.items())[:60]
+            },
+        }
+    if isinstance(value, list):
+        return {
+            "type": "array",
+            "length": len(value),
+            "item": _json_shape(value[0], depth + 1) if value else None,
+        }
+    if value is None:
+        return {"type": "null"}
+    return {"type": type(value).__name__}
 
 
 def login(session, url, username, password, merchant_id):
@@ -141,7 +168,11 @@ def login(session, url, username, password, merchant_id):
         "walletIsAdmin": ""
     }
     try:
-        response_data = post_json(session, url, payload)
+        response = session.post(url, data=payload, timeout=config.TIMEOUT)
+        response.raise_for_status()
+        response_data = response.json()
+        if not isinstance(response_data, dict):
+            raise ValueError("API response must be a JSON object")
     except requests.exceptions.HTTPError as exc:
         # HTTP 401 is an explicit authentication rejection; 403 may instead
         # mean site-level blocking, so leave it classified as an HTTP failure.
@@ -149,10 +180,22 @@ def login(session, url, username, password, merchant_id):
             raise AuthenticationError("login failed: HTTP 401 authentication rejected") from exc
         raise
     user_data = response_data.get("data", {}) if isinstance(response_data, dict) else {}
-    # The scraper depends on both values for syncData. A 200 response with an
-    # API-level login rejection must not be counted as a successful scrape.
+    # Record only JSON shape and field presence. Never persist credentials,
+    # tokens, cookies, or raw API response values.
     if not isinstance(user_data, dict) or not user_data.get("token") or not user_data.get("id"):
-        raise AuthenticationError("login failed: response did not contain token and user id")
+        diagnostics = {
+            "http_status": response.status_code,
+            "content_type": response.headers.get("Content-Type", "")[:120],
+            "response_shape": _json_shape(response_data),
+            "data_type": type(user_data).__name__,
+            "data_keys": sorted(str(key) for key in user_data)[:80] if isinstance(user_data, dict) else [],
+            "has_token_at_data_level": bool(isinstance(user_data, dict) and user_data.get("token")),
+            "has_id_at_data_level": bool(isinstance(user_data, dict) and user_data.get("id")),
+        }
+        raise AuthenticationError(
+            "login failed: response did not contain token and user id",
+            diagnostics=diagnostics,
+        )
     return user_data
 
 def sync_user_data(session, url, merchant_id, access_token, access_id):
