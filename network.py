@@ -1,5 +1,6 @@
 import base64, ipaddress, json, os, re, tempfile, time
 from pathlib import Path
+from urllib.parse import urlsplit, urlunsplit
 import cloudscraper, requests
 import config
 
@@ -73,16 +74,41 @@ def _parklogic_redirect(session, html):
     destination = response.text.strip()
     return destination if destination.startswith(("http://", "https://")) else None
 
-def get_page(session, url):
+def get_page_response(session, url):
+    """Fetch a page and retain response metadata for safe diagnostics."""
     response = session.get(url, timeout=config.TIMEOUT)
     response.raise_for_status()
-    
+
     redirect_url = _parklogic_redirect(session, response.text)
     if redirect_url:
         response = session.get(redirect_url, timeout=config.TIMEOUT)
         response.raise_for_status()
 
-    return response.text
+    return response
+
+
+def get_page(session, url):
+    """Backward-compatible text-only page fetch."""
+    return get_page_response(session, url).text
+
+
+class MerchantPageError(ValueError):
+    """Merchant metadata parse failure with safe, non-body response diagnostics."""
+
+    def __init__(self, reason, response):
+        parts = urlsplit(response.url)
+        safe_url = urlunsplit((parts.scheme, parts.netloc, parts.path, "", ""))
+        title_match = re.search(r"<title[^>]*>(.*?)</title>", response.text, re.I | re.S)
+        title = re.sub(r"\\s+", " ", title_match.group(1)).strip() if title_match else ""
+        title = title[:160]
+        self.diagnostics = {
+            "status_code": response.status_code,
+            "final_url": safe_url[:500],
+            "content_type": response.headers.get("Content-Type", "")[:120],
+            "page_title": title,
+            "reason": str(reason)[:200],
+        }
+        super().__init__(str(reason))
 
 def _extract_var(html, name):
     marker = f"var {name} = "
