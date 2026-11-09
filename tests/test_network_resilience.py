@@ -6,6 +6,8 @@ from pathlib import Path
 from unittest.mock import Mock, patch
 
 import network
+import scrape_worker
+import requests
 
 
 class NetworkResilienceTests(unittest.TestCase):
@@ -70,6 +72,42 @@ class NetworkResilienceTests(unittest.TestCase):
     def test_merchant_parser_reports_missing_declaration_clearly(self):
         with self.assertRaisesRegex(ValueError, "MERCHANTID"):
             network.parse_merchant_info("<html>no merchant metadata</html>")
+
+    def test_dns_connection_errors_get_distinct_code(self):
+        exc = requests.exceptions.ConnectionError(
+            "HTTPSConnectionPool: NameResolutionError: Temporary failure in name resolution"
+        )
+        self.assertEqual(scrape_worker.classify_error(exc), 102)
+
+    def test_ssl_errors_get_distinct_code_before_connection_error(self):
+        exc = requests.exceptions.SSLError("certificate verify failed")
+        self.assertEqual(scrape_worker.classify_error(exc), 105)
+
+    def test_connection_refused_gets_distinct_code(self):
+        exc = requests.exceptions.ConnectionError("Connection refused (errno 111)")
+        self.assertEqual(scrape_worker.classify_error(exc), 101)
+
+    def test_other_connection_errors_remain_e103(self):
+        exc = requests.exceptions.ConnectionError("RemoteDisconnected: remote end closed connection")
+        self.assertEqual(scrape_worker.classify_error(exc), 103)
+
+    def test_merchant_parse_failure_retains_safe_response_metadata(self):
+        response = Mock()
+        response.url = "https://example.test/path?session=secret#fragment"
+        response.status_code = 200
+        response.headers = {"Content-Type": "text/html; charset=utf-8"}
+        response.text = "<html><head><title>Welcome page</title></head><body>private</body></html>"
+        session = Mock()
+        with patch.object(network, "get_page_response", return_value=response):
+            with patch.object(network, "parse_merchant_info", side_effect=ValueError("missing MERCHANTID")):
+                with self.assertRaises(network.MerchantPageError) as caught:
+                    scrape_worker.try_scrape(session, "https://example.test/path", "u", "p")
+        diagnostics = caught.exception.diagnostics
+        self.assertEqual(diagnostics["status_code"], 200)
+        self.assertEqual(diagnostics["final_url"], "https://example.test/path")
+        self.assertEqual(diagnostics["page_title"], "Welcome page")
+        self.assertNotIn("session=secret", diagnostics["final_url"])
+        self.assertNotIn("private", str(diagnostics))
 
     def test_post_json_rejects_non_object_payload(self):
         response = Mock()
