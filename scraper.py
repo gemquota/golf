@@ -190,14 +190,14 @@ def _worker_tasks(scraper_session, chunk_id, stats, stats_lock, total_tasks, ip_
                     with stats_lock["stats"]:
                         stats["failures"] += 1
 
-                    if error_code in (201, 202, 302):
+                    if error_code in (201, 202, 302, 304):
                         DEBUG_DIR.mkdir(parents=True, exist_ok=True)
                         safe_url = url.replace("https://", "").replace("/", "_")
                         timestamp_string = datetime.datetime.now().strftime('%Y%m%d_%H%M%S')
                         if html_content:
                             (DEBUG_DIR / f"E{error_code}_{timestamp_string}_{safe_url}.html").write_text(html_content)
                         diagnostics = getattr(exception, "diagnostics", None)
-                        if isinstance(diagnostics, dict):
+                        if isinstance(diagnostics, dict) and diagnostics:
                             (DEBUG_DIR / f"E{error_code}_{timestamp_string}_{safe_url}.json").write_text(
                                 json.dumps(diagnostics, indent=2, ensure_ascii=False) + "\n",
                                 encoding="utf-8",
