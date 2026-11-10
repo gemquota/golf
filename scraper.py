@@ -303,7 +303,7 @@ def _run_scrape(on_update=None, on_launcher=None, on_completion=None):
         for batch_position, url in enumerate(current_url_list, start=1):
             next_attempt_sequence += 1
             task_list.append((next_attempt_sequence, batch_position, url, username, password, account_id))
-        max_workers = max(1, config.config_parser.getint("SETTINGS", "workers", fallback=10))
+        max_workers = config.SCRAPE_WORKERS
         num_workers = min(max_workers, len(task_list))
         task_chunks = [task_list[i::num_workers] for i in range(num_workers)]
 
@@ -346,8 +346,7 @@ def _run_scrape(on_update=None, on_launcher=None, on_completion=None):
                 temp_file_path.unlink()
 
     if on_launcher:
-        max_configured_workers = config.config_parser.getint("SETTINGS", "workers", fallback=10)
-        on_launcher(len(url_list), len(proxy_list), min(max_configured_workers, len(url_list)), shuffle_mode, ip_score)
+        on_launcher(len(url_list), len(proxy_list), min(config.SCRAPE_WORKERS, len(url_list)), shuffle_mode, ip_score)
 
     # Honour verified URL/account associations before discovery. Unknown URLs
     # start with U1; known URLs start with the account that last succeeded.
