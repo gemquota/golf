@@ -7,9 +7,17 @@ config_parser = configparser.ConfigParser()
 config_parser.read([str(Path("in/config.ini")), str(Path("in/config/config.ini")), str(Path("in/config/config.local.ini"))])
 
 USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+# Temporary conservative mode: set False to restore configured concurrency and delays.
+TEMPORARY_SINGLE_WORKER_MODE = True
 TIMEOUT = 15
-MIN_DELAY = config_parser.getfloat("SETTINGS", "min_delay", fallback=8.0)
-MAX_DELAY = config_parser.getfloat("SETTINGS", "max_delay", fallback=15.0)
+if TEMPORARY_SINGLE_WORKER_MODE:
+    SCRAPE_WORKERS = 1
+    MIN_DELAY = 5.0
+    MAX_DELAY = 10.0
+else:
+    SCRAPE_WORKERS = max(1, config_parser.getint("SETTINGS", "workers", fallback=10))
+    MIN_DELAY = config_parser.getfloat("SETTINGS", "min_delay", fallback=8.0)
+    MAX_DELAY = config_parser.getfloat("SETTINGS", "max_delay", fallback=15.0)
 ABUSEIPDB_KEY = _env("GOLF_ABUSEIPDB_KEY") or config_parser.get("SETTINGS", "abuseipdb_key", fallback=None)
 UI_USER = _env("GOLF_UI_USER") or config_parser.get("SETTINGS", "ui_user", fallback="admin")
 UI_PASS = _env("GOLF_UI_PASS") or config_parser.get("SETTINGS", "ui_pass", fallback=None)
