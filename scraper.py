@@ -5,6 +5,7 @@ import sys
 
 import config, db, server
 from account_scheduler import partition_urls_by_account
+from run_progress import RunProgress
 from state_persistence import atomic_write_json
 import network as net
 from scrape_worker import (
@@ -290,6 +291,8 @@ def _run_scrape(on_update=None, on_launcher=None, on_completion=None):
     db._init_csv(str(final_csv_path))
 
     next_attempt_sequence = 0
+    # Progress is run-wide, not reset for each sequential account cohort or E304 fallback.
+    run_progress = RunProgress(len(url_list))
 
     def process_url_batch(current_url_list, account_index=0):
         if not current_url_list:
@@ -320,7 +323,7 @@ def _run_scrape(on_update=None, on_launcher=None, on_completion=None):
                 while next_display_position[0] in pending_updates:
                     ready = pending_updates.pop(next_display_position[0])
                     next_display_position[0] += 1
-                    on_update(ready)
+                    on_update(run_progress.apply(ready))
 
         with ThreadPoolExecutor(max_workers=num_workers) as executor:
             futures = [
