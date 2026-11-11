@@ -1,7 +1,9 @@
 """Shared scrape worker primitives used by all scrape entry points."""
+import csv
 import datetime
 import json
 import random
+import threading
 import time
 from pathlib import Path
 
@@ -15,6 +17,37 @@ import network as net
 RAW_DIR = Path("data/raw_responses")
 TMP_DIR = Path("data")
 DEBUG_DIR = Path("data/debug")
+RECONCILIATION_CSV = Path("data/bonus_reconciliation.csv")
+RECONCILIATION_LOCK = threading.Lock()
+
+
+def record_bonus_reconciliation(url, merchant_name, raw_bonus_count, raw_promotion_count,
+                                malformed_count, nonpositive_count, eligible_count,
+                                inserted_count):
+    """Persist per-site counts so missing records can be traced, not guessed at."""
+    RECONCILIATION_CSV.parent.mkdir(parents=True, exist_ok=True)
+    with RECONCILIATION_LOCK:
+        needs_header = not RECONCILIATION_CSV.exists() or RECONCILIATION_CSV.stat().st_size == 0
+        with RECONCILIATION_CSV.open("a", newline="", encoding="utf-8") as stream:
+            writer = csv.DictWriter(stream, fieldnames=[
+                "timestamp", "url", "merchant_name", "raw_bonus_count",
+                "raw_promotion_count", "raw_total", "malformed_count",
+                "nonpositive_or_missing_amount_count", "eligible_count",
+                "inserted_count", "matched_existing_count",
+            ])
+            if needs_header:
+                writer.writeheader()
+            writer.writerow({
+                "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds"),
+                "url": url, "merchant_name": merchant_name,
+                "raw_bonus_count": raw_bonus_count,
+                "raw_promotion_count": raw_promotion_count,
+                "raw_total": raw_bonus_count + raw_promotion_count,
+                "malformed_count": malformed_count,
+                "nonpositive_or_missing_amount_count": nonpositive_count,
+                "eligible_count": eligible_count, "inserted_count": inserted_count,
+                "matched_existing_count": eligible_count - inserted_count,
+            })
 
 ERROR_MAP = [
     ("MERCHANT", 201), ("Captcha", 202), ("gaierror", 102), ("Timeout", 104),
@@ -179,14 +212,32 @@ def try_scrape(scraper_session, url, username, password, record_raw=False, chunk
         safe_url = url.replace("https://", "").replace("/", "_")
         (RAW_DIR / f"{timestamp_string}_{safe_url}.json").write_text(json.dumps(sync_response, indent=2))
 
-    bonuses = sync_response.get("data", {}).get("bonus", []) + sync_response.get("data", {}).get("promotions", [])
+    # Validate the response envelope. A malformed/truncated payload must not be
+    # reported as a successful zero-bonus scrape.
+    if not isinstance(sync_response, dict):
+        raise ValueError("syncData response must be a JSON object")
+    response_data = sync_response.get("data")
+    if not isinstance(response_data, dict):
+        raise ValueError("syncData response is missing its data object")
+    raw_bonuses = response_data.get("bonus", [])
+    raw_promotions = response_data.get("promotions", [])
+    if not isinstance(raw_bonuses, list) or not isinstance(raw_promotions, list):
+        raise ValueError("syncData bonus/promotions fields must be arrays")
+
     site_bonuses = 0
     site_new = 0
+    malformed_count = 0
+    nonpositive_count = 0
     csv_path = TMP_DIR / f"tmp_{chunk_id}.csv"
 
-    for bonus in bonuses:
-        normalized = {k.lower(): v for k, v in bonus.items()}
-        if db.float_value(normalized.get("amount")) <= 0:
+    for bonus in raw_bonuses + raw_promotions:
+        if not isinstance(bonus, dict):
+            malformed_count += 1
+            continue
+        normalized = {str(k).lower(): v for k, v in bonus.items()}
+        amount = normalized.get("amount")
+        if amount is None or db.float_value(amount) <= 0:
+            nonpositive_count += 1
             continue
         site_bonuses += 1
         perceived_val = db.perceived_value(normalized)
@@ -205,6 +256,10 @@ def try_scrape(scraper_session, url, username, password, record_raw=False, chunk
             row_data["is_new"] = 1 if is_new else 0
             db.append_csv_row(row_data, str(csv_path))
 
+    record_bonus_reconciliation(
+        url, merchant_name, len(raw_bonuses), len(raw_promotions),
+        malformed_count, nonpositive_count, site_bonuses, site_new,
+    )
     return True, html_content, site_bonuses, site_new
 
 
