@@ -421,6 +421,9 @@ def _run_scrape(on_update=None, on_launcher=None, on_completion=None):
     if CAPTCHA_QUEUE.exists():
         captcha_count = sum(1 for line in CAPTCHA_QUEUE.read_text(encoding="utf-8").splitlines() if line.strip())
         print(f"Manual CAPTCHA review queue: {CAPTCHA_QUEUE} ({captcha_count} sites pending)")
+    reconciliation_report = TMP_DIR / "bonus_reconciliation.csv"
+    if reconciliation_report.exists():
+        print(f"Per-site bonus reconciliation report: {reconciliation_report}")
 
     server.IS_RUNNING = False
     if on_completion:
