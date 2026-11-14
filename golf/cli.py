@@ -31,6 +31,25 @@ def _prepare_database():
     db.initialize_database()
 
 
+def _validate_scrape_inputs() -> None:
+    """Fail before starting workers or post-processing when local inputs are absent."""
+    import config
+
+    urls, accounts = config.parse_account_records()
+    if not urls:
+        raise RuntimeError(
+            "No scraper URLs were loaded from in/config/urls.txt. "
+            "Restore or populate that file before running Golf."
+        )
+    if not accounts:
+        raise RuntimeError(
+            "No usable scraper accounts are configured. Add at least one account "
+            "with non-empty u and p values under [U1] in "
+            "in/config/config.local.ini, or set GOLF_U1_USER and GOLF_U1_PASS. "
+            "The committed in/config/config.ini is only an empty template."
+        )
+
+
 def _set_scraper_flags(resume: bool, shuffle: bool, verbosity: str | None) -> None:
     args = ["golf"]
     if resume:
@@ -56,6 +75,7 @@ def cmd_scrape(args) -> int:
     import server
 
     _prepare_database()
+    _validate_scrape_inputs()
     started = datetime.now(timezone.utc).isoformat(timespec="seconds")
     os.environ["GOLF_RUN_STARTED"] = started
     _set_scraper_flags(args.resume, args.shuffle, args.verbosity)
@@ -111,6 +131,7 @@ def cmd_interactive(args) -> int:
     import terminal
 
     _prepare_database()
+    _validate_scrape_inputs()
     if args.resume or args.shuffle or args.verbosity:
         _set_scraper_flags(args.resume, args.shuffle, args.verbosity)
     else:
