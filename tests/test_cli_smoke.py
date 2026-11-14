@@ -136,10 +136,42 @@ class CliSmokeTests(unittest.TestCase):
                     })
 
             scraper.run_scrape.side_effect = fake_scrape
-            with patch.object(cli, "run_stage"):
+            with patch("config.parse_account_records", return_value=(["https://example.test"], [("U1", "user", "pass")])), \
+                 patch.object(cli, "run_stage"):
                 rc = cli.main([sub, "--no-pipeline", "--no-publish"])
             self.assertEqual(rc, 0, sub)
             self.assertTrue(scraper.run_scrape.called)
+
+
+    def test_scrape_fails_before_pipeline_when_no_account_is_configured(self):
+        db.initialize_database()
+        import scraper
+        scraper.run_scrape = MagicMock()
+        from contextlib import redirect_stderr
+        errors = io.StringIO()
+        with patch("config.parse_account_records", return_value=(["https://example.test"], [])), \
+             patch.object(cli, "run_stage") as run_stage, \
+             redirect_stderr(errors):
+            rc = cli.main(["scrape"])
+        self.assertEqual(rc, 1)
+        self.assertIn("No usable scraper accounts", errors.getvalue())
+        scraper.run_scrape.assert_not_called()
+        run_stage.assert_not_called()
+
+    def test_interactive_does_not_start_dashboard_without_accounts(self):
+        db.initialize_database()
+        import server
+        from contextlib import redirect_stderr
+        errors = io.StringIO()
+        with patch("config.parse_account_records", return_value=(["https://example.test"], [])), \
+             patch("threading.Thread") as thread_cls, \
+             patch.object(server, "start_server") as start_server, \
+             redirect_stderr(errors):
+            rc = cli.main(["interactive"])
+        self.assertEqual(rc, 1)
+        self.assertIn("No usable scraper accounts", errors.getvalue())
+        thread_cls.assert_not_called()
+        start_server.assert_not_called()
 
     def test_interactive_wires_scraper_thread_and_server(self):
         db.initialize_database()
@@ -147,7 +179,8 @@ class CliSmokeTests(unittest.TestCase):
         import server
         scraper.run_scrape = MagicMock()
         server.start_server = MagicMock()
-        with patch("threading.Thread") as thread_cls:
+        with patch("config.parse_account_records", return_value=(["https://example.test"], [("U1", "user", "pass")])), \
+             patch("threading.Thread") as thread_cls:
             thread = thread_cls.return_value
             rc = cli.main(["interactive", "--no-pipeline"])
         self.assertEqual(rc, 0)

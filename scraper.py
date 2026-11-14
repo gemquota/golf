@@ -267,6 +267,17 @@ def _run_scrape(on_update=None, on_launcher=None, on_completion=None):
 
     url_list, account_list = config.parse_account_records(shuffle_mode)
     execution_stats = {"index": 0, "successes": 0, "failures": 0, "total_bonuses": 0, "new_bonuses": 0}
+    if not url_list:
+        raise RuntimeError(
+            "No scraper URLs were loaded from in/config/urls.txt. "
+            "Restore or populate that file before running Golf."
+        )
+    if not account_list:
+        raise RuntimeError(
+            "No usable scraper accounts are configured. Add non-empty u and p "
+            "values under [U1] in in/config/config.local.ini, or set "
+            "GOLF_U1_USER and GOLF_U1_PASS. The committed config.ini is an empty template."
+        )
     if resume_mode:
         # datetime(), unlike date(), enforces a true rolling 24-hour window.
         completed_urls = {
@@ -277,11 +288,12 @@ def _run_scrape(on_update=None, on_launcher=None, on_completion=None):
         }
         url_list = [url for url in url_list if url not in completed_urls]
 
-    if not url_list or not account_list:
+    if not url_list:
+        print("No URLs need scraping: every configured URL was successful within the resume window.")
         server.IS_RUNNING = False
         if on_completion:
             on_completion(execution_stats)
-        return
+        return None
     thread_locks = {"index": threading.Lock(), "stats": threading.Lock()}
     ip_score, _ = net.check_ip_reputation(config.ABUSEIPDB_KEY)
     proxy_list = config.load_proxies()
