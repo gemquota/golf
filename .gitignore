@@ -6,6 +6,7 @@ data/bonus_history.csv
 data/Dayne_Bonuses.csv
 data/Dayne_Bonuses_Cleaned.csv
 data/site_min_withdrawals.csv
+in/config/check.txt
 in/config/down.txt
 viewer/public/bonus-history.csv
 viewer/public/scrape-runs.csv
