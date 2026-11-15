@@ -21,6 +21,7 @@ DOWN = Path("in/config/down.txt")
 STATE = Path("data/site_state.json")
 ACCOUNT_STATE = Path("data/account_state.json")
 ACCOUNT_SUCCESS = Path("data/account_success.json")  # legacy migration fallback
+PROBE_ATTEMPTS = Path("data/probe_attempts.csv")
 ACCOUNTS = Path("data/accounts.csv")
 HISTORY = Path("data/bonus_history.csv")
 THREE_DAYS = dt.timedelta(hours=72)
@@ -143,7 +144,38 @@ def _attempts_for_run(run_started):
     for url, error_code, timestamp in rows:
         checked = parse_dt(timestamp)
         if url and checked:
-            attempts[url] = {"error_code": error_code, "checked_at": checked}
+            attempts[url] = {
+                "error_code": error_code, "checked_at": checked,
+                "reachable_at": None, "reachable_code": None,
+            }
+
+    # The sites table stores only the latest account result for each URL.
+    # Preserve any positive reachability evidence from earlier account/retry
+    # attempts in this run so a later proxy/transport failure cannot erase it.
+    if PROBE_ATTEMPTS.exists():
+        try:
+            with PROBE_ATTEMPTS.open("r", newline="", encoding="utf-8") as stream:
+                for row in csv.DictReader(stream):
+                    url = row.get("url")
+                    checked = parse_dt(row.get("timestamp"))
+                    try:
+                        code = int(row.get("error_code", ""))
+                    except (TypeError, ValueError):
+                        continue
+                    if not url or not checked or checked < parse_dt(run_started):
+                        continue
+                    if code not in (200, 304, 1304):
+                        continue
+                    item = attempts.setdefault(url, {
+                        "error_code": code, "checked_at": checked,
+                        "reachable_at": None, "reachable_code": None,
+                    })
+                    previous = item.get("reachable_at")
+                    if previous is None or checked > previous:
+                        item["reachable_at"] = checked
+                        item["reachable_code"] = code
+        except (OSError, csv.Error, UnicodeError):
+            pass
     return attempts
 
 
@@ -199,7 +231,7 @@ def maintain_sites(run_started):
         item["last_attempt"] = fmt(checked)
         error_code = attempt["error_code"]
 
-        if error_code in (200, 304, 1304):
+        if error_code in (200, 304, 1304) or attempt.get("reachable_at") is not None:
             # 200 is a complete scrape. E304 is an application-level login
             # rejection, and 1304 is an unexpected HTTP 304; both still prove
             # that the site responded. Neither is evidence of host failure.
@@ -210,9 +242,11 @@ def maintain_sites(run_started):
             elif error_code == 304:
                 item["last_probe_outcome"] = "authentication_rejected"
                 item["last_auth_rejection_at"] = fmt(checked)
-            else:
+            elif error_code == 1304:
                 item["last_probe_outcome"] = "http_not_modified"
-            item["last_reachable"] = fmt(checked)
+            else:
+                item["last_probe_outcome"] = "reachable_before_later_error"
+            item["last_reachable"] = fmt(attempt.get("reachable_at") or checked)
             item["status"] = "up"
             item["failures"] = 0
             item["first_failure_at"] = None
