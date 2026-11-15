@@ -75,6 +75,8 @@ def is_retryable_error(exception):
 
 def classify_error(exception):
     """Map an exception to a stable numeric error_code."""
+    if isinstance(exception, net.HTTPNotModifiedError):
+        return 1304
     if isinstance(exception, net.AuthenticationError):
         return 304
     if isinstance(exception, HTTPError):
