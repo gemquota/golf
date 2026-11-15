@@ -58,7 +58,9 @@ def load_account_successes():
             and item.get("status") == "registered"
             and item.get("account_id")
         }
-        return registered or _load_json_mapping(ACCOUNT_SUCCESS)
+        legacy = _load_json_mapping(ACCOUNT_SUCCESS)
+        legacy.update(registered)
+        return legacy
 
 
 def _save_account_state_locked(data):
@@ -104,6 +106,7 @@ def record_site_error(url, account_id, error_code, exception):
         301: "unknown_error",
         302: "invalid_response",
         403: "http_forbidden",
+        1304: "http_not_modified",
     }
     category = labels.get(error_code, f"http_{error_code}" if 400 <= error_code < 600 else "other_error")
     checked_at = datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds")
