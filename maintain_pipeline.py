@@ -187,15 +187,26 @@ def maintain_sites(run_started):
         item["last_attempt"] = fmt(checked)
         error_code = attempt["error_code"]
 
-        if error_code == 200:
-            success_count += 1
-            item["last_success"] = fmt(checked)
+        if error_code in (200, 304, 1304):
+            # 200 is a complete scrape. E304 is an application-level login
+            # rejection, and 1304 is an unexpected HTTP 304; both still prove
+            # that the site responded. Neither is evidence of host failure.
+            if error_code == 200:
+                success_count += 1
+                item["last_success"] = fmt(checked)
+                item["last_probe_outcome"] = "scrape_success"
+            elif error_code == 304:
+                item["last_probe_outcome"] = "authentication_rejected"
+                item["last_auth_rejection_at"] = fmt(checked)
+            else:
+                item["last_probe_outcome"] = "http_not_modified"
+            item["last_reachable"] = fmt(checked)
             item["status"] = "up"
             item["failures"] = 0
             item["first_failure_at"] = None
             item["last_failure_at"] = None
-            # Recovery is explicit: the URL is active again and removed from
-            # the current quarantine list; site_state retains its history.
+            # A reachable URL is never quarantined solely for an account
+            # authentication rejection or a body-less HTTP 304 response.
             down = [entry for entry in down if entry != url]
             kept.append(url)
         else:
