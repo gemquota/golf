@@ -1,21 +1,25 @@
 # I-ungolf-refactor: Ungolf schema names and consolidate entry points
 
+**Status: completed.** The original refactor was implemented and subsequently consolidated with URL-lifecycle, artifact-audit, and repository-structure work in [PR #30](https://github.com/gemquota/golf/pull/30).
+
 ## Goal
-Replace single-letter SQLite table/column names with clear single-word names, consolidate duplicate scrapers and entry points into one primary CLI, and keep existing SQLite data compatible via an idempotent migration.
 
-## Acceptance Criteria
-- AC-1: Schema, SQL, and Python references use clear single-word table/column names (no single-letter golfed identifiers for tables t/b/s/m/l or their abbreviated columns).
-- AC-2: An idempotent migration renames tables/columns in existing SQLite DBs (ALTER TABLE ... RENAME), runs automatically on connect or via a CLI migrate command, and is documented in MIGRATION.md.
-- AC-3: One primary CLI exposes subcommands including run/scrape/interactive/export/migrate; former entry points are thin wrappers or removed; shell scripts are thin wrappers or removed.
-- AC-4: Shared scrape worker / try_scrape / process_bonus logic lives in one module used by all scrape entry points; CSV export paths are deduplicated into one export module where practical.
-- AC-5: Existing unit tests pass; new migration tests (old-schema temp DB → migrate → data intact) and network-free CLI smoke tests for each subcommand pass.
+Replace single-letter SQLite table/column names with clear single-word names, consolidate duplicate scrapers and entry points into one primary CLI, and keep existing SQLite data compatible through an idempotent migration.
 
-## Scope
-- Repository root Python modules, shell entry scripts, tests, docs (MIGRATION.md), and .codey control plane.
-- No dependency changes beyond essentials.
-- Do not commit DB data files, scraped/gambling/BIE data, secrets, or gitignored credential files.
+## Acceptance criteria and outcome
 
-## Out of Scope
-- Changing viewer frontend behaviour beyond consuming renamed DB fields via exporters.
-- Deleting or rewriting git history.
-- Merging the PR.
+- AC-1: Schema, SQL, and Python references use clear single-word table/column names. **Complete.**
+- AC-2: Existing SQLite databases migrate idempotently using `ALTER TABLE ... RENAME`; migration is automatic on initialization and available through `python -m golf migrate`. Documented in `docs/migrations.md`. **Complete.**
+- AC-3: One primary CLI exposes run/scrape/interactive/export/migrate/pipeline commands. Redundant compatibility entry points have been retired. **Complete.**
+- AC-4: Shared scrape-worker logic and CSV export responsibilities have canonical owners. **Complete.**
+- AC-5: Migration, CLI smoke, and regression tests cover the refactor. **Complete.**
+
+## Scope delivered
+
+- Root application modules, CLI and shell entry points.
+- Tests and maintained documentation.
+- Follow-on URL lifecycle, runtime artifact audit, and repository hygiene changes consolidated into PR #30.
+
+## Historical boundary
+
+The initial scope confirmation and migration decision remain recorded in `decisions.jsonl`. This file is a completion record, not a current backlog.
