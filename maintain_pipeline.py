@@ -129,7 +129,8 @@ def account_phone_map():
 def _attempts_for_run(run_started):
     if not DB.exists():
         return {}
-    marker = sql_timestamp(run_started)
+    started = parse_dt(run_started) or now()
+    marker = sql_timestamp(started)
     conn = sqlite3.connect(DB)
     try:
         rows = conn.execute(
@@ -162,7 +163,7 @@ def _attempts_for_run(run_started):
                         code = int(row.get("error_code", ""))
                     except (TypeError, ValueError):
                         continue
-                    if not url or not checked or checked < parse_dt(run_started):
+                    if not url or not checked or checked < started:
                         continue
                     if code not in (200, 304, 1304):
                         continue
@@ -247,6 +248,7 @@ def maintain_sites(run_started):
             else:
                 item["last_probe_outcome"] = "reachable_before_later_error"
             item["last_reachable"] = fmt(attempt.get("reachable_at") or checked)
+            item["last_reachable_code"] = attempt.get("reachable_code") or error_code
             item["status"] = "up"
             item["failures"] = 0
             item["first_failure_at"] = None
