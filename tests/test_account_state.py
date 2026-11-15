@@ -29,7 +29,7 @@ class AccountStateTests(unittest.TestCase):
         self.temp.cleanup()
 
     def test_later_success_recovers_unregistered_state_and_preserves_transition(self):
-        scraper.record_account_discovery_result("https://example.test", [304, 304, 304])
+        scraper.record_account_discovery_result("https://example.test", [304, 304, 304], all_accounts_attempted=True)
         before = json.loads(self.state.read_text())
         self.assertEqual(before["https://example.test"]["status"], "unregistered")
         self.assertIsNone(before["https://example.test"].get("verified_at"))
