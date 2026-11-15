@@ -199,7 +199,8 @@ def record_account_discovery_result(url, attempted_codes):
             previous.update({
                 "status": new_status,
                 "account_id": None,
-                "verified_at": checked_at if conclusive_failures else previous.get("verified_at"),
+                "verified_at": previous.get("verified_at"),
+                "classified_at": checked_at if conclusive_failures else previous.get("classified_at"),
                 "last_attempt_at": checked_at,
                 "last_error_code": codes[-1] if codes else None,
                 "attempted_error_codes": codes,
