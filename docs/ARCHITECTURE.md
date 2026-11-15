@@ -12,6 +12,8 @@
 - `export_csv.py` owns shared raw-payload normalization, site/dataset scoring context, and common CSV serialization.
 - `export_viewer_data.py` adapts canonical records into the active Vite viewer's published CSV schemas.
 - `maintain_pipeline.py` maintains URL health and writes idempotent run summaries into SQLite.
+- `account_state.json` is the canonical account-registration state; `account_success.json` is a read-only migration fallback. `probe_attempts.csv` is the append-only worker-attempt provenance ledger.
+- `data_artifact_audit.py` inventories runtime data artifacts and reports exact duplicates and safe-to-review redundancy candidates without modifying files.
 
 ## Data flow
 
@@ -32,7 +34,7 @@ Exporters own only their output schemas and presentation-specific aggregation. D
 
 ## Runtime state and publication
 
-SQLite is local/per-run runtime state and the single source of truth for scrape-run summaries. The old parallel `data/scrape_runs.csv` writer has been removed. Published viewer snapshots and bonus history are explicit files under `viewer/public/`; these are not interchangeable with the runtime database. Keep database files, session material, local config, and generated caches out of version control.
+SQLite is local/per-run runtime state and the single source of truth for scrape-run summaries. The old parallel `data/scrape_runs.csv` writer has been removed. Published viewer snapshots and bonus history are explicit files under `viewer/public/`; these are not interchangeable with the runtime database. Keep database files, session material, local config, and generated caches out of version control. See [runtime data artifact roles](data-artifacts.md) and run `python data_artifact_audit.py` to audit the local `data/` directory.
 
 The standalone `clean_bonuses.py` utility uses the Python standard library and the shared finite-number parser from `bonus_scoring.py`. It does not install or import pandas/NumPy and does not mutate its input snapshot.
 
