@@ -19,7 +19,8 @@ DB = Path("data/base.db")
 URLS = Path("in/config/urls.txt")
 DOWN = Path("in/config/down.txt")
 STATE = Path("data/site_state.json")
-ACCOUNT_SUCCESS = Path("data/account_success.json")
+ACCOUNT_STATE = Path("data/account_state.json")
+ACCOUNT_SUCCESS = Path("data/account_success.json")  # legacy migration fallback
 ACCOUNTS = Path("data/accounts.csv")
 HISTORY = Path("data/bonus_history.csv")
 THREE_DAYS = dt.timedelta(hours=72)
@@ -152,7 +153,17 @@ def maintain_sites(run_started):
     urls = unique(load_lines(URLS))
     down = unique(load_lines(DOWN))
     state = load_json(STATE, {})
-    successes = load_json(ACCOUNT_SUCCESS, {})
+    account_state = load_json(ACCOUNT_STATE, {})
+    successes = {
+        url: item.get("account_id")
+        for url, item in account_state.items()
+        if isinstance(item, dict)
+        and item.get("status") == "registered"
+        and item.get("account_id")
+    }
+    # Read the former mapping only when no canonical registrations exist.
+    if not successes:
+        successes = load_json(ACCOUNT_SUCCESS, {})
     attempts_by_url = _attempts_for_run(started)
     attempts = len(attempts_by_url)
     success_count = 0
