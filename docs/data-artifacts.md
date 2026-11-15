@@ -83,3 +83,10 @@ active scraper input. Diagnostic and raw-response extraction utilities live
 under `scripts/`. Generated whole-repository concatenations, stray diff
 captures, unreferenced screenshots, and the obsolete critique-selection
 scaffold are not source artifacts and should not be committed.
+
+## Utility locations
+
+- Run the transport/authentication diagnostic with `python scripts/diagnostics/diag.py [url]`.
+- Extract qualifying records from locally retained raw responses with
+  `python scripts/extract_bonuses.py`. These are optional forensic utilities,
+  not part of the scheduled scrape pipeline.
