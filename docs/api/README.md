@@ -4,7 +4,7 @@ These references describe module ownership and stable integration boundaries. Th
 
 ## Application
 
-- [CLI and entry point](main.md)
+- [CLI and entry point](cli.md)
 - [Configuration](config.md)
 - [Scraper orchestration](scraper.md)
 - [Network and authentication](network.md)

@@ -9,7 +9,9 @@ import sys
 import traceback
 from pathlib import Path
 
-URL = sys.argv[1] if len(sys.argv) > 1 else Path("in/config/test_url.txt").read_text().strip()
+ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT))
+URL = sys.argv[1] if len(sys.argv) > 1 else (ROOT / "in/config/test_url.txt").read_text().strip()
 
 print(f"python : {sys.version.split()[0]}")
 print(f"target : {URL}\n")

@@ -78,13 +78,11 @@ be quarantined again.
 
 - `bash device_run.sh`: recommended Termux dashboard entry point; prefers
   `.venv/bin/python`.
-- `bash run.sh`: portable compatibility wrapper around `device_run.sh`.
-- `python run_scraper.py`: standalone CLI run with maintenance and exports.
-- `python run_fast.py`: single-account fast mode, also followed by maintenance.
 
-Each completed entry point calls the same `maintain_pipeline.run_pipeline()`
-function. A crashed or interrupted run does not synthesize failures for URLs
-that were never attempted.
+Use `python -m golf interactive` for the dashboard, `python -m golf scrape`
+for a full headless scrape, and `python -m golf scrape --no-pipeline` when
+post-processing should be skipped. A crashed or interrupted run does not
+synthesize failures for URLs that were never attempted.
 
 ## Tests
 

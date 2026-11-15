@@ -10,7 +10,7 @@ fi
 
 echo "=== Stopping any previous Golf dashboard run ==="
 if command -v pkill >/dev/null 2>&1; then
-    pkill -f "[p]ython.*(-m golf|main.py)" 2>/dev/null || true
+    pkill -f "[p]ython.*-m golf" 2>/dev/null || true
 fi
 
 ARGS=(interactive -r)

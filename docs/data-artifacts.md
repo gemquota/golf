@@ -70,3 +70,16 @@ Review its JSON output before changing retention or export ownership.
   packaging roles.
 - Keep the viewer's raw, cleaned, expanded, and site-rollup CSVs distinct:
   the application consumes different schemas and purposes for each.
+
+## Repository-root hygiene
+
+The supported entry points are `python -m golf ...` and `bash device_run.sh`.
+Old one-line Python wrappers and the duplicate `run.sh` shell wrapper have
+been retired; use the equivalent CLI subcommands documented in
+[`api/cli.md`](api/cli.md).
+
+URL research snapshots live under `reference/url-corpus/`; they are not the
+active scraper input. Diagnostic and raw-response extraction utilities live
+under `scripts/`. Generated whole-repository concatenations, stray diff
+captures, unreferenced screenshots, and the obsolete critique-selection
+scaffold are not source artifacts and should not be committed.

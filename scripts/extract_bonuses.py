@@ -16,8 +16,9 @@ import json
 import sys
 from pathlib import Path
 
-RAW_DIR = Path("data/raw_responses")
-OUTPUT = Path("data/extracted_bonuses.csv")
+ROOT = Path(__file__).resolve().parents[1]
+RAW_DIR = ROOT / "data" / "raw_responses"
+OUTPUT = ROOT / "data" / "extracted_bonuses.csv"
 
 OUTPUT_HEADERS = [
     "url", "amount", "minwithdraw", "maxwithdraw", "rollover",
