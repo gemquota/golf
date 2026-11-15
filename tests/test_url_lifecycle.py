@@ -19,6 +19,7 @@ class UrlLifecycleTests(unittest.TestCase):
             "URLS": self.root / "urls.txt",
             "DOWN": self.root / "down.txt",
             "STATE": self.root / "site_state.json",
+            "ACCOUNT_STATE": self.root / "account_state.json",
             "ACCOUNT_SUCCESS": self.root / "account_success.json",
             "ACCOUNTS": self.root / "accounts.csv",
             "HISTORY": self.root / "history.csv",
@@ -99,6 +100,26 @@ class UrlLifecycleTests(unittest.TestCase):
         self.assertEqual(state[self.url]["status"], "up")
         self.assertIsNone(state[self.url]["first_failure_at"])
         self.assertNotIn(self.url, pipeline.load_lines(self.paths["DOWN"]))
+
+    def test_authentication_rejection_proves_site_is_reachable(self):
+        checked = self.started + dt.timedelta(minutes=5)
+        self.attempt(checked, 304)  # E304: application authentication rejection
+        active, moved, state, attempts, successes = self.run_at(self.started)
+        self.assertEqual(active, 1)
+        self.assertEqual(moved, [])
+        self.assertEqual(state[self.url]["status"], "up")
+        self.assertEqual(state[self.url]["last_probe_outcome"], "authentication_rejected")
+        self.assertEqual(state[self.url]["last_reachable"], pipeline.fmt(checked))
+        self.assertEqual(self.paths["DOWN"].read_text(), "")
+
+    def test_http_not_modified_is_not_a_site_outage(self):
+        checked = self.started + dt.timedelta(minutes=5)
+        self.attempt(checked, 1304)  # internal code for actual HTTP 304
+        active, moved, state, attempts, successes = self.run_at(self.started)
+        self.assertEqual(active, 1)
+        self.assertEqual(moved, [])
+        self.assertEqual(state[self.url]["status"], "up")
+        self.assertEqual(state[self.url]["last_probe_outcome"], "http_not_modified")
 
     def test_offset_timestamps_are_normalized_to_utc(self):
         value = "2026-01-01T10:00:00+10:00"
