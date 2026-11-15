@@ -162,8 +162,9 @@ def maintain_sites(run_started):
         and item.get("account_id")
     }
     # Read the former mapping only when no canonical registrations exist.
-    if not successes:
-        successes = load_json(ACCOUNT_SUCCESS, {})
+    legacy_successes = load_json(ACCOUNT_SUCCESS, {})
+    legacy_successes.update(successes)
+    successes = legacy_successes
     attempts_by_url = _attempts_for_run(started)
     attempts = len(attempts_by_url)
     success_count = 0
