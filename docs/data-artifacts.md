@@ -52,3 +52,21 @@ runtime roles. It never deletes or rewrites anything.
 
 The audit script deliberately reports candidates rather than deleting files.
 Review its JSON output before changing retention or export ownership.
+
+## Tracked repository artifacts
+
+- `mapped_urls.csv` is the source mapping for short URLs. Do not separately
+  commit `missing_slaps.txt`: its contents were an exact projection of the
+  62 `NO_MATCH_FOUND` rows and can be regenerated with a CSV filter.
+- `urls.txt` is retained as the broad extracted URL set. The duplicate
+  `extracted_from_compiled.txt` contained no unique entries; every one of its
+  1,936 entries was already present in `urls.txt`.
+- The generated critique matrix and remediation-plan placeholder documents
+  were removed because their repeated synthetic task scaffolding was not
+  maintained project guidance.
+- `viewer/icon.svg` and `viewer/public/icon.svg` intentionally remain
+  byte-identical: the first is the external package-manifest icon, while the
+  second is a Vite public asset. Identical bytes do not imply interchangeable
+  packaging roles.
+- Keep the viewer's raw, cleaned, expanded, and site-rollup CSVs distinct:
+  the application consumes different schemas and purposes for each.
