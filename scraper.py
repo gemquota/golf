@@ -69,7 +69,7 @@ def _save_account_state_locked(data):
 
 
 def record_probe_attempt(url, account_id, attempt_number, outcome, error_code=None, exception=None):
-    """Append one final worker-attempt observation without conflating error namespaces."""
+    """Append each worker retry observation without conflating error namespaces."""
     checked_at = datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="microseconds")
     message = " ".join(str(exception).split())[:1000] if exception is not None else ""
     error_type = type(exception).__name__ if exception is not None else ""
