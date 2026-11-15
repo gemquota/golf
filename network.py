@@ -35,9 +35,19 @@ def create_session(proxy=None):
         scraper_session.proxies = {"http": proxy, "https": proxy}
     return scraper_session
 
+class HTTPNotModifiedError(Exception):
+    """An unexpected HTTP 304 response to an unconditional request."""
+
+
+def _raise_for_page_status(response):
+    if response.status_code == 304:
+        raise HTTPNotModifiedError("HTTP 304 Not Modified returned without a usable cached representation")
+    response.raise_for_status()
+
+
 def post_json(session, url, data):
     response = session.post(url, data=data, timeout=config.TIMEOUT)
-    response.raise_for_status()
+    _raise_for_page_status(response)
     payload = response.json()
     if not isinstance(payload, dict):
         raise ValueError("API response must be a JSON object")
@@ -76,13 +86,22 @@ def _parklogic_redirect(session, html):
 
 def get_page_response(session, url):
     """Fetch a page and retain response metadata for safe diagnostics."""
-    response = session.get(url, timeout=config.TIMEOUT)
-    response.raise_for_status()
+    # This scraper has no cache-backed representation to pair with a 304.
+    # Explicitly suppress conditional validators and ask intermediaries to
+    # revalidate rather than accepting a body-less response as a page.
+    request_headers = {
+        "Cache-Control": "no-cache",
+        "Pragma": "no-cache",
+        "If-None-Match": None,
+        "If-Modified-Since": None,
+    }
+    response = session.get(url, timeout=config.TIMEOUT, headers=request_headers)
+    _raise_for_page_status(response)
 
     redirect_url = _parklogic_redirect(session, response.text)
     if redirect_url:
-        response = session.get(redirect_url, timeout=config.TIMEOUT)
-        response.raise_for_status()
+        response = session.get(redirect_url, timeout=config.TIMEOUT, headers=request_headers)
+        _raise_for_page_status(response)
 
     return response
 

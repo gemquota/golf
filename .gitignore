@@ -1,17 +1,23 @@
+# Local runtime state and generated reports
 data/accounts.csv
 data/account_success.json
 data/site_state.json
 data/bonus_history.csv
+data/Dayne_Bonuses.csv
+data/Dayne_Bonuses_Cleaned.csv
+data/site_min_withdrawals.csv
+in/config/check.txt
 in/config/down.txt
 viewer/public/bonus-history.csv
 viewer/public/scrape-runs.csv
 viewer/public/site-state.json
 viewer/public/dayne-bonuses-raw.csv
 
+# Local agent state
 .codey/checkpoint.json
 .codey/lock
 
-# Runtime databases and SQLite sidecars (never commit session-bearing stores).
+# Runtime databases and SQLite sidecars
 data/*.db
 data/*.db-wal
 data/*.db-shm
@@ -19,35 +25,24 @@ backup/data/*.db
 backup/data/*.db-wal
 backup/data/*.db-shm
 
-# Python/runtime artifacts.
+# Python/runtime artifacts
 __pycache__/
 **/__pycache__/
 *.py[cod]
 *.log
 data/tmp_*.csv
-data/Dayne_Bonuses_Cleaned.csv
 data/Dayne_Bonuses_Enriched.csv
 data/raw_responses/
 data/debug/
+data/ip_health.json
 
-# Local credentials and runtime-only state.
+# Local credentials and operational evidence
 in/config/config.local.ini
 in/config/proxies.txt
 data/account_state.json
 data/captcha_required.txt
 data/site_errors.csv
+data/probe_attempts.csv
 data/events.jsonl
 data/bonuses_*.csv
 backup/
-
-# Local runtime and credential files are never source artifacts.
-
-
-
-
-
-
-
-
-
-data/ip_health.json

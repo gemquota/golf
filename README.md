@@ -12,8 +12,8 @@ python -m venv .venv
 pip install -r requirements.txt
 cp in/meta/config.ini.example in/config/config.ini
 # Add merchant URLs to in/config/urls.txt and credentials to local config.
-python -m golf.cli migrate
-python -m golf.cli scrape --no-publish
+python -m golf migrate
+python -m golf scrape --no-publish
 ```
 
 Keep credentials in environment variables or the ignored local configuration file. Account sections use stable IDs such as `[U1]`, `[U2]`; missing credentials do not renumber the remaining accounts.
@@ -22,13 +22,13 @@ Keep credentials in environment variables or the ignored local configuration fil
 
 | Command | Purpose |
 | --- | --- |
-| `python -m golf.cli scrape` | Scrape, maintain site state, build exports, publish viewer data |
-| `python -m golf.cli scrape --no-pipeline` | Scrape only |
-| `python -m golf.cli scrape -r` | Skip URLs successfully scraped in the rolling last 24 hours |
-| `python -m golf.cli interactive` | Start the terminal UI and local dashboard |
-| `python -m golf.cli pipeline --no-publish` | Run maintenance and local exports |
-| `python -m golf.cli export --viewer` | Rebuild viewer exports |
-| `python -m golf.cli migrate` | Apply the idempotent SQLite migration |
+| `python -m golf scrape` | Scrape, maintain site state, build exports, publish viewer data |
+| `python -m golf scrape --no-pipeline` | Scrape only |
+| `python -m golf scrape -r` | Skip URLs successfully scraped in the rolling last 24 hours |
+| `python -m golf interactive` | Start the terminal UI and local dashboard |
+| `python -m golf pipeline --no-publish` | Run maintenance and local exports |
+| `python -m golf export --viewer` | Rebuild viewer exports |
+| `python -m golf migrate` | Apply the idempotent SQLite migration |
 
 ## Runtime state
 

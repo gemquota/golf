@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Canonical CSV export helpers shared by CLI, build_exports and viewers."""
+"""Canonical CSV export helpers shared by the CLI and viewer adapters."""
 from __future__ import annotations
 
 import csv

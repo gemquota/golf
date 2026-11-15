@@ -120,7 +120,7 @@ class CliSmokeTests(unittest.TestCase):
         self.assertEqual(rc, 0)
         run_pipeline.assert_called_once()
         self.assertEqual(run_stage.call_count, 1)
-        self.assertEqual(run_stage.call_args.args[0], "build_exports.py")
+        self.assertEqual(run_stage.call_args.args[0], "export_csv.py")
 
     def test_scrape_and_run_accept_flags_without_network(self):
         db.initialize_database()
