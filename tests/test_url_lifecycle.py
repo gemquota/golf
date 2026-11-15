@@ -1,3 +1,4 @@
+import csv
 import datetime as dt
 import sqlite3
 import tempfile
@@ -21,6 +22,7 @@ class UrlLifecycleTests(unittest.TestCase):
             "STATE": self.root / "site_state.json",
             "ACCOUNT_STATE": self.root / "account_state.json",
             "ACCOUNT_SUCCESS": self.root / "account_success.json",
+            "PROBE_ATTEMPTS": self.root / "probe_attempts.csv",
             "ACCOUNTS": self.root / "accounts.csv",
             "HISTORY": self.root / "history.csv",
         }
@@ -111,6 +113,28 @@ class UrlLifecycleTests(unittest.TestCase):
         self.assertEqual(state[self.url]["last_probe_outcome"], "authentication_rejected")
         self.assertEqual(state[self.url]["last_reachable"], pipeline.fmt(checked))
         self.assertEqual(self.paths["DOWN"].read_text(), "")
+
+    def test_earlier_auth_response_preserves_reachability_after_later_transport_error(self):
+        checked = self.started + dt.timedelta(minutes=5)
+        self.attempt(checked + dt.timedelta(minutes=1), 102)
+        with self.paths["PROBE_ATTEMPTS"].open("w", newline="") as stream:
+            writer = csv.DictWriter(stream, fieldnames=[
+                "timestamp", "run_id", "url", "account_id", "attempt_number",
+                "outcome", "error_code", "error_type", "message",
+            ])
+            writer.writeheader()
+            writer.writerow({
+                "timestamp": checked.isoformat(), "run_id": "test-run",
+                "url": self.url, "account_id": "U1", "attempt_number": 1,
+                "outcome": "authentication_rejected", "error_code": 304,
+                "error_type": "AuthenticationError", "message": "rejected",
+            })
+        active, moved, state, attempts, successes = self.run_at(self.started)
+        self.assertEqual(active, 1)
+        self.assertEqual(moved, [])
+        self.assertEqual(state[self.url]["status"], "up")
+        self.assertEqual(state[self.url]["last_probe_outcome"], "reachable_before_later_error")
+        self.assertEqual(state[self.url]["last_reachable"], pipeline.fmt(checked))
 
     def test_http_not_modified_is_not_a_site_outage(self):
         checked = self.started + dt.timedelta(minutes=5)
