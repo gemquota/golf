@@ -170,7 +170,7 @@ def record_account_success(url, account_id):
         _save_account_state_locked(state)
 
 
-def record_account_discovery_result(url, attempted_codes, all_accounts_attempted=True):
+def record_account_discovery_result(url, attempted_codes, all_accounts_attempted=False):
     """Record account discovery while preserving positive evidence and transitions."""
     checked_at = datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds")
     codes = list(attempted_codes or [])
@@ -463,10 +463,6 @@ def _run_scrape(on_update=None, on_launcher=None, on_completion=None):
 
     attempted_accounts = {url: set() for url in url_list}
     attempted_codes = {url: [] for url in url_list}
-
-    def current_error_code(url):
-        rows = db.execute("SELECT error_code FROM sites WHERE url=?", (url,))
-        return rows[0][0] if rows else None
 
     def run_account_batch(urls, account_index):
         pending = [url for url in urls if url in attempted_accounts and
