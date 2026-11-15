@@ -44,6 +44,14 @@ class AccountStateTests(unittest.TestCase):
         self.assertEqual(scraper.load_account_successes()["https://example.test"], "U2")
         self.assertFalse(self.legacy.exists())
 
+    def test_partial_account_sweep_remains_unknown(self):
+        scraper.record_account_discovery_result(
+            "https://partial.test", [304, 304], all_accounts_attempted=False,
+        )
+        state = json.loads(self.state.read_text())
+        self.assertEqual(state["https://partial.test"]["status"], "unknown")
+        self.assertIsNone(state["https://partial.test"].get("classified_at"))
+
     def test_legacy_mapping_is_merged_but_canonical_state_wins(self):
         self.legacy.write_text(json.dumps({
             "https://legacy.test": "U1",
