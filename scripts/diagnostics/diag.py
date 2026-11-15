@@ -5,12 +5,14 @@ Compares plain requests vs cloudscraper, then runs one FULL scrape
 (login + bonus API) with real credentials and full tracebacks.
 Usage: python3 diag.py [url]   (defaults to in/config/test_url.txt)
 """
+import os
 import sys
 import traceback
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
+os.chdir(ROOT)
 URL = sys.argv[1] if len(sys.argv) > 1 else (ROOT / "in/config/test_url.txt").read_text().strip()
 
 print(f"python : {sys.version.split()[0]}")

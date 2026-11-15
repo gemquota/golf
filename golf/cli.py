@@ -65,7 +65,7 @@ def cmd_migrate(_args) -> int:
     _prepare_database()
     import db
     db.migrate_ungolf_schema()
-    print("Migration complete (idempotent). See [the migration guide](../docs/migrations.md).")
+    print("Migration complete (idempotent). See docs/migrations.md.")
     return 0
 
 
