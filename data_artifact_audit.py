@@ -35,17 +35,19 @@ def classify(path):
         return "legacy_duplicate_projection"
     if name in {"account_state.json", "site_state.json"}:
         return "runtime_state_projection"
-    if name in {"accounts.csv", "registered_accounts.csv", "failed_attempts.csv",
-                "bonus_history.csv", "bonus_reconciliation.csv", "probe_attempts.csv",
+    if name in {"accounts.csv", "registered_accounts.csv", "dayne_bonuses.csv",
+                "dayne_bonuses_cleaned.csv", "dayne_bonuses_enriched.csv",
+                "extracted_bonuses.csv"}:
+        return "derived_export"
+    if name == "failed_attempts.csv":
+        return "legacy_attempt_summary"
+    if name in {"bonus_history.csv", "bonus_reconciliation.csv", "probe_attempts.csv",
                 "site_errors.csv", "events.jsonl", "captcha_required.txt"}:
         return "operational_ledger_or_queue"
     if "raw_responses" in rel or "/debug/" in rel:
         return "optional_diagnostic"
     if re.fullmatch(r"bonuses?_.*\.csv", name):
         return "dated_scrape_snapshot"
-    if name in {"dayne_bonuses.csv", "dayne_bonuses_cleaned.csv",
-                "dayne_bonuses_enriched.csv", "extracted_bonuses.csv"}:
-        return "derived_export"
     return "unclassified"
 
 
@@ -121,6 +123,20 @@ def audit(root):
                 "reason": "account_state.json now carries status and account_id; this legacy URL-to-account map is read only as a migration fallback.",
                 "action": "Keep during migration; remove only after confirming every consumer reads account_state.json.",
             })
+        elif item["role"] == "legacy_attempt_summary":
+            candidates.append({
+                "path": item["path"],
+                "assessment": "Legacy/overlapping summary candidate",
+                "reason": "The current scraper writes detailed worker attempts to probe_attempts.csv; no current source writer for failed_attempts.csv was found.",
+                "action": "Compare its timestamps and row coverage with probe_attempts.csv before archiving or retiring it.",
+            })
+        elif item["role"] == "derived_export":
+            candidates.append({
+                "path": item["path"],
+                "assessment": "Possible derived-output overlap",
+                "reason": "This is a generated account or bonus export rather than a canonical store.",
+                "action": "Check its consumers and whether it can be rebuilt from SQLite/current exporters before retiring it.",
+            })
         elif item["role"] == "ephemeral_worker_fragment":
             candidates.append({
                 "path": item["path"],
@@ -134,13 +150,6 @@ def audit(root):
                 "assessment": "Disposable cache",
                 "reason": "Reconstructible IP reputation cache with a short validity window.",
                 "action": "Safe to regenerate; retain only if avoiding an extra lookup is useful.",
-            })
-        elif item["role"] == "derived_export":
-            candidates.append({
-                "path": item["path"],
-                "assessment": "Possible derived-output overlap",
-                "reason": "Generated exports may overlap canonical SQLite data or other export stages.",
-                "action": "Compare consumers, schema, and row identity before consolidating; do not delete based on filename.",
             })
     return {
         "root": str(root),
