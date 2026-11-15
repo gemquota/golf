@@ -98,7 +98,7 @@ def cmd_scrape(args) -> int:
         try:
             import maintain_pipeline
             maintain_pipeline.run_pipeline(started)
-            run_stage("build_exports.py")
+            run_stage("export_csv.py")
             if not args.no_publish:
                 run_stage("publish_viewer.py")
         except Exception as exc:
@@ -185,7 +185,7 @@ def cmd_pipeline(args) -> int:
     started = os.environ.get("GOLF_RUN_STARTED")
     import maintain_pipeline
     maintain_pipeline.run_pipeline(started)
-    run_stage("build_exports.py")
+    run_stage("export_csv.py")
     if not args.no_publish:
         run_stage("publish_viewer.py")
     return 0
