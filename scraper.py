@@ -28,6 +28,7 @@ SITE_ERRORS_CSV = Path("data/site_errors.csv")
 PROBE_ATTEMPTS_CSV = Path("data/probe_attempts.csv")
 PROBE_ATTEMPT_LOCK = threading.Lock()
 CURRENT_RUN_ID = None
+CURRENT_RUN_ACCOUNT_RESULTS = {}
 CAPTCHA_QUEUE = Path("data/captcha_required.txt")
 
 # Back-compat aliases for callers/tests that imported these from scraper.
@@ -89,6 +90,8 @@ def record_probe_attempt(url, account_id, attempt_number, outcome, error_code=No
                 "error_code": error_code if error_code is not None else "",
                 "error_type": error_type, "message": message,
             })
+        if outcome != "retrying":
+            CURRENT_RUN_ACCOUNT_RESULTS[(url, account_id)] = error_code
 
 
 def record_site_error(url, account_id, error_code, exception):
@@ -167,11 +170,11 @@ def record_account_success(url, account_id):
         _save_account_state_locked(state)
 
 
-def record_account_discovery_result(url, attempted_codes):
+def record_account_discovery_result(url, attempted_codes, all_accounts_attempted=True):
     """Record account discovery while preserving positive evidence and transitions."""
     checked_at = datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds")
     codes = list(attempted_codes or [])
-    conclusive_failures = bool(codes) and all(code == 304 for code in codes)
+    conclusive_failures = all_accounts_attempted and bool(codes) and all(code == 304 for code in codes)
     with ACCOUNT_SUCCESS_LOCK:
         state = _load_json_mapping(ACCOUNT_STATE)
         previous = state.get(url, {})
@@ -343,8 +346,9 @@ def _worker_tasks(scraper_session, chunk_id, stats, stats_lock, total_tasks, ip_
             })
 
 def _run_scrape(on_update=None, on_launcher=None, on_completion=None):
-    global CURRENT_RUN_ID
+    global CURRENT_RUN_ID, CURRENT_RUN_ACCOUNT_RESULTS
     CURRENT_RUN_ID = datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="microseconds")
+    CURRENT_RUN_ACCOUNT_RESULTS = {}
     resume_mode = "-r" in sys.argv
     shuffle_mode = "-s" in sys.argv
     verbose_index = sys.argv.index("-v") if "-v" in sys.argv else -1
@@ -471,11 +475,17 @@ def _run_scrape(on_update=None, on_launcher=None, on_completion=None):
         if not pending or server.STOPPED:
             return
         random.shuffle(pending)
-        for url in pending:
-            attempted_accounts[url].add(account_index)
+        account_id = account_list[account_index][0]
         process_url_batch(pending, account_index)
         for url in pending:
-            code = current_error_code(url)
+            # Do not infer an attempt from a stale sites row. Workers may have
+            # skipped queued tasks after pause/stop; only a terminal observation
+            # recorded by this run counts as an attempted account.
+            key = (url, account_id)
+            if key not in CURRENT_RUN_ACCOUNT_RESULTS:
+                continue
+            attempted_accounts[url].add(account_index)
+            code = CURRENT_RUN_ACCOUNT_RESULTS[key]
             run_error_codes[url] = code
             if code == 200:
                 run_success_urls.add(url)
@@ -509,7 +519,14 @@ def _run_scrape(on_update=None, on_launcher=None, on_completion=None):
     # only when every attempted account produced the explicit E304 rejection.
     for url in url_list:
         if attempted_codes[url] and url not in run_success_urls:
-            record_account_discovery_result(url, attempted_codes[url])
+            complete_discovery = (
+                not server.STOPPED
+                and len(attempted_accounts[url]) == len(account_list)
+            )
+            record_account_discovery_result(
+                url, attempted_codes[url],
+                all_accounts_attempted=complete_discovery,
+            )
 
     if SITE_ERRORS_CSV.exists():
         with SITE_ERRORS_CSV.open(newline="", encoding="utf-8") as stream:
