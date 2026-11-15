@@ -33,7 +33,11 @@ All configured accounts are authorised for the URL family in `in/config/urls.txt
 
 Each batch is randomized, but account-pass order is stable. The worker's bounded retries remain on the same URL/account pair. A successful scrape immediately persists the verified URL/account association for later runs.
 
-Only `E304` is treated as a conclusive authentication rejection for fallback. Timeouts, network failures, server errors, HTTP errors and CAPTCHA responses are inconclusive and do not trigger credential rotation. URLs that receive only conclusive authentication rejections across all attempted accounts are recorded as unregistered; mixed or transient outcomes remain unknown.
+Only application-level `E304` is treated as a conclusive authentication rejection for fallback. It is not HTTP status 304: `E304` means the site responded but rejected the account session. Actual HTTP 304 Not Modified is stored internally as `1304`, after an unconditional cache-bypass request, and is never interpreted as an account rejection. Timeouts, network failures, server errors, HTTP errors and CAPTCHA responses are inconclusive and do not trigger credential rotation. URLs that receive only conclusive `E304` rejections across all attempted accounts are classified as unregistered; mixed or transient outcomes remain unknown.
+
+An `E304` or HTTP `1304` still proves the site responded, so URL-health maintenance records the site as reachable and does not accumulate outage failures from either result. Registration and reachability are separate state dimensions. A later successful authenticated scrape transitions account state back to registered and appends a bounded transition record. The old `account_success.json` mapping is read only as a migration fallback; new writes use `account_state.json`.
+
+Each worker attempt is appended to `data/probe_attempts.csv` with run ID, account ID, retry number, outcome, code, and exception metadata. This is the attempt-provenance ledger; `site_errors.csv` remains limited to non-authentication failures.
 
 ## Error reports and CAPTCHA review
 
