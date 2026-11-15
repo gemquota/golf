@@ -32,6 +32,8 @@ class AccountStateTests(unittest.TestCase):
         scraper.record_account_discovery_result("https://example.test", [304, 304, 304])
         before = json.loads(self.state.read_text())
         self.assertEqual(before["https://example.test"]["status"], "unregistered")
+        self.assertIsNone(before["https://example.test"].get("verified_at"))
+        self.assertTrue(before["https://example.test"]["classified_at"])
 
         scraper.record_account_success("https://example.test", "U2")
         after = json.loads(self.state.read_text())["https://example.test"]
