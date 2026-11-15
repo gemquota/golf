@@ -109,6 +109,26 @@ class NetworkResilienceTests(unittest.TestCase):
         self.assertNotIn("session=secret", diagnostics["final_url"])
         self.assertNotIn("private", str(diagnostics))
 
+    def test_http_304_is_distinct_from_application_e304(self):
+        response = Mock()
+        response.status_code = 304
+        with self.assertRaises(network.HTTPNotModifiedError):
+            network._raise_for_page_status(response)
+        self.assertEqual(scrape_worker.classify_error(network.HTTPNotModifiedError("not modified")), 1304)
+        self.assertEqual(scrape_worker.classify_error(network.AuthenticationError("login rejected")), 304)
+
+    def test_page_fetch_sends_unconditional_cache_bypass_headers(self):
+        response = Mock()
+        response.status_code = 304
+        session = Mock()
+        session.get.return_value = response
+        with self.assertRaises(network.HTTPNotModifiedError):
+            network.get_page_response(session, "https://example.test")
+        headers = session.get.call_args.kwargs["headers"]
+        self.assertEqual(headers["Cache-Control"], "no-cache")
+        self.assertIsNone(headers["If-None-Match"])
+        self.assertIsNone(headers["If-Modified-Since"])
+
     def test_post_json_rejects_non_object_payload(self):
         response = Mock()
         response.json.return_value = ["not", "an", "object"]
