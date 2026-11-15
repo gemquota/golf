@@ -25,6 +25,9 @@ ACCOUNT_STATE = Path("data/account_state.json")
 ACCOUNT_SUCCESS_LOCK = threading.Lock()
 ERROR_REPORT_LOCK = threading.Lock()
 SITE_ERRORS_CSV = Path("data/site_errors.csv")
+PROBE_ATTEMPTS_CSV = Path("data/probe_attempts.csv")
+PROBE_ATTEMPT_LOCK = threading.Lock()
+CURRENT_RUN_ID = None
 CAPTCHA_QUEUE = Path("data/captcha_required.txt")
 
 # Back-compat aliases for callers/tests that imported these from scraper.
@@ -40,13 +43,50 @@ def _load_json_mapping(path):
 
 
 def load_account_successes():
-    """Load legacy URL -> U# success mappings without exposing account credentials."""
+    """Derive scheduler associations from canonical account_state.
+
+    account_success.json is read only as a one-time legacy fallback for older
+    installations; new successful associations are written only to
+    account_state.json.
+    """
     with ACCOUNT_SUCCESS_LOCK:
-        return _load_json_mapping(ACCOUNT_SUCCESS)
+        state = _load_json_mapping(ACCOUNT_STATE)
+        registered = {
+            url: item.get("account_id")
+            for url, item in state.items()
+            if isinstance(item, dict)
+            and item.get("status") == "registered"
+            and item.get("account_id")
+        }
+        return registered or _load_json_mapping(ACCOUNT_SUCCESS)
 
 
 def _save_account_state_locked(data):
     atomic_write_json(ACCOUNT_STATE, data)
+
+
+def record_probe_attempt(url, account_id, attempt_number, outcome, error_code=None, exception=None):
+    """Append one final worker-attempt observation without conflating error namespaces."""
+    checked_at = datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="microseconds")
+    message = " ".join(str(exception).split())[:1000] if exception is not None else ""
+    error_type = type(exception).__name__ if exception is not None else ""
+    with PROBE_ATTEMPT_LOCK:
+        PROBE_ATTEMPTS_CSV.parent.mkdir(parents=True, exist_ok=True)
+        needs_header = not PROBE_ATTEMPTS_CSV.exists() or PROBE_ATTEMPTS_CSV.stat().st_size == 0
+        with PROBE_ATTEMPTS_CSV.open("a", newline="", encoding="utf-8") as stream:
+            writer = csv.DictWriter(stream, fieldnames=[
+                "timestamp", "run_id", "url", "account_id", "attempt_number",
+                "outcome", "error_code", "error_type", "message",
+            ])
+            if needs_header:
+                writer.writeheader()
+            writer.writerow({
+                "timestamp": checked_at, "run_id": CURRENT_RUN_ID or "",
+                "url": url, "account_id": account_id,
+                "attempt_number": attempt_number, "outcome": outcome,
+                "error_code": error_code if error_code is not None else "",
+                "error_type": error_type, "message": message,
+            })
 
 
 def record_site_error(url, account_id, error_code, exception):
@@ -95,44 +135,76 @@ def record_site_error(url, account_id, error_code, exception):
 
 
 def record_account_success(url, account_id):
-    """Persist the successful account and its verified registration state."""
+    """Persist a verified association and an auditable recovery transition."""
     verified_at = datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds")
     with ACCOUNT_SUCCESS_LOCK:
-        ACCOUNT_SUCCESS.parent.mkdir(parents=True, exist_ok=True)
-        successes = _load_json_mapping(ACCOUNT_SUCCESS)
-        successes[url] = account_id
-        atomic_write_json(ACCOUNT_SUCCESS, successes)
         state = _load_json_mapping(ACCOUNT_STATE)
+        previous = state.get(url, {})
+        previous_status = previous.get("status") if isinstance(previous, dict) else None
+        history = list(previous.get("transitions", [])) if isinstance(previous, dict) else []
+        if previous_status != "registered" or previous.get("account_id") != account_id:
+            history.append({
+                "from": previous_status or "unknown",
+                "to": "registered",
+                "at": verified_at,
+                "account_id": account_id,
+                "evidence": "successful_authenticated_scrape",
+            })
         state[url] = {
+            **(previous if isinstance(previous, dict) else {}),
             "status": "registered",
             "account_id": account_id,
             "verified_at": verified_at,
+            "last_verified_at": verified_at,
             "last_attempt_at": verified_at,
-            "last_error_code": None
+            "last_error_code": None,
+            "status_changed_at": verified_at if previous_status != "registered" else previous.get("status_changed_at", verified_at),
+            "transitions": history[-20:],
         }
         _save_account_state_locked(state)
 
 
 def record_account_discovery_result(url, attempted_codes):
-    """Record an unsuccessful account discovery without mistaking outages for non-registration."""
+    """Record account discovery while preserving positive evidence and transitions."""
     checked_at = datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds")
-    conclusive_failures = bool(attempted_codes) and all(code == 304 for code in attempted_codes)
+    codes = list(attempted_codes or [])
+    conclusive_failures = bool(codes) and all(code == 304 for code in codes)
     with ACCOUNT_SUCCESS_LOCK:
         state = _load_json_mapping(ACCOUNT_STATE)
         previous = state.get(url, {})
-        # A previous confirmed association is not erased by a transient failed scrape.
-        if previous.get("status") == "registered" and previous.get("account_id"):
+        if not isinstance(previous, dict):
+            previous = {}
+        previous_status = previous.get("status")
+        # A confirmed account association is stronger evidence than a later
+        # incomplete or unsuccessful discovery pass.
+        if previous_status == "registered" and previous.get("account_id"):
             previous["last_attempt_at"] = checked_at
-            previous["last_error_code"] = attempted_codes[-1] if attempted_codes else None
+            previous["last_error_code"] = codes[-1] if codes else None
+            previous["attempted_error_codes"] = codes
             state[url] = previous
         else:
-            state[url] = {
-                "status": "unregistered" if conclusive_failures else "unknown",
+            new_status = "unregistered" if conclusive_failures else "unknown"
+            history = list(previous.get("transitions", []))
+            if previous_status != new_status:
+                history.append({
+                    "from": previous_status or "unknown",
+                    "to": new_status,
+                    "at": checked_at,
+                    "evidence": "all_attempted_accounts_rejected" if conclusive_failures else "inconclusive_attempts",
+                    "error_codes": codes,
+                })
+            previous.update({
+                "status": new_status,
                 "account_id": None,
-                "verified_at": checked_at if conclusive_failures else None,
+                "verified_at": checked_at if conclusive_failures else previous.get("verified_at"),
                 "last_attempt_at": checked_at,
-                "attempted_error_codes": attempted_codes
-            }
+                "last_error_code": codes[-1] if codes else None,
+                "attempted_error_codes": codes,
+                "attempt_count": int(previous.get("attempt_count", 0) or 0) + len(codes),
+                "status_changed_at": checked_at if previous_status != new_status else previous.get("status_changed_at", checked_at),
+                "transitions": history[-20:],
+            })
+            state[url] = previous
         _save_account_state_locked(state)
 
 def worker(chunk_id, stats, stats_lock, total_tasks, ip_score, record_raw, worker_count, tasks, proxy_pool, on_update):
@@ -180,12 +252,19 @@ def _worker_tasks(scraper_session, chunk_id, stats, stats_lock, total_tasks, ip_
                     scraper_session, url, username, password,
                     record_raw=record_raw, chunk_id=chunk_id, write_csv=True,
                 )
+                record_probe_attempt(url, account_id, attempt + 1, "scrape_success", 200)
                 break
 
             except Exception as exc:
                 exception = exc
                 error_code = classify_error(exception)
-                if not is_retryable_error(exception) or attempt == max_retries - 1:
+                will_retry = is_retryable_error(exception) and attempt < max_retries - 1
+                record_probe_attempt(
+                    url, account_id, attempt + 1,
+                    "retrying" if will_retry else ("authentication_rejected" if error_code == 304 else "failed"),
+                    error_code, exception,
+                )
+                if not will_retry:
                     record_site_error(url, account_id, error_code, exception)
                     mark_site_result(url, error_code)
                     with stats_lock["stats"]:
@@ -260,6 +339,8 @@ def _worker_tasks(scraper_session, chunk_id, stats, stats_lock, total_tasks, ip_
             })
 
 def _run_scrape(on_update=None, on_launcher=None, on_completion=None):
+    global CURRENT_RUN_ID
+    CURRENT_RUN_ID = datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="microseconds")
     resume_mode = "-r" in sys.argv
     shuffle_mode = "-s" in sys.argv
     verbose_index = sys.argv.index("-v") if "-v" in sys.argv else -1
