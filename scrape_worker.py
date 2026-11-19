@@ -177,7 +177,10 @@ def try_scrape(scraper_session, url, username, password, record_raw=False, chunk
         # Keep response metadata on the exception so the caller can diagnose
         # templates/redirects without dumping potentially sensitive page HTML.
         raise net.MerchantPageError(exc, page_response) from exc
-    db.execute("UPDATE sites SET merchant_name=? WHERE url=?", (merchant_name, url))
+    db.execute(
+        "UPDATE sites SET merchant_id=?, merchant_name=? WHERE url=?",
+        (str(merchant_id), merchant_name, url),
+    )
     api_url = net.build_api_url(url)
 
     session_data = db.load_session(url, username)
