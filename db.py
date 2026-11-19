@@ -67,6 +67,7 @@ def execute(query, params=()):
 _CANONICAL_SCHEMA = """
 CREATE TABLE IF NOT EXISTS sites(
     url TEXT PRIMARY KEY,
+    merchant_id TEXT,
     merchant_name,
     referral_url,
     short_url,
@@ -314,6 +315,16 @@ def initialize_database():
             migrate_ungolf_schema(c)
 
         c.executescript(_CANONICAL_SCHEMA)
+        # 003: retain the platform merchant ID for each registered URL.
+        # Keep the column check independent of the version marker so this is
+        # also self-healing if a database was partially migrated.
+        if "merchant_id" not in _columns(c, "sites"):
+            c.execute("ALTER TABLE sites ADD COLUMN merchant_id TEXT")
+        if "003_site_merchant_id" not in applied:
+            c.execute(
+                "INSERT INTO schema_version(version) VALUES (?)",
+                ("003_site_merchant_id",),
+            )
         # Run IDs are stable per scrape start marker. Keep the latest legacy
         # duplicate before enforcing idempotent writes from maintain_pipeline.
         run_columns = _columns(c, "scrape_runs")

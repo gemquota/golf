@@ -120,7 +120,7 @@ class UngolfMigrationTests(unittest.TestCase):
         self.temp.cleanup()
 
     def test_migrate_renames_and_preserves_rows(self):
-        db.migrate_ungolf_schema()
+        db.initialize_database()
 
         conn = sqlite3.connect(self.db_path)
         tables = {r[0] for r in conn.execute(
@@ -135,14 +135,19 @@ class UngolfMigrationTests(unittest.TestCase):
         self.assertNotIn("b", tables)
 
         site_cols = {r[1] for r in conn.execute("PRAGMA table_info(sites)")}
-        self.assertTrue({"url", "merchant_name", "error_code", "updated_at"} <= site_cols)
+        self.assertTrue({"url", "merchant_id", "merchant_name", "error_code", "updated_at"} <= site_cols)
         self.assertNotIn("u", site_cols)
         self.assertNotIn("ec", site_cols)
 
         row = conn.execute(
-            "SELECT url, merchant_name, error_code FROM sites"
+            "SELECT url, merchant_id, merchant_name, error_code FROM sites"
         ).fetchone()
-        self.assertEqual(row, ("https://example.test/a", "Example Casino", 200))
+        self.assertEqual(row, ("https://example.test/a", None, "Example Casino", 200))
+        migration = conn.execute(
+            "SELECT version FROM schema_version WHERE version = ?",
+            ("003_site_merchant_id",),
+        ).fetchone()
+        self.assertEqual(migration, ("003_site_merchant_id",))
 
         bonus = conn.execute(
             "SELECT bonus_uid, external_id, url, amount, perceived_value, merchant_name, name "

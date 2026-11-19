@@ -8,7 +8,7 @@ Those identifiers are renamed to clear single-word names. Existing databases kee
 1. **Automatically** — `db.initialize_database()` calls `migrate_ungolf_schema()` before creating canonical tables, so any connect/init path applies renames first.
 2. **CLI** — `python -m golf migrate` opens the configured DB and runs the same idempotent migration.
 
-The migration is recorded in `schema_version` as `002_ungolf_schema` (after the historical `001_add_ec_column`).
+The schema history includes `001_add_ec_column`, `002_ungolf_schema`, and `003_site_merchant_id`.
 
 ## What it does
 - Drops legacy FTS5 objects (`b_fts` / related triggers) before renames, then recreates `bonuses_fts` after columns are renamed.
@@ -75,6 +75,18 @@ The migration is recorded in `schema_version` as `002_ungolf_schema` (after the 
 | lvl | level |
 | src | source |
 | msg | message |
+
+## Merchant IDs and site exports
+
+Migration `003_site_merchant_id` adds `sites.merchant_id`. Successful scrapes persist the platform merchant ID alongside the merchant name for the URL being scraped. Existing rows remain NULL until those URLs are successfully scraped again; IDs are never inferred from bonus `external_id` values or merchant names.
+
+Generate `data/sites_by_merchant.csv` with:
+
+```sh
+python export_sites.py
+```
+
+The export groups registered URLs by merchant ID, sorts numeric IDs numerically, and keeps URLs without an ID as separate unidentified rows. It deliberately exports all URLs in one `urls` field because the current schema does not identify a canonical URL among mirrors.
 
 ## Operator notes
 - Do not hand-edit a live DB while a scrape is running.
