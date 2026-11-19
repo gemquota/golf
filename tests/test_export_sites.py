@@ -62,13 +62,14 @@ class SiteExportTests(unittest.TestCase):
         self.assertEqual(rows[3]["urls"], "https://unknown-b.example")
 
     def test_missing_merchant_id_column_fails_clearly(self):
-        conn = sqlite3.connect(self.db_path)
-        conn.execute("ALTER TABLE sites DROP COLUMN merchant_id")
+        legacy_db = self.root / "legacy.sqlite"
+        conn = sqlite3.connect(legacy_db)
+        conn.execute("CREATE TABLE sites (url TEXT PRIMARY KEY, merchant_name TEXT)")
         conn.commit()
         conn.close()
 
         with self.assertRaisesRegex(RuntimeError, "merchant_id column is missing"):
-            export_sites(self.db_path, self.output)
+            export_sites(legacy_db, self.output)
 
 
 if __name__ == "__main__":
