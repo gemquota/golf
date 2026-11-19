@@ -29,6 +29,7 @@ Keep credentials in environment variables or the ignored local configuration fil
 | `python -m golf pipeline --no-publish` | Run maintenance and local exports |
 | `python -m golf export --viewer` | Rebuild viewer exports |
 | `python -m golf migrate` | Apply the idempotent SQLite migration |
+| `python export_sites.py` | Export registered URLs grouped and sorted by merchant ID |
 
 ## Runtime state
 
