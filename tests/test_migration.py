@@ -120,7 +120,7 @@ class UngolfMigrationTests(unittest.TestCase):
         self.temp.cleanup()
 
     def test_migrate_renames_and_preserves_rows(self):
-        db.migrate_ungolf_schema()
+        db.initialize_database()
 
         conn = sqlite3.connect(self.db_path)
         tables = {r[0] for r in conn.execute(
