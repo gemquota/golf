@@ -116,7 +116,7 @@ def export_sites(db_path: str | Path | None = None,
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--db", type=Path, default=None, help="SQLite database path (defaults to GOLF_DB_PATH/data/base.db)")
+    parser.add_argument("--db", type=Path, default=None, help="SQLite database path (defaults to GOLF_DB_PATH or data/base.db)")
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT, help="CSV output path")
     args = parser.parse_args()
     export_sites(args.db, args.output)
