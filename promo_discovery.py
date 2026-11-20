@@ -136,7 +136,12 @@ def extract_fields(text: str) -> dict[str, str]:
             break
     amount_match = BONUS_AMOUNT_RE.search(clean)
     rollover_match = ROLLOVER_RE.search(clean)
-    percentages = PERCENT_RE.findall(clean)
+    percentages = []
+    bonus_context = ("bonus", "deposit", "welcome", "signup", "sign up", "registration", "match", "new member", "new player")
+    for match in PERCENT_RE.finditer(clean):
+        context = clean[max(0, match.start() - 65):min(len(clean), match.end() + 65)].casefold()
+        if any(term in context for term in bonus_context):
+            percentages.append(match.group(1))
     return {
         "matched_terms": " | ".join(terms),
         "bonus_percentage": " | ".join(dict.fromkeys(f"{p}%" for p in percentages)),
@@ -299,7 +304,7 @@ def run(output: Path, max_pages=MAX_PAGES_DEFAULT, delay=DELAY_DEFAULT, limit=0)
     csv_path = output
     csv_path.parent.mkdir(parents=True, exist_ok=True)
     fields = list(Promotion.__dataclass_fields__)
-    total_pages = total_matches = 0
+    total_matches = 0
     try:
         with csv_path.open("w", newline="", encoding="utf-8") as handle:
             writer = csv.DictWriter(handle, fieldnames=fields)
@@ -314,7 +319,6 @@ def run(output: Path, max_pages=MAX_PAGES_DEFAULT, delay=DELAY_DEFAULT, limit=0)
                     )
                 finally:
                     session.close()
-                total_pages += min(max_pages, 1 + len(promos))
                 for promo in promos:
                     row = asdict(promo)
                     writer.writerow(row)
