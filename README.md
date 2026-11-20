@@ -44,3 +44,27 @@ python -m unittest discover -s tests -v
 ```
 
 The suite uses fixtures and mocks; it does not validate live merchant availability or credential validity.
+
+## Independent promotional discovery
+
+Run a separate public-page scan for welcome and acquisition offers without using
+the authenticated bonus API or the existing perceived-value filter:
+
+```sh
+python promo_discovery.py --limit 10
+python promo_discovery.py
+```
+
+The first command is a small smoke run; the second scans the configured site list.
+Use `--max-pages N` to cap internal promotion pages per site and `--delay SECONDS`
+to adjust the per-page pause.
+
+Results are written to `data/promotional_discoveries.csv` and to the separate
+`promotional_discoveries` SQLite table. This process retains offers even when
+the amount is zero or unknown. It records merchant ID, merchant name, source
+URL, matched promotion wording, bonus percentage, maximum payout, bonus amount,
+rollover requirement, and the known registered account association. Missing
+values remain blank rather than causing the offer to be discarded.
+
+This is deliberately separate from the normal bonus records and their
+perceived-value ranking.
